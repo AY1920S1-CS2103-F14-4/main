@@ -34,3 +34,4 @@ _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
+
