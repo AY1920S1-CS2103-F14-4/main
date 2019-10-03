@@ -718,25 +718,25 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <h2 id="use-cases"><a class="link" href="#use-cases">Appendix C: Use Cases</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>(For all use cases below, the <strong>System</strong> is the <code>AddressBook</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
+<p>(For all use cases below, the <strong>System</strong> is the <code>Deliveria</code> and the <strong>Actor</strong> is the <code>Delivery Manager</code>, unless specified otherwise)</p>
 </div>
-<h3 id="use-case-delete-person" class="discrete">Use case: Delete person</h3>
+<h3 id="use-case-delete-driver" class="discrete">Use case: Delete Driver</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to list persons</p>
+<p>Delivery Manager requests the list of drivers</p>
 </li>
 <li>
-<p>AddressBook shows a list of persons</p>
+<p>Deliveria shows a list of drivers</p>
 </li>
 <li>
-<p>User requests to delete a specific person in the list</p>
+<p>Delivery Manager requests to delete a specific driver in the list</p>
 </li>
 <li>
-<p>AddressBook deletes the person</p>
+<p>Deliveria deletes the driver</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -759,9 +759,101 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>3a1. AddressBook shows an error message.</p>
+<p>3a1. Deliveria shows an error message.</p>
 <div class="paragraph">
 <p>Use case resumes at step 2.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-creating-a-new-task" class="discrete">Use case: Creating a new task</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User creates a delivery task</p>
+</li>
+<li>
+<p>Deliveria adds the task to a list of delivery tasks</p>
+</li>
+<li>
+<p>Deliveria prints to assure that the task is added</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a. Task given in invalid format</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a1. Deliveria shows an error message</p>
+</li>
+<li>
+<p>1a2. Use case resumes at step 1</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-assign-driver-to-delivery-task" class="discrete">Use Case: Assign Driver to delivery task</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Delivery Manager view the incomplete task list.</p>
+</li>
+<li>
+<p>Deliveria shows the incomplete task list.</p>
+</li>
+<li>
+<p>User assign a driver to one of the task</p>
+</li>
+<li>
+<p>Deliveria shows the confirmation of driver being assigned to the task.</p>
+</li>
+<li>
+<p>Deliveria indicate the incomplete task as On-going.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extension</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a. If driver is unavailable to take up the task</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. Deliveria prompts that driver is busy</p>
+</li>
+<li>
+<p>3a2. Deliveria shows the available time of the driver</p>
+<div class="paragraph">
+<p>Use case resumes at step 3.</p>
 </div>
 </li>
 </ul>
@@ -958,4 +1050,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-03 12:37:04 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-03 13:05:30 UTC</div></div></div></body></html>
