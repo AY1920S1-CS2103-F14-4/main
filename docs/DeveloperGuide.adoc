@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Deliveria - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Team CS2103T-F14-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of delivery tasks and drivers
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage delivery tasks faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,17 +295,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |driver manager |view all unfinished delivery tasks |know which tasks have yet to be delivered
 
-|`* * *` |user |add a new person |
+|`* * *` |driver manager |view all delivered tasks |keep track of all delivered tasks in the past month
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |driver manager |sort and display delivery tasks by their starting time |view pending tasks in an orderly manner
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |driver Manager |search for tasks by a keyword |find a task more easily
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |driver Manager |toggle dark or light theme for the interface | the UI can change according to user preference.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |driver Manager |see the image of the drivers |can identify them easily
 |=======================================================================
 
 _{More to be added}_
@@ -313,17 +313,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Deliveria` and the *Actor* is the `Delivery Manager`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete Driver
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Delivery Manager requests the list of drivers
+2.  Deliveria shows a list of drivers
+3.  Delivery Manager requests to delete a specific driver in the list
+4.  Deliveria deletes the driver
 +
 Use case ends.
 
@@ -337,9 +337,53 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Deliveria shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Creating a new task
+
+*MSS*
+
+1.  User creates a delivery task
+2.  Deliveria adds the task to a list of delivery tasks
+3.  Deliveria prints to assure that the task is added
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Task given in invalid format
+[none]
+** 1a1. Deliveria shows an error message
+** 1a2. Use case resumes at step 1
++
+Use case ends
+
+[discrete]
+=== Use Case: Assign Driver to delivery task
+
+*MSS*
+
+1. Delivery Manager view the incomplete task list.
+2. Deliveria shows the incomplete task list.
+3. User assign a driver to one of the task
+4. Deliveria shows the confirmation of driver being assigned to the task.
+5. Deliveria indicate the incomplete task as On-going.
++
+Use case ends.
+
+*Extension*
+
+[none]
+* 3a. If driver is unavailable to take up the task
+[none]
+** 3a1. Deliveria prompts that driver is busy
+** 3a2. Deliveria shows the available time of the driver
++
+Use case resumes at step 3.
 
 _{More to be added}_
 
@@ -347,16 +391,19 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to maintain up to 100 drivers and 1000 tasks without performance degradation.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should comply with the company's privacy regulations and safely store the data files.
+.  Should be able to scale quickly and adaptable for different companies.
 
-_{More to be added}_
+
+
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows 10, MacOS Mojave, Ubuntu
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
