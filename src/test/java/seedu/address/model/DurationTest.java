@@ -44,4 +44,12 @@ class DurationTest {
         assertFalse(duration1.overlaps(duration2));
         assertFalse(duration2.overlaps(duration1));
     }
+
+    @Test
+    void equals_sameStartEndTime_returnsTrue() {
+        Duration duration1 = Duration.parse("0000", "1100");
+        Duration duration2 = Duration.parse("0000", "1100");
+
+        assertEquals(duration1, duration2);
+    }
 }
