@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
@@ -9,33 +10,33 @@ import java.util.Objects;
  */
 public class Duration implements Comparable<Duration> {
 
-    private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
+    private static final DateTimeFormatter COMPACT_TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
+    private static final DateTimeFormatter DISPLAY_TIME_FORMAT = DateTimeFormatter.ofPattern("h:mma");
+
     private LocalTime start;
     private LocalTime end;
 
-    private Duration(LocalTime firstTime, LocalTime secondTime) {
-        boolean isFirstTimeEarly = firstTime.compareTo(secondTime) < 0;
-        this.start = isFirstTimeEarly ? firstTime : secondTime;
-        this.end = isFirstTimeEarly ? secondTime : firstTime;
+    private Duration(LocalTime start, LocalTime end) {
+        this.start = start;
+        this.end = end;
     }
 
     /**
-     * Builds duration from two text representations of time. The method decides the start and end time of the duration
-     * based on the input.
+     * Builds duration from two text representations of time.
      * <p>
      * This methods appends zeros to the front of the input, if
      * the input is less than 4 digits. For example, "900" will be changed into "0900".
      *
-     * @param firstTime one of the start or end time
-     * @param secondTime the other start or end time
+     * @param startTime start time
+     * @param endTime end time
      * @return the duration with the specified start and end time
      */
-    public static Duration parse(String firstTime, String secondTime) {
+    public static Duration parse(String startTime, String endTime) throws DateTimeParseException {
         // append front with zero
-        String first = String.format("%04d", Integer.parseInt(firstTime));
-        String second = String.format("%04d", Integer.parseInt(secondTime));
+        String first = String.format("%04d", Integer.parseInt(startTime));
+        String second = String.format("%04d", Integer.parseInt(endTime));
 
-        return new Duration(LocalTime.parse(first, TIME_FORMAT), LocalTime.parse(second, TIME_FORMAT));
+        return new Duration(LocalTime.parse(first, COMPACT_TIME_FORMAT), LocalTime.parse(second, COMPACT_TIME_FORMAT));
     }
 
     /**
@@ -58,9 +59,17 @@ public class Duration implements Comparable<Duration> {
         return start;
     }
 
+    /**
+     * Outputs the duration as a string, in HH:mm format.
+     * @return the duration in string
+     */
+    public String to24HrString() {
+        return String.format("%s - %s", start.toString(), end.toString());
+    }
+
     @Override
     public String toString() {
-        return String.format("%s - %s", start.toString(), end.toString());
+        return String.format("%s - %s", start.format(DISPLAY_TIME_FORMAT), end.format(DISPLAY_TIME_FORMAT));
     }
 
     @Override

@@ -38,7 +38,8 @@ class ScheduleTest {
         schedule.add(slot);
         schedule.remove(slot);
 
-        assertEquals("[]", schedule.toString());
+        assertEquals(Schedule.MESSAGE_EMPTY_SCHEDULE, schedule.toString());
+
     }
 
 }

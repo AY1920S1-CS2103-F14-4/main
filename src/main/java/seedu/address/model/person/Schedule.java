@@ -13,8 +13,11 @@ import seedu.address.model.person.exceptions.SchedulingException;
 public class Schedule {
     public static final String MESSAGE_SCHEDULE_CONFLICT = "The duration conflicts with the existing schedule.";
     public static final String MESSAGE_OUTSIDE_WORKING_HOURS = "The person does not work during the specified time.";
+    public static final String MESSAGE_EMPTY_SCHEDULE = "No task assigned";
+
     private static final String START_WORK_TIME = "0900";
     private static final String END_WORK_TIME = "1800";
+
     private NavigableSet<Duration> schedule;
     private Duration workingHours;
 
@@ -59,7 +62,8 @@ public class Schedule {
 
 
     private boolean isInWorkingHours(Duration duration) {
-        return (duration.getStart().compareTo(workingHours.getStart()) >= 0)
+        return (duration.getEnd().compareTo(duration.getStart()) > 0)
+                && (duration.getStart().compareTo(workingHours.getStart()) >= 0)
                 && (duration.getEnd().compareTo(workingHours.getEnd()) <= 0);
     }
 
@@ -87,7 +91,10 @@ public class Schedule {
 
     @Override
     public String toString() {
-        return this.schedule.toString();
+        return this.schedule.stream()
+                .map(Duration::to24HrString)
+                .reduce((str1, str2) -> str1 + ", " + str2)
+                .orElse(MESSAGE_EMPTY_SCHEDULE);
     }
 }
 
