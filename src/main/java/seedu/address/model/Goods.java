@@ -1,29 +1,30 @@
 package seedu.address.model;
 
 /**
- * Deals with the name of the product to be delivered.
+ * Deals with the description of the product to be delivered.
  */
 
 public class Goods {
 
-    private String name;
+    private Description description;
 
-    public Goods(String name) {
-        this.name = name;
+    public Goods(Description description) {
+        this.description = description;
     }
 
     /**
      * Edits the Name of the goods.
      *
-     * @param newName The new name to be changed into
+     * @param newDescription The new name to be changed into.
      */
 
-    public void setName(String newName) {
-        this.name = newName;
+    public void setName(Description newDescription) {
+        this.description = newDescription;
     }
+
 
     @Override
     public String toString() {
-        return name;
+        return description.toString();
     }
 }
