@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.model.task.execeptions.TaskException;
 
@@ -13,7 +14,7 @@ public class Task {
     private int id;
     private String goods;
     private String dateTime;
-    private String driver;
+    private Optional<String> driver;
     private String customer;
 
     private TaskStatus status;
@@ -42,7 +43,10 @@ public class Task {
     }
 
     public String getDriver() {
-        return driver;
+        if (!driver.isPresent()) {
+            throw new TaskException("There is no driver assigned to the task.");
+        }
+        return driver.get();
     }
 
     public String getCustomer() {
@@ -70,7 +74,7 @@ public class Task {
     }
 
     public void setDriver(String driver) {
-        this.driver = driver;
+        this.driver = Optional.of(driver);
 
         setStatus(TaskStatus.ON_GOING);
     }
@@ -79,7 +83,7 @@ public class Task {
      * Deletes the driver assigned from the task.
      */
     public void deleteDriver() {
-        driver = null;
+        driver = Optional.empty();
 
         setStatus(TaskStatus.INCOMPLETE);
     }
@@ -102,6 +106,7 @@ public class Task {
         }
 
         Task task = (Task) o;
+        // If task id is the same, then the task is the same regardless of other variables.
         return getId() == task.getId();
     }
 

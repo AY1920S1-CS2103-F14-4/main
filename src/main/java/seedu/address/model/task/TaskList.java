@@ -18,12 +18,11 @@ import seedu.address.model.task.execeptions.TaskNotFoundException;
  */
 public class TaskList {
 
-    private static int lastTaskId;
+    private static int lastTaskId = 0;
     private final ObservableList<Task> tasks = FXCollections.observableArrayList();
     private final ObservableList<Task> tasksUnmodifiable = FXCollections.unmodifiableObservableList(tasks);
 
     public TaskList() {
-        lastTaskId = 0;
     }
 
     public int getSize() {
@@ -105,13 +104,8 @@ public class TaskList {
                     .collect(Collectors.toList());
     }
 
-    public static void setTaskCount(int id) {
-        lastTaskId = id;
-    }
-
     public void setTaskList(List<Task> savedTasks) {
         tasks.setAll(savedTasks);
-        lastTaskId = tasks.get(tasks.size() - 1).getId();
     }
 
     @Override

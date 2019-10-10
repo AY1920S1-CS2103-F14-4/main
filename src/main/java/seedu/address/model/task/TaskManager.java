@@ -16,7 +16,7 @@ public class TaskManager {
 
     public TaskManager(TaskList savedTasks) {
         this();
-        setTaskList(savedTasks);
+        tasks = savedTasks;
     }
 
     public void setTaskList(TaskList savedTasks) {
