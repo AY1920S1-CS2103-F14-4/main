@@ -26,12 +26,20 @@ public class CustomerList extends UniquePersonList {
         add(toAdd);
     }
 
-    public boolean containCustomer(Customer toCheck) {
+    public boolean hasCustomer(Customer toCheck) {
         return contains(toCheck);
+    }
+
+    public boolean hasCustomer(int customerId) {
+        return asUnmodifiableObservableList()
+                .stream()
+                .anyMatch(person -> {
+                    Customer customer = (Customer) person;
+                    return customer.getId() == customerId;
+                });
     }
 
     public void removeCustomer(Customer toRemove) {
         remove(toRemove);
     }
-
 }

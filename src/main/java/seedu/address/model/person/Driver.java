@@ -5,13 +5,12 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 
-
 /**
  * Represents a Customer in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 
-public class Customer extends Person {
+public class Driver extends Person {
 
     private static int idCount = 0;
     private int id;
@@ -27,7 +26,7 @@ public class Customer extends Person {
      * @param tags
      */
 
-    public Customer(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Driver(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
         id = ++idCount;
     }
@@ -39,4 +38,5 @@ public class Customer extends Person {
     public int getId() {
         return id;
     }
+
 }

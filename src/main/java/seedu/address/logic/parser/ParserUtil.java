@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +12,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Description;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -21,6 +25,12 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    public static final String DATE_FORMAT = "d/M/yyyy";
+    public static final DateTimeFormatter DATE_FORMAT_FOR_USER_INPUT = DateTimeFormatter.ofPattern(DATE_FORMAT);
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Date should be in " + DATE_FORMAT + " format.";
+
+    public static final String MESSAGE_INVALID_ID = "ID should be a integer number and more than 0.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -120,5 +130,58 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(description)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
+    }
+
+    public static LocalDate parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!isDateValid(trimmedDate)) {
+            throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
+        }
+        return getDate(trimmedDate);
+    }
+
+    private static boolean isDateValid(String date) {
+        try {
+            LocalDate tempDateTime = LocalDate.parse(date, DATE_FORMAT_FOR_USER_INPUT);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static LocalDate getDate(String date) {
+        return LocalDate.parse(date, DATE_FORMAT_FOR_USER_INPUT);
+    }
+
+    public static int parseId(String id) throws ParseException {
+        requireNonNull(id);
+        String trimmedId = id.trim();
+        if (!isIdValid(trimmedId)) {
+            throw new ParseException(MESSAGE_INVALID_ID);
+        }
+
+        return Integer.parseInt(trimmedId);
+    }
+
+    private static boolean isIdValid(String id) {
+        try{
+            int tempId = Integer.parseInt(id);
+
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+
+        return true;
     }
 }

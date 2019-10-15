@@ -3,6 +3,9 @@ package seedu.address.model.task;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.model.Goods;
+import seedu.address.model.person.Customer;
+import seedu.address.model.person.Driver;
 import seedu.address.model.task.execeptions.TaskException;
 
 /**
@@ -12,14 +15,14 @@ import seedu.address.model.task.execeptions.TaskException;
 public class Task {
 
     private int id;
-    private String goods;
+    private Goods goods;
     private String dateTime;
-    private Optional<String> driver;
-    private String customer;
+    private Optional<Driver> driver;
+    private Customer customer;
 
     private TaskStatus status;
 
-    public Task(int id, String goods) {
+    public Task(int id, Goods goods) {
         this.id = id;
         this.goods = goods;
         status = TaskStatus.INCOMPLETE;
@@ -30,7 +33,7 @@ public class Task {
         return id;
     }
 
-    public String getGoods() {
+    public Goods getGoods() {
         return goods;
     }
 
@@ -42,14 +45,14 @@ public class Task {
         return dateTime;
     }
 
-    public String getDriver() {
+    public Driver getDriver() {
         if (!driver.isPresent()) {
             throw new TaskException("There is no driver assigned to the task.");
         }
         return driver.get();
     }
 
-    public String getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
@@ -65,7 +68,7 @@ public class Task {
         this.status = status;
     }
 
-    public void setGoods(String goods) {
+    public void setGoods(Goods goods) {
         this.goods = goods;
     }
 
@@ -73,7 +76,7 @@ public class Task {
         this.dateTime = dateTime;
     }
 
-    public void setDriver(String driver) {
+    public void setDriver(Driver driver) {
         this.driver = Optional.of(driver);
 
         setStatus(TaskStatus.ON_GOING);
@@ -88,7 +91,7 @@ public class Task {
         setStatus(TaskStatus.INCOMPLETE);
     }
 
-    public void setCustomer(String customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
