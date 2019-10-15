@@ -28,7 +28,9 @@ public class ParserUtil {
 
     public static final String DATE_FORMAT = "d/M/yyyy";
     public static final DateTimeFormatter DATE_FORMAT_FOR_USER_INPUT = DateTimeFormatter.ofPattern(DATE_FORMAT);
-    public static final String MESSAGE_INVALID_DATE_FORMAT = "Date should be in " + DATE_FORMAT + " format.";
+    public static final String MESSAGE_INVALID_DATE_FORMAT =
+            "Invalid Date format. Date format should be " + DATE_FORMAT + ". "
+            + "Chosen date should be from today onwards.";
 
     public static final String MESSAGE_INVALID_ID = "ID should be a integer number and more than 0.";
 
@@ -157,6 +159,12 @@ public class ParserUtil {
             return false;
         }
 
+        LocalDate today = LocalDate.now();
+        LocalDate dateOfDelivery = LocalDate.parse(date, DATE_FORMAT_FOR_USER_INPUT);
+        if (dateOfDelivery.isBefore(today)) {
+            return false;
+        }
+
         return true;
     }
 
@@ -175,13 +183,12 @@ public class ParserUtil {
     }
 
     private static boolean isIdValid(String id) {
-        try{
+        try {
             int tempId = Integer.parseInt(id);
-
         } catch (NumberFormatException ex) {
             return false;
         }
 
-        return true;
+        return (Integer.parseInt(id) > 0);
     }
 }

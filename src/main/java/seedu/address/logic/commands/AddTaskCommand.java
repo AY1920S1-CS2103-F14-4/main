@@ -9,8 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DeliveryModel;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.person.Customer;
 import seedu.address.model.task.Task;
 
 /**
@@ -46,21 +44,11 @@ public class AddTaskCommand extends Command {
         requireNonNull(model);
 
         DeliveryModel deliveryModel = (DeliveryModel) model;
-        /*
-        if (!model.) {
+        if (!deliveryModel.hasCustomer(customerId)) {
             throw new CommandException(MESSAGE_INVALID_CUSTOMER_ID);
         }
 
-
-        requireNonNull(model);
-
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
-        model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        */
-        return new CommandResult("command result for add task");
+        deliveryModel.addTask(taskToAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, taskToAdd));
     }
 }

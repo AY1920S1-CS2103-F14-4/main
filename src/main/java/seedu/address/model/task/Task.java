@@ -1,8 +1,11 @@
 package seedu.address.model.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.model.Duration;
 import seedu.address.model.Goods;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
@@ -16,16 +19,22 @@ public class Task {
 
     private int id;
     private Goods goods;
-    private String dateTime;
+    private LocalDate date;
     private Optional<Driver> driver;
     private Customer customer;
+    private Optional<Duration> duration;
 
     private TaskStatus status;
 
-    public Task(int id, Goods goods) {
+    public static final DateTimeFormatter DATE_FORMAT_FOR_PRINT = DateTimeFormatter.ofPattern("d/M/yyyy");
+
+    public Task(int id, Goods goods, LocalDate date) {
         this.id = id;
         this.goods = goods;
+        this.date = date;
         status = TaskStatus.INCOMPLETE;
+        driver = Optional.empty();
+        duration = Optional.empty();
     }
 
     //get methods
@@ -41,8 +50,12 @@ public class Task {
         return status;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getDatePrint() {
+        return date.format(DATE_FORMAT_FOR_PRINT);
     }
 
     public Driver getDriver() {
@@ -56,8 +69,12 @@ public class Task {
         return customer;
     }
 
+    public Duration getDuration() {
+        return duration.get();
+    }
+
     public boolean isAssign() {
-        return getDriver() != null;
+        return driver.isPresent();
     }
 
     //set methods
@@ -72,14 +89,18 @@ public class Task {
         this.goods = goods;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public void setDriver(Driver driver) {
         this.driver = Optional.of(driver);
 
         setStatus(TaskStatus.ON_GOING);
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = Optional.of(duration);
     }
 
     /**
@@ -120,6 +141,17 @@ public class Task {
 
     @Override
     public String toString() {
-        return getId() + ". " + getGoods() + " " + getStatus();
+        final StringBuilder builder = new StringBuilder();
+        builder.append(" Task ID: ")
+                .append(getId())
+                .append(" Goods: ")
+                .append(getGoods())
+                .append(" Date: ")
+                .append(getDatePrint())
+                .append(" Delivery Person: ")
+                .append(isAssign() ? getDriver() : "UNASSIGNED")
+                .append(" Status: ")
+                .append(getStatus());
+        return builder.toString();
     }
 }

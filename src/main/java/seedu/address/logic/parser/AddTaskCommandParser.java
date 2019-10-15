@@ -27,10 +27,10 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         }
 
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_GOODS).get());
-        LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATETIME).get());
         int customerId = ParserUtil.parseId(argMultimap.getValue(PREFIX_CUSTOMER).get());
+        LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATETIME).get());
 
-        Task task = new Task(TaskList.getLastTaskId() + 1, new Goods(description));
+        Task task = new Task(TaskList.getLastTaskId() + 1, new Goods(description), date);
 
         return new AddTaskCommand(task, customerId);
     }
