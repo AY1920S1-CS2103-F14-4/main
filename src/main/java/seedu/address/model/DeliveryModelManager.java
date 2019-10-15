@@ -4,14 +4,23 @@ import seedu.address.model.person.CustomerManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
 
-public class DeliveryModelManager extends ModelManager {
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+public class DeliveryModelManager extends ModelManager implements DeliveryModel {
 
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
 
-    public DeliveryModelManager() {
+    {
         this.taskManager = new TaskManager();
         this.customerManager = new CustomerManager();
+    }
+
+    public DeliveryModelManager() {
+    }
+
+    public DeliveryModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+        requireAllNonNull(addressBook, userPrefs);
     }
 
     //=========== Task Manager ===============================================================================

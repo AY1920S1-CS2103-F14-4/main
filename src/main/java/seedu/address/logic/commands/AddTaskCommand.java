@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.DeliveryModel;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.Customer;
@@ -43,6 +44,8 @@ public class AddTaskCommand extends Command {
 
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        DeliveryModel deliveryModel = (DeliveryModel) model;
         /*
         if (!model.) {
             throw new CommandException(MESSAGE_INVALID_CUSTOMER_ID);
