@@ -1,4 +1,9 @@
 package seedu.address.model;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.HashSet;
+
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.CustomerManager;
@@ -8,10 +13,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
-
-import java.util.HashSet;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class DeliveryModelManager extends ModelManager implements DeliveryModel {
 
@@ -23,7 +24,8 @@ public class DeliveryModelManager extends ModelManager implements DeliveryModel 
         this.customerManager = new CustomerManager();
 
         //temp
-        Customer testCustomer = new Customer(new Name("Alesx Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+        Customer testCustomer = new Customer(new Name("Alesx Yeoh"), new Phone("87438807"),
+                new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());
         customerManager.addPerson(testCustomer);
     }

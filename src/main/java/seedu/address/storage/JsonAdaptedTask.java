@@ -1,12 +1,15 @@
 package seedu.address.storage;
 
+import static seedu.address.model.task.Task.DATE_FORMAT;
 import static seedu.address.model.task.Task.DATE_FORMATTER_FOR_USER_INPUT;
+
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
-import static seedu.address.model.task.Task.DATE_FORMAT;
 import seedu.address.model.Description;
 import seedu.address.model.Duration;
 import seedu.address.model.Goods;
@@ -15,14 +18,11 @@ import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.execeptions.TaskException;
 
-import java.time.LocalDate;
-
-
 public class JsonAdaptedTask {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
 
-    public static final String INVALID_INTEGER_ID_= "Task's %s field has a invalid integer id.";
+    public static final String INVALID_INTEGER_ID = "Task's %s field has a invalid integer id.";
     public static final String INVALID_DATE_FORMAT = "Invalid Date format. Date format should be " + DATE_FORMAT;
 
     //using String data type for fields to accommodate null value and prevent precision loss.
@@ -89,15 +89,17 @@ public class JsonAdaptedTask {
         //then get the customer and input into task as parameter
         //SAME FOR DRIVER^
         if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Task.class.getSimpleName() + " ID"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                                                            Task.class.getSimpleName() + " ID"));
         }
         if (!Task.isValidId(id)) {
-            throw new IllegalValueException(String.format(INVALID_INTEGER_ID_, Task.class.getSimpleName() + " ID"));
+            throw new IllegalValueException(String.format(INVALID_INTEGER_ID, Task.class.getSimpleName() + " ID"));
         }
         final int modelTaskId = Integer.parseInt(id);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                                                            Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -110,7 +112,7 @@ public class JsonAdaptedTask {
                                                             Customer.class.getSimpleName() + " ID"));
         }
         if (!Task.isValidId(customerId)) {
-            throw new IllegalValueException(String.format(INVALID_INTEGER_ID_, Customer.class.getSimpleName() + " ID"));
+            throw new IllegalValueException(String.format(INVALID_INTEGER_ID, Customer.class.getSimpleName() + " ID"));
         }
         //final Customer modelCustomer = new Customer();
 
@@ -125,7 +127,7 @@ public class JsonAdaptedTask {
 
         //driverId can be null
         if (driverId != null && !Task.isValidId(driverId)) {
-            throw new IllegalValueException(String.format(INVALID_INTEGER_ID_, Driver.class.getSimpleName() + " ID"));
+            throw new IllegalValueException(String.format(INVALID_INTEGER_ID, Driver.class.getSimpleName() + " ID"));
         }
         //final Driver modelDriver = new Driver();
 

@@ -17,6 +17,11 @@ import seedu.address.model.task.execeptions.TaskException;
  */
 public class Task {
 
+    public static final String DATE_FORMAT = "d/M/yyyy";
+
+    public static final DateTimeFormatter DATE_FORMAT_FOR_PRINT = DateTimeFormatter.ofPattern("d/M/yyyy");
+    public static final DateTimeFormatter DATE_FORMATTER_FOR_USER_INPUT = DateTimeFormatter.ofPattern(DATE_FORMAT);
+
     private int id;
     private Goods goods;
     private LocalDate date;
@@ -25,10 +30,6 @@ public class Task {
     private Optional<Duration> duration;
 
     private TaskStatus status;
-
-    public static final String DATE_FORMAT = "d/M/yyyy";
-    public static final DateTimeFormatter DATE_FORMATTER_FOR_USER_INPUT = DateTimeFormatter.ofPattern(DATE_FORMAT);
-    public static final DateTimeFormatter DATE_FORMAT_FOR_PRINT = DateTimeFormatter.ofPattern("d/M/yyyy");
 
     public Task(int id, Goods goods, LocalDate date) {
         this.id = id;

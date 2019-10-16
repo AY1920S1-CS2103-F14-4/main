@@ -67,7 +67,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook,TaskManager taskManager) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager) throws IOException {
         saveAddressBook(addressBook, taskManager, filePath);
     }
 
@@ -84,7 +84,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
     }
 
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager,
+                                Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
@@ -93,7 +94,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
 
         //Save task manager as json
         //temp
-        JsonUtil.saveJsonFile(new JsonSerializableTaskManager(taskManager), Paths.get("data" , "taskManager.json"));
+        JsonUtil.saveJsonFile(new JsonSerializableTaskManager(taskManager),
+                                Paths.get("data" , "taskManager.json"));
     }
 
 }
