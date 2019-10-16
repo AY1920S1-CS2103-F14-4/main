@@ -39,6 +39,18 @@ public class CustomerList extends UniquePersonList {
                 });
     }
 
+    public Customer getCustomer(int customerId) {
+        Customer foundCustomer = (Customer) asUnmodifiableObservableList()
+                                    .stream()
+                                    .filter(person -> {
+                                        Customer customer = (Customer) person;
+                                        return customer.getId() == customerId;
+                                    })
+                                    .findFirst()
+                                    .get();
+        return foundCustomer;
+    }
+
     public void removeCustomer(Customer toRemove) {
         remove(toRemove);
     }

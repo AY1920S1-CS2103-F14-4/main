@@ -1,9 +1,10 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.task.Task.DATE_FORMAT;
+import static seedu.address.model.task.Task.DATE_FORMATTER_FOR_USER_INPUT;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
@@ -26,8 +27,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
-    public static final String DATE_FORMAT = "d/M/yyyy";
-    public static final DateTimeFormatter DATE_FORMAT_FOR_USER_INPUT = DateTimeFormatter.ofPattern(DATE_FORMAT);
+
     public static final String MESSAGE_INVALID_DATE_FORMAT =
             "Invalid Date format. Date format should be " + DATE_FORMAT + ". "
             + "Chosen date should be from today onwards.";
@@ -146,21 +146,25 @@ public class ParserUtil {
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (!isDateValid(trimmedDate)) {
+        if (!isValidDate(trimmedDate) && isDateTodayOnwards(trimmedDate)) {
             throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
         }
         return getDate(trimmedDate);
     }
 
-    private static boolean isDateValid(String date) {
+    public static boolean isValidDate(String date) {
         try {
-            LocalDate tempDateTime = LocalDate.parse(date, DATE_FORMAT_FOR_USER_INPUT);
+            LocalDate tempDateTime = LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
         } catch (DateTimeParseException e) {
             return false;
         }
 
+        return true;
+    }
+
+    private static boolean isDateTodayOnwards(String date) {
         LocalDate today = LocalDate.now();
-        LocalDate dateOfDelivery = LocalDate.parse(date, DATE_FORMAT_FOR_USER_INPUT);
+        LocalDate dateOfDelivery = LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
         if (dateOfDelivery.isBefore(today)) {
             return false;
         }
@@ -169,7 +173,7 @@ public class ParserUtil {
     }
 
     private static LocalDate getDate(String date) {
-        return LocalDate.parse(date, DATE_FORMAT_FOR_USER_INPUT);
+        return LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
     }
 
     public static int parseId(String id) throws ParseException {

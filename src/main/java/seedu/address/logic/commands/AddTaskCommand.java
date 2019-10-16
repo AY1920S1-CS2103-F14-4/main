@@ -48,7 +48,9 @@ public class AddTaskCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_CUSTOMER_ID);
         }
 
+        taskToAdd.setCustomer(deliveryModel.getCustomer(customerId));
         deliveryModel.addTask(taskToAdd);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToAdd));
     }
 }

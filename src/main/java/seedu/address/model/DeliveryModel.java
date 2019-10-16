@@ -1,6 +1,8 @@
 package seedu.address.model;
 
+import seedu.address.model.person.Customer;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskManager;
 
 public interface DeliveryModel extends Model {
 
@@ -12,5 +14,9 @@ public interface DeliveryModel extends Model {
 
     void setTask(Task task);
 
+    TaskManager getTaskManager();
+
     boolean hasCustomer(int customerId);
+
+    Customer getCustomer(int customerId);
 }

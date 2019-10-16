@@ -12,4 +12,9 @@ public class CustomerManager extends AddressBook {
         CustomerList customers = (CustomerList) persons;
         return customers.hasCustomer(customerId);
     }
+
+    public Customer getCustomer(int customerId) {
+        CustomerList customers = (CustomerList) persons;
+        return customers.getCustomer(customerId);
+    }
 }

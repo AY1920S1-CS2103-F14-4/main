@@ -54,8 +54,16 @@ public class DeliveryModelManager extends ModelManager implements DeliveryModel 
         taskManager.setTask(task);
     }
 
+    public TaskManager getTaskManager() {
+        return taskManager;
+    }
+
     //=========== Customer Manager ===========================================================================
     public boolean hasCustomer(int customerId) {
         return customerManager.hasPerson(customerId);
+    }
+
+    public Customer getCustomer(int customerId) {
+        return customerManager.getCustomer(customerId);
     }
 }

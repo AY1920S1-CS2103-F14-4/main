@@ -26,6 +26,8 @@ public class Task {
 
     private TaskStatus status;
 
+    public static final String DATE_FORMAT = "d/M/yyyy";
+    public static final DateTimeFormatter DATE_FORMATTER_FOR_USER_INPUT = DateTimeFormatter.ofPattern(DATE_FORMAT);
     public static final DateTimeFormatter DATE_FORMAT_FOR_PRINT = DateTimeFormatter.ofPattern("d/M/yyyy");
 
     public Task(int id, Goods goods, LocalDate date) {
@@ -70,7 +72,15 @@ public class Task {
     }
 
     public Duration getDuration() {
+        if (!duration.isPresent()) {
+            throw new TaskException("There is no duration assigned to the task.");
+        }
+
         return duration.get();
+    }
+
+    public static LocalDate getDateFromString(String date) {
+        return LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
     }
 
     public boolean isAssign() {
@@ -118,6 +128,17 @@ public class Task {
 
     public void markAsDone() {
         setStatus(TaskStatus.COMPLETED);
+    }
+
+    //check methods
+    public static boolean isValidId(String id) {
+        try {
+            int tempInt = Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
