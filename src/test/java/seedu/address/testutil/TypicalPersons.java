@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.EntityManager;
+import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.person.Person;
 
 /**

@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueEntityList;
 
@@ -24,7 +23,8 @@ public class EntityManager<T extends Person> implements ReadOnlyEntityManager<T>
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */ {
+     */
+    {
         persons = new UniqueEntityList<>();
     }
 
