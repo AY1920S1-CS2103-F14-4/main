@@ -1,15 +1,15 @@
-package seedu.address.model.person;
+package seedu.address.model;
 
-import seedu.address.model.legacy.AddressBook;
+import seedu.address.model.person.Customer;
 
 /**
  * Manages the customer list.
  * It contains the minimal set of list operations.
  */
-public class CustomerManager extends AddressBook {
+public class CustomerManager extends EntityManager<Customer> {
 
     public CustomerManager() {
-        persons = new CustomerList();
+        super();
     }
 
     /**
@@ -19,7 +19,7 @@ public class CustomerManager extends AddressBook {
      * @return Customer with the specified unique id.
      */
     public Customer getCustomer(int customerId) {
-        Person foundCustomer = persons.asUnmodifiableObservableList()
+        Person foundCustomer = super.asUnmodifiableObservableList()
                 .stream()
                 .filter(person -> {
                     Customer customer = (Customer) person;
@@ -36,7 +36,7 @@ public class CustomerManager extends AddressBook {
      * @param customerId customer unique id.
      */
     public boolean hasCustomer(int customerId) {
-        return persons.asUnmodifiableObservableList()
+        return super.asUnmodifiableObservableList()
                 .stream()
                 .anyMatch(person -> {
                     Customer customer = (Customer) person;

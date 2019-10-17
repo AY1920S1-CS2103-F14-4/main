@@ -16,7 +16,7 @@ import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerManager;
+import seedu.address.model.person.Driver;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -24,6 +24,8 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
+import seedu.address.model.util.CustomerManager;
+import seedu.address.model.util.DriverManager;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -180,8 +182,31 @@ public class ModelManager implements Model {
         return customerManager.getCustomer(customerId);
     }
 
+    public void addCustomer(Customer customer) {
+        customerManager.addPerson(customer);
+    }
+
+    public void deleteCustomer(Customer customer) {
+        customerManager.removePerson(customer);
+    }
+
     // =========== Driver Manager
     // ===========================================================================
+    public boolean hasDriver(int driverId) {
+        return driverManager.hasDriver(driverId);
+    }
+
+    public Driver getDriver(int driverId) {
+        return driverManager.getDriver(driverId);
+    }
+
+    public void addDriver(Driver driver) {
+        driverManager.addPerson(driver);
+    }
+
+    public void deleteDriver(Driver driver) {
+        driverManager.removePerson(driver);
+    }
 
     // =========== Filtered Person List Accessors
     // =============================================================

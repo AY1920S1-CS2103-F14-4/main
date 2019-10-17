@@ -34,11 +34,12 @@ public class AddCustomerDriverCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New " + toAdd.class.getSimpleName() + " added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This " + toAdd.class.getSimpleName() + " already exists.";
+    public static final String MESSAGE_SUCCESS = "New " + this.className + " added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This " + this.className + " already exists.";
 
     private final Person toAdd;
     private final String className;
+    private final int toAddId;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
@@ -46,18 +47,23 @@ public class AddCustomerDriverCommand extends Command {
     public AddCustomerDriverCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
-        className = person.class.getSimpleName();
+        this.className = person.class.getSimpleName();
+        this.toAddId = person.getId();
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
+        if (model.hasCustomer(toAddId) || model.hasDriver(toAddId)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
+        if (className.equals(Customer.class.getSimpleName())) {
+            model.addCustomer(toAdd);
+        } else {
+            model.addDriver(toAdd);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
