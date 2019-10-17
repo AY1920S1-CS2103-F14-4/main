@@ -61,7 +61,7 @@ public class DeleteIdCommand extends Command {
         } else if (className.equals(Customer.class.getSimpleName())) {
             //deletion for Customer
             if (!model.hasCustomer(id)) {
-                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className);
+                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
             }
 
             Customer customerToDelete = model.getCustomer(id);
@@ -70,7 +70,7 @@ public class DeleteIdCommand extends Command {
         } else {
             //deletion for Driver
             if (!model.hasDriver(id)) {
-                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className);
+                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
             }
 
             Driver driverToDelete = model.getDriver(id);
