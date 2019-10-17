@@ -27,16 +27,17 @@ public class Driver extends Person {
         idCount++;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public int getIdCount() {
         return idCount;
     }
 
     public Schedule getSchedule() {
         return schedule;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 
     /**

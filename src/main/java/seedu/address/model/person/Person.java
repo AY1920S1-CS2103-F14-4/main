@@ -52,6 +52,9 @@ public class Person {
         return address;
     }
 
+    public int getId() {
+        return 0;
+    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

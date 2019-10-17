@@ -36,6 +36,7 @@ public class Customer extends Person {
         return idCount;
     }
 
+    @Override
     public int getId() {
         return id;
     }
