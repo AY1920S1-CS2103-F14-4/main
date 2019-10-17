@@ -65,9 +65,9 @@ public class AddCustomerDriverCommand extends Command {
         }
 
         if (className.equals(Customer.class.getSimpleName())) {
-            model.addCustomer( (Customer) toAdd);
+            model.addCustomer((Customer) toAdd);
         } else if (className.equals(Driver.class.getSimpleName())) {
-            model.addDriver( (Driver) toAdd);
+            model.addDriver((Driver) toAdd);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, className, toAdd));
     }
