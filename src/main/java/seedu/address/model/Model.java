@@ -84,4 +84,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Views the delivered tasks of the specified Driver
+     * The Driver must exist in the Driver List
+     */
+    void viewDriverTask(Person target); //Driver
+
 }

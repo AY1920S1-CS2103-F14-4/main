@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.sql.Driver;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -127,6 +128,11 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void viewDriverTask(Person target) { //takes in Driver
+        //get the completed list of specified driver
     }
 
     @Override
