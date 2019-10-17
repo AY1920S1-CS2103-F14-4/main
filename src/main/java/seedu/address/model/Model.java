@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
@@ -120,5 +121,17 @@ public interface Model {
 
     Customer getCustomer(int customerId);
 
+    void addCustomer(Customer customer);
+
+    void deleteCustomer(Customer customer);
+
     // driver manager
+
+    boolean hasDriver(int driverId);
+
+    Driver getDriver(int driverId);
+
+    void addDriver(Driver driver);
+
+    void deleteDriver(Driver driver);
 }

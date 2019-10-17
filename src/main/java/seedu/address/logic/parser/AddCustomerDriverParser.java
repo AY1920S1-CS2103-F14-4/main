@@ -20,6 +20,7 @@ import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -35,7 +36,7 @@ public class AddCustomerDriverParser implements Parser<AddCustomerDriverCommand>
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCustomerDriverParser parse(String args) throws ParseException {
+    public AddCustomerDriverCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CUSTOMER, PREFIX_DRIVER,
                         PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
@@ -55,6 +56,7 @@ public class AddCustomerDriverParser implements Parser<AddCustomerDriverCommand>
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Prefix foundPrefix = getPrefixPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_DRIVER);
+        Person person;
 
         if (foundPrefix.getPrefix().equals(PREFIX_CUSTOMER.getPrefix())) {
             Customer person = new Customer(name, phone, email, address, tagList);
@@ -85,12 +87,12 @@ public class AddCustomerDriverParser implements Parser<AddCustomerDriverCommand>
      * Returns the first prefixe in the given
      * {@code ArgumentMultimap}.
      */
-    private static Prefix getPrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+    private static Prefix getPrefixPresent(ArgumentMultimap argumentMultimap,
+                                           Prefix... prefixes) throws ParseException {
         Optional<Prefix> prefixFound = Stream
                                             .of(prefixes)
                                             .filter(prefix -> argumentMultimap.getValue(prefix).isPresent())
-                                            .findFirst()
-                                            .get();
+                                            .findFirst();
         if (prefixFound.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddCustomerDriverCommand.MESSAGE_USAGE));
