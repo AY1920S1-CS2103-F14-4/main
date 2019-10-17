@@ -14,7 +14,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.task.TaskManager;
 
 /**
