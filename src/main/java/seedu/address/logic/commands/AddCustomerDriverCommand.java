@@ -39,8 +39,8 @@ public class AddCustomerDriverCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New " + className + " added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This " + className + " already exists.";
+    public static final String MESSAGE_SUCCESS = "New %1$s added: %2$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This %1$s already exists.";
 
     private final Person toAdd;
     private final String className;
@@ -52,7 +52,7 @@ public class AddCustomerDriverCommand extends Command {
     public AddCustomerDriverCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
-        this.className = person.getSimpleName();
+        this.className = person.getClass().getSimpleName();
         this.toAddId = person.getId();
     }
 
@@ -61,14 +61,14 @@ public class AddCustomerDriverCommand extends Command {
         requireNonNull(model);
 
         if (model.hasCustomer(toAddId) || model.hasDriver(toAddId)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON, className));
         }
 
         if (className.equals(Customer.class.getSimpleName())) {
-            model.addCustomer(toAdd);
+            model.addCustomer( (Customer) toAdd);
         } else if (className.equals(Driver.class.getSimpleName())) {
-            model.addDriver(toAdd);
+            model.addDriver( (Driver) toAdd);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, className, toAdd));
     }
 }
