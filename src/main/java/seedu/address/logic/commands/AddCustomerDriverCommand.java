@@ -10,6 +10,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Customer;
+import seedu.address.model.person.Driver;
+import seedu.address.model.person.Person;
+
+
 
 /**
  * Adds a person to the address book.
@@ -34,8 +39,8 @@ public class AddCustomerDriverCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New " + this.className + " added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This " + this.className + " already exists.";
+    public static final String MESSAGE_SUCCESS = "New " + className + " added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This " + className + " already exists.";
 
     private final Person toAdd;
     private final String className;
@@ -47,7 +52,7 @@ public class AddCustomerDriverCommand extends Command {
     public AddCustomerDriverCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
-        this.className = person.class.getSimpleName();
+        this.className = person.getSimpleName();
         this.toAddId = person.getId();
     }
 
@@ -61,16 +66,9 @@ public class AddCustomerDriverCommand extends Command {
 
         if (className.equals(Customer.class.getSimpleName())) {
             model.addCustomer(toAdd);
-        } else {
+        } else if (className.equals(Driver.class.getSimpleName())) {
             model.addDriver(toAdd);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
     }
 }

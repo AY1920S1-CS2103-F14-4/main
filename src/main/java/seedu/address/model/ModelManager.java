@@ -24,8 +24,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
-import seedu.address.model.util.CustomerManager;
-import seedu.address.model.util.DriverManager;
 
 /**
  * Represents the in-memory model of the address book data.

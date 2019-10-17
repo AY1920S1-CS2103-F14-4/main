@@ -9,11 +9,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.AddCustomerDriverCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -36,7 +44,8 @@ public class AddCustomerDriverParser implements Parser<AddCustomerDriverCommand>
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()
                 || getNoOfPrefixesPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_DRIVER) != 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteIdCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddCustomerDriverCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

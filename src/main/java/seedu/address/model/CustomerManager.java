@@ -19,7 +19,7 @@ public class CustomerManager extends EntityManager<Customer> {
      * @return Customer with the specified unique id.
      */
     public Customer getCustomer(int customerId) {
-        Person foundCustomer = super.asUnmodifiableObservableList()
+        Customer foundCustomer = (Customer) super.getPersonList()
                 .stream()
                 .filter(person -> {
                     Customer customer = (Customer) person;
@@ -36,7 +36,7 @@ public class CustomerManager extends EntityManager<Customer> {
      * @param customerId customer unique id.
      */
     public boolean hasCustomer(int customerId) {
-        return super.asUnmodifiableObservableList()
+        return super.getPersonList()
                 .stream()
                 .anyMatch(person -> {
                     Customer customer = (Customer) person;

@@ -19,10 +19,10 @@ public class DriverManager extends EntityManager<Driver> {
      * @return Driver with the specified unique id.
      */
     public Driver getDriver(int driverId) {
-        Person foundDriver = super.asUnmodifiableObservableList()
+        Driver foundDriver = super.getPersonList()
                 .stream()
                 .filter(person -> {
-                    Driver driver = (Customer) person;
+                    Driver driver = (Driver) person;
                     return driver.getId() == driverId;
                 })
                 .findFirst()
@@ -36,7 +36,7 @@ public class DriverManager extends EntityManager<Driver> {
      * @param driverId customer unique id.
      */
     public boolean hasDriver(int driverId) {
-        return super.asUnmodifiableObservableList()
+        return super.getPersonList()
                 .stream()
                 .anyMatch(person -> {
                     Driver driver = (Driver) person;
