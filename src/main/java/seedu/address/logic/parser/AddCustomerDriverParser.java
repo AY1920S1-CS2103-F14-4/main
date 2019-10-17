@@ -1,17 +1,15 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
-
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.DeleteIdCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
-import seedu.address.model.task.Task;
+
+import java.util.stream.Stream;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 
 public class AddDriverCustomerParser implements Parser<AddCustomerDriverCommand> {
 
