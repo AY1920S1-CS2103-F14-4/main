@@ -6,9 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Customer;
-import seedu.address.model.Driver;
 import seedu.address.model.Model;
+import seedu.address.model.person.Customer;
+import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 
 /**
