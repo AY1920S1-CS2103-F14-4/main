@@ -1,4 +1,4 @@
-package seedu.address.model.container;
+package seedu.address.model.legacy;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -19,21 +19,21 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
  * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
- * <p>
+ *
  * Supports a minimal set of list operations.
  *
  * @see Person#isSamePerson(Person)
  */
-public class UniqueRoster<T extends Person> implements Iterable<T> {
+public class UniquePersonList implements Iterable<Person> {
 
-    private final ObservableList<T> internalList = FXCollections.observableArrayList();
-    private final ObservableList<T> internalUnmodifiableList =
+    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Person> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(T toCheck) {
+    public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
@@ -42,7 +42,7 @@ public class UniqueRoster<T extends Person> implements Iterable<T> {
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(T toAdd) {
+    public void add(Person toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -55,7 +55,7 @@ public class UniqueRoster<T extends Person> implements Iterable<T> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setPerson(T target, T editedPerson) {
+    public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         int index = internalList.indexOf(target);
@@ -74,14 +74,14 @@ public class UniqueRoster<T extends Person> implements Iterable<T> {
      * Removes the equivalent person from the list.
      * The person must exist in the list.
      */
-    public void remove(T toRemove) {
+    public void remove(Person toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
         }
     }
 
-    public void setPersons(UniqueRoster<T> replacement) {
+    public void setPersons(UniquePersonList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -90,7 +90,7 @@ public class UniqueRoster<T extends Person> implements Iterable<T> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<T> persons) {
+    public void setPersons(List<Person> persons) {
         requireAllNonNull(persons);
         if (!personsAreUnique(persons)) {
             throw new DuplicatePersonException();
@@ -102,20 +102,20 @@ public class UniqueRoster<T extends Person> implements Iterable<T> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<T> asUnmodifiableObservableList() {
+    public ObservableList<Person> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<Person> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueRoster // instanceof handles nulls
-                && internalList.equals(((UniqueRoster) other).internalList));
+                || (other instanceof UniquePersonList // instanceof handles nulls
+                        && internalList.equals(((UniquePersonList) other).internalList));
     }
 
     @Override
@@ -126,7 +126,7 @@ public class UniqueRoster<T extends Person> implements Iterable<T> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean personsAreUnique(List<T> persons) {
+    private boolean personsAreUnique(List<Person> persons) {
         for (int i = 0; i < persons.size() - 1; i++) {
             for (int j = i + 1; j < persons.size(); j++) {
                 if (persons.get(i).isSamePerson(persons.get(j))) {

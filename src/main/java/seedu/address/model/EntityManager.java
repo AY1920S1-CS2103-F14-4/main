@@ -1,4 +1,4 @@
-package seedu.address.model.container;
+package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,14 +7,16 @@ import java.util.List;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniqueEntityList;
 
+// TODO: edit JavaDoc
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class Roster<T extends Person> implements ReadOnlyRoster<T> {
+public class EntityManager<T extends Person> implements ReadOnlyEntityManager<T> {
 
-    private final UniqueRoster<T> persons;
+    private final UniqueEntityList<T> persons;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -23,16 +25,16 @@ public class Roster<T extends Person> implements ReadOnlyRoster<T> {
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
      */ {
-        persons = new UniqueRoster<>();
+        persons = new UniqueEntityList<>();
     }
 
-    public Roster() {
+    public EntityManager() {
     }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public Roster(ReadOnlyRoster<T> toBeCopied) {
+    public EntityManager(ReadOnlyEntityManager<T> toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -50,7 +52,7 @@ public class Roster<T extends Person> implements ReadOnlyRoster<T> {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyRoster<T> newData) {
+    public void resetData(ReadOnlyEntityManager<T> newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -109,8 +111,8 @@ public class Roster<T extends Person> implements ReadOnlyRoster<T> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Roster // instanceof handles nulls
-                && persons.equals(((Roster) other).persons));
+                || (other instanceof EntityManager // instanceof handles nulls
+                && persons.equals(((EntityManager) other).persons));
     }
 
     @Override

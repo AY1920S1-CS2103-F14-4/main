@@ -1,4 +1,4 @@
-package seedu.address.model.container;
+package seedu.address.model;
 
 import javafx.collections.ObservableList;
 
@@ -7,7 +7,7 @@ import seedu.address.model.person.Person;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyRoster<T extends Person> {
+public interface ReadOnlyEntityManager<T extends Person> {
 
     /**
      * Returns an unmodifiable view of the persons list.
