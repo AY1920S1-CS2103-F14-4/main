@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Optional;
 
-import seedu.address.model.Duration;
+import seedu.address.model.EventTime;
 import seedu.address.model.Goods;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
@@ -27,7 +27,7 @@ public class Task {
     private LocalDate date;
     private Optional<Driver> driver;
     private Customer customer;
-    private Optional<Duration> duration;
+    private Optional<EventTime> eventTime;
 
     private TaskStatus status;
 
@@ -37,7 +37,7 @@ public class Task {
         this.date = date;
         status = TaskStatus.INCOMPLETE;
         driver = Optional.empty();
-        duration = Optional.empty();
+        eventTime = Optional.empty();
     }
 
     //get methods
@@ -72,12 +72,12 @@ public class Task {
         return customer;
     }
 
-    public Duration getDuration() {
-        if (!duration.isPresent()) {
+    public EventTime getEventTime() {
+        if (!eventTime.isPresent()) {
             throw new TaskException("There is no duration assigned to the task.");
         }
 
-        return duration.get();
+        return eventTime.get();
     }
 
     public static LocalDate getDateFromString(String date) {
@@ -110,8 +110,8 @@ public class Task {
         setStatus(TaskStatus.ON_GOING);
     }
 
-    public void setDuration(Duration duration) {
-        this.duration = Optional.of(duration);
+    public void setEventTime(EventTime eventTime) {
+        this.eventTime = Optional.of(eventTime);
     }
 
     /**

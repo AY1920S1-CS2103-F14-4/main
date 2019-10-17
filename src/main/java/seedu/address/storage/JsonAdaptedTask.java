@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Description;
-import seedu.address.model.Duration;
+import seedu.address.model.EventTime;
 import seedu.address.model.Goods;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
@@ -51,8 +51,8 @@ public class JsonAdaptedTask {
         }
 
         try {
-            start = Duration.getStringFromTime(task.getDuration().getStart());
-            end = Duration.getStringFromTime(task.getDuration().getEnd());
+            start = EventTime.getStringFromTime(task.getEventTime().getStart());
+            end = EventTime.getStringFromTime(task.getEventTime().getEnd());
         } catch (TaskException e) {
             //if no duration allocated
             start = null;
@@ -132,8 +132,8 @@ public class JsonAdaptedTask {
         //final Driver modelDriver = new Driver();
 
         //Duration's start and end can be null
-        if ((start != null || end != null) && !Duration.isValidDuration(start, end)) {
-            throw new IllegalValueException(Duration.MESSAGE_CONSTRAINTS);
+        if ((start != null || end != null) && !EventTime.isValidDuration(start, end)) {
+            throw new IllegalValueException(EventTime.MESSAGE_CONSTRAINTS);
         }
 
         Task task = new Task(modelTaskId, modelGoods, modelDate);
@@ -142,8 +142,8 @@ public class JsonAdaptedTask {
             //assign driver to the task
         }
         if (start != null && end != null) {
-            final Duration modelDuration = Duration.parse(start, end);
-            task.setDuration(modelDuration);
+            final EventTime modelDuration = EventTime.parse(start, end);
+            task.setEventTime(modelDuration);
         }
 
         return task;

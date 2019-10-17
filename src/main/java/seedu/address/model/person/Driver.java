@@ -4,39 +4,54 @@ import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 
-
 /**
- * Represents a Customer in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a Driver available for work.
+ * Gurantees: details are present and not null, field values are validated, id is immutable.
  */
-
 public class Driver extends Person {
 
-    private static int idCount = 0;
-    private int id;
+    //Identity fields
+    private static int idCount = 1;
+    private final int id;
 
+    //data fields
+    private Schedule schedule;
 
     /**
      * Every field must be present and not null.
-     *
-     * @param name
-     * @param phone
-     * @param email
-     * @param address
-     * @param tags
      */
-
-    public Driver(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Driver (Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
-        id = ++idCount;
+        schedule = new Schedule();
+        id = idCount;
+        idCount++;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getIdCount() {
         return idCount;
     }
 
-    public int getId() {
-        return id;
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    /**
+     * Returns a string representation of the driver, with identity fields visible to the user.
+     *
+     * @return string representation of driver
+     */
+    @Override
+    public String toString() {
+        StringBuilder driverBuilder = new StringBuilder();
+        driverBuilder.append(" Driver stats: \n")
+                    .append(" id: ")
+                    .append(getId())
+                    .append(super.toString());
+        return driverBuilder.toString();
     }
 
 }
