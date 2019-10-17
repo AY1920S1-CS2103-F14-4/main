@@ -1,15 +1,14 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * List delivered task for specified driver
@@ -35,10 +34,10 @@ public class ViewDriverTasksCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> currentDriverList = model.getFilteredPersonList(); //change Person to Driver here to get driver list
+        List<Person> currentDriverList = model.getFilteredPersonList(); //change Person to Driver to get driver list
 
         if (targetIndex.getZeroBased() >= currentDriverList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX); //change to invalid driver index
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX); //change to invalid driver
         }
 
         Person driverToView = currentDriverList.get(targetIndex.getZeroBased());
