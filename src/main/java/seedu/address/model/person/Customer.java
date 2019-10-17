@@ -39,4 +39,20 @@ public class Customer extends Person {
     public int getId() {
         return id;
     }
+
+    /**
+     * Returns a string representation of the customer, with identity fields visible to the user.
+     *
+     * @return string representation of customer
+     */
+
+    @Override
+    public String toString() {
+        StringBuilder customerBuilder = new StringBuilder();
+        customerBuilder.append(" Customer stats: \n")
+                .append(" id: ")
+                .append(getId())
+                .append(super.toString());
+        return customerBuilder.toString();
+    }
 }
