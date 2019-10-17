@@ -45,6 +45,14 @@ public class TaskList {
         return foundTask.get();
     }
 
+    public boolean hasTask(int taskId) {
+        Optional<Task> foundTask = tasks
+                                    .stream()
+                                    .filter(currentTask -> currentTask.getId() == taskId)
+                                    .findFirst();
+        return foundTask.isPresent();
+    }
+
     public boolean hasTask(Task task) {
         Optional<Task> foundTask = tasks
                                     .stream()

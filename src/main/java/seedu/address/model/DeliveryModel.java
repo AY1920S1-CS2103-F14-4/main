@@ -12,6 +12,10 @@ public interface DeliveryModel extends Model {
 
     boolean hasTask(Task task);
 
+    boolean hasTask(int taskId);
+
+    Task getTask(int taskId);
+
     void setTask(Task task);
 
     TaskManager getTaskManager();

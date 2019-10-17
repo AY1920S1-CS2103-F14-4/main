@@ -48,4 +48,8 @@ public class TaskManager {
     public boolean hasTask(Task task) {
         return tasks.hasTask(task);
     }
+
+    public boolean hasTask(int taskId) {
+        return tasks.hasTask(taskId);
+    }
 }
