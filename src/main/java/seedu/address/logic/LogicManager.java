@@ -44,7 +44,8 @@ public class LogicManager implements Logic {
 
         try {
             //temp
-            storage.saveAddressBook(model.getAddressBook(), model.getTaskManager());
+            //uncomment to save tasks.json
+            //storage.saveAddressBook(model.getAddressBook(), model.getTaskManager());
             //hax to pass 1 test case
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
