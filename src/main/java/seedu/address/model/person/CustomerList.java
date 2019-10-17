@@ -30,15 +30,6 @@ public class CustomerList extends UniquePersonList {
         return contains(toCheck);
     }
 
-    public boolean hasCustomer(int customerId) {
-        return asUnmodifiableObservableList()
-                .stream()
-                .anyMatch(person -> {
-                    Customer customer = (Customer) person;
-                    return customer.getId() == customerId;
-                });
-    }
-
     public Customer getCustomer(int customerId) {
         Customer foundCustomer = (Customer) asUnmodifiableObservableList()
                                     .stream()

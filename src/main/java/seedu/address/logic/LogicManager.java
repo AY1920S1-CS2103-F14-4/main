@@ -12,7 +12,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.DeliveryModel;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
@@ -45,9 +44,8 @@ public class LogicManager implements Logic {
 
         try {
             //temp
-            DeliveryModel deliveryModel = (DeliveryModel) model;
-            storage.saveAddressBook(model.getAddressBook(), deliveryModel.getTaskManager());
-            //hax to pass test
+            storage.saveAddressBook(model.getAddressBook(), model.getTaskManager());
+            //hax to pass 1 test case
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);

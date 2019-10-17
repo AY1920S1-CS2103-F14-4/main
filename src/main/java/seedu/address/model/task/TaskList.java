@@ -45,6 +45,11 @@ public class TaskList {
         return foundTask.get();
     }
 
+    /**
+     * Checks if the task list has a task with the {@code int taskId}.
+     *
+     * @param taskId Unique task id.
+     */
     public boolean hasTask(int taskId) {
         Optional<Task> foundTask = tasks
                                     .stream()
@@ -53,6 +58,9 @@ public class TaskList {
         return foundTask.isPresent();
     }
 
+    /**
+     * Check if task exists in the task list.
+     */
     public boolean hasTask(Task task) {
         Optional<Task> foundTask = tasks
                                     .stream()

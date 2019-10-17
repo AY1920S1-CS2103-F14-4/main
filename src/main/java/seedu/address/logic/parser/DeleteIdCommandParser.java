@@ -10,12 +10,18 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.DeleteIdCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Customer;
-import seedu.address.model.person.Driver;
-import seedu.address.model.task.Task;
 
+/**
+ * Parses input arguments and creates a new DeleteIdCommand object
+ */
 public class DeleteIdCommandParser implements Parser<DeleteIdCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeleteIdCommand
+     * and returns a DeleteIdCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public DeleteIdCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TASK, PREFIX_CUSTOMER, PREFIX_DRIVER);
@@ -28,15 +34,7 @@ public class DeleteIdCommandParser implements Parser<DeleteIdCommand> {
         Prefix foundPrefix = getPrefixPresent(argMultimap, PREFIX_TASK, PREFIX_CUSTOMER, PREFIX_DRIVER);
         int id = ParserUtil.parseId(argMultimap.getValue(foundPrefix).get());
 
-        //temp
-        String className;
-        if (foundPrefix.getPrefix().equals(PREFIX_TASK.getPrefix())) {
-            className = Task.class.getSimpleName();
-        } else if ((foundPrefix.getPrefix().equals(PREFIX_CUSTOMER.getPrefix()))) {
-            className = Customer.class.getSimpleName();
-        } else {
-            className = Driver.class.getSimpleName();
-        }
+        String className = foundPrefix.getPrefixClass();
 
         return new DeleteIdCommand(className, id);
     }
@@ -53,7 +51,8 @@ public class DeleteIdCommandParser implements Parser<DeleteIdCommand> {
         return (int) Stream.of(prefixes).filter(prefix -> argumentMultimap.getValue(prefix).isPresent()).count();
     }
 
-    private static Prefix getPrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) throws ParseException {
+    private static Prefix getPrefixPresent(ArgumentMultimap argumentMultimap,
+                                            Prefix... prefixes) throws ParseException {
         Optional<Prefix> prefixFound = Stream
                                             .of(prefixes)
                                             .filter(prefix -> argumentMultimap.getValue(prefix).isPresent())

@@ -6,10 +6,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.DeliveryModel;
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
+/**
+ * Deletes an entity using it's unique id from its list.
+ * Entity refers to Task, Driver and Customer.
+ */
 public class DeleteIdCommand extends Command {
 
     public static final String COMMAND_WORD = "del";
@@ -39,16 +42,18 @@ public class DeleteIdCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        DeliveryModel deliveryModel = (DeliveryModel) model;
 
         if (className.equals(Task.class.getSimpleName())) {
             //deletion for Task
-            if (!deliveryModel.hasTask(id)) {
+            if (!model.hasTask(id)) {
                 throw new CommandException(MESSAGE_INVALID_TASK_ID);
             }
 
-            Task taskToDelete = deliveryModel.getTask(id);
-            deliveryModel.deleteTask(taskToDelete);
+            Task taskToDelete = model.getTask(id);
+            model.deleteTask(taskToDelete);
+
+            //temp
+            //need to free driver from schedule
 
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className, taskToDelete));
         } else {

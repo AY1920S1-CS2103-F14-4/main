@@ -134,6 +134,12 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code String description} into an {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
     public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
@@ -143,6 +149,12 @@ public class ParserUtil {
         return new Description(trimmedDescription);
     }
 
+    /**
+     * Parses a {@code String date} into an {@code LocalDate}.
+     * Lading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if date is invalid or is before today.
+     */
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
@@ -152,6 +164,9 @@ public class ParserUtil {
         return getDate(trimmedDate);
     }
 
+    /**
+     * Checks if {@code string date} is a valid date according to our date format standard.
+     */
     public static boolean isValidDate(String date) {
         try {
             LocalDate tempDateTime = LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
@@ -162,6 +177,9 @@ public class ParserUtil {
         return true;
     }
 
+    /**
+     * Check if {@code String date} is from today onwards.
+     */
     private static boolean isDateTodayOnwards(String date) {
         LocalDate today = LocalDate.now();
         LocalDate dateOfDelivery = LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
@@ -176,17 +194,25 @@ public class ParserUtil {
         return LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
     }
 
+    /**
+     * Parse a number in string into an integer.
+     *
+     * @throws ParseException if the string cannot be parse into an integer.
+     */
     public static int parseId(String id) throws ParseException {
         requireNonNull(id);
         String trimmedId = id.trim();
-        if (!isIdValid(trimmedId)) {
+        if (!isValidId(trimmedId)) {
             throw new ParseException(MESSAGE_INVALID_ID);
         }
 
         return Integer.parseInt(trimmedId);
     }
 
-    private static boolean isIdValid(String id) {
+    /**
+     * Checks if string can be parse into an integer and must be more than 0.
+     */
+    private static boolean isValidId(String id) {
         try {
             int tempId = Integer.parseInt(id);
         } catch (NumberFormatException ex) {

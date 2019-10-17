@@ -75,6 +75,9 @@ public class EventTime implements Comparable<EventTime> {
         return time.format(COMPACT_TIME_FORMAT);
     }
 
+    /**
+     * Checks if {@code String startTime} and {@code String endTime} are valid duration
+     */
     public static boolean isValidDuration(String startTime, String endTime) {
         try {
             parse(startTime, endTime);

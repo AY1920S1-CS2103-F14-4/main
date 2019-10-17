@@ -15,8 +15,17 @@ import seedu.address.model.Goods;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 
+/**
+ * Parses input arguments and creates a new AddTaskCommand object
+ */
 public class AddTaskCommandParser implements Parser<AddTaskCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddTaskCommand
+     * and returns an AddTaskCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public AddTaskCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_GOODS, PREFIX_CUSTOMER, PREFIX_DATETIME);
