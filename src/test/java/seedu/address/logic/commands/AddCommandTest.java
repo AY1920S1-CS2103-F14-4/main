@@ -195,6 +195,36 @@ public class AddCommandTest {
         public Customer getCustomer(int customerId) {
             throw new AssertionError("This method should not be called.");
         };
+
+        @Override
+        public void AddCustomer(Customer customer) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void deleteCustomer(Customer customer) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public boolean hasDriver(int driverId) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public Driver getDriver(int driverId) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void addDriver(Driver driver) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void deleteDriver(Driver driver) {
+            throw new AssertionError("This method should not be called.");
+        };
     }
 
     /**
