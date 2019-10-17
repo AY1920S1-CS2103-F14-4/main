@@ -84,7 +84,7 @@ public class Task {
         return LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
     }
 
-    public boolean isAssign() {
+    public boolean isAssigned() {
         return driver.isPresent();
     }
 
@@ -171,7 +171,7 @@ public class Task {
                 .append(" Date: ")
                 .append(getDatePrint())
                 .append(" Delivery Person: ")
-                .append(isAssign() ? getDriver() : "UNASSIGNED")
+                .append(isAssigned() ? getDriver() : "UNASSIGNED")
                 .append(" Status: ")
                 .append(getStatus());
         return builder.toString();

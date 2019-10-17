@@ -146,7 +146,7 @@ public class ParserUtil {
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (!isValidDate(trimmedDate) && isDateTodayOnwards(trimmedDate)) {
+        if (!isValidDate(trimmedDate) || !isDateTodayOnwards(trimmedDate)) {
             throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
         }
         return getDate(trimmedDate);

@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.DeleteIdCommand;
@@ -52,11 +53,15 @@ public class DeleteIdCommandParser implements Parser<DeleteIdCommand> {
         return (int) Stream.of(prefixes).filter(prefix -> argumentMultimap.getValue(prefix).isPresent()).count();
     }
 
-    private static Prefix getPrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream
-                    .of(prefixes)
-                    .filter(prefix -> argumentMultimap.getValue(prefix).isPresent())
-                    .findFirst()
-                    .get();
+    private static Prefix getPrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) throws ParseException {
+        Optional<Prefix> prefixFound = Stream
+                                            .of(prefixes)
+                                            .filter(prefix -> argumentMultimap.getValue(prefix).isPresent())
+                                            .findFirst();
+        if (prefixFound.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteIdCommand.MESSAGE_USAGE));
+        }
+
+        return prefixFound.get();
     }
 }
