@@ -21,6 +21,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
@@ -197,7 +198,7 @@ public class AddCommandTest {
         };
 
         @Override
-        public void AddCustomer(Customer customer) {
+        public void addCustomer(Customer customer) {
             throw new AssertionError("This method should not be called.");
         };
 
