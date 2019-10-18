@@ -26,14 +26,22 @@ public class Customer extends Person {
      * @param address
      * @param tags
      */
-
     public Customer(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
         id = ++idCount;
     }
 
+    public Customer(Name name, Phone phone, Email email, Address address, Set<Tag> tags, String id) {
+        super(name, phone, email, address, tags);
+        this.id = Integer.parseInt(id);
+    }
+
     public int getIdCount() {
         return idCount;
+    }
+
+    public void setIdCount(int idCount) {
+        Customer.idCount = idCount;
     }
 
     @Override

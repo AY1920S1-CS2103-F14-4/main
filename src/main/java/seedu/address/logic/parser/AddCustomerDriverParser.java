@@ -58,7 +58,7 @@ public class AddCustomerDriverParser implements Parser<AddCustomerDriverCommand>
         Prefix foundPrefix = getPrefixPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_DRIVER);
         Person person;
 
-        if (foundPrefix.getPrefix().equals(PREFIX_CUSTOMER.getPrefix())) {
+        if (foundPrefix.getPrefixClass().equals(Customer.class.getSimpleName())) {
             person = new Customer(name, phone, email, address, tagList);
         } else {
             person = new Driver(name, phone, email, address, tagList);
