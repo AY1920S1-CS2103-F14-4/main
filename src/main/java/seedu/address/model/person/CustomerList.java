@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import seedu.address.model.legacy.UniquePersonList;
+
 /**
  * A list of customers that enforces uniqueness between its elements and does not allow nulls.
  * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
@@ -26,12 +28,23 @@ public class CustomerList extends UniquePersonList {
         add(toAdd);
     }
 
-    public boolean containCustomer(Customer toCheck) {
+    public boolean hasCustomer(Customer toCheck) {
         return contains(toCheck);
+    }
+
+    public Customer getCustomer(int customerId) {
+        Customer foundCustomer = (Customer) asUnmodifiableObservableList()
+                                    .stream()
+                                    .filter(person -> {
+                                        Customer customer = (Customer) person;
+                                        return customer.getId() == customerId;
+                                    })
+                                    .findFirst()
+                                    .get();
+        return foundCustomer;
     }
 
     public void removeCustomer(Customer toRemove) {
         remove(toRemove);
     }
-
 }

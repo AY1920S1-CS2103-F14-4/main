@@ -13,7 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -43,6 +43,10 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
+            //temp
+            //uncomment to save tasks.json
+            //storage.saveAddressBook(model.getAddressBook(), model.getTaskManager());
+            //hax to pass 1 test case
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
