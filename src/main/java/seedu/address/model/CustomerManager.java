@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Manages the customer list.
@@ -19,15 +20,11 @@ public class CustomerManager extends EntityManager<Customer> {
      * @return Customer with the specified unique id.
      */
     public Customer getCustomer(int customerId) {
-        Customer foundCustomer = (Customer) super.getPersonList()
+        return getPersonList()
                 .stream()
-                .filter(person -> {
-                    Customer customer = (Customer) person;
-                    return customer.getId() == customerId;
-                })
+                .filter(customer -> customer.getId() == customerId)
                 .findFirst()
-                .get();
-        return (Customer) foundCustomer;
+                .orElseThrow(PersonNotFoundException::new);
     }
 
     /**
@@ -36,11 +33,8 @@ public class CustomerManager extends EntityManager<Customer> {
      * @param customerId customer unique id.
      */
     public boolean hasCustomer(int customerId) {
-        return super.getPersonList()
+        return getPersonList()
                 .stream()
-                .anyMatch(person -> {
-                    Customer customer = (Customer) person;
-                    return customer.getId() == customerId;
-                });
+                .anyMatch(customer -> customer.getId() == customerId);
     }
 }

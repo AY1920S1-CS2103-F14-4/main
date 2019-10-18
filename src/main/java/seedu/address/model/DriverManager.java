@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.model.person.Driver;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Manages the customer list.
@@ -19,15 +20,11 @@ public class DriverManager extends EntityManager<Driver> {
      * @return Driver with the specified unique id.
      */
     public Driver getDriver(int driverId) {
-        Driver foundDriver = super.getPersonList()
+        return getPersonList()
                 .stream()
-                .filter(person -> {
-                    Driver driver = (Driver) person;
-                    return driver.getId() == driverId;
-                })
+                .filter(driver -> driver.getId() == driverId)
                 .findFirst()
-                .get();
-        return (Driver) foundDriver;
+                .orElseThrow(PersonNotFoundException::new);
     }
 
     /**
@@ -36,11 +33,8 @@ public class DriverManager extends EntityManager<Driver> {
      * @param driverId customer unique id.
      */
     public boolean hasDriver(int driverId) {
-        return super.getPersonList()
+        return getPersonList()
                 .stream()
-                .anyMatch(person -> {
-                    Driver driver = (Driver) person;
-                    return driver.getId() == driverId;
-                });
+                .anyMatch(driver -> driver.getId() == driverId);
     }
 }
