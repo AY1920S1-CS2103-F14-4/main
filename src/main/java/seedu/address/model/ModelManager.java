@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -185,7 +186,7 @@ public class ModelManager implements Model {
         return driverManager.hasDriver(driverId);
     }
 
-    public Driver getDriver(int driverId) {
+    public Optional<Driver> getDriver(int driverId) {
         return driverManager.getDriver(driverId);
     }
 

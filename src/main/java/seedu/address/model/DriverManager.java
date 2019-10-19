@@ -1,7 +1,8 @@
 package seedu.address.model;
 
+import java.util.Optional;
+
 import seedu.address.model.person.Driver;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Represents the in-memory driver model of the address book data.
@@ -45,11 +46,10 @@ public class DriverManager extends EntityManager<Driver> {
      * @param driverId driver unique id.
      * @return Driver with the specified unique id.
      */
-    public Driver getDriver(int driverId) {
+    public Optional<Driver> getDriver(int driverId) {
         return getPersonList()
                 .stream()
                 .filter(driver -> driver.getId() == driverId)
-                .findFirst()
-                .orElseThrow(PersonNotFoundException::new);
+                .findFirst();
     }
 }

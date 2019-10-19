@@ -109,7 +109,7 @@ public class EventTime implements Comparable<EventTime> {
     /**
      * Checks if {@code String duration} is a valid duration.
      */
-    public static boolean isValidDuration(String duration) {
+    public static boolean isValidEventTime(String duration) {
         if (!duration.matches(VALIDATION_REGEX)) {
             return false;
         }

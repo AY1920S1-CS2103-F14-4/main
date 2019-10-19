@@ -107,7 +107,7 @@ public class TaskList {
         }
 
         for (int i = 0; i < getSize(); i++) {
-            Task task = getTask(i);
+            Task task = tasks.get(i);
             if (task == taskToEdit) {
                 tasks.set(i, editedTask);
                 break;

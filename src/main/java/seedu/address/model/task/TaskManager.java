@@ -42,7 +42,7 @@ public class TaskManager {
     }
 
     public void setTask(Task taskToEdit, Task editedTask) {
-        tasks.setTask(taskToEdit, taskToEdit);
+        tasks.setTask(taskToEdit, editedTask);
     }
 
     public boolean hasTask(Task task) {
