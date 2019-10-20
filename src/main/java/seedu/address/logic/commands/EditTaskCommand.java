@@ -90,8 +90,12 @@ public class EditTaskCommand extends Command {
                 previousDriver.deleteFromSchedule(taskToEdit.getEventTime().get());
 
                 Driver updatedDriver = editedTask.getDriver().get();
-                updatedDriver.addToSchedule(editedTask.getEventTime().get());
+                if (!updatedDriver.isScheduleAvailable(editedTask.getEventTime().get())) {
+                    previousDriver.addToSchedule(taskToEdit.getEventTime().get());
+                    throw new CommandException(String.format(Driver.MESSAGE_NOT_AVAILABLE, updatedDriver.getId()));
+                }
 
+                updatedDriver.addToSchedule(editedTask.getEventTime().get());
             }
 
         }
@@ -99,6 +103,13 @@ public class EditTaskCommand extends Command {
         //if task was incomplete and was assigned driver and duration through edit command.
         if (taskToEdit.getStatus() == TaskStatus.INCOMPLETE
                 && (editedTask.getDriver().isPresent() && editedTask.getEventTime().isPresent())) {
+            Driver updatedDriver = editedTask.getDriver().get();
+            EventTime durationToAdd = editedTask.getEventTime().get();
+            if (updatedDriver.isScheduleAvailable(durationToAdd)) {
+                throw new CommandException(String.format(Driver.MESSAGE_NOT_AVAILABLE, updatedDriver.getId()));
+            }
+            updatedDriver.addToSchedule(durationToAdd);
+
             editedTask.setStatus(TaskStatus.ON_GOING);
         }
 
