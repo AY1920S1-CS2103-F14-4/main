@@ -1,7 +1,10 @@
 package seedu.address.model.person;
 
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.EventTime;
+import seedu.address.model.person.exceptions.SchedulingException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,6 +41,16 @@ public class Driver extends Person {
     public Schedule getSchedule() {
         return schedule;
     }
+
+    public String suggestTime(EventTime eventTime) {
+        return this.schedule.getSchedulingSuggestion(eventTime);
+    }
+
+    public void assign(EventTime eventTime) throws SchedulingException {
+        this.schedule.add(eventTime);
+    }
+
+
 
     /**
      * Returns a string representation of the driver, with identity fields visible to the user.
