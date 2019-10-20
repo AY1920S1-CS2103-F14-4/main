@@ -71,6 +71,8 @@ public class EditTaskCommand extends Command {
             throw new CommandException(MESSAGE_NOTHING_TO_EDIT);
         }
 
+        //temp
+        //if driver is different, set driver to be free, and populate the other driver
         model.setTask(taskToEdit, editedTask);
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));

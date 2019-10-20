@@ -24,6 +24,8 @@ public class EventTime implements Comparable<EventTime> {
     public static final DateTimeFormatter COMPACT_TIME_FORMAT = DateTimeFormatter.ofPattern(TIME_FORMAT);
     private static final DateTimeFormatter DISPLAY_TIME_FORMAT = DateTimeFormatter.ofPattern("h:mma");
 
+    private static final DateTimeFormatter JSON_FORMATTER = DateTimeFormatter.ofPattern("Hmm");
+
     public static final String MESSAGE_CONSTRAINTS = "Duration needs to have a start and end time. "
             + "Format: " + TIME_FORMAT + " - " + TIME_FORMAT + ". "
             + "Example: 1130 - 1300.";
@@ -62,11 +64,13 @@ public class EventTime implements Comparable<EventTime> {
 
     /**
      * Gets EventTime Object representation of duration of delivery task.
+     * Check using {@code isValidEventTime(String duration) } before parse.
      *
      * @param duration startTime - endTime.
      * @return the duration with the specified start and end time
      */
     public static EventTime parse(String duration) throws DateTimeParseException {
+        assert isValidEventTime(duration) : "duration is not following the correct format. Eg. 1230 - 1420.";
         //split string into 3 parts to get start time, "-" and end time
         String[] durationArr = duration.split(" ");
         String startTimeStr = durationArr[0];
@@ -100,9 +104,8 @@ public class EventTime implements Comparable<EventTime> {
      * Example: 1200 - 1330.
      */
     public static String getStringFromDuration(EventTime duration) {
-        DateTimeFormatter jsonFormatter = DateTimeFormatter.ofPattern("Hmm");
-        String startTime = duration.getStart().format(jsonFormatter);
-        String endTime = duration.getEnd().format(jsonFormatter);
+        String startTime = duration.getStart().format(JSON_FORMATTER);
+        String endTime = duration.getEnd().format(JSON_FORMATTER);
         return startTime + " - " + endTime;
     }
 

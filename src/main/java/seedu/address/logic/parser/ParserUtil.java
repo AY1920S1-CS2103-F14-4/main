@@ -229,10 +229,10 @@ public class ParserUtil {
     public static EventTime parseEventTime(String duration) throws ParseException {
         requireNonNull(duration);
         String trimmedId = duration.trim();
-        if (!EventTime.isValidEventTime(duration)) {
+        if (!EventTime.isValidEventTime(trimmedId)) {
             throw new ParseException(EventTime.MESSAGE_CONSTRAINTS);
         }
 
-        return EventTime.parse(duration);
+        return EventTime.parse(trimmedId);
     }
 }

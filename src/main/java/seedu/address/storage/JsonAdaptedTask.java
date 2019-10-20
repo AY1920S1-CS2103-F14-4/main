@@ -16,6 +16,7 @@ import seedu.address.model.EventTime;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * Jackson-friendly version of {@link Task}.
@@ -34,6 +35,7 @@ public class JsonAdaptedTask {
     private String date;
     private String driverId;
     private String duration;
+    private String status;
 
     /**
      * Converts a given {@code Task} into this class for Jackson use.
@@ -57,6 +59,8 @@ public class JsonAdaptedTask {
         } else {
             duration = EventTime.getStringFromDuration(task.getEventTime().get());
         }
+
+        status = task.getStatus().toString();
     }
 
     /**
@@ -64,14 +68,16 @@ public class JsonAdaptedTask {
      */
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("taskId") String id, @JsonProperty("description") String description,
-                             @JsonProperty("customerId") String customerId, @JsonProperty("date") String date,
-                             @JsonProperty("driverId") String driverId, @JsonProperty("duration") String duration) {
+                           @JsonProperty("customerId") String customerId, @JsonProperty("date") String date,
+                           @JsonProperty("driverId") String driverId, @JsonProperty("duration") String duration,
+                           @JsonProperty("status") String status) {
         this.id = id;
         this.description = description;
         this.customerId = customerId;
         this.date = date;
         this.driverId = driverId;
         this.duration = duration;
+        this.status = status;
     }
 
     /**
@@ -87,7 +93,7 @@ public class JsonAdaptedTask {
         //SAME FOR DRIVER^
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                                                            Task.class.getSimpleName() + " ID"));
+                    Task.class.getSimpleName() + " ID"));
         }
         if (!Task.isValidId(id)) {
             throw new IllegalValueException(String.format(INVALID_INTEGER_ID, Task.class.getSimpleName() + " ID"));
@@ -96,7 +102,7 @@ public class JsonAdaptedTask {
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                                                            Description.class.getSimpleName()));
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -105,21 +111,22 @@ public class JsonAdaptedTask {
 
         if (customerId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                                                            Customer.class.getSimpleName() + " ID"));
+                    Customer.class.getSimpleName() + " ID"));
         }
         if (!Task.isValidId(customerId)) {
             throw new IllegalValueException(String.format(INVALID_INTEGER_ID, Customer.class.getSimpleName() + " ID"));
         }
-        //final Customer modelCustomer = new Customer();
+        //check if customer exists in the list
+        // final Customer modelCustomer = new Customer();
 
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                                                            LocalDate.class.getSimpleName()));
+                    LocalDate.class.getSimpleName()));
         }
         if (!ParserUtil.isValidDate(date)) {
             throw new IllegalValueException(INVALID_DATE_FORMAT);
         }
-        LocalDate modelDate = Task.getDateFromString(date);
+        final LocalDate modelDate = Task.getDateFromString(date);
 
         //driverId can be null
         if (driverId != null && !Task.isValidId(driverId)) {
@@ -140,6 +147,19 @@ public class JsonAdaptedTask {
         if (duration != null) {
             final EventTime modelEventTime = EventTime.parse(duration);
             task.setEventTime(Optional.of(modelEventTime));
+        }
+
+        //status cannot be null
+        if (status != null) {
+            throw new IllegalValueException(TaskStatus.MESSAGE_CONSTRAINTS);
+        }
+        if (status.equals(TaskStatus.INCOMPLETE.toString())) {
+            task.setStatus(TaskStatus.INCOMPLETE);
+        } else if (status.equals(TaskStatus.ON_GOING.toString())) {
+            task.setStatus(TaskStatus.ON_GOING);
+        } else {
+            //task is completed
+            task.setStatus(TaskStatus.COMPLETED);
         }
 
         return task;
