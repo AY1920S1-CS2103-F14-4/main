@@ -2,6 +2,8 @@ package seedu.address.model.person;
 
 import java.util.Set;
 
+import seedu.address.model.EventTime;
+import seedu.address.model.person.exceptions.SchedulingException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,6 +41,14 @@ public class Driver extends Person {
 
     public Schedule getSchedule() {
         return schedule;
+    }
+
+    public void deleteFromSchedule(EventTime durationToRemove) throws SchedulingException {
+        schedule.remove(durationToRemove);
+    }
+
+    public void addToSchedule(EventTime durationToAdd) throws SchedulingException {
+        schedule.add(durationToAdd);
     }
 
     /**

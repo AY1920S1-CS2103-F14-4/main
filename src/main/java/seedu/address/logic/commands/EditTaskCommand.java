@@ -19,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * Edits the details of an existing task in the task list.
@@ -46,6 +47,8 @@ public class EditTaskCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_NOTHING_TO_EDIT = "At least one field need to be different to edit.";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_DRIVER_DURATION_FIELD_CONSTRAINTS =
+            "Driver AND Duration field are compulsory IF driver was not assigned initially.";
 
     private final int id;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -71,8 +74,34 @@ public class EditTaskCommand extends Command {
             throw new CommandException(MESSAGE_NOTHING_TO_EDIT);
         }
 
-        //temp
-        //if driver is different, set driver to be free, and populate the other driver
+        //if original task doesn't have driver and eventTime
+        //throw error if ONLY 1 of the field is edited.
+        if ((editedTask.getDriver().isPresent() && editedTask.getEventTime().isEmpty())
+                || editedTask.getDriver().isEmpty() && editedTask.getEventTime().isPresent()) {
+            throw new CommandException(MESSAGE_DRIVER_DURATION_FIELD_CONSTRAINTS);
+        }
+
+        //if driver or duration has been changed, adjust their schedule accordingly.
+        if (taskToEdit.getStatus() == TaskStatus.ON_GOING) {
+            if (taskToEdit.getDriver() != editedTask.getDriver()
+                    || taskToEdit.getEventTime() != editedTask.getEventTime()) {
+                //disregard check for optional empty because if a task is ON_GOING, there MUST be a driver and duration.
+                Driver previousDriver = taskToEdit.getDriver().get();
+                previousDriver.deleteFromSchedule(taskToEdit.getEventTime().get());
+
+                Driver updatedDriver = editedTask.getDriver().get();
+                updatedDriver.addToSchedule(editedTask.getEventTime().get());
+
+            }
+
+        }
+
+        //if task was incomplete and was assigned driver and duration through edit command.
+        if (taskToEdit.getStatus() == TaskStatus.INCOMPLETE
+                && (editedTask.getDriver().isPresent() && editedTask.getEventTime().isPresent())) {
+            editedTask.setStatus(TaskStatus.ON_GOING);
+        }
+
         model.setTask(taskToEdit, editedTask);
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));

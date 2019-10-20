@@ -89,11 +89,6 @@ public class JsonAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task.
      */
     public Task toModelType(CustomerManager customerManager, DriverManager driverManager) throws IllegalValueException {
-        //temp
-        // id ok, description ok, customerId NOT OK, date OK,
-        //need to check against customerManager list if customer id valid
-        //then get the customer and input into task as parameter
-        //SAME FOR DRIVER^
         //Task ID ==================================================================================================
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
