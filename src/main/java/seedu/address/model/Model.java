@@ -120,5 +120,7 @@ public interface Model {
 
     Customer getCustomer(int customerId);
 
+    void viewDriverTask(Person driverToView);
+
     // driver manager
 }

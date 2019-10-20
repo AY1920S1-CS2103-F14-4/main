@@ -180,6 +180,11 @@ public class ModelManager implements Model {
         return customerManager.getCustomer(customerId);
     }
 
+    @Override
+    public void viewDriverTask(Person driverToView) {
+//
+    }
+
     // =========== Driver Manager
     // ===========================================================================
 
