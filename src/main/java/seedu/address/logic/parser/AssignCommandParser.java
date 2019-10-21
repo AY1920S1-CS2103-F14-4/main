@@ -51,11 +51,10 @@ public class AssignCommandParser implements Parser<AssignCommand> {
 
 
         String time = argMultimap.getValue(PREFIX_EVENT_TIME).orElseThrow(AssignCommandParser::getWrongFormatException);
-        String[] startEnd = time.split("-");
 
         EventTime proposed;
         try {
-            proposed = EventTime.parse(startEnd[0].trim(), startEnd[1].trim());
+            proposed = ParserUtil.parseEventTime(time);
         } catch (DateTimeParseException e) {
             throw getWrongFormatException();
         }

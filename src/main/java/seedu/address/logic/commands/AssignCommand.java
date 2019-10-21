@@ -64,7 +64,7 @@ public class AssignCommand extends Command {
         requireNonNull(model);
 
         if (!model.hasTask(taskId)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TASK_ID);
+            throw new CommandException(Task.MESSAGE_INVALID_ID);
         }
         if (!model.hasDriver(driverId)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
