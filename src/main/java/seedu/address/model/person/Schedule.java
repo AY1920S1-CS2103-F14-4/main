@@ -84,7 +84,7 @@ public class Schedule {
      * @return Optional of the earliest EventTime that can fit in the schedule; if the proposed time is already the
      * earliest, return an Optional of the proposed time; if no slot available, return an empty Optional.
      */
-    private Optional<EventTime> findFirstAvailableSlot(EventTime proposed) {
+    public Optional<EventTime> findFirstAvailableSlot(EventTime proposed) {
         Duration length = proposed.getDuration();
 
         EventTime lastCandidate = schedule.ceiling(proposed);
