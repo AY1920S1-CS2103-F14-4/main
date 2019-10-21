@@ -32,7 +32,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_EVENT_TIME = new Prefix("at/");
     public static final Prefix PREFIX_GOODS = new Prefix("g/");
 
-
     //Link Syntax to their respective classes
     public static final HashMap<String, String> PREFIX_CLASS_MAP = createPrefixClassMap();
 
