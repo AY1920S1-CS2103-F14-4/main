@@ -89,8 +89,8 @@ public class FreeCommand extends Command {
             return false;
         }
         FreeCommand that = (FreeCommand) o;
-        return driverId == that.driverId &&
-                taskId == that.taskId;
+        return driverId == that.driverId
+                && taskId == that.taskId;
     }
 
     @Override
