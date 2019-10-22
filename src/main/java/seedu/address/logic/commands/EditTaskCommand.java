@@ -36,9 +36,7 @@ public class EditTaskCommand extends Command {
             + "[TASK ID] "
             + "[" + PREFIX_GOODS + "DESCRIPTION] "
             + "[" + PREFIX_CUSTOMER + "CUSTOMER ID] "
-            + "[" + PREFIX_DATETIME + "DATE] "
-            + "[" + PREFIX_DRIVER + "DRIVER ID] "
-            + "[" + PREFIX_DURATION + "DURATION]\n"
+            + "[" + PREFIX_DATETIME + "DATE]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK + "2 "
             + PREFIX_GOODS + "10 ice boxes of red groupers "
@@ -47,8 +45,7 @@ public class EditTaskCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_NOTHING_TO_EDIT = "At least one field need to be different to edit.";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-    public static final String MESSAGE_DRIVER_DURATION_FIELD_CONSTRAINTS =
-            "Driver AND Duration field are compulsory IF driver was not assigned initially.";
+    public static final String MESSAGE_CANNOT_BE_EDITED = "Completed Task cannot be edited.";
 
     private final int id;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -68,54 +65,39 @@ public class EditTaskCommand extends Command {
         }
 
         Task taskToEdit = model.getTask(id);
+
+        //check task is completed, then it cannot be edited.
+        if (taskToEdit.getStatus() == TaskStatus.COMPLETED) {
+            throw new CommandException(MESSAGE_CANNOT_BE_EDITED);
+        }
+
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor, model);
 
         if (taskToEdit.isSameTask(editedTask)) {
             throw new CommandException(MESSAGE_NOTHING_TO_EDIT);
         }
 
-        //if original task doesn't have driver and eventTime
-        //throw error if ONLY 1 of the field is edited.
-        if ((editedTask.getDriver().isPresent() && editedTask.getEventTime().isEmpty())
-                || editedTask.getDriver().isEmpty() && editedTask.getEventTime().isPresent()) {
-            throw new CommandException(MESSAGE_DRIVER_DURATION_FIELD_CONSTRAINTS);
-        }
-
-        //if driver or duration has been changed, adjust their schedule accordingly.
-        if (taskToEdit.getStatus() == TaskStatus.ON_GOING) {
-            if (taskToEdit.getDriver() != editedTask.getDriver()
-                    || taskToEdit.getEventTime() != editedTask.getEventTime()) {
-                //disregard check for optional empty because if a task is ON_GOING, there MUST be a driver and duration.
-                Driver previousDriver = taskToEdit.getDriver().get();
-                previousDriver.deleteFromSchedule(taskToEdit.getEventTime().get());
-
-                Driver updatedDriver = editedTask.getDriver().get();
-                if (!updatedDriver.isScheduleAvailable(editedTask.getEventTime().get())) {
-                    previousDriver.addToSchedule(taskToEdit.getEventTime().get());
-                    throw new CommandException(String.format(Driver.MESSAGE_NOT_AVAILABLE, updatedDriver.getId()));
-                }
-
-                updatedDriver.addToSchedule(editedTask.getEventTime().get());
-            }
-
-        }
-
-        //if task was incomplete and was assigned driver and duration through edit command.
-        if (taskToEdit.getStatus() == TaskStatus.INCOMPLETE
-                && (editedTask.getDriver().isPresent() && editedTask.getEventTime().isPresent())) {
-            Driver updatedDriver = editedTask.getDriver().get();
-            EventTime durationToAdd = editedTask.getEventTime().get();
-            if (updatedDriver.isScheduleAvailable(durationToAdd)) {
-                throw new CommandException(String.format(Driver.MESSAGE_NOT_AVAILABLE, updatedDriver.getId()));
-            }
-            updatedDriver.addToSchedule(durationToAdd);
-
-            editedTask.setStatus(TaskStatus.ON_GOING);
-        }
+        //if date is changed, the schedule of the driver will be free too.
+        //task will become incomplete
+        freeDriverIfDateIsChanged(taskToEdit, editedTask);
 
         model.setTask(taskToEdit, editedTask);
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+    }
+
+    /**
+     * Empty Driver's schedule if the date of delivery has been changed.
+     *
+     * @param taskToEdit original task.
+     * @param editedTask updated task.
+     */
+    private static void freeDriverIfDateIsChanged(Task taskToEdit, Task editedTask) {
+        if (taskToEdit.getDate() != editedTask.getDate() && taskToEdit.getDriver().isPresent()) {
+            Driver driver = taskToEdit.getDriver().get();
+            driver.deleteFromSchedule(taskToEdit.getEventTime().get());
+            editedTask.setStatus(TaskStatus.INCOMPLETE);
+        }
     }
 
     /**
@@ -146,31 +128,12 @@ public class EditTaskCommand extends Command {
 
         LocalDate updatedDate = editTaskDescriptor.getDate().orElse(taskToEdit.getDate());
 
-        //check if driver id provided is valid
-        Optional<Integer> driverId = editTaskDescriptor.getDriver();
-        if (driverId.isPresent() && !model.hasDriver(driverId.get())) {
-            throw new CommandException(Driver.MESSAGE_INVALID_ID);
-        }
-
-        Optional<Driver> updatedDriver;
-        if (driverId.isPresent()) {
-            //get the new customer to be assigned from customer list.
-            int updatedDriverId = driverId.get();
-            updatedDriver = model.getDriver(updatedDriverId);
-        } else {
-            //get the original customer that is assigned to the task.
-            updatedDriver = taskToEdit.getDriver();
-        }
-
-        Optional<EventTime> updatedEventTime = editTaskDescriptor.getEventTime();
-        if (updatedEventTime.isEmpty()) {
-            updatedEventTime = taskToEdit.getEventTime();
-        }
-
         Task editedTask = new Task(taskToEdit.getId(), updatedDescription, updatedDate);
         editedTask.setCustomer(updatedCustomer);
-        editedTask.setDriver(updatedDriver);
-        editedTask.setEventTime(updatedEventTime);
+
+        //use the original driver and eventTime, no changes made to them.
+        editedTask.setDriver(taskToEdit.getDriver());
+        editedTask.setEventTime(taskToEdit.getEventTime());
 
         editedTask.setStatus(taskToEdit.getStatus());
 
