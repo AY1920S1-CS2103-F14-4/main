@@ -52,7 +52,7 @@ public class FreeCommand extends Command {
         assert task.getEventTime().isPresent();
 
         // remove the task from driver's schedule
-        boolean isFreed = driver.free(task.getEventTime().get());
+        boolean isFreed = driver.deleteFromSchedule(task.getEventTime().get());
         assert isFreed;
 
         // remove driver from the task
