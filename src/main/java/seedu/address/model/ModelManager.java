@@ -26,6 +26,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
+import seedu.address.storage.CentralManager;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -57,12 +58,21 @@ public class ModelManager implements Model {
         this.taskManager = new TaskManager();
         this.customerManager = new CustomerManager();
         this.driverManager = new DriverManager();
+    }
 
-        // temp
-        // to test the task commands
-        Customer testCustomer = new Customer(new Name("Alesx Yeoh"), new Phone("87438807"),
-                new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());
-        customerManager.addPerson(testCustomer);
+    public ModelManager(CentralManager centralManager, ReadOnlyUserPrefs userPrefs) {
+        super();
+        requireAllNonNull(centralManager, userPrefs);
+
+        logger.fine("Initializing with central manager: " + centralManager + " and user prefs " + userPrefs);
+
+        this.addressBook = null;
+        this.userPrefs = new UserPrefs(userPrefs);
+        filteredPersons = null;
+
+        this.customerManager = centralManager.getCustomerManager();
+        this.driverManager = centralManager.getDriverManager();
+        this.taskManager = centralManager.getTaskManager();
     }
 
     public ModelManager() {
@@ -172,6 +182,10 @@ public class ModelManager implements Model {
 
     // =========== Customer Manager ===========================================================================
 
+    public CustomerManager getCustomerManager() {
+        return customerManager;
+    }
+
     public boolean hasCustomer(int customerId) {
         return customerManager.hasCustomer(customerId);
     }
@@ -181,6 +195,10 @@ public class ModelManager implements Model {
     }
 
     // =========== Driver Manager ===========================================================================
+
+    public DriverManager getDriverManager() {
+        return driverManager;
+    }
 
     public boolean hasDriver(int driverId) {
         return driverManager.hasDriver(driverId);

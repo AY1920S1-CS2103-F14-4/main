@@ -23,7 +23,9 @@ import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.CentralManager;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonManagerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -56,8 +58,9 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        //AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        JsonManagerStorage jsonManagerStorage = new JsonManagerStorage(userPrefs.getAddressBookFilePath());
+        storage = new StorageManager(jsonManagerStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -75,22 +78,36 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        //ReadOnlyAddressBook initialData;
+        CentralManager initialManagerData;
+
+        Optional<CentralManager> centralManagerOptional;
         try {
+            centralManagerOptional = storage.readManager();
+            if (!centralManagerOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+
+            /*
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            */
+
+            //initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialManagerData = centralManagerOptional.orElseGet(SampleDataUtil::getSampleCentralManager);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            //initialData = new AddressBook();
+            initialManagerData = new CentralManager();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            //initialData = new AddressBook();
+            initialManagerData = new CentralManager();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialManagerData, userPrefs);
     }
 
     private void initLogging(Config config) {

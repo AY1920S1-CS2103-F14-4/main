@@ -33,4 +33,13 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook, TaskManager taskManager) throws IOException;
 
+    Path getManagerFilePath();
+
+    Optional<CentralManager> readManager() throws DataConversionException, IOException;
+
+    Optional<CentralManager> readManager(Path filePath) throws DataConversionException, IOException;
+
+    void saveManager(CentralManager centralManager) throws IOException;
+
+    void saveManager(CentralManager centralManager, Path filePath) throws IOException;
 }

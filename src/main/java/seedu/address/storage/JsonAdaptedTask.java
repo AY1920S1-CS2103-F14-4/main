@@ -44,6 +44,7 @@ public class JsonAdaptedTask {
      * Converts a given {@code Task} into this class for Jackson use.
      */
     public JsonAdaptedTask(Task task) {
+        System.out.println(task);
         id = String.valueOf(task.getId());
         description = task.getDescription().getValue();
         customerId = String.valueOf(task.getCustomer().getId());
@@ -64,6 +65,7 @@ public class JsonAdaptedTask {
         }
 
         status = task.getStatus().toString();
+        System.out.println("Task complete");
     }
 
     /**

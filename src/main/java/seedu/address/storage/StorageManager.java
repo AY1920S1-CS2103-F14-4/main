@@ -21,9 +21,17 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
+    private JsonManagerStorage jsonManagerStorage;
+
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
+        this.userPrefsStorage = userPrefsStorage;
+    }
+
+    public StorageManager(JsonManagerStorage jsonManagerStorage, UserPrefsStorage userPrefsStorage) {
+        super();
+        this.jsonManagerStorage = jsonManagerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -71,6 +79,35 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    // ================ Managers methods ===============================
+
+    @Override
+    public Path getManagerFilePath() {
+        return jsonManagerStorage.getManagerFilePath();
+    }
+
+    @Override
+    public Optional<CentralManager> readManager() throws DataConversionException, IOException {
+        return readManager(jsonManagerStorage.getManagerFilePath());
+    }
+
+    @Override
+    public Optional<CentralManager> readManager(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return jsonManagerStorage.readManager(filePath);
+    }
+
+    @Override
+    public void saveManager(CentralManager centralManager) throws IOException {
+        saveManager(centralManager, jsonManagerStorage.getManagerFilePath());
+    }
+
+    @Override
+    public void saveManager(CentralManager centralManager, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        jsonManagerStorage.saveManager(centralManager, filePath);
     }
 
     // Includes saving task manager

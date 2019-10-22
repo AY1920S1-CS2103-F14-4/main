@@ -17,11 +17,13 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.DriverManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.CustomerManager;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
@@ -189,12 +191,22 @@ public class AddCommandTest {
         };
 
         @Override
+        public CustomerManager getCustomerManager() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
         public boolean hasCustomer(int customerId) {
             throw new AssertionError("This method should not be called.");
         };
 
         @Override
         public Customer getCustomer(int customerId) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public DriverManager getDriverManager() {
             throw new AssertionError("This method should not be called.");
         };
 
