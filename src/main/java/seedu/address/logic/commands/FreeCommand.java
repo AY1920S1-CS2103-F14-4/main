@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
@@ -77,5 +78,23 @@ public class FreeCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_FREE_SUCCESS, task.getId(), driver.getName().fullName));
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        FreeCommand that = (FreeCommand) o;
+        return driverId == that.driverId &&
+                taskId == that.taskId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(driverId, taskId);
     }
 }
