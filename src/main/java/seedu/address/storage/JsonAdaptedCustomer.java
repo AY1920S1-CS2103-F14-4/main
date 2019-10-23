@@ -20,6 +20,8 @@ import seedu.address.model.tag.Tag;
  */
 public class JsonAdaptedCustomer extends JsonAdaptedPerson {
 
+    public static final String INVALID_INTEGER_ID = "Customer has a invalid integer id.";
+
     private final String id;
 
     /**
@@ -59,7 +61,11 @@ public class JsonAdaptedCustomer extends JsonAdaptedPerson {
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }
+        if (!Customer.isValidId(id)) {
+            throw new IllegalValueException(String.format(INVALID_INTEGER_ID));
+        }
+        final int customerId = Integer.parseInt(id);
 
-        return new Customer(modelName, modelPhone, modelEmail, modelAddress, modelTags, id);
+        return new Customer(modelName, modelPhone, modelEmail, modelAddress, modelTags, customerId);
     }
 }

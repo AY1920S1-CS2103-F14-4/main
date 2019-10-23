@@ -31,17 +31,32 @@ public class Customer extends Person {
         id = ++idCount;
     }
 
-    public Customer(Name name, Phone phone, Email email, Address address, Set<Tag> tags, String id) {
+    public Customer(Name name, Phone phone, Email email, Address address, Set<Tag> tags, int id) {
         super(name, phone, email, address, tags);
-        this.id = Integer.parseInt(id);
+        this.id = id;
     }
 
     public int getIdCount() {
         return idCount;
     }
 
+    @Override
     public int getId() {
         return id;
+    }
+
+    /**
+     * Checks if {@code String id} can be parse into an integer and must be more than 0.
+     *
+     * @param id a unique number in string.
+     */
+    public static boolean isValidId(String id) {
+        try {
+            int tempInt = Integer.parseInt(id);
+            return (tempInt > 0);
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     /**

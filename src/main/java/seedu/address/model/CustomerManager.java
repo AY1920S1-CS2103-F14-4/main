@@ -36,5 +36,5 @@ public class CustomerManager extends EntityManager<Customer> {
         return getPersonList()
                 .stream()
                 .anyMatch(customer -> customer.getId() == customerId);
-    }   
+    }
 }
