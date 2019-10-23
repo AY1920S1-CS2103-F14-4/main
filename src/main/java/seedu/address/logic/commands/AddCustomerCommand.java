@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.Person;
 
 
 
@@ -39,16 +38,16 @@ public class AddCustomerCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New Customer added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This Customer already exists.";
 
-    private final Person toAdd;
+    private final Customer toAdd;
     private final int toAddId;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCustomerCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
-        this.toAddId = person.getId();
+    public AddCustomerCommand(Customer customer) {
+        requireNonNull(customer);
+        toAdd = customer;
+        this.toAddId = customer.getId();
     }
 
     @Override
@@ -59,7 +58,7 @@ public class AddCustomerCommand extends Command {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON));
         }
 
-        model.addCustomer((Customer) toAdd);
+        model.addCustomer(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Driver;
-import seedu.address.model.person.Person;
 
 
 
@@ -39,16 +38,16 @@ public class AddDriverCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New Driver added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This Driver already exists.";
 
-    private final Person toAdd;
+    private final Driver toAdd;
     private final int toAddId;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddDriverCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
-        this.toAddId = person.getId();
+    public AddDriverCommand(Driver driver) {
+        requireNonNull(driver);
+        toAdd = driver;
+        this.toAddId = driver.getId();
     }
 
     @Override
@@ -59,7 +58,7 @@ public class AddDriverCommand extends Command {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON));
         }
 
-        model.addDriver((Driver) toAdd);
+        model.addDriver(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

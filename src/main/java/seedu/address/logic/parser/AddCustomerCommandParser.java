@@ -60,22 +60,4 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
-    /**
-     * Returns the first prefix in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static Prefix getPrefixPresent(ArgumentMultimap argumentMultimap,
-                                           Prefix... prefixes) throws ParseException {
-        Optional<Prefix> prefixFound = Stream
-                                            .of(prefixes)
-                                            .filter(prefix -> argumentMultimap.getValue(prefix).isPresent())
-                                            .findFirst();
-        if (prefixFound.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddCustomerCommand.MESSAGE_USAGE));
-        }
-
-        return prefixFound.get();
-    }
 }
