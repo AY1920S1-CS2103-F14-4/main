@@ -36,27 +36,5 @@ public class CustomerManager extends EntityManager<Customer> {
         return getPersonList()
                 .stream()
                 .anyMatch(customer -> customer.getId() == customerId);
-    }
-
-    /**
-     * Retrieves idCount of Customer class.
-     */
-    public int getIdCount() {
-        return getPersonList()
-                .stream()
-                .findAny()
-                .get()
-                .getIdCount();
-    }
-
-    /**
-     * Retrieves idCount of Customer class.
-     */
-    public void setIdCount(int idCount) {
-        getPersonList()
-                .stream()
-                .findAny()
-                .get()
-                .setIdCount(idCount);
-    }
+    }   
 }

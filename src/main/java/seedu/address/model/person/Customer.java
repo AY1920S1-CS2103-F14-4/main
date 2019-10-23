@@ -40,11 +40,6 @@ public class Customer extends Person {
         return idCount;
     }
 
-    public void setIdCount(int idCount) {
-        Customer.idCount = idCount;
-    }
-
-    @Override
     public int getId() {
         return id;
     }
