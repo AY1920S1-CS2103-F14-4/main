@@ -66,6 +66,6 @@ public class JsonAdaptedCustomer extends JsonAdaptedPerson {
         }
         final int customerId = Integer.parseInt(id);
 
-        return new Customer(modelName, modelPhone, modelEmail, modelAddress, modelTags, customerId);
+        return new Customer(customerId, modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
 }

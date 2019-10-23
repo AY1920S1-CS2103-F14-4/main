@@ -27,6 +27,12 @@ public class Driver extends Person {
         idCount++;
     }
 
+    public Driver (int id, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        super(name, phone, email, address, tags);
+        schedule = new Schedule();
+        this.id = id;
+    }
+
     public int getIdCount() {
         return idCount;
     }

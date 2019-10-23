@@ -31,7 +31,7 @@ public class Customer extends Person {
         id = ++idCount;
     }
 
-    public Customer(Name name, Phone phone, Email email, Address address, Set<Tag> tags, int id) {
+    public Customer(int id, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
         this.id = id;
     }
