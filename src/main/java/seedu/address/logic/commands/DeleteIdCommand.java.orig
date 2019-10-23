@@ -7,12 +7,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+<<<<<<< HEAD
 import seedu.address.model.person.Customer;
+=======
+>>>>>>> master
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
-
-import java.util.Optional;
 
 /**
  * Deletes an entity using it's unique id from its list.

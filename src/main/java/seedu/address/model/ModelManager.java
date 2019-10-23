@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -67,18 +68,17 @@ public class ModelManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    // =========== UserPrefs
-    // ==================================================================================
+    // =========== UserPrefs ==================================================================================
+
+    @Override
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
+    }
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
-    }
-
-    @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
     }
 
     @Override
@@ -103,18 +103,18 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    // =========== AddressBook
-    // ================================================================================
+    // =========== AddressBook ================================================================================
+
+    @Override
+    public ReadOnlyAddressBook getAddressBook() {
+        return addressBook;
+    }
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
     }
 
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
 
     @Override
     public boolean hasPerson(Person person) {
@@ -140,8 +140,8 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    // =========== Task Manager
-    // ===============================================================================
+    // =========== Task Manager ===============================================================================
+
     public void addTask(Task task) {
         taskManager.addTask(task);
     }
@@ -158,8 +158,8 @@ public class ModelManager implements Model {
         return taskManager.hasTask(taskId);
     }
 
-    public void setTask(Task task) {
-        taskManager.setTask(task);
+    public void setTask(Task taskToEdit, Task editedTask) {
+        taskManager.setTask(taskToEdit, editedTask);
     }
 
     public TaskManager getTaskManager() {
@@ -170,8 +170,8 @@ public class ModelManager implements Model {
         return taskManager.getTask(taskId);
     }
 
-    // =========== Customer Manager
-    // ===========================================================================
+    // =========== Customer Manager ===========================================================================
+
     public boolean hasCustomer(int customerId) {
         return customerManager.hasCustomer(customerId);
     }
@@ -188,10 +188,14 @@ public class ModelManager implements Model {
         customerManager.removePerson(customer);
     }
 
-    // =========== Driver Manager
-    // ===========================================================================
+    // =========== Driver Manager ===========================================================================
+
     public boolean hasDriver(int driverId) {
         return driverManager.hasDriver(driverId);
+    };
+
+    public Optional<Driver> getOptionalDriver(int driverId) {
+        return driverManager.getOptionalDriver(driverId);
     }
 
     public Driver getDriver(int driverId) {
@@ -199,15 +203,14 @@ public class ModelManager implements Model {
     }
 
     public void addDriver(Driver driver) {
-        driverManager.addPerson(driver);
+        driverManager.addDriver(driver);
     }
 
     public void deleteDriver(Driver driver) {
-        driverManager.removePerson(driver);
+        driverManager.deleteDriver(driver);
     }
 
-    // =========== Filtered Person List Accessors
-    // =============================================================
+    // =========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the
