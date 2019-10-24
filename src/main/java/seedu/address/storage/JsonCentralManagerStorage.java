@@ -18,13 +18,13 @@ import seedu.address.commons.util.JsonUtil;
  * CentralManager contains all the managers needed such as Customer Manager, Driver Manager
  * and Task Manager.
  */
-public class JsonManagerStorage {
+public class JsonCentralManagerStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonManagerStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonCentralManagerStorage.class);
 
     private Path filePath;
 
-    public JsonManagerStorage(Path filePath) {
+    public JsonCentralManagerStorage(Path filePath) {
         this.filePath = filePath;
     }
 

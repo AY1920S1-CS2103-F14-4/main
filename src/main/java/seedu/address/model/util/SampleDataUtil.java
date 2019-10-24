@@ -13,7 +13,7 @@ import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerManager;
+import seedu.address.model.CustomerManager;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -56,10 +56,10 @@ public class SampleDataUtil {
         //temp
         //need to change after customer constructor has a id parameter
         return new Customer[]{
-                new Customer(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                new Customer(1, new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                         new Address("Blk 30 Geylang Street 29, #06-40"),
                         getTagSet("customer")),
-                new Customer(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+                new Customer(2, new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                         new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                         getTagSet("customers"))
         };
@@ -69,10 +69,10 @@ public class SampleDataUtil {
         //temp
         //need to change after driver constructor has a id parameter
         return new Driver[]{
-                new Driver(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+                new Driver(1, new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                         new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                         getTagSet("driver")),
-                new Driver(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+                new Driver(2, new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                         new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                         getTagSet("driver")),
         };
@@ -82,7 +82,7 @@ public class SampleDataUtil {
         Task sampleTask1 = new Task(1, new Description("20 frozen boxes of Red groupers"),
                 LocalDate.of(2019, 10, 10));
         sampleTask1.setCustomer(customerManager.getCustomer(1));
-        sampleTask1.setDriver(driverManager.getDriver(1));
+        sampleTask1.setDriver(Optional.of(driverManager.getDriver(1)));
         sampleTask1.setEventTime(Optional.of(EventTime.parse("1000 - 1200")));
         sampleTask1.setStatus(TaskStatus.COMPLETED);
 
@@ -93,9 +93,9 @@ public class SampleDataUtil {
         Task sampleTask3 = new Task(3, new Description("25 packs of frozen chicken wings"),
                 LocalDate.now());
         sampleTask1.setCustomer(customerManager.getCustomer(1));
-        sampleTask1.setDriver(driverManager.getDriver(1));
+        sampleTask1.setDriver(Optional.of(driverManager.getDriver(1)));
         //populate the schedule of driver
-        driverManager.getDriver(1).get().addToSchedule(EventTime.parse("1000 - 1200"));
+        driverManager.getDriver(1).addToSchedule(EventTime.parse("1000 - 1200"));
         sampleTask1.setEventTime(Optional.of(EventTime.parse("1000 - 1200")));
 
         return new Task[]{sampleTask1, sampleTask2, sampleTask3};

@@ -22,7 +22,7 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
-    private JsonManagerStorage jsonManagerStorage;
+    private JsonCentralManagerStorage jsonCentralManagerStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
@@ -30,9 +30,9 @@ public class StorageManager implements Storage {
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(JsonManagerStorage jsonManagerStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(JsonCentralManagerStorage jsonCentralManagerStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.jsonManagerStorage = jsonManagerStorage;
+        this.jsonCentralManagerStorage = jsonCentralManagerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -86,29 +86,29 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getManagerFilePath() {
-        return jsonManagerStorage.getManagerFilePath();
+        return jsonCentralManagerStorage.getManagerFilePath();
     }
 
     @Override
     public Optional<CentralManager> readManager() throws DataConversionException, IOException {
-        return readManager(jsonManagerStorage.getManagerFilePath());
+        return readManager(jsonCentralManagerStorage.getManagerFilePath());
     }
 
     @Override
     public Optional<CentralManager> readManager(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return jsonManagerStorage.readManager(filePath);
+        return jsonCentralManagerStorage.readManager(filePath);
     }
 
     @Override
     public void saveManager(CentralManager centralManager) throws IOException {
-        saveManager(centralManager, jsonManagerStorage.getManagerFilePath());
+        saveManager(centralManager, jsonCentralManagerStorage.getManagerFilePath());
     }
 
     @Override
     public void saveManager(CentralManager centralManager, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        jsonManagerStorage.saveManager(centralManager, filePath);
+        jsonCentralManagerStorage.saveManager(centralManager, filePath);
     }
 
     // Includes saving task manager & customer manager

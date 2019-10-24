@@ -94,18 +94,6 @@ public class Driver extends Person {
                 && otherDriver.getTags().equals(getTags());
     }
 
-    public void deleteFromSchedule(EventTime durationToRemove) throws SchedulingException {
-        schedule.remove(durationToRemove);
-    }
-
-    public void addToSchedule(EventTime durationToAdd) throws SchedulingException {
-        schedule.add(durationToAdd);
-    }
-
-    public boolean isScheduleAvailable(EventTime durationToAdd) {
-        return schedule.isAvailable(durationToAdd);
-    }
-
     /**
      * Returns a string representation of the driver, with identity fields visible to the user.
      *
