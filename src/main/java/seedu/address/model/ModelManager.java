@@ -174,6 +174,30 @@ public class ModelManager implements Model {
         return taskManager.getTask(taskId);
     }
 
+    /**
+     * Checks if driver is allocated to any task.
+     */
+    public boolean hasTaskBelongsToDriver(Driver driver) {
+        return taskManager.getList()
+                .stream()
+                .anyMatch(task -> {
+                    if (task.getDriver().isEmpty()) {
+                        return false;
+                    }
+
+                    return task.getDriver().get().equals(driver);
+                });
+    }
+
+    /**
+     * Checks if customer is allocated to any task.
+     */
+    public boolean hasTaskBelongsToCustomer(Customer customer) {
+        return taskManager.getList()
+                .stream()
+                .anyMatch(task -> task.getCustomer().equals(customer));
+    }
+
     // =========== Customer Manager ===========================================================================
     public boolean hasCustomer(Customer customer) {
         return customerManager.hasPerson(customer);
@@ -206,7 +230,7 @@ public class ModelManager implements Model {
 
     public boolean hasDriver(int driverId) {
         return driverManager.hasDriver(driverId);
-    };
+    }
 
     public void setDriver(Driver driverToEdit, Driver editedDriver) {
         driverManager.setDriver(driverToEdit, editedDriver);
