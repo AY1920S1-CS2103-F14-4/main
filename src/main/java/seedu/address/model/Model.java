@@ -1,14 +1,14 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerManager;
+import seedu.address.model.CustomerManager;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
@@ -22,6 +22,8 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
+    Predicate<Driver> PREDICATE_SHOW_ALL_DRIVERS = unused -> true;
 
     /**
      * Returns the user prefs.
@@ -117,19 +119,47 @@ public interface Model {
 
     TaskManager getTaskManager();
 
+    boolean hasTaskBelongsToDriver(Driver driver);
+
+    boolean hasTaskBelongsToCustomer(Customer customer);
+
     // customer manager
 
     CustomerManager getCustomerManager();
+
+    boolean hasCustomer(Customer customer);
 
     boolean hasCustomer(int customerId);
 
     Customer getCustomer(int customerId);
 
+    void setCustomer(Customer customerToEdit, Customer editedTask);
+
+    void updateFilteredCustomerList(Predicate<Customer> predicate);
+
+    ObservableList<Customer> getFilteredCustomerList();
+
+    void addCustomer(Customer customer);
+
+    void deleteCustomer(Customer customer);
+
     // driver manager
 
     DriverManager getDriverManager();
 
+    boolean hasDriver(Driver driver);
+
     boolean hasDriver(int driverId);
 
-    Optional<Driver> getDriver(int driverId);
+    Driver getDriver(int driverId);
+
+    void setDriver(Driver driverToEdit, Driver editedTask);
+
+    void updateFilteredDriverList(Predicate<Driver> predicate);
+
+    ObservableList<Driver> getFilteredDriverList();
+
+    void addDriver(Driver driver);
+
+    void deleteDriver(Driver driver);
 }

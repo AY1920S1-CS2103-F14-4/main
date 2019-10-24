@@ -122,7 +122,7 @@ public class EditCommand extends Command {
 
     /**
      * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * corresponding field value of the persgit on.
      */
     public static class EditPersonDescriptor {
         private Name name;

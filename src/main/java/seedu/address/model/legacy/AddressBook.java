@@ -5,12 +5,16 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.person.Person;
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
+ *
+ * @deprecated use the generic {@code EntityManager} instead
  */
+@Deprecated
 public class AddressBook implements ReadOnlyAddressBook {
 
     protected UniquePersonList persons;

@@ -5,19 +5,18 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerManager;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -37,6 +36,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Customer> filteredCustomers;
+    private final FilteredList<Driver> filteredDrivers;
 
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
@@ -57,7 +58,9 @@ public class ModelManager implements Model {
 
         this.taskManager = new TaskManager();
         this.customerManager = new CustomerManager();
+        filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         this.driverManager = new DriverManager();
+        filteredDrivers = new FilteredList<>(driverManager.getDriverList());
     }
 
     public ModelManager(CentralManager centralManager, ReadOnlyUserPrefs userPrefs) {
@@ -73,6 +76,9 @@ public class ModelManager implements Model {
         this.customerManager = centralManager.getCustomerManager();
         this.driverManager = centralManager.getDriverManager();
         this.taskManager = centralManager.getTaskManager();
+
+        filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
+        filteredDrivers = new FilteredList<>(driverManager.getDriverList());
     }
 
     public ModelManager() {
@@ -82,14 +88,14 @@ public class ModelManager implements Model {
     // =========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -117,14 +123,15 @@ public class ModelManager implements Model {
     // =========== AddressBook ================================================================================
 
     @Override
+    public ReadOnlyAddressBook getAddressBook() {
+        return addressBook;
+    }
+
+    @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
     }
 
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
 
     @Override
     public boolean hasPerson(Person person) {
@@ -180,7 +187,34 @@ public class ModelManager implements Model {
         return taskManager.getTask(taskId);
     }
 
+    /**
+     * Checks if driver is allocated to any task.
+     */
+    public boolean hasTaskBelongsToDriver(Driver driver) {
+        return taskManager.getList()
+                .stream()
+                .anyMatch(task -> {
+                    if (task.getDriver().isEmpty()) {
+                        return false;
+                    }
+
+                    return task.getDriver().get().equals(driver);
+                });
+    }
+
+    /**
+     * Checks if customer is allocated to any task.
+     */
+    public boolean hasTaskBelongsToCustomer(Customer customer) {
+        return taskManager.getList()
+                .stream()
+                .anyMatch(task -> task.getCustomer().equals(customer));
+    }
+
     // =========== Customer Manager ===========================================================================
+    public boolean hasCustomer(Customer customer) {
+        return customerManager.hasPerson(customer);
+    }
 
     public CustomerManager getCustomerManager() {
         return customerManager;
@@ -190,11 +224,26 @@ public class ModelManager implements Model {
         return customerManager.hasCustomer(customerId);
     }
 
+    public void setCustomer(Customer customerToEdit, Customer editedCustomer) {
+        customerManager.setCustomer(customerToEdit, editedCustomer);
+    }
+
     public Customer getCustomer(int customerId) {
         return customerManager.getCustomer(customerId);
     }
 
+    public void addCustomer(Customer customer) {
+        customerManager.addPerson(customer);
+    }
+
+    public void deleteCustomer(Customer customer) {
+        customerManager.removePerson(customer);
+    }
+
     // =========== Driver Manager ===========================================================================
+    public boolean hasDriver(Driver driver) {
+        return driverManager.hasDriver(driver);
+    }
 
     public DriverManager getDriverManager() {
         return driverManager;
@@ -204,8 +253,20 @@ public class ModelManager implements Model {
         return driverManager.hasDriver(driverId);
     }
 
-    public Optional<Driver> getDriver(int driverId) {
+    public void setDriver(Driver driverToEdit, Driver editedDriver) {
+        driverManager.setDriver(driverToEdit, editedDriver);
+    }
+
+    public Driver getDriver(int driverId) {
         return driverManager.getDriver(driverId);
+    }
+
+    public void addDriver(Driver driver) {
+        driverManager.addDriver(driver);
+    }
+
+    public void deleteDriver(Driver driver) {
+        driverManager.deleteDriver(driver);
     }
 
     // =========== Filtered Person List Accessors =============================================================
@@ -220,9 +281,31 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return filteredCustomers;
+    }
+
+    @Override
+    public ObservableList<Driver> getFilteredDriverList() {
+        return filteredDrivers;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+        requireNonNull(predicate);
+        filteredCustomers.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredDriverList(Predicate<Driver> predicate) {
+        requireNonNull(predicate);
+        filteredDrivers.setPredicate(predicate);
     }
 
     @Override

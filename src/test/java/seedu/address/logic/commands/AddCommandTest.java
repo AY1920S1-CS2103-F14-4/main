@@ -9,7 +9,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -23,12 +22,13 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerManager;
+import seedu.address.model.CustomerManager;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
 import seedu.address.testutil.PersonBuilder;
+
 
 public class AddCommandTest {
 
@@ -196,6 +196,21 @@ public class AddCommandTest {
         };
 
         @Override
+        public boolean hasTaskBelongsToDriver(Driver driver) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public boolean hasTaskBelongsToCustomer(Customer customer) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public boolean hasCustomer(Customer customer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCustomer(int customerId) {
             throw new AssertionError("This method should not be called.");
         };
@@ -211,15 +226,64 @@ public class AddCommandTest {
         };
 
         @Override
+        public void setCustomer(Customer customerToEdit, Customer editedCustomer) {
+
+        }
+
+        @Override
+        public void addCustomer(Customer customer) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Customer> getFilteredCustomerList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void deleteCustomer(Customer customer) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public boolean hasDriver(Driver driver) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasDriver(int driverId) {
             throw new AssertionError("This method should not be called.");
         };
 
         @Override
-        public Optional<Driver> getDriver(int driverId) {
+        public void setDriver(Driver driverToEdit, Driver editedDriver) {
             throw new AssertionError("This method should not be called.");
         };
 
+        @Override
+        public Driver getDriver(int driverId) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void addDriver(Driver driver) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        public void updateFilteredDriverList(Predicate<Driver> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Driver> getFilteredDriverList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void deleteDriver(Driver driver) {
+            throw new AssertionError("This method should not be called.");
+        };
     }
 
     /**

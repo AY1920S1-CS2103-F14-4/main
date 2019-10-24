@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
@@ -29,9 +30,10 @@ public class DeleteIdCommand extends Command {
             + "Example 2: " + COMMAND_WORD + " "
             + PREFIX_CUSTOMER + " 2";
 
-    public static final String MESSAGE_INVALID_TASK_ID = "Invalid task id.";
-
+    public static final String MESSAGE_INVALID_ID = "Invalid %1$s id.";
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted %1$s: %2$s";
+    public static final String MESSAGE_CANNOT_DELETE_IF_ALLOCATED =
+            "This %1$s has already been allocated to a Task, therefore, cannot delete";
 
     private final String className;
     private final int id;
@@ -48,7 +50,7 @@ public class DeleteIdCommand extends Command {
         if (className.equals(Task.class.getSimpleName())) {
             //deletion for Task
             if (!model.hasTask(id)) {
-                throw new CommandException(MESSAGE_INVALID_TASK_ID);
+                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
             }
 
             Task taskToDelete = model.getTask(id);
@@ -57,17 +59,43 @@ public class DeleteIdCommand extends Command {
             if (taskToDelete.getStatus() == TaskStatus.ON_GOING) {
                 //disregard check for optional empty because if a task is ON_GOING, there MUST be a driver and duration.
                 Driver driver = taskToDelete.getDriver().get();
-                driver.deleteFromSchedule(taskToDelete.getEventTime().get());
+                boolean isDeleteSuccess = driver.deleteFromSchedule(taskToDelete.getEventTime().get());
+                assert isDeleteSuccess;
             }
 
             model.deleteTask(taskToDelete);
 
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className, taskToDelete));
-        } else {
-            //temp
+        } else if (className.equals(Customer.class.getSimpleName())) {
             //deletion for Customer
+            if (!model.hasCustomer(id)) {
+                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
+            }
+
+            Customer customerToDelete = model.getCustomer(id);
+
+            //if customer is already allocated to a task, whether complete or incomplete
+            if (model.hasTaskBelongsToCustomer(customerToDelete)) {
+                throw new CommandException(String.format(MESSAGE_CANNOT_DELETE_IF_ALLOCATED, className));
+            }
+
+            model.deleteCustomer(customerToDelete);
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className, customerToDelete));
+        } else {
             //deletion for Driver
-            return new CommandResult("temp");
+            if (!model.hasDriver(id)) {
+                throw new CommandException(String.format(MESSAGE_CANNOT_DELETE_IF_ALLOCATED, className));
+            }
+
+            Driver driverToDelete = model.getDriver(id);
+
+            //if driver is already allocated to a task, whether complete or incomplete
+            if (model.hasTaskBelongsToDriver(driverToDelete)) {
+                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
+            }
+
+            model.deleteDriver(driverToDelete);
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className, driverToDelete));
         }
     }
 }

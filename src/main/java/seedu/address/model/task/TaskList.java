@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.id.IdManager;
 import seedu.address.model.task.execeptions.TaskNotFoundException;
 
 /**
@@ -19,15 +20,10 @@ import seedu.address.model.task.execeptions.TaskNotFoundException;
  */
 public class TaskList {
 
-    private static int lastTaskId = 0;
     private final ObservableList<Task> tasks = FXCollections.observableArrayList();
     private final ObservableList<Task> tasksUnmodifiable = FXCollections.unmodifiableObservableList(tasks);
 
     public TaskList() {
-    }
-
-    public static int getLastTaskId() {
-        return lastTaskId;
     }
 
     public int getSize() {
@@ -79,7 +75,7 @@ public class TaskList {
         requireNonNull(newTask);
         tasks.add(newTask);
 
-        lastTaskId++;
+        IdManager.lastTaskIdPlusOne();
     }
 
     /**

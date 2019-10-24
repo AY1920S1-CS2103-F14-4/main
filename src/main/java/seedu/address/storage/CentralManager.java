@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import seedu.address.model.DriverManager;
-import seedu.address.model.person.CustomerManager;
+import seedu.address.model.CustomerManager;
 import seedu.address.model.task.TaskManager;
 
 public class CentralManager {
