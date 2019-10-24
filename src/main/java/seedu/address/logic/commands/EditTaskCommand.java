@@ -44,6 +44,7 @@ public class EditTaskCommand extends Command {
     public static final String MESSAGE_NOTHING_TO_EDIT = "At least one field need to be different to edit.";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_CANNOT_BE_EDITED = "Completed Task cannot be edited.";
+    public static final String MESSAGE_DATE_IS_BEFORE = "Updated date of delivery cannot be before today.";
 
     private final int id;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -70,6 +71,11 @@ public class EditTaskCommand extends Command {
         }
 
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor, model);
+
+        //if the updated date is not same as original and if date is not today onwards
+        if (!taskToEdit.getDate().equals(editedTask.getDate()) && editedTask.getDate().isBefore(LocalDate.now())) {
+            throw new CommandException(MESSAGE_DATE_IS_BEFORE);
+        }
 
         if (taskToEdit.isSameTask(editedTask)) {
             throw new CommandException(MESSAGE_NOTHING_TO_EDIT);
