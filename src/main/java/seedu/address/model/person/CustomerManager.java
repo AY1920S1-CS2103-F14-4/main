@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.EntityManager;
+import seedu.address.model.legacy.UniquePersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -37,4 +39,9 @@ public class CustomerManager extends EntityManager<Customer> {
                 .stream()
                 .anyMatch(customer -> customer.getId() == customerId);
     }
+
+    public ObservableList <Customer> getCustomerList() {
+        return getPersonList();
+    }
+
 }

@@ -30,6 +30,8 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label description;
     @FXML
+    private Label customerId;
+    @FXML
     private Label date;
 
     public TaskCard(Task task, int displayedIndex) {
@@ -37,6 +39,7 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         description.setText(task.getDescription().value);
+        customerId.setText(task.getCustomer().toString());
         date.setText(task.getDatePrint());
     }
 

@@ -14,15 +14,15 @@ import java.util.logging.Logger;
  * Panel containing the list of tasks.
  */
 public class TaskListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "TaskListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
 
     @FXML
     private ListView<Task> taskListView;
 
-    public TaskListPanel(ObservableList<Task> personList) {
+    public TaskListPanel(ObservableList<Task> taskList) {
         super(FXML);
-        taskListView.setItems(personList);
+        taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListPanel.TaskListViewCell());
     }
 

@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -25,6 +27,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskList;
 import seedu.address.model.task.TaskManager;
 
 /**
@@ -36,10 +39,13 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Customer> filteredCustomers;
 
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
     private final DriverManager driverManager;
+    public TaskList taskList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -50,19 +56,30 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
         this.taskManager = new TaskManager();
         this.customerManager = new CustomerManager();
         this.driverManager = new DriverManager();
+        this.addressBook = new AddressBook(addressBook);
+
+        this.userPrefs = new UserPrefs(userPrefs);
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTasks = new FilteredList<>(this.taskManager.getList());
+        filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList());
 
         // temp
         // to test the task commands
-        Customer testCustomer = new Customer(new Name("Alesx Yeoh"), new Phone("87438807"),
+        Customer testCustomer = new Customer(new Name("Customer Alex Yeoh"), new Phone("87438807"),
                 new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());
         customerManager.addPerson(testCustomer);
+
+        Driver testDriver = new Driver(new Name("Driver Billy Yee"), new Phone("87425307"),
+                new Email("billyyee@example.com"), new Address("Blk 1 Orchard Street 30, #06-41"), new HashSet<Tag>());
+        driverManager.addPerson(testDriver);
+//
+        //to test task lists
+//        Task testTask = new Task(1, new Description("3 boxes of vegetables"),
+//                LocalDate.of(2019, 12, 12));
+//        taskManager.addTask(testTask);
     }
 
     public ModelManager() {
@@ -231,5 +248,28 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook) && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
+
+    // =========== Filtered Task List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the
+     * internal list of {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return filteredTasks;
+    }
+
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Customer> getFilteredCustomerList() {
+        return filteredCustomers;
+    }
+
 
 }
