@@ -15,7 +15,4 @@ class Task {
 }
 
 note right: date - date of delivery \neventTime - duration taken to delivery
-
-
-
 @enduml
