@@ -22,18 +22,18 @@ public class JsonAdaptedCustomer extends JsonAdaptedPerson {
 
     public static final String INVALID_INTEGER_ID = "Customer has a invalid integer id.";
 
-    private final String id;
+    private final String customerId;
 
     /**
      * Constructs a {@code JsonAdaptedCustomer} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedCustomer(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("address") String address,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                             @JsonProperty("customerId") String id) {
+    public JsonAdaptedCustomer(@JsonProperty("customerId") String customerId, @JsonProperty("name") String name,
+                               @JsonProperty("phone") String phone, @JsonProperty("email") String email,
+                               @JsonProperty("address") String address,
+                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         super(name, phone, email, address, tagged);
-        this.id = id;
+        this.customerId = customerId;
     }
 
     /**
@@ -41,7 +41,7 @@ public class JsonAdaptedCustomer extends JsonAdaptedPerson {
      */
     public JsonAdaptedCustomer(Customer source) {
         super(source);
-        id = String.valueOf(source.getId());
+        customerId = String.valueOf(source.getId());
     }
 
     /**
@@ -58,14 +58,14 @@ public class JsonAdaptedCustomer extends JsonAdaptedPerson {
         final Address modelAddress = person.getAddress();
         final Set<Tag> modelTags = person.getTags();
 
-        if (id == null) {
+        if (customerId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Id"));
         }
-        if (!Customer.isValidId(id)) {
+        if (!Customer.isValidId(customerId)) {
             throw new IllegalValueException(String.format(INVALID_INTEGER_ID));
         }
-        final int customerId = Integer.parseInt(id);
+        final int modelCustomerId = Integer.parseInt(customerId);
 
-        return new Customer(customerId, modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Customer(modelCustomerId, modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
 }
