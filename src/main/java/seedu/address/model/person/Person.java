@@ -48,10 +48,6 @@ public class Person {
         return email;
     }
 
-    public int getId() {
-        return 0;
-    }
-
     public Address getAddress() {
         return address;
     }

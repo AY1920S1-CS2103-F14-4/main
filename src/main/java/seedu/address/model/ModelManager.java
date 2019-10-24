@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -171,6 +170,9 @@ public class ModelManager implements Model {
     }
 
     // =========== Customer Manager ===========================================================================
+    public boolean hasCustomer(Customer customer) {
+        return customerManager.hasPerson(customer);
+    }
 
     public boolean hasCustomer(int customerId) {
         return customerManager.hasCustomer(customerId);
@@ -189,14 +191,13 @@ public class ModelManager implements Model {
     }
 
     // =========== Driver Manager ===========================================================================
+    public boolean hasDriver(Driver driver) {
+        return driverManager.hasPerson(driver);
+    }
 
     public boolean hasDriver(int driverId) {
         return driverManager.hasDriver(driverId);
     };
-
-    public Optional<Driver> getOptionalDriver(int driverId) {
-        return driverManager.getOptionalDriver(driverId);
-    }
 
     public Driver getDriver(int driverId) {
         return driverManager.getDriver(driverId);

@@ -189,6 +189,11 @@ public class AddCommandTest {
         };
 
         @Override
+        public boolean hasCustomer(Customer customer){
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCustomer(int customerId) {
             throw new AssertionError("This method should not be called.");
         };
@@ -209,12 +214,12 @@ public class AddCommandTest {
         };
 
         @Override
-        public boolean hasDriver(int driverId) {
+        public boolean hasDriver(Driver driver){
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
-        public Optional<Driver> getOptionalDriver(int driverId) {
+        public boolean hasDriver(int driverId) {
             throw new AssertionError("This method should not be called.");
         };
 

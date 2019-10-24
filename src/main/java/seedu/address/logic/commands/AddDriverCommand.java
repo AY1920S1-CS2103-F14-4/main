@@ -54,7 +54,7 @@ public class AddDriverCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasDriver(toAddId)) {
+        if (model.hasDriver(toAdd)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON));
         }
 
