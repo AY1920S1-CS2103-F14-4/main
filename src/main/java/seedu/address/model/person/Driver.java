@@ -2,6 +2,8 @@ package seedu.address.model.person;
 
 import java.util.Set;
 
+import seedu.address.model.EventTime;
+import seedu.address.model.person.exceptions.SchedulingException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -11,6 +13,7 @@ import seedu.address.model.tag.Tag;
 public class Driver extends Person {
 
     public static final String MESSAGE_INVALID_ID = "Invalid driver ID.";
+    public static final String MESSAGE_NOT_AVAILABLE = "Driver(ID: %1$s) is not available";
 
     //Identity fields
     private static int idCount = 1;
@@ -22,7 +25,7 @@ public class Driver extends Person {
     /**
      * Every field must be present and not null.
      */
-    public Driver (Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Driver(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
         schedule = new Schedule();
         id = idCount;
@@ -42,6 +45,29 @@ public class Driver extends Person {
     }
 
     /**
+     * {@see Schedule#remove}
+     */
+    public boolean deleteFromSchedule(EventTime durationToRemove) {
+        return schedule.remove(durationToRemove);
+    }
+
+    public void addToSchedule(EventTime durationToAdd) throws SchedulingException {
+        schedule.add(durationToAdd);
+    }
+
+    public boolean isScheduleAvailable(EventTime durationToAdd) {
+        return schedule.isAvailable(durationToAdd);
+    }
+
+    public String suggestTime(EventTime eventTime) {
+        return this.schedule.getSchedulingSuggestion(eventTime);
+    }
+
+    public void assign(EventTime eventTime) throws SchedulingException {
+        this.schedule.add(eventTime);
+    }
+
+    /**
      * Returns a string representation of the driver, with identity fields visible to the user.
      *
      * @return string representation of driver
@@ -50,9 +76,9 @@ public class Driver extends Person {
     public String toString() {
         StringBuilder driverBuilder = new StringBuilder();
         driverBuilder.append(" Driver stats: \n")
-                    .append(" id: ")
-                    .append(getId())
-                    .append(super.toString());
+                .append(" id: ")
+                .append(getId())
+                .append(super.toString());
         return driverBuilder.toString();
     }
 

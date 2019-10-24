@@ -120,6 +120,7 @@ public interface Model {
 
     boolean hasCustomer(int customerId);
 
+
     Customer getCustomer(int customerId);
 
     void viewDriverTask(Person driverToView);
