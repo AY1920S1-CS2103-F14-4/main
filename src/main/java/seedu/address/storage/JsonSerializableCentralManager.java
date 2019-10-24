@@ -38,8 +38,8 @@ public class JsonSerializableCentralManager {
      */
     @JsonCreator
     public JsonSerializableCentralManager(@JsonProperty("tasks") List<JsonAdaptedTask> tasks) {
-        //this.customers.addAll(customers);
-        //this.drivers.addAll(drivers);
+        this.customers.addAll(customers);
+        this.drivers.addAll(drivers);
         this.tasks.addAll(tasks);
     }
 
@@ -50,12 +50,14 @@ public class JsonSerializableCentralManager {
      * @param centralManager future changes to this will not affect created {@code JsonSerializableCentralisedManager}.
      */
     public JsonSerializableCentralManager(CentralManager centralManager) {
-        //CustomerManager customerManager = centralManager.getCustomerManager();
-        //customers.addAll(customerManager.getPersonList().stream().map(JsonAdaptedCustomer::new)
-        // .collect(Collectors.toList()));
-        //DriverManager driverManager = centralManager.getDriverManager();
-        //drivers.addAll(driverManager.getPersonList().stream().map(JsonAdaptedDriver::new)
-        // .collect(Collectors.toList()));
+        CustomerManager customerManager = centralManager.getCustomerManager();
+        customers.addAll(customerManager.getPersonList().stream().map(JsonAdaptedCustomer::new)
+                .collect(Collectors.toList()));
+
+        DriverManager driverManager = centralManager.getDriverManager();
+        drivers.addAll(driverManager.getPersonList().stream().map(JsonAdaptedDriver::new)
+                .collect(Collectors.toList()));
+
         TaskManager taskManager = centralManager.getTaskManager();
         tasks.addAll(taskManager.getList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
     }
@@ -80,6 +82,7 @@ public class JsonSerializableCentralManager {
         TaskManager taskManager = new TaskManager();
         for (JsonAdaptedTask jsonAdaptedTask : tasks) {
             Task task = jsonAdaptedTask.toModelType(customerManager, driverManager);
+            System.out.println(task.getId());
             if (taskManager.hasTask(task)) {
                 throw new IllegalValueException(String.format(MESSAGE_DUPLICATE_ENTITY, Task.class.getSimpleName()));
             }

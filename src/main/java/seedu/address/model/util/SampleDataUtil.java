@@ -79,24 +79,25 @@ public class SampleDataUtil {
     }
 
     public static Task[] getSampleTask(CustomerManager customerManager, DriverManager driverManager) {
+
         Task sampleTask1 = new Task(1, new Description("20 frozen boxes of Red groupers"),
-                LocalDate.of(2019, 10, 10));
+                Task.getDateFromString("10/10/2019"));
         sampleTask1.setCustomer(customerManager.getCustomer(1));
         sampleTask1.setDriver(Optional.of(driverManager.getDriver(1)));
         sampleTask1.setEventTime(Optional.of(EventTime.parse("1000 - 1200")));
         sampleTask1.setStatus(TaskStatus.COMPLETED);
 
         Task sampleTask2 = new Task(2, new Description("25 boxes of A4 paper"),
-                LocalDate.now());
-        sampleTask1.setCustomer(customerManager.getCustomer(1));
+                Task.getParsedLocalDate(LocalDate.now()));
+        sampleTask2.setCustomer(customerManager.getCustomer(1));
 
         Task sampleTask3 = new Task(3, new Description("25 packs of frozen chicken wings"),
-                LocalDate.now());
-        sampleTask1.setCustomer(customerManager.getCustomer(1));
-        sampleTask1.setDriver(Optional.of(driverManager.getDriver(1)));
+                Task.getParsedLocalDate(LocalDate.now()));
+        sampleTask3.setCustomer(customerManager.getCustomer(1));
+        sampleTask3.setDriver(Optional.of(driverManager.getDriver(1)));
         //populate the schedule of driver
         driverManager.getDriver(1).addToSchedule(EventTime.parse("1000 - 1200"));
-        sampleTask1.setEventTime(Optional.of(EventTime.parse("1000 - 1200")));
+        sampleTask3.setEventTime(Optional.of(EventTime.parse("1000 - 1200")));
 
         return new Task[]{sampleTask1, sampleTask2, sampleTask3};
     }

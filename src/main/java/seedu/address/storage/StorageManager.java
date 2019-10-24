@@ -22,7 +22,7 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
-    private JsonCentralManagerStorage jsonCentralManagerStorage;
+    private CentralManagerStorage jsonCentralManagerStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
@@ -30,7 +30,7 @@ public class StorageManager implements Storage {
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(JsonCentralManagerStorage jsonCentralManagerStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(CentralManagerStorage jsonCentralManagerStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.jsonCentralManagerStorage = jsonCentralManagerStorage;
         this.userPrefsStorage = userPrefsStorage;
