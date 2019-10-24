@@ -12,8 +12,6 @@ import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 
-import java.util.Optional;
-
 /**
  * Deletes an entity using it's unique id from its list.
  * Entity refers to Task, Driver and Customer.
