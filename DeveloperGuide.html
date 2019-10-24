@@ -26,6 +26,7 @@
 <li><a href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></li>
 <li><a href="#logging">3.3. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.4. Configuration</a></li>
+<li><a href="#task-feature-e-g-add-delivery-task">3.5. Task Feature (E.g. Add Delivery Task)</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -298,6 +299,12 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 </div>
 <div class="title">Figure 8. Structure of the Storage Component</div>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CentralManager.png" alt="CentralManager">
+</div>
+<div class="title">Figure 9. Structure of the CentralManager</div>
+</div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
 </div>
@@ -310,7 +317,10 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <p>can save <code>UserPref</code> objects in json format and read it back.</p>
 </li>
 <li>
-<p>can save the Address Book data in json format and read it back.</p>
+<p>uses CentralManager to consolidate all the managers' data that needs to be saved. (e.g. Task Manager&#8217;s data)</p>
+</li>
+<li>
+<p>can save the Central Manager data in json format and read it back.</p>
 </li>
 </ul>
 </div>
@@ -591,6 +601,89 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.4. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="task-feature-e-g-add-delivery-task"><a class="link" href="#task-feature-e-g-add-delivery-task">3.5. Task Feature (E.g. Add Delivery Task)</a></h3>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">3.5.1. Implementation</a></h4>
+<div class="paragraph">
+<p>The <strong>Add Delivery Task</strong> feature adds a new task into a task list.<br>
+It uses the <code>AddTaskCommand</code>, which extends <code>Command</code>, to add a <code>Task</code> into the <code>TaskManager</code>.
+<code>AddTaskCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>AddTaskCommand</code> to execute.
+'AddTaskCommand' requires the following fields: <code>Task</code>, <code>customerId</code>.
+The attributes of Task is as follows:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Task.png" alt="Task">
+</div>
+<div class="title">Figure 10. Class Diagram of Task class.</div>
+</div>
+<div class="paragraph">
+<p>As seen in the above class diagram, <code>driver</code> and <code>eventTime</code> are optional fields that are not mandatory when adding a task.
+They will be assigned subsequently using <code>assign</code> command. (Refer to Assign feature)
+The mandatory fields for users are: 'description', 'date' and 'Customer'.
+After the validation is completed, <code>AddTaskCommand</code> will fetch <code>Customer</code> using the <code>customerId</code> through the <code>CustomerManager</code>.
+A unique id will also be allocated to the task for differentiation.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the add task operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AddTaskCommand.png" alt="AddTaskCommand">
+</div>
+<div class="title">Figure 11. Sequence Diagram of adding a task.</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The flow of how the task is being accessed and  managed as shown above is the same for other task related command such as Edit and Delete.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.5.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-usage-of-universal-command-word"><a class="link" href="#aspect-usage-of-universal-command-word">Aspect: Usage of universal Command word</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Have a individual command word for add task (<code>addT</code>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement and increases clarity for users.</p>
+</li>
+<li>
+<p>Cons: Increases the number of commands.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Combine <code>AddTaskCommand</code> with other <code>add</code> commands</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Will use only 1 universal <code>add</code> command for adding any entities. (Task, Customer and Driver)</p>
+</li>
+<li>
+<p>Cons: Have to handle different type of parameters and some parameters of commands are overlap which requires more validation.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1053,4 +1146,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-22 11:41:03 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-24 03:35:50 UTC</div></div></div></body></html>

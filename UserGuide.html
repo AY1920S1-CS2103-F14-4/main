@@ -31,10 +31,13 @@
 <li><a href="#editing-a-driver-code-update-driver-code">3.10. Editing a driver : <code>update driver</code></a></li>
 <li><a href="#assign-a-task-to-a-driver-code-assign-code">3.11. Assign a task to a driver: <code>assign</code></a></li>
 <li><a href="#exiting-the-program-code-exit-code">3.12. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.13. Saving the data</a></li>
+<li><a href="#add-a-delivery-task-code-addt-code">3.13. Add a delivery task: <code>addT</code></a></li>
+<li><a href="#edits-a-delivery-task-code-editt-code">3.14. Edits a delivery task : <code>editT</code></a></li>
+<li><a href="#deletes-a-delivery-task-driver-customer-code-del-code">3.15. Deletes a delivery task / driver / customer: <code>del</code></a></li>
 </ul>
 </li>
-<li><a href="#faq">4. FAQ</a></li>
+<li><a href="#saving-the-data">4. Saving the data</a></li>
+<li><a href="#faq">5. FAQ</a></li>
 </ul>
 </div>
 </div>
@@ -113,7 +116,8 @@ e.g. typing help and pressing Enter will open the help window.</p>
 <p>[action] [parameter 1] [parameter 2] [parameter 3]</p>
 </li>
 <li>
-<p>Parameter consists of a delimiter and a word. For example, to tag a person on index 1: <code>edit 1 t/ College</code></p>
+<p>Parameter consists of a delimiter and a word.<br>
+For example, to edit the description of the delivery task (Task ID:3) : <code>editT 3 g/50 packs of frozen chicken</code></p>
 </li>
 <li>
 <p>Commands are case sensitive</p>
@@ -341,16 +345,124 @@ Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.13. Saving the data</a></h3>
+<h3 id="add-a-delivery-task-code-addt-code"><a class="link" href="#add-a-delivery-task-code-addt-code">3.13. Add a delivery task: <code>addT</code></a></h3>
 <div class="paragraph">
-<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.</p>
+<p>Adds a delivery task to the task manager.<br>
+Format: <code>addT [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.</p>
+</li>
+<li>
+<p>All fields are compulsory.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addT g/100 frozon boxes of red grouper c/13 dt/10/12/2019</code></p>
+</li>
+<li>
+<p><code>addT g/1x washing machine c/10 dt/12/1/2020</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="edits-a-delivery-task-code-editt-code"><a class="link" href="#edits-a-delivery-task-code-editt-code">3.14. Edits a delivery task : <code>editT</code></a></h3>
+<div class="paragraph">
+<p>Edits a existing delivery task in the task manager.<br>
+Format: <code>editT [TASK ID] [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.</p>
+</li>
+<li>
+<p>Only indicate fields that you want to change.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>editT 3 g/50 frozen boxes of catfish</code><br>
+Edits the description of the task (Task ID: 3) to be <code>50 frozen boxes of catfish</code>.</p>
+</li>
+<li>
+<p><code>editT 5 c/2 dt/10/12/2019</code><br>
+Edits the customer and date of delivery of the task (Task ID: 5) to be <code>Customer (Customer ID: 2)</code> and <code>10/12/2019</code> respectively.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deletes-a-delivery-task-driver-customer-code-del-code"><a class="link" href="#deletes-a-delivery-task-driver-customer-code-del-code">3.15. Deletes a delivery task / driver / customer: <code>del</code></a></h3>
+<div class="paragraph">
+<p>Deletes a task / driver / customer from its respective managers.<br>
+Format: <code>del [c/CUSTOMER ID]</code> | <code>del [t/DRIVER ID]</code> | <code>del [t/TASK ID]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Cannot delete a delivery task that is on-going. Remove the driver from the task first before deleting.</p>
+</li>
+<li>
+<p>Cannot delete a driver that is assigned to a on-going task. Remove the driver from the task first before deleting.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>del t/1</code><br>
+Deletes task (Task ID: 1) from the task manager.</p>
+</li>
+<li>
+<p><code>del d/2</code><br>
+Deletes driver (Driver ID: 2) from the driver manager.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
+<h2 id="saving-the-data"><a class="link" href="#saving-the-data">4. Saving the data</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Deliveria data are saved in the hard disk automatically after any command that changes the data.<br>
+There is no need to save manually.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="faq"><a class="link" href="#faq">5. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
@@ -365,4 +477,4 @@ There is no need to save manually.</p>
 <strong>A</strong>: The <code>help</code> command will give a list of available commands.</p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-22 11:41:03 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-24 03:35:50 UTC</div></div></div></body></html>
