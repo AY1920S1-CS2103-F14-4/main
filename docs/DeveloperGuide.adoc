@@ -122,14 +122,10 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the `DriverManager`, `TaskManager`, `CustomerManager`
+* exposes unmodifiable `ObservableList` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -155,6 +151,54 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Task Scheduling
+
+==== Design Considerations
+* A `Schedule` should be a collection of non-overlapping `EventTime` object, and is always sorted
+* Should be able to notify the user if a better time slot is available, while giving users the liberty to exercise
+their own judgments
+
+
+==== Implementation
+
+Every `Driver` keeps track of a `Schedule` class, which is backed by a naturally sorted, TreeSet of `EventTime` objects.
+
+Before a new `EventTime` is added to the schedule, the method checks against the set of object to ensure
+the addition will not result in overlapping `EventTime` in the schedule. This operation works in logarithmic time
+thanks to the tree structure.
+
+In order to better utilise a driver, we implement a method to suggest an earlier alternative
+time slot in a schedule. When adding a time to a schedule, this method will:
+
+* Calculate the duration of proposed `EventTime`
+* Perform a linear greedy search in the schedule, to find the first slot that can fit the duration
+
+[NOTE]
+Since the schedule guarantees no overlapping `EventTime`, there is no complication in handling the start and end times.
+
+In order to enforce the optimised scheduling method above, the program will block every `assign` command that has a
+suboptimal proposed time, unless the user uses the `force` argument. Moreover, the `assign` and `free` command are the
+only commands that modify the `Driver` and `EventTime` attributes of a `Task`, so that all drivers will have an
+optimised schedule, unless `force assign` is used.
+
+The following activity diagram summarizes the checks happened when user executes an `assign` command.
+
+image::AssignActivityDiagram.png[]
+
+After the above checks has passed, `assign` command will:
+
+* Set the `Driver` and `EventTime` attributes in the `Task`
+* Add the proposed `EventTime` to the `Driver`'s `Schedule`
+
+
+Similarly, calling `free` command will:
+
+* Remove the existing `EventTime` from the `Driver`'s `Schedule`
+* Set the `Driver` and `EventTime` attributes to `null`
+
+
+
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -290,14 +334,54 @@ image::AddTaskCommand.png[]
 [NOTE]
 The flow of how the task is being accessed and  managed as shown above is the same for other task related command such as Edit and Delete.
 
+=== Customer Feature (E.g. Add Customer)
+==== Implementation
+The *Add Customer* feature adds a new Customer into a Customer list. +
+It uses the `AddCustomerCommand`, which extends `Command`, to add a `Customer` into the `CustomerManager`.
+`AddCustomerCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddCustomerCommand` to execute.
+'AddCustomerCommand' requires the following fields: `Customer`.
+The attributes of Task is as follows:
+
+.Class Diagram of Customer class.
+image::Customer.png[]
+
+As seen in the above class diagram, the `id` field is not required when adding a customer.
+The mandatory fields for users are: `name`, `phone`, `email`, `address`.
+A unique id will also be allocated to the Customer for differentiation.
+
+The following sequence diagram shows how the add customer operation works:
+
+.Sequence Diagram of adding a task.
+image::AddCustomerCommand.png[]
+
+=== Driver Feature (E.g. Add Driver)
+==== Implementation
+The *Add Driver* feature adds a new Driver into a Driver list. +
+It uses the `AddDriverCommand`, which extends `Command`, to add a `Driver` into the `DriverManager`.
+`AddDriverCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddCustomerCommand` to execute.
+'AddDriverCommand' requires the following fields: `Driver`.
+The attributes of Driver is as follows:
+
+.Class Diagram of Driver class.
+image::Driver.png[]
+
+As seen in the above class diagram, the `id` field is not required when adding a driver.
+The mandatory fields for users are: `name`, `phone`, `email`, `address`.
+A unique id will also be allocated to the Driver for differentiation.
+
+The following sequence diagram shows how the add driver operation works:
+
+.Sequence Diagram of adding a task.
+image::AddDriverCommand.png[]
+
 ==== Design Considerations
 
 ===== Aspect: Usage of universal Command word
 
-* **Alternative 1 (current choice):** Have a individual command word for add task (`addT`)
+* **Alternative 1 (current choice):** Have a individual command word for add task (`addT`, `addC`, `addD`)
 ** Pros: Easy to implement and increases clarity for users.
 ** Cons: Increases the number of commands.
-* **Alternative 2:** Combine `AddTaskCommand` with other `add` commands
+* **Alternative 2:** Combine `AddCustomerCommand` with other `add` commands
 ** Pros: Will use only 1 universal `add` command for adding any entities. (Task, Customer and Driver)
 ** Cons: Have to handle different type of parameters and some parameters of commands are overlap which requires more validation.
 

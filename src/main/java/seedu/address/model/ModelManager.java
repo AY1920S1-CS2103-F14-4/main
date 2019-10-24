@@ -6,19 +6,18 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.CustomerManager;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -26,7 +25,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskList;
 import seedu.address.model.task.TaskManager;
 import seedu.address.model.task.TaskStatus;
 
@@ -41,12 +39,11 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Customer> filteredCustomers;
-    //private final FilteredList<Task> filteredUnassignedTasks;
+    private FilteredList<Driver> filteredDrivers;
 
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
     private final DriverManager driverManager;
-    public TaskList taskList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -198,30 +195,57 @@ public class ModelManager implements Model {
     }
 
     // =========== Customer Manager ===========================================================================
+    public boolean hasCustomer(Customer customer) {
+        return customerManager.hasPerson(customer);
+    }
 
     public boolean hasCustomer(int customerId) {
         return customerManager.hasCustomer(customerId);
+    }
+
+    public void setCustomer(Customer customerToEdit, Customer editedCustomer) {
+        customerManager.setCustomer(customerToEdit, editedCustomer);
     }
 
     public Customer getCustomer(int customerId) {
         return customerManager.getCustomer(customerId);
     }
 
+    public void addCustomer(Customer customer) {
+        customerManager.addPerson(customer);
+    }
+
+    public void deleteCustomer(Customer customer) {
+        customerManager.removePerson(customer);
+    }
+
     // =========== Driver Manager ===========================================================================
+    public boolean hasDriver(Driver driver) {
+        return driverManager.hasDriver(driver);
+    }
 
     public boolean hasDriver(int driverId) {
         return driverManager.hasDriver(driverId);
+    };
+
+    public void setDriver(Driver driverToEdit, Driver editedDriver) {
+        driverManager.setDriver(driverToEdit, editedDriver);
     }
     @Override
     public void viewDriverTask(Person driverToView) {
-//
+
     }
 
-    // =========== Driver Manager
-    // ===========================================================================
-
-    public Optional<Driver> getDriver(int driverId) {
+    public Driver getDriver(int driverId) {
         return driverManager.getDriver(driverId);
+    }
+
+    public void addDriver(Driver driver) {
+        driverManager.addDriver(driver);
+    }
+
+    public void deleteDriver(Driver driver) {
+        driverManager.deleteDriver(driver);
     }
 
     // =========== Filtered Person List Accessors =============================================================
@@ -236,9 +260,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Driver> getFilteredDriverList() {
+        return filteredDrivers;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredDriverList(Predicate<Driver> predicate) {
+        requireNonNull(predicate);
+        filteredDrivers.setPredicate(predicate);
     }
 
     @Override

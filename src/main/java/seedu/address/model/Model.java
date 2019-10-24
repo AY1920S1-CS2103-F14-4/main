@@ -1,10 +1,10 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
@@ -22,6 +22,8 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
+    Predicate<Driver> PREDICATE_SHOW_ALL_DRIVERS = unused -> true;
 
     /**
      * {@code Predicate} that filters the task to incomplete status
@@ -139,18 +141,37 @@ public interface Model {
 
     // customer manager
 
-    boolean hasCustomer(int customerId);
+    boolean hasCustomer(Customer customer);
 
+    boolean hasCustomer(int customerId);
 
     Customer getCustomer(int customerId);
 
     void viewDriverTask(Person driverToView);
 
+    void setCustomer(Customer customerToEdit, Customer editedTask);
+
+    void addCustomer(Customer customer);
+
+    void deleteCustomer(Customer customer);
+
     // driver manager
+
+    boolean hasDriver(Driver driver);
 
     boolean hasDriver(int driverId);
 
-    Optional<Driver> getDriver(int driverId);
+    Driver getDriver(int driverId);
+
+    void setDriver(Driver driverToEdit, Driver editedTask);
+
+    void updateFilteredDriverList(Predicate<Driver> predicate);
+
+    ObservableList<Driver> getFilteredDriverList();
+
+    void addDriver(Driver driver);
+
+    void deleteDriver(Driver driver);
 
     /**
      * Returns an unmodifiable view of the filtered task list.
