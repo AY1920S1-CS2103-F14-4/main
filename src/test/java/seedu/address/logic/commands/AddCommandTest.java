@@ -190,6 +190,26 @@ public class AddCommandTest {
         };
 
         @Override
+        public ObservableList<Task> getUnassignedTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Task> getAssignedTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCustomer(int customerId) {
             throw new AssertionError("This method should not be called.");
         };
@@ -200,6 +220,16 @@ public class AddCommandTest {
         };
 
         @Override
+        public ObservableList<Customer> getFilteredCustomerList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasDriver(int driverId) {
             throw new AssertionError("This method should not be called.");
         };
@@ -208,6 +238,11 @@ public class AddCommandTest {
         public Optional<Driver> getDriver(int driverId) {
             throw new AssertionError("This method should not be called.");
         };
+
+        @Override
+        public void viewDriverTask(Person driverToView) {
+            throw new AssertionError("This method should not be called.");
+        }
 
     }
 

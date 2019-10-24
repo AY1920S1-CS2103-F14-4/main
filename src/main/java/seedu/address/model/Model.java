@@ -12,6 +12,7 @@ import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * The API of the Model component.
@@ -21,6 +22,16 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /**
+     * {@code Predicate} that filters the task to incomplete status
+     */
+    Predicate<Task> PREDICATE_SHOW_UNASSIGNED = task -> task.getStatus().equals(TaskStatus.INCOMPLETE);
+
+    /**
+     * {@code Predicate} that filters the task to on-going status
+     */
+    Predicate<Task> PREDICATE_SHOW_ASSIGNED = task -> task.getStatus().equals(TaskStatus.ON_GOING);
 
     /**
      * Returns the user prefs.
@@ -116,6 +127,16 @@ public interface Model {
 
     TaskManager getTaskManager();
 
+    /**
+     * Returns an unmodifiable view of the filtered unassigned task list.
+     */
+    ObservableList<Task> getUnassignedTaskList();
+
+    /**
+     * Returns an unmodifiable view of the filtered assigned task list.
+     */
+    ObservableList<Task> getAssignedTaskList();
+
     // customer manager
 
     boolean hasCustomer(int customerId);
@@ -150,4 +171,12 @@ public interface Model {
      */
 
     ObservableList<Customer> getFilteredCustomerList();
+
+    /**
+     * Updates the filter of the filtered customer list to filter by the given
+     * {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredCustomerList(Predicate<Customer> predicate);
 }

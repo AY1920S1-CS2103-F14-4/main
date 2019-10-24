@@ -23,7 +23,7 @@ public class CustomerListPanel extends UiPart<Region> {
     public CustomerListPanel(ObservableList<Customer> customerList) {
         super(FXML);
         customerListView.setItems(customerList);
-        customerListView.setCellFactory(listView -> new CustomerListPanel.CustomerListViewCell());
+        customerListView.setCellFactory(listView -> new CustomerListViewCell());
     }
 
     /**
@@ -38,7 +38,7 @@ public class CustomerListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(customer, getIndex() + 1).getRoot());
+                setGraphic(new CustomerCard(customer, getIndex() + 1).getRoot());
             }
         }
     }

@@ -56,4 +56,9 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /** Returns an unmodifiable view of the filtered list of unassigned task list */
+    ObservableList<Task> getFilteredUnassignedTaskList();
+
+    /** Returns an unmodifiable view of the filtered list of assigned task list */
+    ObservableList<Task> getFilteredAssignedTaskList();
 }

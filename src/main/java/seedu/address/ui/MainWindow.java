@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private TaskListPanel taskListPanel;
+    private UnassignedTaskListPanel unassignedTaskListPanel;
     private CustomerListPanel customerListPanel;
 
     @FXML
@@ -56,6 +57,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private StackPane unassignedTaskListPanelPlaceholder;
 
     @FXML
     private StackPane customerListPanelPlaceholder;
@@ -120,11 +124,14 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        taskListPanel = new TaskListPanel(logic.getFilteredAssignedTaskList());
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
-//        customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
-//        customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
+        unassignedTaskListPanel = new UnassignedTaskListPanel(logic.getFilteredUnassignedTaskList());
+        unassignedTaskListPanelPlaceholder.getChildren().add(unassignedTaskListPanel.getRoot());
+
+        customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+        customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -146,8 +153,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setY(bounds.getMinY());
         primaryStage.setWidth(bounds.getWidth());
         primaryStage.setHeight(bounds.getHeight());
-//        primaryStage.setHeight(guiSettings.getWindowHeight());
-//        primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
@@ -188,6 +193,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public TaskListPanel getTaskListPanel() {
         return taskListPanel;
+    }
+
+    public CustomerListPanel getCustomerListPanel() {
+        return customerListPanel;
     }
 
     /**

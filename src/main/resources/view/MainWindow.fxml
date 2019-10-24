@@ -66,14 +66,20 @@
               <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
             </VBox>
 
-            <VBox></VBox>
-            <VBox></VBox>
-<!--            <VBox fx:id = "customerList" styleClass="pane-with-border">-->
-<!--              <padding>-->
-<!--                <Insets top="10" right="10" bottom="10" left="10" />-->
-<!--              </padding>-->
-<!--              <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="Always"/>-->
-<!--            </VBox>-->
+            <VBox fx:id="unassignedTaskList" styleClass="pane-with-border" minWidth="200" prefWidth="200" VBox.vgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="unassignedTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+
+            <VBox fx:id="customerList" styleClass="pane-with-border" minWidth="200" prefWidth="200" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+
           </SplitPane>
       </SplitPane>
     </Scene>

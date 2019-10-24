@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -29,6 +28,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 import seedu.address.model.task.TaskManager;
+import seedu.address.model.task.TaskStatus;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -41,6 +41,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Customer> filteredCustomers;
+    //private final FilteredList<Task> filteredUnassignedTasks;
 
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
@@ -64,9 +65,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.taskManager.getList());
-        filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList());
+        filteredCustomers = new FilteredList<>(this.customerManager.getPersonList()); //debug
 
-        // temp
+        // temporary lists
+
         // to test the task commands
         Customer testCustomer = new Customer(new Name("Customer Alex Yeoh"), new Phone("87438807"),
                 new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());
@@ -75,11 +77,18 @@ public class ModelManager implements Model {
         Driver testDriver = new Driver(new Name("Driver Billy Yee"), new Phone("87425307"),
                 new Email("billyyee@example.com"), new Address("Blk 1 Orchard Street 30, #06-41"), new HashSet<Tag>());
         driverManager.addPerson(testDriver);
-//
+
         //to test task lists
-//        Task testTask = new Task(1, new Description("3 boxes of vegetables"),
-//                LocalDate.of(2019, 12, 12));
-//        taskManager.addTask(testTask);
+        Task testTask = new Task(1, new Description("3 boxes of vegetables [Incomplete]"),
+                LocalDate.of(2019, 12, 12));
+        testTask.setCustomer(customerManager.getCustomer(1));
+        taskManager.addTask(testTask);
+
+        Task test2Task = new Task(2, new Description("10 boxes of vegetables [On-going]"),
+                LocalDate.of(2019, 11, 11));
+        test2Task.setCustomer(customerManager.getCustomer(1));
+        test2Task.setStatus(TaskStatus.ON_GOING);
+        taskManager.addTask(test2Task);
     }
 
     public ModelManager() {
@@ -267,10 +276,38 @@ public class ModelManager implements Model {
         filteredTasks.setPredicate(predicate);
     }
 
+    /**
+     * Returns an observable view of the list of that is filtered to unassigned tasks
+     */
+    @Override
+    public ObservableList<Task> getUnassignedTaskList() {
+        updateFilteredTaskList(PREDICATE_SHOW_UNASSIGNED);
+        return filteredTasks;
+    }
+
+    /**
+     * Returns an observable view of the list of that is filtered to assigned tasks
+     */
+    @Override
+    public ObservableList<Task> getAssignedTaskList() {
+        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED);
+        return filteredTasks;
+    }
+
+    // =========== Filtered Customer List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the
+     * internal list of {@code versionedAddressBook}
+     */
     @Override
     public ObservableList<Customer> getFilteredCustomerList() {
         return filteredCustomers;
     }
 
-
+    @Override
+    public void updateFilteredCustomerList(Predicate<Customer> predicate) {
+        requireNonNull(predicate);
+        filteredCustomers.setPredicate(predicate);
+    }
 }

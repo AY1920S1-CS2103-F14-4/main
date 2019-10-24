@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 public class TaskManager {
 
     private TaskList tasks;
+    private Task task;
 
     public TaskManager() {
         tasks = new TaskList();
@@ -24,6 +25,7 @@ public class TaskManager {
     }
 
     public ObservableList<Task> getList() {
+        setTaskList(tasks);
         return tasks.getList();
     }
 
@@ -52,4 +54,5 @@ public class TaskManager {
     public boolean hasTask(int taskId) {
         return tasks.hasTask(taskId);
     }
+
 }
