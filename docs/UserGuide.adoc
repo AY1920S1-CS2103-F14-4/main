@@ -52,7 +52,8 @@ e.g. typing help and pressing Enter will open the help window.
 *Command Format*
 
 * [action] [parameter 1] [parameter 2] [parameter 3]
-* Parameter consists of a delimiter and a word. For example, to tag a person on index 1: `edit 1 t/ College`
+* Parameter consists of a delimiter and a word. +
+For example, to edit the description of the delivery task (Task ID:3) : `editT 3 g/50 packs of frozen chicken`
 * Commands are case sensitive
 * Order of parameter is can be reordered freely.
 ====
@@ -156,29 +157,98 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 
 === Assign a task to a driver: `assign`
 
-Assign an existing task a driver. +
-Format: `assign TASK_INDEX DRIVER_INDEX`
+Assign an existing task a driver with a proposed time. +
+Format: `assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM`
 
 ****
-* If the driver is not available for that task, an error message will be shown.
-* The indices refer to the numbers shown in the displayed lists.
+* You cannot assign a time that clashes with the driver's existing schedule, or is outside their working hours
+* If there is an earlier time slot that the driver is available,
+the program will suggest the earlier time slot +
+    - Use `assign force` to dismiss the suggestion and add the proposed time to the task
+* The ID is a positive integer
 ****
 
 Examples:
 
-* `assign 1 3` +
-Assigns the task at index 1 to the driver at index 3.
+* `assign t/1 d/1 at/900-1200` +
+Schedule task #1 from 11 am to 12 pm, and assign it to driver #1.
 
-// end::delete[]
+* `assign force t/2 d/1 at/1600-1700` +
+Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1 regardless the existence of an earlier time slot.
+
+
+=== Unschedule a task: `free`
+
+Remove the time slot and driver from a task, and free the driver from this time slot in their schedule. +
+Format: `free t/TASK_ID`
+
+****
+* You cannot free a task that has no driver or time slot assigned to it.
+****
+
+Examples:
+
+* `free t/1` +
+Remove the assigned driver and time slot from the task, and free the driver's schedule.
+
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Add a delivery task: `addT`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Adds a delivery task to the task manager. +
+Format: `addT [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]`
+
+****
+* DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
+* All fields are compulsory.
+****
+
+Examples:
+
+* `addT g/100 frozon boxes of red grouper c/13 dt/10/12/2019`
+* `addT g/1x washing machine c/10 dt/12/1/2020`
+
+=== Edits a delivery task : `editT`
+
+Edits a existing delivery task in the task manager. +
+Format: `editT [TASK ID] [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]`
+
+****
+* Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
+* Only indicate fields that you want to change.
+****
+
+Examples:
+
+* `editT 3 g/50 frozen boxes of catfish` +
+Edits the description of the task (Task ID: 3) to be `50 frozen boxes of catfish`.
+* `editT 5 c/2 dt/10/12/2019` +
+Edits the customer and date of delivery of the task (Task ID: 5) to be `Customer (Customer ID: 2)` and `10/12/2019` respectively.
+
+=== Deletes a delivery task / driver / customer: `del`
+
+Deletes a task / driver / customer from its respective managers. +
+Format: `del [c/CUSTOMER ID]` | `del [t/DRIVER ID]` | `del [t/TASK ID]`
+
+****
+* Cannot delete a delivery task that is on-going. Remove the driver from the task first before deleting.
+* Cannot delete a driver that is assigned to a on-going task. Remove the driver from the task first before deleting.
+****
+
+Examples:
+
+* `del t/1` +
+Deletes task (Task ID: 1) from the task manager.
+* `del d/2` +
+Deletes driver (Driver ID: 2) from the driver manager.
+
+== Saving the data
+
+Deliveria data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ
