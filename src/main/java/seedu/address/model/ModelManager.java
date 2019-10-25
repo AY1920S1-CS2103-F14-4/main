@@ -39,7 +39,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Customer> filteredCustomers;
-    private FilteredList<Driver> filteredDrivers;
+    private final FilteredList<Driver> filteredDrivers;
 
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
@@ -62,20 +62,22 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.taskManager.getList());
-        filteredCustomers = new FilteredList<>(this.customerManager.getPersonList()); //debug
+        filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList()); //debug
+        filteredDrivers = new FilteredList<>(this.driverManager.getDriverList());
 
         // temporary lists
 
         // to test the task commands
-        Customer testCustomer = new Customer(new Name("Customer Alex Yeoh"), new Phone("87438807"),
+        Customer testCustomer = new Customer(1, new Name("Customer Alex Yeoh"), new Phone("87438807"),
                 new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());
         customerManager.addPerson(testCustomer);
 
-        Driver testDriver = new Driver(new Name("Driver Billy Yee"), new Phone("87425307"),
+        Driver testDriver = new Driver(1, new Name("Driver Billy Yee"), new Phone("87425307"),
                 new Email("billyyee@example.com"), new Address("Blk 1 Orchard Street 30, #06-41"), new HashSet<Tag>());
         driverManager.addPerson(testDriver);
 
         //to test task lists
+
         Task testTask = new Task(1, new Description("3 boxes of vegetables [Incomplete]"),
                 LocalDate.of(2019, 12, 12));
         testTask.setCustomer(customerManager.getCustomer(1));
