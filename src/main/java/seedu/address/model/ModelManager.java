@@ -38,6 +38,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> unassignedTasks;
+
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Driver> filteredDrivers;
 
@@ -62,6 +64,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.taskManager.getList());
+        unassignedTasks = new FilteredList<>(this.taskManager.getList());
+
         filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList()); //debug
         filteredDrivers = new FilteredList<>(this.driverManager.getDriverList());
 
@@ -308,9 +312,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Predicate<Task> predicate) {
+    public void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list) {
         requireNonNull(predicate);
-        filteredTasks.setPredicate(predicate);
+        list.setPredicate(predicate);
     }
 
     /**
@@ -318,8 +322,8 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Task> getUnassignedTaskList() {
-        updateFilteredTaskList(PREDICATE_SHOW_UNASSIGNED);
-        return filteredTasks;
+        updateFilteredTaskList(PREDICATE_SHOW_UNASSIGNED, unassignedTasks);
+        return unassignedTasks;
     }
 
     /**
@@ -327,7 +331,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Task> getAssignedTaskList() {
-        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED);
+        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, filteredTasks);
         return filteredTasks;
     }
 

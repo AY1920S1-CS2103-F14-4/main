@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
@@ -185,7 +186,7 @@ public interface Model {
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredTaskList(Predicate<Task> predicate);
+    void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list);
 
     /**
      * Returns an unmodifiable view of the filtered customer list.
