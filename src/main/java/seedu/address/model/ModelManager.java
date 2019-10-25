@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
@@ -146,8 +147,12 @@ public class ModelManager implements Model {
 
     // =========== Task Manager ===============================================================================
 
+    /**
+     * Adds task into task list. Records the last unique task id created in {@link IdManager}.
+     */
     public void addTask(Task task) {
         taskManager.addTask(task);
+        IdManager.lastTaskIdPlusOne();
     }
 
     public void deleteTask(Task task) {
@@ -215,8 +220,13 @@ public class ModelManager implements Model {
         return customerManager.getCustomer(customerId);
     }
 
+
+    /**
+     * Adds Customer into customer list. Records the last unique customer id created in {@link IdManager}.
+     */
     public void addCustomer(Customer customer) {
         customerManager.addPerson(customer);
+        IdManager.lastCustomerIdPlusOne();
     }
 
     public void deleteCustomer(Customer customer) {
@@ -240,8 +250,12 @@ public class ModelManager implements Model {
         return driverManager.getDriver(driverId);
     }
 
+    /**
+     * Adds Driver into driver list. Records the last unique driver id created in {@link IdManager}.
+     */
     public void addDriver(Driver driver) {
         driverManager.addDriver(driver);
+        IdManager.lastDriverIdPlusOne();
     }
 
     public void deleteDriver(Driver driver) {

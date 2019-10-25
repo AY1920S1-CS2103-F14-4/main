@@ -48,7 +48,7 @@ public class AddDriverCommandParser implements Parser<AddDriverCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Driver driver = new Driver(IdManager.getLastDriverId() + 1, name, phone, email, address, tagList);
+        Driver driver = new Driver(IdManager.getNextDriverId(), name, phone, email, address, tagList);
 
         return new AddDriverCommand(driver);
     }
