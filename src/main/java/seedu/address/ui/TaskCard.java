@@ -32,15 +32,21 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label customerId;
     @FXML
+    private Label name;
+    @FXML
     private Label date;
+    @FXML
+    private Label address;
 
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
+        name.setText("Name: " + task.getCustomer().getName().fullName);
+        address.setText("Address: " + task.getCustomer().getAddress().value);
         description.setText(task.getDescription().value);
-        customerId.setText(task.getCustomer().toString());
-        date.setText(task.getDatePrint());
+        customerId.setText("Customer ID: " + Integer.toString(task.getCustomer().getId()));
+        date.setText("Date: " + task.getDatePrint());
     }
 
     @Override

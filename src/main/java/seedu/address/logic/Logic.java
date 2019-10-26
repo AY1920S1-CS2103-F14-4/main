@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 
@@ -38,6 +39,15 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of tasks */
     ObservableList<Task> getFilteredTaskList();
 
+    /** Returns an unmodifiable view of the filtered list of unassigned task list */
+    ObservableList<Task> getFilteredUnassignedTaskList();
+
+    /** Returns an unmodifiable view of the filtered list of assigned task list */
+    ObservableList<Task> getFilteredAssignedTaskList();
+
+    /** Returns an unmodifiable view of the filtered list of drivers*/
+    ObservableList<Driver> getFilteredDriverList();
+
     /** Returns an unmodifiable view of the filtered list of customers */
     ObservableList<Customer> getFilteredCustomerList();
 
@@ -56,9 +66,4 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /** Returns an unmodifiable view of the filtered list of unassigned task list */
-    ObservableList<Task> getFilteredUnassignedTaskList();
-
-    /** Returns an unmodifiable view of the filtered list of assigned task list */
-    ObservableList<Task> getFilteredAssignedTaskList();
 }

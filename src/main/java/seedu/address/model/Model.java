@@ -168,8 +168,6 @@ public interface Model {
 
     void updateFilteredDriverList(Predicate<Driver> predicate);
 
-    ObservableList<Driver> getFilteredDriverList();
-
     void addDriver(Driver driver);
 
     void deleteDriver(Driver driver);
@@ -191,7 +189,6 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the filtered customer list.
      */
-
     ObservableList<Customer> getFilteredCustomerList();
 
     /**
@@ -201,4 +198,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCustomerList(Predicate<Customer> predicate);
+
+    /**
+     * Returns an unmodifiable view of the filtered driver list.
+     */
+    ObservableList<Driver> getFilteredDriverList();
 }

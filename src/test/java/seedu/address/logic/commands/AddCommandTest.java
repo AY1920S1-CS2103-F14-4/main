@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -213,7 +214,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredTaskList(Predicate<Task> predicate) {
+        public void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -264,6 +265,7 @@ public class AddCommandTest {
         public Driver getDriver(int driverId) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public void addDriver(Driver driver) {
             throw new AssertionError("This method should not be called.");

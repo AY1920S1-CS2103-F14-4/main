@@ -13,23 +13,23 @@ import seedu.address.model.task.Task;
 /**
  * Panel containing the list of tasks.
  */
-public class TaskListPanel extends UiPart<Region> {
-    private static final String FXML = "TaskListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+public class AssignedTaskListPanel extends UiPart<Region> {
+    private static final String FXML = "AssignedTaskListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(AssignedTaskListPanel.class);
 
     @FXML
-    private ListView<Task> taskListView;
+    private ListView<Task> assignedTaskListView;
 
-    public TaskListPanel(ObservableList<Task> taskList) {
+    public AssignedTaskListPanel(ObservableList<Task> assignedTaskList) {
         super(FXML);
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListPanel.TaskListViewCell());
+        assignedTaskListView.setItems(assignedTaskList);
+        assignedTaskListView.setCellFactory(listView -> new AssignedTaskListPanel.AssignedTaskListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code TaskCard}.
      */
-    class TaskListViewCell extends ListCell<Task> {
+    class AssignedTaskListViewCell extends ListCell<Task> {
         @Override
         protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);

@@ -36,9 +36,10 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private TaskListPanel taskListPanel;
+    private AssignedTaskListPanel assignedTaskListPanel;
     private UnassignedTaskListPanel unassignedTaskListPanel;
     private CustomerListPanel customerListPanel;
+    private DriverListPanel driverListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -56,13 +57,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private StackPane taskListPanelPlaceholder;
+    private StackPane assignedTaskListPanelPlaceholder;
 
     @FXML
     private StackPane unassignedTaskListPanelPlaceholder;
 
     @FXML
     private StackPane customerListPanelPlaceholder;
+
+    @FXML
+    private StackPane driverListPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -121,17 +125,20 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        taskListPanel = new TaskListPanel(logic.getFilteredAssignedTaskList());
-        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+        assignedTaskListPanel = new AssignedTaskListPanel(logic.getFilteredAssignedTaskList());
+        assignedTaskListPanelPlaceholder.getChildren().add(assignedTaskListPanel.getRoot());
 
         unassignedTaskListPanel = new UnassignedTaskListPanel(logic.getFilteredUnassignedTaskList());
         unassignedTaskListPanelPlaceholder.getChildren().add(unassignedTaskListPanel.getRoot());
 
         customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
         customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
+
+        driverListPanel = new DriverListPanel(logic.getFilteredDriverList());
+        driverListPanelPlaceholder.getChildren().add(driverListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -191,8 +198,8 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
-    public TaskListPanel getTaskListPanel() {
-        return taskListPanel;
+    public AssignedTaskListPanel getTaskListPanel() {
+        return assignedTaskListPanel;
     }
 
     public CustomerListPanel getCustomerListPanel() {

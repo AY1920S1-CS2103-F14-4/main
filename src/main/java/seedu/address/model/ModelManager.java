@@ -66,28 +66,27 @@ public class ModelManager implements Model {
         filteredTasks = new FilteredList<>(this.taskManager.getList());
         unassignedTasks = new FilteredList<>(this.taskManager.getList());
 
-        filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList()); //debug
+        filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(this.driverManager.getDriverList());
 
         // temporary lists
 
-        // to test the task commands
-        Customer testCustomer = new Customer(1, new Name("Customer Alex Yeoh"), new Phone("87438807"),
+        // to test the customers and drivers list
+        Customer testCustomer = new Customer(1, new Name("Alex Yeoh"), new Phone("87438807"),
                 new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());
         customerManager.addPerson(testCustomer);
 
-        Driver testDriver = new Driver(1, new Name("Driver Billy Yee"), new Phone("87425307"),
+        Driver testDriver = new Driver(1, new Name("Bill Yee"), new Phone("92425307"),
                 new Email("billyyee@example.com"), new Address("Blk 1 Orchard Street 30, #06-41"), new HashSet<Tag>());
         driverManager.addPerson(testDriver);
 
         //to test task lists
-
-        Task testTask = new Task(1, new Description("3 boxes of vegetables [Incomplete]"),
+        Task testTask = new Task(1, new Description("3 boxes of vegetables"),
                 LocalDate.of(2019, 12, 12));
         testTask.setCustomer(customerManager.getCustomer(1));
         taskManager.addTask(testTask);
 
-        Task test2Task = new Task(2, new Description("10 boxes of vegetables [On-going]"),
+        Task test2Task = new Task(2, new Description("10 cans of Sprite"),
                 LocalDate.of(2019, 11, 11));
         test2Task.setCustomer(customerManager.getCustomer(1));
         test2Task.setStatus(TaskStatus.ON_GOING);
@@ -266,20 +265,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Driver> getFilteredDriverList() {
-        return filteredDrivers;
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
-    public void updateFilteredDriverList(Predicate<Driver> predicate) {
-        requireNonNull(predicate);
-        filteredDrivers.setPredicate(predicate);
     }
 
     @Override
@@ -350,5 +338,18 @@ public class ModelManager implements Model {
     public void updateFilteredCustomerList(Predicate<Customer> predicate) {
         requireNonNull(predicate);
         filteredCustomers.setPredicate(predicate);
+    }
+
+    // =========== Filtered Customer List Accessors =============================================================
+
+    @Override
+    public ObservableList<Driver> getFilteredDriverList() {
+        return filteredDrivers;
+    }
+
+    @Override
+    public void updateFilteredDriverList(Predicate<Driver> predicate) {
+        requireNonNull(predicate);
+        filteredDrivers.setPredicate(predicate);
     }
 }

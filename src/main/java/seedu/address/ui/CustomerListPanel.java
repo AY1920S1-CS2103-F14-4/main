@@ -29,7 +29,7 @@ public class CustomerListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code TaskCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Customer} using a {@code PersonCard}.
      */
     class CustomerListViewCell extends ListCell<Customer> {
         @Override
@@ -40,7 +40,7 @@ public class CustomerListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new CustomerCard(customer, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(customer, getIndex() + 1).getRoot());
             }
         }
     }
