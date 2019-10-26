@@ -20,6 +20,7 @@ import seedu.address.model.CustomerManager;
 import seedu.address.model.DriverManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
@@ -282,6 +283,26 @@ public class AddCommandTest {
 
         @Override
         public DriverManager getDriverManager() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public int getNextTaskId() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public int getNextCustomerId() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public int getNextDriverId() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public IdManager getIdManager() {
             throw new AssertionError("This method should not be called.");
         };
     }

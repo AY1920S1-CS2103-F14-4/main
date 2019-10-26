@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
@@ -161,4 +162,12 @@ public interface Model {
     void addDriver(Driver driver);
 
     void deleteDriver(Driver driver);
+
+    int getNextTaskId();
+
+    int getNextCustomerId();
+
+    int getNextDriverId();
+
+    IdManager getIdManager();
 }

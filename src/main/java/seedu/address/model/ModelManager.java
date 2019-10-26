@@ -37,6 +37,7 @@ public class ModelManager implements Model {
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
     private final DriverManager driverManager;
+    private final IdManager idManager;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -56,6 +57,7 @@ public class ModelManager implements Model {
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         this.driverManager = new DriverManager();
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
+        this.idManager = new IdManager();
     }
 
     public ModelManager(CentralManager centralManager, ReadOnlyUserPrefs userPrefs) {
@@ -73,6 +75,7 @@ public class ModelManager implements Model {
         this.customerManager = centralManager.getCustomerManager();
         this.driverManager = centralManager.getDriverManager();
         this.taskManager = centralManager.getTaskManager();
+        this.idManager = centralManager.getIdManager();
 
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
@@ -161,7 +164,7 @@ public class ModelManager implements Model {
      */
     public void addTask(Task task) {
         taskManager.addTask(task);
-        IdManager.lastTaskIdPlusOne();
+        idManager.lastTaskIdPlusOne();
     }
 
     public void deleteTask(Task task) {
@@ -239,7 +242,7 @@ public class ModelManager implements Model {
      */
     public void addCustomer(Customer customer) {
         customerManager.addPerson(customer);
-        IdManager.lastCustomerIdPlusOne();
+        idManager.lastCustomerIdPlusOne();
     }
 
     public void deleteCustomer(Customer customer) {
@@ -272,11 +275,29 @@ public class ModelManager implements Model {
      */
     public void addDriver(Driver driver) {
         driverManager.addDriver(driver);
-        IdManager.lastDriverIdPlusOne();
+        idManager.lastDriverIdPlusOne();
     }
 
     public void deleteDriver(Driver driver) {
         driverManager.deleteDriver(driver);
+    }
+
+    // =========== IdManager =======================================================================
+
+    public int getNextTaskId() {
+        return idManager.getNextTaskId();
+    }
+
+    public int getNextCustomerId() {
+        return idManager.getNextCustomerId();
+    }
+
+    public int getNextDriverId() {
+        return idManager.getNextDriverId();
+    }
+
+    public IdManager getIdManager() {
+        return idManager;
     }
 
     // =========== Filtered Person List Accessors =============================================================

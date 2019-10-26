@@ -31,6 +31,11 @@ import seedu.address.storage.CentralManager;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+
+    public static final int SAMPLE_LAST_TASK_ID = 3;
+    public static final int SAMPLE_LAST_CUSTOMER_ID = 6;
+    public static final int SAMPLE_LAST_DRIVER_ID = 6;
+
     public static Person[] getSamplePersons() {
         return new Person[]{
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
@@ -137,9 +142,9 @@ public class SampleDataUtil {
         DriverManager sampleDriverManager = getSampleDriverManager();
         TaskManager sampleTaskManager = getSampleTaskManager(sampleCustomerManager, sampleDriverManager);
 
-        setSampleIdManager();
+        IdManager sampleIdManager = getSampleIdManager();
 
-        return new CentralManager(sampleCustomerManager, sampleDriverManager, sampleTaskManager);
+        return new CentralManager(sampleCustomerManager, sampleDriverManager, sampleTaskManager, sampleIdManager);
     }
 
     private static CustomerManager getSampleCustomerManager() {
@@ -167,10 +172,8 @@ public class SampleDataUtil {
         return sampleTaskManager;
     }
 
-    private static void setSampleIdManager() {
-        IdManager.setLastCustomerId(6);
-        IdManager.setLastDriverId(6);
-        IdManager.setLastTaskId(3);
+    private static IdManager getSampleIdManager() {
+        return new IdManager(SAMPLE_LAST_TASK_ID, SAMPLE_LAST_CUSTOMER_ID, SAMPLE_LAST_DRIVER_ID);
     }
 
     /**
