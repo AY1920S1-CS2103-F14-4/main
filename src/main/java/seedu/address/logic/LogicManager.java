@@ -44,8 +44,6 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            //temp
-            //storage.saveAddressBook(model.getAddressBook());
             storage.saveManager(new CentralManager(model.getCustomerManager(),
                     model.getDriverManager(), model.getTaskManager()));
         } catch (IOException ioe) {

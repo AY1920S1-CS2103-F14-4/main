@@ -19,7 +19,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.CentralManager;
 import seedu.address.storage.CentralManagerStorage;
@@ -56,8 +55,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        //AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        CentralManagerStorage jsonCentralManagerStorage = new JsonCentralManagerStorage(userPrefs.getAddressBookFilePath());
+        CentralManagerStorage jsonCentralManagerStorage =
+                new JsonCentralManagerStorage(userPrefs.getAddressBookFilePath());
         storage = new StorageManager(jsonCentralManagerStorage, userPrefsStorage);
 
         initLogging(config);
@@ -75,8 +74,6 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        //ReadOnlyAddressBook initialData;
         CentralManager initialManagerData;
 
         Optional<CentralManager> centralManagerOptional;
@@ -86,22 +83,12 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
 
-            /*
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            */
-
-            //initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialManagerData = centralManagerOptional.orElseGet(SampleDataUtil::getSampleCentralManager);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            //initialData = new AddressBook();
             initialManagerData = new CentralManager();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            //initialData = new AddressBook();
             initialManagerData = new CentralManager();
         }
 

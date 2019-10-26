@@ -9,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.DriverManager;
-import seedu.address.model.id.IdManager;
-import seedu.address.model.person.Customer;
 import seedu.address.model.CustomerManager;
+import seedu.address.model.DriverManager;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;

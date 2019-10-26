@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 
+/**
+ * Represents a storage for {@link CentralManager}.
+ */
 public interface CentralManagerStorage {
 
     Path getManagerFilePath();

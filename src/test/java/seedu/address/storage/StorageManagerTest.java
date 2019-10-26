@@ -3,7 +3,6 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.model.util.SampleDataUtil.getSampleCentralManager;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.nio.file.Path;
 
@@ -13,8 +12,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.legacy.AddressBook;
-import seedu.address.model.legacy.ReadOnlyAddressBook;
 
 public class StorageManagerTest {
 

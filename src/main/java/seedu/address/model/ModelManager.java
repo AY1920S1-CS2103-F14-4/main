@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.HashSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,14 +15,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
 import seedu.address.storage.CentralManager;
@@ -40,7 +34,6 @@ public class ModelManager implements Model {
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Driver> filteredDrivers;
 
-    private final CentralManager centralManager;
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
     private final DriverManager driverManager;
@@ -58,7 +51,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
-        this.centralManager = new CentralManager();
         this.taskManager = new TaskManager();
         this.customerManager = new CustomerManager();
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
@@ -71,12 +63,13 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with central manager: " + centralManager + " and user prefs " + userPrefs);
 
+        //temp
+        //to pass addressbook test case
         this.addressBook = null;
         filteredPersons = null;
 
         this.userPrefs = new UserPrefs(userPrefs);
 
-        this.centralManager = centralManager;
         this.customerManager = centralManager.getCustomerManager();
         this.driverManager = centralManager.getDriverManager();
         this.taskManager = centralManager.getTaskManager();
@@ -220,12 +213,12 @@ public class ModelManager implements Model {
     }
 
     // =========== Customer Manager ===========================================================================
-    public boolean hasCustomer(Customer customer) {
-        return customerManager.hasPerson(customer);
-    }
-
     public CustomerManager getCustomerManager() {
         return customerManager;
+    }
+
+    public boolean hasCustomer(Customer customer) {
+        return customerManager.hasPerson(customer);
     }
 
     public boolean hasCustomer(int customerId) {
@@ -254,12 +247,12 @@ public class ModelManager implements Model {
     }
 
     // =========== Driver Manager ===========================================================================
-    public boolean hasDriver(Driver driver) {
-        return driverManager.hasDriver(driver);
-    }
-
     public DriverManager getDriverManager() {
         return driverManager;
+    }
+
+    public boolean hasDriver(Driver driver) {
+        return driverManager.hasDriver(driver);
     }
 
     public boolean hasDriver(int driverId) {

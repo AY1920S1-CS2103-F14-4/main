@@ -2,10 +2,13 @@ package seedu.address.storage;
 
 import java.util.Objects;
 
-import seedu.address.model.DriverManager;
 import seedu.address.model.CustomerManager;
+import seedu.address.model.DriverManager;
 import seedu.address.model.task.TaskManager;
 
+/**
+ * A wrapper manager that consists of all the managers used for saving purpose.
+ */
 public class CentralManager {
 
     private CustomerManager customerManager;
@@ -45,9 +48,9 @@ public class CentralManager {
             return false;
         }
         CentralManager that = (CentralManager) o;
-        return getCustomerManager().equals(that.getCustomerManager()) &&
-                getDriverManager().equals(that.getDriverManager()) &&
-                getTaskManager().equals(that.getTaskManager());
+        return getCustomerManager().equals(that.getCustomerManager())
+                && getDriverManager().equals(that.getDriverManager())
+                && getTaskManager().equals(that.getTaskManager());
     }
 
     @Override
