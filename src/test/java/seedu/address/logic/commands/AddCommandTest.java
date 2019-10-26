@@ -191,11 +191,6 @@ public class AddCommandTest {
         };
 
         @Override
-        public CustomerManager getCustomerManager() {
-            throw new AssertionError("This method should not be called.");
-        };
-
-        @Override
         public boolean hasTaskBelongsToDriver(Driver driver) {
             throw new AssertionError("This method should not be called.");
         };
@@ -221,11 +216,6 @@ public class AddCommandTest {
         };
 
         @Override
-        public DriverManager getDriverManager() {
-            throw new AssertionError("This method should not be called.");
-        };
-
-        @Override
         public void setCustomer(Customer customerToEdit, Customer editedCustomer) {
 
         }
@@ -245,6 +235,11 @@ public class AddCommandTest {
         }
 
         public void deleteCustomer(Customer customer) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public CustomerManager getCustomerManager() {
             throw new AssertionError("This method should not be called.");
         };
 
@@ -282,6 +277,11 @@ public class AddCommandTest {
         }
 
         public void deleteDriver(Driver driver) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public DriverManager getDriverManager() {
             throw new AssertionError("This method should not be called.");
         };
     }

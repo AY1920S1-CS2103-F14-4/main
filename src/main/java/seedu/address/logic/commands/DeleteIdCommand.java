@@ -84,14 +84,14 @@ public class DeleteIdCommand extends Command {
         } else {
             //deletion for Driver
             if (!model.hasDriver(id)) {
-                throw new CommandException(String.format(MESSAGE_INVALID_ID, className));
+                throw new CommandException(String.format(MESSAGE_CANNOT_DELETE_IF_ALLOCATED, className));
             }
 
             Driver driverToDelete = model.getDriver(id);
 
             //if driver is already allocated to a task, whether complete or incomplete
             if (model.hasTaskBelongsToDriver(driverToDelete)) {
-                throw new CommandException(String.format(MESSAGE_INVALID_ID, className));
+                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
             }
 
             model.deleteDriver(driverToDelete);
