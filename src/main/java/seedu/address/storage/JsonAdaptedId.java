@@ -22,10 +22,10 @@ public class JsonAdaptedId {
     /**
      * Converts a given {@code IdManager} into this class for Jackson use.
      */
-    public JsonAdaptedId(IdManager idManager) {
-        lastTaskId = String.valueOf(idManager.getLastTaskId());
-        lastCustomerId = String.valueOf(idManager.getLastCustomerId());
-        lastDriverId = String.valueOf(idManager.getLastDriverId());
+    public JsonAdaptedId() {
+        lastTaskId = String.valueOf(IdManager.getLastTaskId());
+        lastCustomerId = String.valueOf(IdManager.getLastCustomerId());
+        lastDriverId = String.valueOf(IdManager.getLastDriverId());
     }
 
     /**

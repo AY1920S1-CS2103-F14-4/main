@@ -2,6 +2,7 @@ package seedu.address.model.util;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.Description;
 import seedu.address.model.DriverManager;
 import seedu.address.model.EventTime;
+import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
@@ -56,12 +58,24 @@ public class SampleDataUtil {
         //temp
         //need to change after customer constructor has a id parameter
         return new Customer[]{
-                new Customer(1, new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                new Customer(1, new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@gmail.com"),
                         new Address("Blk 30 Geylang Street 29, #06-40"),
-                        getTagSet("customer")),
-                new Customer(2, new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+                        new HashSet<>()),
+                new Customer(2, new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@hotmail.com"),
                         new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                        getTagSet("customers"))
+                        new HashSet<>()),
+                new Customer(3, new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@gmail.com"),
+                        new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                        new HashSet<>()),
+                new Customer(4, new Name("David Li"), new Phone("91031282"), new Email("lidavid@hotmail.com"),
+                        new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                        new HashSet<>()),
+                new Customer(5, new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@gmail.com"),
+                        new Address("Blk 47 Tampines Street 20, #17-35"),
+                        new HashSet<>()),
+                new Customer(6, new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@yahoo.com"),
+                        new Address("Blk 45 Aljunied Street 85, #11-31"),
+                        new HashSet<>())
         };
     }
 
@@ -69,12 +83,24 @@ public class SampleDataUtil {
         //temp
         //need to change after driver constructor has a id parameter
         return new Driver[]{
-                new Driver(1, new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                        new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                        getTagSet("driver")),
-                new Driver(2, new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                        new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                        getTagSet("driver")),
+                new Driver(1, new Name("Aloysius Chan"), new Phone("92837163"), new Email("aloysius@gmail.com"),
+                        new Address("Blk 123 Bukit Panjang Street 10, #11-04"),
+                        new HashSet<>()),
+                new Driver(2, new Name("Chloe Low"), new Phone("93771823"), new Email("lidavid@hotmail.com"),
+                        new Address("Blk 357 Joo Seng Road #07-01 OLIVINE BUILDING, 368357"),
+                        new HashSet<>()),
+                new Driver(3, new Name("Neo Swee Lian"), new Phone("81678973"), new Email("nsl1980@hotmail.com"),
+                        new Address("Blk 34 Boon Lay Street 72, #09-14"),
+                        new HashSet<>()),
+                new Driver(4, new Name("Russell Lim Wan Bo"), new Phone("82273613"), new Email("wanbo@hotmail.com"),
+                        new Address("Blk 305 Lorong 19 Sennett Street 10, #13-01"),
+                        new HashSet<>()),
+                new Driver(5, new Name("Gerald Guo Weiliang "), new Phone("81739102"), new Email("gerald2000@hotmail.com"),
+                        new Address("Blk 384 Boon Lay Street 37, #16-12"),
+                        new HashSet<>()),
+                new Driver(6, new Name("John Lim"), new Phone("99283312"), new Email("john2222@gmail.com"),
+                        new Address("Blk 300 Paya Lebar Street 30, #03-30"),
+                        new HashSet<>())
         };
     }
 
@@ -115,6 +141,8 @@ public class SampleDataUtil {
         DriverManager sampleDriverManager = getSampleDriverManager();
         TaskManager sampleTaskManager = getSampleTaskManager(sampleCustomerManager, sampleDriverManager);
 
+        setSampleIdManager();
+
         return new CentralManager(sampleCustomerManager, sampleDriverManager, sampleTaskManager);
     }
 
@@ -141,6 +169,12 @@ public class SampleDataUtil {
             sampleTaskManager.addTask(task);
         }
         return sampleTaskManager;
+    }
+
+    private static void setSampleIdManager() {
+        IdManager.setLastCustomerId(6);
+        IdManager.setLastDriverId(6);
+        IdManager.setLastTaskId(3);
     }
 
     /**

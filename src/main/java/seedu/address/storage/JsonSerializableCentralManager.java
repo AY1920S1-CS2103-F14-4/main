@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.DriverManager;
+import seedu.address.model.id.IdManager;
 import seedu.address.model.person.Customer;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.person.Driver;
@@ -26,10 +27,10 @@ public class JsonSerializableCentralManager {
 
     public static final String MESSAGE_DUPLICATE_ENTITY = "%1$s's list contains duplicate(s).";
 
-    //temp
     private final List<JsonAdaptedCustomer> customers = new ArrayList<>();
     private final List<JsonAdaptedDriver> drivers = new ArrayList<>();
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
+    private JsonAdaptedId jsonAdaptedId = new JsonAdaptedId();
 
     /**
      * Constructs a {@code JsonSerializableCentralisedManager} with the given lists of entity.
@@ -37,10 +38,14 @@ public class JsonSerializableCentralManager {
      * It loads JSON file into List for {@code Model} usage.
      */
     @JsonCreator
-    public JsonSerializableCentralManager(@JsonProperty("tasks") List<JsonAdaptedTask> tasks) {
+    public JsonSerializableCentralManager(@JsonProperty("customers") List<JsonAdaptedCustomer> customers,
+                                          @JsonProperty("drivers") List<JsonAdaptedDriver> drivers,
+                                          @JsonProperty("tasks") List<JsonAdaptedTask> tasks,
+                                          @JsonProperty("jsonAdaptedId") JsonAdaptedId jsonAdaptedId) {
         this.customers.addAll(customers);
         this.drivers.addAll(drivers);
         this.tasks.addAll(tasks);
+        this.jsonAdaptedId = jsonAdaptedId;
     }
 
     /**
@@ -74,6 +79,8 @@ public class JsonSerializableCentralManager {
         //task depends on customer and driver, so need those managers as inputs.
         TaskManager taskManager = getPopulatedTaskManager(customerManager, driverManager);
 
+        populateIdManager();
+
         return new CentralManager(customerManager, driverManager, taskManager);
     }
 
@@ -82,7 +89,6 @@ public class JsonSerializableCentralManager {
         TaskManager taskManager = new TaskManager();
         for (JsonAdaptedTask jsonAdaptedTask : tasks) {
             Task task = jsonAdaptedTask.toModelType(customerManager, driverManager);
-            System.out.println(task.getId());
             if (taskManager.hasTask(task)) {
                 throw new IllegalValueException(String.format(MESSAGE_DUPLICATE_ENTITY, Task.class.getSimpleName()));
             }
@@ -115,5 +121,9 @@ public class JsonSerializableCentralManager {
             driverManager.addPerson(driver);
         }
         return driverManager;
+    }
+
+    private void populateIdManager() throws IllegalValueException {
+        jsonAdaptedId.toModelType();
     }
 }

@@ -44,8 +44,6 @@ public class JsonAdaptedTask {
      * Converts a given {@code Task} into this class for Jackson use.
      */
     public JsonAdaptedTask(Task task) {
-        System.out.println("HERE");
-        System.out.println(task);
         id = String.valueOf(task.getId());
         description = task.getDescription().getValue();
         customerId = String.valueOf(task.getCustomer().getId());
@@ -169,13 +167,11 @@ public class JsonAdaptedTask {
 
         //if status is incomplete, then ignore, because by default is incomplete
         if (status.equals(TaskStatus.ON_GOING.toString())) {
-            task.setStatus(TaskStatus.ON_GOING);
-
             //if status is ongoing, then load the eventTime to driver schedule
             Driver driver = driverManager.getDriver(Integer.parseInt(driverId));
             Schedule driverSchedule = driver.getSchedule();
             driverSchedule.add(EventTime.parse(duration));
-        } else {
+        } else if (status.equals(TaskStatus.COMPLETED.toString())) {
             //task is completed
             task.setStatus(TaskStatus.COMPLETED);
         }
