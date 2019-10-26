@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.id.IdManager;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -47,13 +46,6 @@ public class UniqueEntityList<T extends Person> implements Iterable<T> {
             throw new DuplicatePersonException();
         }
         internalList.add(toAdd);
-
-        //increase id count for customer and driver
-        if (toAdd instanceof Customer) {
-            IdManager.lastCustomerIdPlusOne();
-        } else if (toAdd instanceof Driver) {
-            IdManager.lastDriverIdPlusOne();
-        }
     }
 
     /**

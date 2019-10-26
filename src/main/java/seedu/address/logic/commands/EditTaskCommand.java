@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOODS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -48,11 +49,25 @@ public class EditTaskCommand extends Command {
 
     private final int id;
     private final EditTaskDescriptor editTaskDescriptor;
+    private final Clock clock;
 
 
     public EditTaskCommand(int id, EditTaskDescriptor editTaskDescriptor) {
         this.id = id;
         this.editTaskDescriptor = editTaskDescriptor;
+        this.clock = Clock.systemDefaultZone();
+    }
+
+    /**
+     * Creates an EditTaskCommand to edit the specified {@code Task} for unit testing.
+     * Makes use of dependency injection for current time.
+     *
+     * @param fixedClock clock that is fixed and will always return the same instant.
+     */
+    public EditTaskCommand(int id, EditTaskDescriptor editTaskDescriptor, Clock fixedClock) {
+        this.id = id;
+        this.editTaskDescriptor = editTaskDescriptor;
+        this.clock = fixedClock;
     }
 
     @Override
@@ -73,7 +88,7 @@ public class EditTaskCommand extends Command {
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor, model);
 
         //if the updated date is not same as original and if date is not today onwards
-        if (!taskToEdit.getDate().equals(editedTask.getDate()) && editedTask.getDate().isBefore(LocalDate.now())) {
+        if (!taskToEdit.getDate().equals(editedTask.getDate()) && editedTask.getDate().isBefore(LocalDate.now(clock))) {
             throw new CommandException(MESSAGE_DATE_IS_BEFORE);
         }
 

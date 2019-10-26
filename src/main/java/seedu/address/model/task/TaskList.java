@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.id.IdManager;
 import seedu.address.model.task.execeptions.TaskNotFoundException;
 
 /**
@@ -74,8 +73,6 @@ public class TaskList {
     public void addTask(Task newTask) {
         requireNonNull(newTask);
         tasks.add(newTask);
-
-        IdManager.lastTaskIdPlusOne();
     }
 
     /**
