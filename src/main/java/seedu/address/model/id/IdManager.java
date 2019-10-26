@@ -40,16 +40,16 @@ public class IdManager {
         return lastDriverId + 1;
     }
 
-    public static void setLastTaskId(int lastTaskId) {
-        lastTaskId = lastTaskId;
+    public static void setLastTaskId(int lastId) {
+        lastTaskId = lastId;
     }
 
-    public static void setLastCustomerId(int lastCustomerId) {
-        lastCustomerId = lastCustomerId;
+    public static void setLastCustomerId(int lastId) {
+        lastCustomerId = lastId;
     }
 
-    public static void setLastDriverId(int lastDriverId) {
-        lastDriverId = lastDriverId;
+    public static void setLastDriverId(int lastId) {
+        lastDriverId = lastId;
     }
 
     public static void lastTaskIdPlusOne() {

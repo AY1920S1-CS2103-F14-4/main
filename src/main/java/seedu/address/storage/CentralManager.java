@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.util.Objects;
+
 import seedu.address.model.DriverManager;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.task.TaskManager;
@@ -32,5 +34,24 @@ public class CentralManager {
 
     public TaskManager getTaskManager() {
         return taskManager;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CentralManager that = (CentralManager) o;
+        return getCustomerManager().equals(that.getCustomerManager()) &&
+                getDriverManager().equals(that.getDriverManager()) &&
+                getTaskManager().equals(that.getTaskManager());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCustomerManager(), getDriverManager(), getTaskManager());
     }
 }

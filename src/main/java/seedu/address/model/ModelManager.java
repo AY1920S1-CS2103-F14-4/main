@@ -40,6 +40,7 @@ public class ModelManager implements Model {
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Driver> filteredDrivers;
 
+    private final CentralManager centralManager;
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
     private final DriverManager driverManager;
@@ -57,6 +58,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
+        this.centralManager = new CentralManager();
         this.taskManager = new TaskManager();
         this.customerManager = new CustomerManager();
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
@@ -65,15 +67,16 @@ public class ModelManager implements Model {
     }
 
     public ModelManager(CentralManager centralManager, ReadOnlyUserPrefs userPrefs) {
-        super();
         requireAllNonNull(centralManager, userPrefs);
 
         logger.fine("Initializing with central manager: " + centralManager + " and user prefs " + userPrefs);
 
         this.addressBook = null;
-        this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = null;
 
+        this.userPrefs = new UserPrefs(userPrefs);
+
+        this.centralManager = centralManager;
         this.customerManager = centralManager.getCustomerManager();
         this.driverManager = centralManager.getDriverManager();
         this.taskManager = centralManager.getTaskManager();
@@ -336,7 +339,8 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook) && userPrefs.equals(other.userPrefs)
+        return addressBook.equals(other.addressBook)
+                && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
 

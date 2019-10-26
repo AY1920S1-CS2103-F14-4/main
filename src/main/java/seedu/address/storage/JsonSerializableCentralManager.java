@@ -30,12 +30,13 @@ public class JsonSerializableCentralManager {
     private final List<JsonAdaptedCustomer> customers = new ArrayList<>();
     private final List<JsonAdaptedDriver> drivers = new ArrayList<>();
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
-    private JsonAdaptedId jsonAdaptedId = new JsonAdaptedId();
+    private JsonAdaptedId jsonAdaptedId;
 
     /**
      * Constructs a {@code JsonSerializableCentralisedManager} with the given lists of entity.
      * Entity such as customers, drivers and tasks.
-     * It loads JSON file into List for {@code Model} usage.
+     * It is used for loading JSON adapted objects, which comes from JSON file, into
+     * their respective List for {@code toModelType()} usage.
      */
     @JsonCreator
     public JsonSerializableCentralManager(@JsonProperty("customers") List<JsonAdaptedCustomer> customers,
@@ -49,8 +50,8 @@ public class JsonSerializableCentralManager {
     }
 
     /**
-     * Converts all the managers in {@code centralManager} for JSON use.
-     * It saves the managers into JSON format.
+     * Converts all the managers in {@link CentralManager} for JSON use.
+     * It is used for saving into JSON adapted objects.
      *
      * @param centralManager future changes to this will not affect created {@code JsonSerializableCentralisedManager}.
      */
@@ -65,10 +66,13 @@ public class JsonSerializableCentralManager {
 
         TaskManager taskManager = centralManager.getTaskManager();
         tasks.addAll(taskManager.getList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
+
+        jsonAdaptedId = new JsonAdaptedId();
     }
 
     /**
      * Converts all the managers in {@code CentralManager} into the model's manager objects.
+     * It is used for loading from JSON adapted objects.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

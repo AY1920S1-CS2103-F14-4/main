@@ -24,12 +24,6 @@ public class StorageManager implements Storage {
 
     private CentralManagerStorage jsonCentralManagerStorage;
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
-        super();
-        this.addressBookStorage = addressBookStorage;
-        this.userPrefsStorage = userPrefsStorage;
-    }
-
     public StorageManager(CentralManagerStorage jsonCentralManagerStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.jsonCentralManagerStorage = jsonCentralManagerStorage;
