@@ -26,7 +26,7 @@ public class ReadIdCommandParser implements Parser<ReadIdCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TASK, PREFIX_CUSTOMER, PREFIX_DRIVER);
 
-        if (getNoOfPrefixesPresent(argMultimap, PREFIX_TASK, PREFIX_CUSTOMER, PREFIX_DRIVER) != 1) {
+        if (ParserUtil.getNoOfPrefixesPresent(argMultimap, PREFIX_TASK, PREFIX_CUSTOMER, PREFIX_DRIVER) != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadIdCommand.MESSAGE_USAGE));
         }
 
@@ -36,10 +36,6 @@ public class ReadIdCommandParser implements Parser<ReadIdCommand> {
         String className = foundPrefix.getPrefixClass();
 
         return new ReadIdCommand(className, id);
-    }
-
-    private static int getNoOfPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return (int) Stream.of(prefixes).filter(prefix -> argumentMultimap.getValue(prefix).isPresent()).count();
     }
 
     private static Prefix getPrefixPresent(ArgumentMultimap argumentMultimap,
