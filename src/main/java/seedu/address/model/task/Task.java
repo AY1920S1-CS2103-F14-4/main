@@ -79,6 +79,10 @@ public class Task {
         return LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
     }
 
+    public static LocalDate getParsedLocalDate(LocalDate localDate) {
+        return LocalDate.parse(localDate.format(DATE_FORMATTER_FOR_USER_INPUT), DATE_FORMAT_FOR_PRINT);
+    }
+
     public boolean isAssigned() {
         return driver.isPresent();
     }
@@ -116,9 +120,16 @@ public class Task {
     }
 
     public void setDriver(Optional<Driver> driver) {
-        this.driver = driver;
+        if (driver.isPresent()) {
+            setStatus(TaskStatus.ON_GOING);
+        }
 
-        setStatus(TaskStatus.ON_GOING);
+        if (driver.isEmpty()) {
+            setStatus(TaskStatus.INCOMPLETE);
+            setEventTime(Optional.empty());
+        }
+
+        this.driver = driver;
     }
 
     public void setEventTime(Optional<EventTime> eventTime) {

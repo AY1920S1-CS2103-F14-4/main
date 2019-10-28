@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
@@ -130,6 +131,10 @@ public interface Model {
 
     TaskManager getTaskManager();
 
+    boolean hasTaskBelongsToDriver(Driver driver);
+
+    boolean hasTaskBelongsToCustomer(Customer customer);
+
     /**
      * Returns an unmodifiable view of the filtered unassigned task list.
      */
@@ -141,6 +146,8 @@ public interface Model {
     ObservableList<Task> getAssignedTaskList();
 
     // customer manager
+
+    CustomerManager getCustomerManager();
 
     boolean hasCustomer(Customer customer);
 
@@ -157,6 +164,8 @@ public interface Model {
     void deleteCustomer(Customer customer);
 
     // driver manager
+
+    DriverManager getDriverManager();
 
     boolean hasDriver(Driver driver);
 
@@ -203,4 +212,12 @@ public interface Model {
      * Returns an unmodifiable view of the filtered driver list.
      */
     ObservableList<Driver> getFilteredDriverList();
+
+    int getNextTaskId();
+
+    int getNextCustomerId();
+
+    int getNextDriverId();
+
+    IdManager getIdManager();
 }

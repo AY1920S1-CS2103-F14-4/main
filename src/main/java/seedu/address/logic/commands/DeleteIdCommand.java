@@ -31,8 +31,9 @@ public class DeleteIdCommand extends Command {
             + PREFIX_CUSTOMER + " 2";
 
     public static final String MESSAGE_INVALID_ID = "Invalid %1$s id.";
-
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted %1$s: %2$s";
+    public static final String MESSAGE_CANNOT_DELETE_IF_ALLOCATED =
+            "This %1$s has already been allocated to a Task, therefore, cannot delete";
 
     private final String className;
     private final int id;
@@ -49,7 +50,7 @@ public class DeleteIdCommand extends Command {
         if (className.equals(Task.class.getSimpleName())) {
             //deletion for Task
             if (!model.hasTask(id)) {
-                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
+                throw new CommandException(String.format(MESSAGE_INVALID_ID, className));
             }
 
             Task taskToDelete = model.getTask(id);
@@ -68,19 +69,31 @@ public class DeleteIdCommand extends Command {
         } else if (className.equals(Customer.class.getSimpleName())) {
             //deletion for Customer
             if (!model.hasCustomer(id)) {
-                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
+                throw new CommandException(String.format(MESSAGE_INVALID_ID, className));
             }
 
             Customer customerToDelete = model.getCustomer(id);
+
+            //if customer is already allocated to a task, whether complete or incomplete
+            if (model.hasTaskBelongsToCustomer(customerToDelete)) {
+                throw new CommandException(String.format(MESSAGE_CANNOT_DELETE_IF_ALLOCATED, className));
+            }
+
             model.deleteCustomer(customerToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className, customerToDelete));
         } else {
             //deletion for Driver
             if (!model.hasDriver(id)) {
-                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
+                throw new CommandException(String.format(MESSAGE_CANNOT_DELETE_IF_ALLOCATED, className));
             }
 
             Driver driverToDelete = model.getDriver(id);
+
+            //if driver is already allocated to a task, whether complete or incomplete
+            if (model.hasTaskBelongsToDriver(driverToDelete)) {
+                throw new CommandException(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className));
+            }
+
             model.deleteDriver(driverToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, className, driverToDelete));
         }

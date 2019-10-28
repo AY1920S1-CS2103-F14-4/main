@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 public class TaskManager {
 
     private TaskList tasks;
-    private Task task;
 
     public TaskManager() {
         tasks = new TaskList();
@@ -53,6 +52,20 @@ public class TaskManager {
 
     public boolean hasTask(int taskId) {
         return tasks.hasTask(taskId);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        TaskManager otherObject = (TaskManager) o;
+        return getList().equals(otherObject.getList());
     }
 
 }

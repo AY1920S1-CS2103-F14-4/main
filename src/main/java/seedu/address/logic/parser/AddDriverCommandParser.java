@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddDriverCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Driver;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -47,9 +46,7 @@ public class AddDriverCommandParser implements Parser<AddDriverCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Driver driver = new Driver(name, phone, email, address, tagList);
-
-        return new AddDriverCommand(driver);
+        return new AddDriverCommand(name, phone, email, address, tagList);
     }
 
     /**

@@ -18,6 +18,7 @@ import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
+import seedu.address.storage.CentralManager;
 import seedu.address.storage.Storage;
 
 /**
@@ -46,11 +47,8 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            //temp
-            //uncomment to save tasks.json
-            //storage.saveAddressBook(model.getAddressBook(), model.getTaskManager());
-            //hax to pass 1 test case
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveManager(new CentralManager(model.getCustomerManager(), model.getDriverManager(),
+                    model.getTaskManager(), model.getIdManager()));
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

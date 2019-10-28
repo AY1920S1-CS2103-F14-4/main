@@ -24,23 +24,23 @@ public class ViewDriverTasksCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "listed delivered tasks";
 
-    private int driverID;
+    private int driverId;
 
-    public ViewDriverTasksCommand(int driverID) {
-        this.driverID = driverID;
+    public ViewDriverTasksCommand(int driverId) {
+        this.driverId = driverId;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Driver> currentDriverList = model.getFilteredDriverList();
-        List<Task>  taskList = model.getFilteredTaskList();
+        List<Task> taskList = model.getFilteredTaskList();
 
-        if (driverID > currentDriverList.size()) {
+        if (driverId > currentDriverList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DRIVER_DISPLAYED_INDEX);
         }
 
-        Driver driverToView = currentDriverList.get(driverID);
+        Driver driverToView = currentDriverList.get(driverId);
         model.viewDriverTask(driverToView);
         return new CommandResult(String.format(MESSAGE_SUCCESS, driverToView));
     }
