@@ -19,12 +19,7 @@ public class TaskManager {
         tasks = savedTasks;
     }
 
-    public void setTaskList(TaskList savedTasks) {
-        tasks.setTaskList(savedTasks.getList());
-    }
-
     public ObservableList<Task> getList() {
-        setTaskList(tasks);
         return tasks.getList();
     }
 
