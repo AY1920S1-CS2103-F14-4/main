@@ -5,17 +5,17 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Driver;
+import seedu.address.model.task.Task;
 
 /**
  * List delivered task for specified driver
  */
 public class ViewDriverTasksCommand extends Command {
 
-    public static final String COMMAND_WORD = "view driver";
+    public static final String COMMAND_WORD = "viewD";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views the delivered tasks of the specified driver "
             + "and displays them as a list with index numbers.\n"
@@ -24,21 +24,23 @@ public class ViewDriverTasksCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "listed delivered tasks";
 
-    private final Index targetIndex;
+    private int driverID;
 
-    public ViewDriverTasksCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public ViewDriverTasksCommand(int driverID) {
+        this.driverID = driverID;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> currentDriverList = model.getFilteredPersonList(); //change Person to Driver here
-        if (targetIndex.getZeroBased() >= currentDriverList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } //change to invalid driver index
+        List<Driver> currentDriverList = model.getFilteredDriverList();
+        List<Task>  taskList = model.getFilteredTaskList();
 
-        Person driverToView = currentDriverList.get(targetIndex.getZeroBased());
+        if (driverID > currentDriverList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DRIVER_DISPLAYED_INDEX);
+        }
+
+        Driver driverToView = currentDriverList.get(driverID);
         model.viewDriverTask(driverToView);
         return new CommandResult(String.format(MESSAGE_SUCCESS, driverToView));
     }
