@@ -16,17 +16,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
-import seedu.address.model.task.TaskStatus;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -69,28 +63,6 @@ public class ModelManager implements Model {
         filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(this.driverManager.getDriverList());
 
-        // temporary lists
-
-        // to test the customers and drivers list
-        Customer testCustomer = new Customer(1, new Name("Alex Yeoh"), new Phone("87438807"),
-                new Email("alexyeoh@example.com"), new Address("Blk 30 Geylang Street 29, #06-40"), new HashSet<Tag>());
-        customerManager.addPerson(testCustomer);
-
-        Driver testDriver = new Driver(1, new Name("Bill Yee"), new Phone("92425307"),
-                new Email("billyyee@example.com"), new Address("Blk 1 Orchard Street 30, #06-41"), new HashSet<Tag>());
-        driverManager.addPerson(testDriver);
-
-        //to test task lists
-        Task testTask = new Task(1, new Description("3 boxes of vegetables"),
-                LocalDate.of(2019, 12, 12));
-        testTask.setCustomer(customerManager.getCustomer(1));
-        taskManager.addTask(testTask);
-
-        Task test2Task = new Task(2, new Description("10 cans of Sprite"),
-                LocalDate.of(2019, 11, 11));
-        test2Task.setCustomer(customerManager.getCustomer(1));
-        test2Task.setStatus(TaskStatus.ON_GOING);
-        taskManager.addTask(test2Task);
     }
 
     public ModelManager() {
