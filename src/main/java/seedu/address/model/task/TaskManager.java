@@ -24,7 +24,6 @@ public class TaskManager {
     }
 
     public ObservableList<Task> getList() {
-        setTaskList(tasks);
         return tasks.getList();
     }
 
