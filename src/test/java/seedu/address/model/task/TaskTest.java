@@ -18,6 +18,7 @@ import static seedu.address.testutil.SampleEntity.VALID_EVENT_TIME;
 import static seedu.address.testutil.SampleEntity.VALID_LOCAL_DATE;
 import static seedu.address.testutil.SampleEntity.VALID_TASK_ID;
 import static seedu.address.testutil.SampleEntity.getCompleteTask;
+import static seedu.address.testutil.SampleEntity.getFirstSampleCompletedTask;
 import static seedu.address.testutil.SampleEntity.getIncompleteTask;
 
 import java.util.Optional;
@@ -26,11 +27,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.task.execeptions.TaskException;
 
-class TaskTest {
+public class TaskTest {
     //featureUnderTest_testScenario_expectedBehavior()
 
     @Test
-    void isValidId() {
+    public void isValidId() {
         //isValidId should only work for number and more than 0.
         String number = "3";
         assertTrue(Task.isValidId(number));
@@ -49,7 +50,7 @@ class TaskTest {
     }
 
     @Test
-    void setDriver() {
+    public void setDriver() {
         Task newTask = getIncompleteTask(VALID_TASK_ID, VALID_DESCRIPTION, VALID_LOCAL_DATE);
         newTask.setDriver(Optional.of(VALID_DRIVER));
 
@@ -57,7 +58,7 @@ class TaskTest {
     }
 
     @Test
-    void setEventTime() {
+    public void setEventTime() {
         Task newTask = getIncompleteTask(VALID_TASK_ID, VALID_DESCRIPTION, VALID_LOCAL_DATE);
         newTask.setEventTime(Optional.of(VALID_EVENT_TIME));
 
@@ -65,9 +66,9 @@ class TaskTest {
     }
 
     @Test
-    void testEquals() {
-        Task expectedTask = getSampleCompletedTask();
-        Task taskToCompare = getSampleCompletedTask();
+    public void testEquals() {
+        Task expectedTask = getFirstSampleCompletedTask();
+        Task taskToCompare = getFirstSampleCompletedTask();
 
         assertEquals(expectedTask, taskToCompare);
 
@@ -77,40 +78,35 @@ class TaskTest {
         assertNotEquals(expectedTask, taskWithAnotherTaskId);
 
         //test different description -> false
-        Task taskWithAnotherDescription = getSampleCompletedTask();
+        Task taskWithAnotherDescription = getFirstSampleCompletedTask();
         taskWithAnotherDescription.setDescription(SECOND_VALID_DESCRIPTION);
         assertNotEquals(expectedTask, taskWithAnotherDescription);
 
         //test different local date -> false
-        Task taskWithAnotherDate = getSampleCompletedTask();
+        Task taskWithAnotherDate = getFirstSampleCompletedTask();
         taskWithAnotherDate.setDate(SECOND_VALID_LOCAL_DATE);
         assertNotEquals(expectedTask, taskWithAnotherDate);
 
         //test different customer -> false
-        Task taskWithAnotherCustomer = getSampleCompletedTask();
+        Task taskWithAnotherCustomer = getFirstSampleCompletedTask();
         taskWithAnotherCustomer.setCustomer(SECOND_VALID_CUSTOMER);
         assertNotEquals(expectedTask, taskWithAnotherCustomer);
 
         //test different driver -> false
-        Task taskWithAnotherDriver = getSampleCompletedTask();
+        Task taskWithAnotherDriver = getFirstSampleCompletedTask();
         taskWithAnotherDriver.setDriver(Optional.of(SECOND_VALID_DRIVER));
         assertNotEquals(expectedTask, taskWithAnotherDriver);
 
         //test different event time -> false
-        Task taskWithAnotherEventTime = getSampleCompletedTask();
+        Task taskWithAnotherEventTime = getFirstSampleCompletedTask();
         taskWithAnotherEventTime.setEventTime(Optional.of(SECOND_VALID_EVENT_TIME));
         assertNotEquals(expectedTask, taskWithAnotherEventTime);
     }
 
     @Test
-    void setStatus_noChangeInStatus_taskExceptionThrown() {
-        Task sampleTask = getSampleCompletedTask();
+    public void setStatus_noChangeInStatus_taskExceptionThrown() {
+        Task sampleTask = getFirstSampleCompletedTask();
 
         assertThrows(TaskException.class, () -> sampleTask.setStatus(TaskStatus.COMPLETED));
-    }
-
-    private Task getSampleCompletedTask() {
-        return getCompleteTask(VALID_TASK_ID, VALID_DESCRIPTION, VALID_LOCAL_DATE, VALID_CUSTOMER,
-                VALID_DRIVER, VALID_EVENT_TIME);
     }
 }

@@ -16,7 +16,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 
 /**
- * A utility class containing Sample Task details to be used for testing.
+ * A utility class containing sample {@link Task} details to be used for testing.
  */
 public class SampleEntity {
 
@@ -63,5 +63,15 @@ public class SampleEntity {
         newTask.setEventTime(Optional.of(eventTime));
         newTask.setStatus(TaskStatus.COMPLETED);
         return newTask;
+    }
+
+    public static Task getFirstSampleCompletedTask() {
+        return getCompleteTask(VALID_TASK_ID, VALID_DESCRIPTION, VALID_LOCAL_DATE, VALID_CUSTOMER,
+                VALID_DRIVER, VALID_EVENT_TIME);
+    }
+
+    public static Task getSecondSampleCompletedTask() {
+        return getCompleteTask(SECOND_VALID_TASK_ID, SECOND_VALID_DESCRIPTION, SECOND_VALID_LOCAL_DATE,
+                SECOND_VALID_CUSTOMER, SECOND_VALID_DRIVER, SECOND_VALID_EVENT_TIME);
     }
 }
