@@ -306,10 +306,10 @@ The lifeline for <code>DeleteCommandParser</code> should end at the destroy mark
 <p>can save <code>UserPref</code> objects in json format and read it back.</p>
 </li>
 <li>
-<p>uses CentralManager to consolidate all the managers' data that needs to be saved. (e.g. Task Manager&#8217;s data)</p>
+<p>uses <code>CentralManager</code> to consolidate all the managers' data that needs to be saved. (e.g. Task Manager&#8217;s data)</p>
 </li>
 <li>
-<p>can save the Central Manager data in json format and read it back.</p>
+<p>can save the <code>CentralManager</code> data in json format and read it back.</p>
 </li>
 </ul>
 </div>
@@ -711,13 +711,19 @@ After the validation is completed, <code>AddTaskCommand</code> will fetch <code>
 A unique id will also be allocated to the task for differentiation.</p>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram shows how the add task operation works:</p>
+<p>The following sequence diagrams show how the add task operation works:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/AddTaskCommand.png" alt="AddTaskCommand">
 </div>
 <div class="title">Figure 11. Sequence Diagram of adding a task.</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ModelInteractWithManagers.png" alt="ModelInteractWithManagers">
+</div>
+<div class="title">Figure 12. Sequence Diagram of Model interaction with the CustomerManager and TaskManager for adding a task.</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -730,6 +736,42 @@ The flow of how the task is being accessed and  managed as shown above is the sa
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.6.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-couping-of-task-and-other-entities-driver-and-customer"><a class="link" href="#aspect-couping-of-task-and-other-entities-driver-and-customer">Aspect: Couping of Task and other entities (Driver and Customer)</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Task class contains Driver and Customer classes as attributes.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Centralised Task class that encapsulates all the information, which makes it easy to manage task.</p>
+</li>
+<li>
+<p>Cons: Task will have to depend on Driver and Customer. Decreases testability.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Driver and Customer classes have Task class as attribute.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to access tasks through the respective classes. (Driver and Customer classes)</p>
+</li>
+<li>
+<p>Cons: Having 2 classes depend on Task class. Decreases testability.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -748,7 +790,7 @@ The attributes of Task is as follows:</p>
 <div class="content">
 <img src="images/Customer.png" alt="Customer">
 </div>
-<div class="title">Figure 12. Class Diagram of Customer class.</div>
+<div class="title">Figure 13. Class Diagram of Customer class.</div>
 </div>
 <div class="paragraph">
 <p>As seen in the above class diagram, the <code>id</code> field is not required when adding a customer.
@@ -762,7 +804,7 @@ A unique id will also be allocated to the Customer for differentiation.</p>
 <div class="content">
 <img src="images/AddCustomerCommand.png" alt="AddCustomerCommand">
 </div>
-<div class="title">Figure 13. Sequence Diagram of adding a task.</div>
+<div class="title">Figure 14. Sequence Diagram of adding a task.</div>
 </div>
 </div>
 </div>
@@ -781,7 +823,7 @@ The attributes of Driver is as follows:</p>
 <div class="content">
 <img src="images/Driver.png" alt="Driver">
 </div>
-<div class="title">Figure 14. Class Diagram of Driver class.</div>
+<div class="title">Figure 15. Class Diagram of Driver class.</div>
 </div>
 <div class="paragraph">
 <p>As seen in the above class diagram, the <code>id</code> field is not required when adding a driver.
@@ -795,11 +837,11 @@ A unique id will also be allocated to the Driver for differentiation.</p>
 <div class="content">
 <img src="images/AddDriverCommand.png" alt="AddDriverCommand">
 </div>
-<div class="title">Figure 15. Sequence Diagram of adding a task.</div>
+<div class="title">Figure 16. Sequence Diagram of adding a task.</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.8.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.8.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-usage-of-universal-command-word"><a class="link" href="#aspect-usage-of-universal-command-word">Aspect: Usage of universal Command word</a></h5>
 <div class="ulist">
@@ -1295,4 +1337,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-29 06:42:30 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-29 16:00:06 UTC</div></div></div></body></html>
