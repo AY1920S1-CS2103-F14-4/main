@@ -114,7 +114,6 @@ public class Task {
 
         if (driver.isEmpty()) {
             setStatus(TaskStatus.INCOMPLETE);
-            setEventTime(Optional.empty());
         }
 
         this.driver = driver;
@@ -122,6 +121,11 @@ public class Task {
 
     public void setEventTime(Optional<EventTime> eventTime) {
         this.eventTime = eventTime;
+    }
+
+    public void setDriverAndEventTime(Optional<Driver> optionalDriver, Optional<EventTime> optionalEventTime) {
+        setDriver(optionalDriver);
+        setEventTime(optionalEventTime);
     }
 
     /**
