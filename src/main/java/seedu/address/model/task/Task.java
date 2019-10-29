@@ -128,15 +128,6 @@ public class Task {
         setEventTime(optionalEventTime);
     }
 
-    /**
-     * Deletes the driver assigned from the task.
-     */
-    public void deleteDriver() {
-        driver = Optional.empty();
-
-        setStatus(TaskStatus.INCOMPLETE);
-    }
-
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
