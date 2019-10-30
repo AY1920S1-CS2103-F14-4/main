@@ -21,6 +21,7 @@ import seedu.address.logic.commands.FindCustomerCommand;
 import seedu.address.logic.commands.FindDriverCommand;
 import seedu.address.logic.commands.FreeCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ReadIdCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -89,6 +90,9 @@ public class AddressBookParser {
 
         case FindDriverCommand.COMMAND_WORD:
             return new FindDriverCommandParser().parse(arguments);
+
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
