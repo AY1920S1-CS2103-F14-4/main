@@ -36,7 +36,7 @@ public class DriverCard extends UiPart<Region> {
         name.setText(driver.getName().fullName);
         phone.setText("Phone: " + driver.getPhone().value);
         driverId.setText("Driver ID: #" + driver.getId());
-        if(driver.getSchedule().toString().equals(Schedule.MESSAGE_EMPTY_SCHEDULE)) {
+        if (driver.getSchedule().toString().equals(Schedule.MESSAGE_EMPTY_SCHEDULE)) {
             availability.setText("Unavailable Time: Available all times");
         } else {
             availability.setText("Unavailable Time: " + driver.getSchedule());
