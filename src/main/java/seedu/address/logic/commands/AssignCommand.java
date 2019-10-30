@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.GlobalClock;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.EventTime;
 import seedu.address.model.Model;
@@ -37,7 +38,6 @@ public class AssignCommand extends Command {
             + PREFIX_TASK + "3 "
             + PREFIX_EVENT_TIME + "930 - 1600";
 
-    private Clock clock;
     private EventTime eventTime;
     private boolean isForceAssign;
     private int driverId;
@@ -56,7 +56,6 @@ public class AssignCommand extends Command {
         this.taskId = taskId;
         this.eventTime = eventTime;
         this.isForceAssign = isForceAssign;
-        this.clock = Clock.systemDefaultZone();
     }
 
     @Override
@@ -74,7 +73,7 @@ public class AssignCommand extends Command {
         Task task = model.getTask(taskId);
 
         // check current time against system time
-        if (eventTime.getStart().compareTo(LocalTime.now(this.clock)) < 0) {
+        if (eventTime.getStart().compareTo(GlobalClock.timeNow()) < 0) {
             throw new CommandException(MESSAGE_EVENT_START_BEFORE_NOW);
         }
 

@@ -3,9 +3,11 @@ package seedu.address.model.person;
 import java.time.Duration;
 import java.util.Iterator;
 import java.util.NavigableSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeSet;
 
+import seedu.address.logic.GlobalClock;
 import seedu.address.model.EventTime;
 import seedu.address.model.person.exceptions.SchedulingException;
 
@@ -87,8 +89,12 @@ public class Schedule {
     public Optional<EventTime> findFirstAvailableSlot(EventTime proposed) {
         Duration length = proposed.getDuration();
 
+        // get a view of the schedule, from system time to the last EventTime that is later than the proposed time
         EventTime lastCandidate = schedule.ceiling(proposed);
-        NavigableSet<EventTime> candidates = schedule.headSet(lastCandidate, true);
+        // HACK: using a zero minute event time to get the tailset
+        EventTime now = new EventTime(GlobalClock.timeNow(), GlobalClock.timeNow());
+
+        NavigableSet<EventTime> candidates = schedule.subSet(now, false, lastCandidate, true);
         Iterator<EventTime> iter = candidates.iterator();
 
         EventTime prev = null;
@@ -156,6 +162,23 @@ public class Schedule {
                 .map(EventTime::to24HrString)
                 .reduce((str1, str2) -> str1 + ", " + str2)
                 .orElse(MESSAGE_EMPTY_SCHEDULE);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Schedule schedule1 = (Schedule) o;
+        return schedule1.schedule.equals(((Schedule) o).schedule);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(schedule);
     }
 }
 

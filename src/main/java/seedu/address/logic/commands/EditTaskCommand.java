@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.GlobalClock;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Description;
 import seedu.address.model.EventTime;
@@ -88,7 +89,7 @@ public class EditTaskCommand extends Command {
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor, model);
 
         //if the updated date is not same as original and if date is not today onwards
-        if (!taskToEdit.getDate().equals(editedTask.getDate()) && editedTask.getDate().isBefore(LocalDate.now(clock))) {
+        if (!taskToEdit.getDate().equals(editedTask.getDate()) && editedTask.getDate().isBefore(GlobalClock.dateToday())) {
             throw new CommandException(MESSAGE_DATE_IS_BEFORE);
         }
 

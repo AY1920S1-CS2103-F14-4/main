@@ -91,6 +91,7 @@ public class Driver extends Person {
                 && otherDriver.getPhone().equals(getPhone())
                 && otherDriver.getEmail().equals(getEmail())
                 && otherDriver.getAddress().equals(getAddress())
+                && otherDriver.getSchedule().equals(getSchedule())
                 && otherDriver.getTags().equals(getTags());
     }
 
