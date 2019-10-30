@@ -11,12 +11,12 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "The Task / Driver / Customer List has been cleared!";
-    public static final String CONFIRMATION_WORD = "confirm";
+    public static final String CONFIRMATION_WORD = "CONFIRM";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes all data from Customer, "
-            + "Driver and Task list. \n"
+            + "Driver and Task list."
             + "Once data are deleted, they CANNOT be retrieved back. \n"
-            + "Parameters: [confirm] \n"
+            + "Parameters: [CONFIRM] *CASE-SENSITIVE \n"
             + "Example: " + COMMAND_WORD + " " + CONFIRMATION_WORD;
 
     @Override

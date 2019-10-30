@@ -22,7 +22,7 @@ public class ClearCommandParser implements Parser<ClearCommand> {
     }
 
     private boolean hasConfirmation(String args) {
-        String trimmedStr = args.trim().toLowerCase();
+        String trimmedStr = args.trim();
         return trimmedStr.equals(ClearCommand.CONFIRMATION_WORD);
     }
 }
