@@ -91,18 +91,6 @@ public class Task {
         return eventTime.isPresent();
     }
 
-    /**
-     * Check if this task is same as {@code Task otherTask}.
-     * Only same if all the fields are the same.
-     */
-    public boolean isSameTask(Task otherTask) {
-        if (otherTask == this) {
-            return true;
-        }
-
-        return this.equals(otherTask);
-    }
-
     //set methods
     public void setStatus(TaskStatus status) {
         if (this.status == status) {
@@ -126,7 +114,6 @@ public class Task {
 
         if (driver.isEmpty()) {
             setStatus(TaskStatus.INCOMPLETE);
-            setEventTime(Optional.empty());
         }
 
         this.driver = driver;
@@ -136,13 +123,9 @@ public class Task {
         this.eventTime = eventTime;
     }
 
-    /**
-     * Deletes the driver assigned from the task.
-     */
-    public void deleteDriver() {
-        driver = Optional.empty();
-
-        setStatus(TaskStatus.INCOMPLETE);
+    public void setDriverAndEventTime(Optional<Driver> optionalDriver, Optional<EventTime> optionalEventTime) {
+        setDriver(optionalDriver);
+        setEventTime(optionalEventTime);
     }
 
     public void setCustomer(Customer customer) {

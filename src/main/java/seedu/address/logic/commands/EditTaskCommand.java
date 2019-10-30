@@ -92,7 +92,7 @@ public class EditTaskCommand extends Command {
             throw new CommandException(MESSAGE_DATE_IS_BEFORE);
         }
 
-        if (taskToEdit.isSameTask(editedTask)) {
+        if (taskToEdit.equals(editedTask)) {
             throw new CommandException(MESSAGE_NOTHING_TO_EDIT);
         }
 
@@ -152,8 +152,7 @@ public class EditTaskCommand extends Command {
         editedTask.setCustomer(updatedCustomer);
 
         //use the original driver and eventTime, no changes made to them.
-        editedTask.setDriver(taskToEdit.getDriver());
-        editedTask.setEventTime(taskToEdit.getEventTime());
+        editedTask.setDriverAndEventTime(taskToEdit.getDriver(), taskToEdit.getEventTime());
 
         editedTask.setStatus(taskToEdit.getStatus());
 
