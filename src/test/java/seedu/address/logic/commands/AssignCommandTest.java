@@ -6,6 +6,8 @@ import static seedu.address.testutil.SampleEntity.VALID_DRIVER;
 import static seedu.address.testutil.SampleEntity.VALID_TASK_ID;
 import static seedu.address.testutil.SampleEntity.getSampleFreshModel;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,11 +48,9 @@ class AssignCommandTest {
 
         Model expectedModel = getSampleFreshModel();
         expectedModel.getDriver(VALID_DRIVER.getId()).addToSchedule(proposed);
-        expectedModel.getTask(VALID_TASK_ID).setDriver();
+        expectedModel.getTask(VALID_TASK_ID).setDriver(Optional.of(model.getDriver(VALID_DRIVER.getId())));
 
-        assertCommandSuccess(cmd, model, new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, VALID_DRIVER.getName().fullName,
-                proposed);
-
-
+        assertCommandSuccess(cmd, model, new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, VALID_TASK_ID,
+                VALID_DRIVER.getName().fullName, proposed)), expectedModel);
     }
 }

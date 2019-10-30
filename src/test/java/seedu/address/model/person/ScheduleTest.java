@@ -4,12 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.GlobalClock;
 import seedu.address.model.EventTime;
 import seedu.address.model.person.exceptions.SchedulingException;
 
 class ScheduleTest {
+
 
     /**
      * Gets a sample schedule with two events.
@@ -20,6 +24,16 @@ class ScheduleTest {
         schedule.add(EventTime.parse("900", "1000"));
         schedule.add(EventTime.parse("1200", "1500"));
         return schedule;
+    }
+
+    @BeforeAll
+    static void setStaticClock() {
+        GlobalClock.setFixedClock();
+    }
+
+    @AfterAll
+    static void setNormalClock() {
+        GlobalClock.setRealClock();
     }
 
     @Test
