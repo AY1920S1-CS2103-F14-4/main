@@ -64,6 +64,9 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    //for pdf file usage
+    implementation 'org.apache.pdfbox:pdfbox:2.0.17'
 }
 
 shadowJar {

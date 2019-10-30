@@ -2,6 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -46,6 +51,19 @@ public class SavePdfCommand extends Command {
         if (date.isEmpty()) {
             date = Optional.of(LocalDate.now(clock));
         }
+
+        try {
+            PDDocument doc = new PDDocument();
+            //create file if doens't exist
+            File newFile = new File("./data/hello.pdf");
+            doc.save(newFile);
+            System.out.println("PDF created");
+            doc.close();
+        } catch (IOException ioe) {
+            System.err.println(ioe);
+        }
+
+        LocalDate dateToPrint = date.get();
 
         //fetch the list of tasks for the date
 
