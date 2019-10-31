@@ -1,6 +1,10 @@
 package seedu.address.model.task;
 
+import java.util.Iterator;
+
 import javafx.collections.ObservableList;
+
+
 
 /**
  * Manages the task list.
@@ -51,6 +55,21 @@ public class TaskManager {
 
     public void setTaskList(TaskList taskList) {
         tasks.setTaskList(taskList.getList());
+    }
+
+    /**
+     * Checks if all tasks are complete.
+     * @return true when all tasks are completed
+     */
+    public boolean allCompleted() {
+        Iterator<Task> tasksIterator = this.tasks.getIterator();
+        while (tasksIterator.hasNext()) {
+            Task task = tasksIterator.next();
+            if (task.getStatus() != TaskStatus.COMPLETED) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
