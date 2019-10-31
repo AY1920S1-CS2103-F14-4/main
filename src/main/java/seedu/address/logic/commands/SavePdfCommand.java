@@ -2,17 +2,14 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Optional;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
 
 /**
  * Saves a pdf file with all drivers' tasks for a specific date assigned.
@@ -30,6 +27,11 @@ public class SavePdfCommand extends Command {
             + "Parameters: "
             + "[DATE] \n"
             + "Example: " + COMMAND_WORD + " 10/10/2019";
+
+    public static final String MESSAGE_UNABLE_TO_FIND_PATH = "Unable to save file at this directory. (%1$s)";
+    public static final String MESSAGE_NO_TASKS_ASSIGNED_ON_DATE = "No tasks are assigned to drivers on %1$s";
+
+    private static final String FILE_PATH_FOR_PDF = "./data/DeliveryTasks.pdf";
 
     private final Clock clock;
     private Optional<LocalDate> date;
@@ -52,23 +54,17 @@ public class SavePdfCommand extends Command {
             date = Optional.of(LocalDate.now(clock));
         }
 
+        LocalDate dateOfDelivery = date.get();
+
         try {
-            PDDocument doc = new PDDocument();
-            //create file if doens't exist
-            File newFile = new File("./data/hello.pdf");
-            doc.save(newFile);
-            System.out.println("PDF created");
-            doc.close();
+            model.saveDriverTaskPdf(FILE_PATH_FOR_PDF, dateOfDelivery);
         } catch (IOException ioe) {
-            System.err.println(ioe);
+            throw new CommandException(ioe.getMessage());
+        } catch (PdfNoTaskToDisplayException pdfe) {
+            //temp
+            //if unused, removed
+            throw new CommandException(pdfe.toString());
         }
-
-        LocalDate dateToPrint = date.get();
-
-        //fetch the list of tasks for the date
-
-        //check if the list is empty, if empty, throw error
-
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
