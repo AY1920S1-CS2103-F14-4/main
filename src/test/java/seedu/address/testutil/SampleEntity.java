@@ -81,6 +81,12 @@ public class SampleEntity {
         return new Task(taskId, description, date);
     }
 
+    public static Task getUnassignedTask(int taskId, Description description, LocalDate date, Customer customer) {
+        Task t = new Task(taskId, description, date);
+        t.setCustomer(customer);
+        return t;
+    }
+
     public static Task getCompleteTask(int taskId, Description description, LocalDate date, Customer customer,
                                        Driver driver, EventTime eventTime) {
         Task newTask = new Task(taskId, description, date);
@@ -117,12 +123,13 @@ public class SampleEntity {
         customerManager.addPerson(SECOND_VALID_CUSTOMER);
 
         DriverManager driverManager = new DriverManager();
-        driverManager.addPerson(VALID_DRIVER);
-        driverManager.addPerson(SECOND_VALID_DRIVER);
+        driverManager.addPerson(getFirstSampleDriver());
+        driverManager.addPerson(getSecondSampleDriver());
 
         TaskManager taskManager = new TaskManager();
-        taskManager.addTask(getIncompleteTask(VALID_TASK_ID, VALID_DESCRIPTION, VALID_LOCAL_DATE));
-        taskManager.addTask(getIncompleteTask(SECOND_VALID_TASK_ID, SECOND_VALID_DESCRIPTION, SECOND_VALID_LOCAL_DATE));
+        taskManager.addTask(getUnassignedTask(VALID_TASK_ID, VALID_DESCRIPTION, VALID_LOCAL_DATE, VALID_CUSTOMER));
+        taskManager.addTask(getUnassignedTask(SECOND_VALID_TASK_ID, SECOND_VALID_DESCRIPTION, SECOND_VALID_LOCAL_DATE,
+                SECOND_VALID_CUSTOMER));
 
 
         return new CentralManager(customerManager, driverManager, taskManager, new IdManager(

@@ -3,10 +3,8 @@ package seedu.address.logic;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 
 /**
  * A class to get the time and date now. For simplicity of testing, there are static methods to enable the clock to
@@ -29,7 +27,7 @@ public class GlobalClock {
      * Sets the fixed clock to 15 Oct 2019, 2pm SGT
      */
     public static void setFixedClock() {
-        GlobalClock.clock = buildFixedClock();
+        GlobalClock.clock = buildFixedClock(DEFAULT_DATETIME);
     }
 
 
@@ -37,26 +35,28 @@ public class GlobalClock {
         GlobalClock.clock = Clock.systemDefaultZone();
     }
 
-    private static Clock buildFixedClock() {
-        Instant fixedTime = Instant.parse(DEFAULT_DATETIME);
+    private static Clock buildFixedClock(String dateTime) {
+        Instant fixedTime = Instant.parse(dateTime);
         ZoneId sg = ZoneId.of(DEFAULT_TIMEZONE);
         return Clock.fixed(fixedTime, sg);
     }
 
     /**
      * Returns a date of 15 Oct 2019
+     *
      * @return the fixed date
      */
     public static LocalDate getStaticDate() {
-        return LocalDate.now(buildFixedClock());
+        return LocalDate.now(buildFixedClock(DEFAULT_DATETIME));
     }
 
     /**
      * Returns a time of 2pm SGT.
+     *
      * @return the fixed time
      */
     public static LocalTime getStaticTime() {
-        return LocalTime.now(buildFixedClock());
+        return LocalTime.now(buildFixedClock(DEFAULT_DATETIME));
     }
 
 }

@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.time.LocalTime;
 import java.util.Set;
 
 import seedu.address.model.EventTime;
@@ -53,8 +54,8 @@ public class Driver extends Person {
         return schedule.isAvailable(durationToAdd);
     }
 
-    public String suggestTime(EventTime eventTime) {
-        return this.schedule.getSchedulingSuggestion(eventTime);
+    public String suggestTime(EventTime eventTime, LocalTime timeNow) {
+        return this.schedule.getSchedulingSuggestion(eventTime, timeNow);
     }
 
     public void assign(EventTime eventTime) throws SchedulingException {

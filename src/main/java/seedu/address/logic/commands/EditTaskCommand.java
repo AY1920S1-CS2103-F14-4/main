@@ -89,7 +89,8 @@ public class EditTaskCommand extends Command {
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor, model);
 
         //if the updated date is not same as original and if date is not today onwards
-        if (!taskToEdit.getDate().equals(editedTask.getDate()) && editedTask.getDate().isBefore(GlobalClock.dateToday())) {
+        if (!taskToEdit.getDate().equals(editedTask.getDate())
+                && editedTask.getDate().isBefore(GlobalClock.dateToday())) {
             throw new CommandException(MESSAGE_DATE_IS_BEFORE);
         }
 

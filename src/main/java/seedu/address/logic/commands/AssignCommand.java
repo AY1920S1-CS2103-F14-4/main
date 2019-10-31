@@ -5,8 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
-import java.time.Clock;
-import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -78,7 +76,7 @@ public class AssignCommand extends Command {
         }
 
 
-        String suggestion = driver.suggestTime(eventTime);
+        String suggestion = driver.suggestTime(eventTime, GlobalClock.timeNow());
         if (!suggestion.isEmpty() && !isForceAssign) {
             throw new CommandException(suggestion);
         }
