@@ -11,6 +11,8 @@
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Deliveria" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -23,19 +25,23 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
+      <VBox>
+        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+          <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+          </Menu>
+        </MenuBar>
+
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+                  <tabs>
+                    <Tab text="Home">
+
       <SplitPane>
         <VBox>
-          <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-            <Menu mnemonicParsing="false" text="File">
-              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-              <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-            </Menu>
-          </MenuBar>
-
-          <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-
+<!--          <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />-->
           <SplitPane minWidth="580">
             <VBox fx:id="driverList" styleClass="pane-with-border" minWidth="150" prefWidth="150"
                   minHeight="520" VBox.vgrow="ALWAYS">
@@ -85,6 +91,30 @@
 
           </SplitPane>
       </SplitPane>
+
+            </Tab>
+
+            <Tab text="Statistics">
+              <SplitPane>
+                <VBox>
+
+
+                </VBox>
+                <VBox fx:id="completedTaskList" styleClass="pane-with-border" minWidth="200" prefWidth="200" VBox.vgrow="ALWAYS">
+                  <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                  </padding>
+                  <StackPane fx:id="completedTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                </VBox>
+              </SplitPane>
+
+
+            </Tab>
+
+          </tabs>
+        </TabPane>
+
+      </VBox>
     </Scene>
   </scene>
 </fx:root>

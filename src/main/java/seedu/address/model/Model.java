@@ -38,6 +38,11 @@ public interface Model {
     Predicate<Task> PREDICATE_SHOW_ASSIGNED = task -> task.getStatus().equals(TaskStatus.ON_GOING);
 
     /**
+     * {@code Predicate} that filters the task to completed status
+     */
+    Predicate<Task> PREDICATE_SHOW_COMPLETED = task -> task.getStatus().equals(TaskStatus.COMPLETED);
+
+    /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
@@ -148,6 +153,11 @@ public interface Model {
      * Returns an unmodifiable view of the filtered assigned task list.
      */
     ObservableList<Task> getAssignedTaskList();
+
+    /**
+     * Returns an unmodifiable view of the completed assigned task list.
+     */
+    ObservableList<Task> getCompletedTaskList();
 
     // customer manager
 

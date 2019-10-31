@@ -33,6 +33,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> unassignedTasks;
+    private final FilteredList<Task> completedTasks;
 
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Driver> filteredDrivers;
@@ -61,6 +62,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.taskManager.getList());
         unassignedTasks = new FilteredList<>(this.taskManager.getList());
+        completedTasks = new FilteredList<>(this.taskManager.getList());
         filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(this.driverManager.getDriverList());
     }
@@ -86,6 +88,7 @@ public class ModelManager implements Model {
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
         filteredTasks = new FilteredList<>(taskManager.getList());
         unassignedTasks = new FilteredList<>(taskManager.getList());
+        completedTasks = new FilteredList<>(this.taskManager.getList());
     }
 
     public ModelManager() {
@@ -395,6 +398,15 @@ public class ModelManager implements Model {
     public ObservableList<Task> getAssignedTaskList() {
         updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, filteredTasks);
         return filteredTasks;
+    }
+
+    /**
+     * Returns an observable view of the list of that is filtered to completed tasks
+     */
+    @Override
+    public ObservableList<Task> getCompletedTaskList() {
+        updateFilteredTaskList(PREDICATE_SHOW_COMPLETED, completedTasks);
+        return completedTasks;
     }
 
     // =========== Filtered Customer List Accessors =============================================================
