@@ -396,10 +396,6 @@ public class ModelManager implements Model {
         updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, filteredTasks);
         return filteredTasks;
     }
-
-    /**
-     * Returns an observable view of the list containing all tasks that are uncomplete
-     */
     // =========== Filtered Customer List Accessors =============================================================
 
     /**
