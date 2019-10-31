@@ -120,6 +120,12 @@ public class Schedule {
         return schedule.remove(eventTime);
     }
 
+    /**
+     * Clears schedule completely.
+     */
+    public void clearSchedule() {
+        schedule.clear();
+    }
 
     private boolean isOutsideWorkingHours(EventTime eventTime) {
         return (eventTime.getEnd().compareTo(eventTime.getStart()) <= 0)
