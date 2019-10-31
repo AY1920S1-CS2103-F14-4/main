@@ -37,9 +37,6 @@ public class Config {
         return testEnv;
     }
 
-    public void setTestEnv (boolean testEnv) {
-        this.testEnv = testEnv;
-    }
 
     @Override
     public boolean equals(Object other) {

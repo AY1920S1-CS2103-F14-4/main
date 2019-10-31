@@ -50,26 +50,13 @@ public class EditTaskCommand extends Command {
 
     private final int id;
     private final EditTaskDescriptor editTaskDescriptor;
-    private final Clock clock;
 
 
     public EditTaskCommand(int id, EditTaskDescriptor editTaskDescriptor) {
         this.id = id;
         this.editTaskDescriptor = editTaskDescriptor;
-        this.clock = Clock.systemDefaultZone();
     }
 
-    /**
-     * Creates an EditTaskCommand to edit the specified {@code Task} for unit testing.
-     * Makes use of dependency injection for current time.
-     *
-     * @param fixedClock clock that is fixed and will always return the same instant.
-     */
-    public EditTaskCommand(int id, EditTaskDescriptor editTaskDescriptor, Clock fixedClock) {
-        this.id = id;
-        this.editTaskDescriptor = editTaskDescriptor;
-        this.clock = fixedClock;
-    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
