@@ -47,8 +47,8 @@ class AssignCommandTest {
         AssignCommand cmd = new AssignCommand(VALID_DRIVER.getId(), VALID_TASK_ID, proposed, false);
 
         Model expectedModel = getSampleFreshModel();
-        expectedModel.getDriver(VALID_DRIVER.getId()).addToSchedule(proposed);
-        expectedModel.getTask(VALID_TASK_ID).setDriver(Optional.of(model.getDriver(VALID_DRIVER.getId())));
+        expectedModel.getTask(VALID_TASK_ID)
+                .setDriverAndEventTime(Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())), Optional.of(proposed));
 
         assertCommandSuccess(cmd, model, new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, VALID_TASK_ID,
                 VALID_DRIVER.getName().fullName, proposed)), expectedModel);
@@ -64,15 +64,15 @@ class AssignCommandTest {
     }
 
 
-
     @Test
     void executeForce_addLateTime_shouldSucceed() {
         EventTime proposed = EventTime.parse("1600", "1700");
         AssignCommand cmd = new AssignCommand(VALID_DRIVER.getId(), VALID_TASK_ID, proposed, true);
 
         Model expectedModel = getSampleFreshModel();
-        expectedModel.getDriver(VALID_DRIVER.getId()).addToSchedule(proposed);
-        expectedModel.getTask(VALID_TASK_ID).setDriver(Optional.of(model.getDriver(VALID_DRIVER.getId())));
+        expectedModel.getTask(VALID_TASK_ID)
+                .setDriverAndEventTime(Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())), Optional.of(proposed));
+
 
         assertCommandSuccess(cmd, model, new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, VALID_TASK_ID,
                 VALID_DRIVER.getName().fullName, proposed)), expectedModel);
