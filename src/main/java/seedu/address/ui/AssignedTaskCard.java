@@ -9,7 +9,7 @@ import seedu.address.model.task.Task;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class TaskCard extends UiPart<Region> {
+public class AssignedTaskCard extends UiPart<Region> {
 
     private static final String FXML = "TaskListCard.fxml";
 
@@ -44,7 +44,7 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label taskId;
 
-    public TaskCard(Task task, int displayedIndex) {
+    public AssignedTaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
@@ -67,12 +67,12 @@ public class TaskCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TaskCard)) {
+        if (!(other instanceof AssignedTaskCard)) {
             return false;
         }
 
         // state check
-        TaskCard card = (TaskCard) other;
+        AssignedTaskCard card = (AssignedTaskCard) other;
         return id.getText().equals(card.id.getText())
                 && task.equals(card.task);
     }
