@@ -76,6 +76,9 @@ public class FreeCommand extends Command {
 
         freeDriverFromTask(driver, task);
 
+        model.setDriver(driver, driver);
+        model.setTask(task, task);
+
         return new CommandResult(String.format(MESSAGE_FREE_SUCCESS, task.getId(), driver.getName().fullName));
 
     }

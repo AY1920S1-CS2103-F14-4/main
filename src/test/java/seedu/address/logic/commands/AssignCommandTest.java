@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.AssignCommand.MESSAGE_ASSIGN_SUCCESS;
-import static seedu.address.logic.commands.AssignCommand.MESSAGE_EVENT_START_BEFORE_NOW;
+import static seedu.address.model.person.Schedule.MESSAGE_EVENT_START_BEFORE_NOW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.SampleEntity.VALID_DRIVER;
