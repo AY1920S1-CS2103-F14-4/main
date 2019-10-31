@@ -180,7 +180,7 @@ public class Schedule {
             return false;
         }
         Schedule schedule1 = (Schedule) o;
-        return schedule1.schedule.equals(((Schedule) o).schedule);
+        return this.schedule.equals(schedule1.schedule);
     }
 
     @Override

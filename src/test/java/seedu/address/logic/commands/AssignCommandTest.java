@@ -46,7 +46,9 @@ class AssignCommandTest {
         EventTime proposed = EventTime.parse("1400", "1500");
         AssignCommand cmd = new AssignCommand(VALID_DRIVER.getId(), VALID_TASK_ID, proposed, false);
 
+        // construct expected by setting both driver and task
         Model expectedModel = getSampleFreshModel();
+        expectedModel.getDriver(VALID_DRIVER.getId()).getSchedule().add(proposed);
         expectedModel.getTask(VALID_TASK_ID)
                 .setDriverAndEventTime(Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())),
                         Optional.of(proposed));
@@ -70,11 +72,12 @@ class AssignCommandTest {
         EventTime proposed = EventTime.parse("1600", "1700");
         AssignCommand cmd = new AssignCommand(VALID_DRIVER.getId(), VALID_TASK_ID, proposed, true);
 
+        // construct expected by setting both driver and task
         Model expectedModel = getSampleFreshModel();
+        expectedModel.getDriver(VALID_DRIVER.getId()).getSchedule().add(proposed);
         expectedModel.getTask(VALID_TASK_ID)
                 .setDriverAndEventTime(Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())),
                         Optional.of(proposed));
-
 
         assertCommandSuccess(cmd, model, new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, VALID_TASK_ID,
                 VALID_DRIVER.getName().fullName, proposed)), expectedModel);
