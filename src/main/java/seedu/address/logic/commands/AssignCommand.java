@@ -71,7 +71,8 @@ public class AssignCommand extends Command {
         }
 
         Task task = model.getTask(taskId);
-        if (task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent() || task.getEventTime().isPresent()) {
+        if (task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
+                || task.getEventTime().isPresent()) {
             throw new CommandException(MESSAGE_ALREADY_ASSIGNED);
         }
 

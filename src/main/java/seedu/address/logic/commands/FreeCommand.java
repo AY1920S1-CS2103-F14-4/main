@@ -20,7 +20,8 @@ public class FreeCommand extends Command {
     public static final String MESSAGE_FREE_SUCCESS = "Task #%1$s is no longer assigned to %2$s.";
     public static final String MESSAGE_TASK_NOT_ASSIGNED = "Task #%1$s is not assigned to a driver.";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Remove a driver from a task, and set the corresponding "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Remove a driver from a task, and set the corresponding "
             + "start and end time. "
             + "\n"
             + "Parameters: "
