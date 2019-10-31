@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 
 import javafx.collections.ObservableList;
@@ -59,17 +60,18 @@ public class TaskManager {
 
     /**
      * Checks if all tasks are complete.
-     * @return true when all tasks are completed
+     * @return a list of all incomplete tasks
      */
-    public boolean allCompleted() {
+    public ObservableList<Task> allIncomplete(LocalDate date) {
+        TaskList incomplete = new TaskList();
         Iterator<Task> tasksIterator = this.tasks.getIterator();
         while (tasksIterator.hasNext()) {
             Task task = tasksIterator.next();
-            if (task.getStatus() != TaskStatus.COMPLETED) {
-                return false;
+            if (task.getStatus() != TaskStatus.COMPLETED && task.getDate().isBefore(date)) {
+                incomplete.addTask(task);
             }
         }
-        return true;
+        return incomplete.getList();
     }
 
     @Override
