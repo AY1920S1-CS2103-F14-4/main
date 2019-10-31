@@ -48,7 +48,8 @@ class AssignCommandTest {
 
         Model expectedModel = getSampleFreshModel();
         expectedModel.getTask(VALID_TASK_ID)
-                .setDriverAndEventTime(Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())), Optional.of(proposed));
+                .setDriverAndEventTime(Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())),
+                        Optional.of(proposed));
 
         assertCommandSuccess(cmd, model, new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, VALID_TASK_ID,
                 VALID_DRIVER.getName().fullName, proposed)), expectedModel);
@@ -71,7 +72,8 @@ class AssignCommandTest {
 
         Model expectedModel = getSampleFreshModel();
         expectedModel.getTask(VALID_TASK_ID)
-                .setDriverAndEventTime(Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())), Optional.of(proposed));
+                .setDriverAndEventTime(Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())),
+                        Optional.of(proposed));
 
 
         assertCommandSuccess(cmd, model, new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, VALID_TASK_ID,
