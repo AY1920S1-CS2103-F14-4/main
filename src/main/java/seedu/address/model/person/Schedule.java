@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeSet;
 
-import seedu.address.logic.GlobalClock;
+import seedu.address.logic.commands.AssignCommand;
 import seedu.address.model.EventTime;
 import seedu.address.model.person.exceptions.SchedulingException;
 
@@ -53,7 +53,6 @@ public class Schedule {
         String returnSuggestion = suggested.isEmpty() ? "" : "\n" + suggested;
 
 
-
         if (isOutsideWorkingHours(eventTime)) {
             return MESSAGE_OUTSIDE_WORKING_HOURS + returnSuggestion;
         }
@@ -62,7 +61,13 @@ public class Schedule {
             return MESSAGE_SCHEDULE_CONFLICT + returnSuggestion;
         }
 
-        return suggested;
+        if (suggested.isEmpty()) {
+            // no suggestion, the command is good
+            return suggested;
+        }
+
+        // has suggestion but dismissible
+        return suggested + "\n" + AssignCommand.MESSAGE_PROMPT_FORCE;
     }
 
     /**

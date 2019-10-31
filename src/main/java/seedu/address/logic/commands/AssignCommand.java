@@ -26,6 +26,7 @@ public class AssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";
     public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned #%1$d to %2$s at %3$s";
     public static final String MESSAGE_ALREADY_ASSIGNED = "This task is already scheduled.";
+    public static final String MESSAGE_PROMPT_FORCE = "Use 'assign force' to override the suggestion.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assign a driver the specified task, with a proposed "
             + "start and end time. "
             + "\n"
