@@ -28,9 +28,6 @@ public class SavePdfCommand extends Command {
             + "[DATE] \n"
             + "Example: " + COMMAND_WORD + " 10/10/2019";
 
-    public static final String MESSAGE_UNABLE_TO_FIND_PATH = "Unable to save file at this directory. (%1$s)";
-    public static final String MESSAGE_NO_TASKS_ASSIGNED_ON_DATE = "No tasks are assigned to drivers on %1$s";
-
     private static final String FILE_PATH_FOR_PDF = "./data/DeliveryTasks.pdf";
 
     private final Clock clock;
@@ -58,12 +55,8 @@ public class SavePdfCommand extends Command {
 
         try {
             model.saveDriverTaskPdf(FILE_PATH_FOR_PDF, dateOfDelivery);
-        } catch (IOException ioe) {
+        } catch (IOException | PdfNoTaskToDisplayException ioe) {
             throw new CommandException(ioe.getMessage());
-        } catch (PdfNoTaskToDisplayException pdfe) {
-            //temp
-            //if unused, removed
-            throw new CommandException(pdfe.toString());
         }
 
         return new CommandResult(MESSAGE_SUCCESS);

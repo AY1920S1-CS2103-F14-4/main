@@ -1,16 +1,13 @@
 package seedu.address.model.pdfmanager;
 
-import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.UnitValue;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
-public class PdfCustomerLayout extends PdfTable {
+public class PdfCustomerLayout extends PdfLayout {
 
     private Customer customer;
 
@@ -21,7 +18,7 @@ public class PdfCustomerLayout extends PdfTable {
 
     public Table createTable() {
         //setting the basic layout
-        Table customerTable = new Table(10).useAllAvailableWidth();
+        Table customerTable = new Table(10).useAllAvailableWidth().setFixedLayout();
 
         //populate the table
         Cell customerIdCell = getCustomerIdCell(customer.getId());
@@ -33,26 +30,31 @@ public class PdfCustomerLayout extends PdfTable {
         customerTable.addCell(phoneNumberCell);
         customerTable.addCell(addressCell);
 
-        return customerTable;
+        Table designedCustomerTable = designTable(customerTable);
+        return designedCustomerTable;
     }
 
     private Cell getCustomerIdCell(int customerId) {
-        String idStr = "Customer ID: \n" + customerId;
-        return createAndPopulate(1,2, idStr);
+        String idStr = "Customer ID \n" + customerId;
+        return createCell(1,2, idStr);
     }
 
     private Cell getNameCell(Name name) {
-        String nameStr = "Name: \n" + name;
-        return createAndPopulate(1, 4, nameStr);
+        String nameStr = "Customer\n" + name;
+        return createCell(1, 6, nameStr);
     }
 
     private Cell getPhoneNumberCell(Phone phone) {
-        String phoneNumberStr = "Phone Number: \n" + phone;
-        return createAndPopulate(1,4, phoneNumberStr);
+        String phoneNumberStr = "Contact No \n" + phone;
+        return createCell(1,3, phoneNumberStr);
     }
 
     private Cell getAddressCell(Address address) {
         String addressStr = "Address: " + address;
-        return createAndPopulate(1,10, addressStr);
+        return createCell(1,10, addressStr);
+    }
+
+    private Table designTable(Table customerTable) {
+        return customerTable;
     }
 }

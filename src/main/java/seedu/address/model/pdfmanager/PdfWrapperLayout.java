@@ -15,15 +15,17 @@ import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 
-public class PdfWrapperLayout extends PdfTable {
+public class PdfWrapperLayout extends PdfLayout {
 
-    public static final String MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE = "There's no assigned tasks for %1$s";
+    public static final String MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE = "There's no assigned tasks for %1$s.";
+    private Document document;
 
-    public PdfWrapperLayout() {
+    public PdfWrapperLayout(Document document) {
         super();
+        this.document = document;
     }
 
-    public void populateDocumentWithTasks(Document document, List<Task> tasks,
+    public void populateDocumentWithTasks(List<Task> tasks,
                                           LocalDate dateOfDelivery) throws PdfNoTaskToDisplayException {
         List<Task> tasksOnDate = filterTasksBasedOnDate(tasks, dateOfDelivery);
         List<Task> sortedTasks = sortTaskByEventTime(tasksOnDate);
@@ -32,27 +34,35 @@ public class PdfWrapperLayout extends PdfTable {
         List<Driver> sortedDrivers = sortDriverByName(driversOnDate);
 
         //initialise outerlayout
-        insertTasksIntoDocument(document, sortedDrivers, sortedTasks);
+        insertTasksIntoDocument(sortedDrivers, sortedTasks, dateOfDelivery);
     }
 
-    private void insertTasksIntoDocument(Document document, List<Driver> driverList, List<Task> taskList) {
+    private void insertTasksIntoDocument(List<Driver> driverList, List<Task> taskList, LocalDate dateOfDelivery) {
         for (Driver driver : driverList) {
             //line break
             document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
+            //create page header layout
+            PdfPageHeaderLayout pageHeaderLayout = new PdfPageHeaderLayout(document);
+            pageHeaderLayout.createPageHeader();
+
             //create driver layout which contains his tasks for the day.
-            PdfDriverLayout driverLayout = new PdfDriverLayout(driver);
-            Table driverTable = driverLayout.createTable();
-            document.add(driverTable);
+            PdfDriverLayout driverLayout = new PdfDriverLayout(document, driver, dateOfDelivery);
+            driverLayout.createDriverDetails();
+
+            //create Table header layout
+            PdfTableHeaderLayout tableHeaderLayout = new PdfTableHeaderLayout();
+            Table headerTable = tableHeaderLayout.createTable();
+            document.add(headerTable);
 
             //loop through the task list and append this driver's tasks into the layout
             for (Task task : taskList) {
-                addTaskUnderDriver(document, driver, task);
+                addTaskUnderDriver(driver, task);
             }
         }
     }
 
-    private void addTaskUnderDriver(Document document, Driver driver, Task task) {
+    private void addTaskUnderDriver(Driver driver, Task task) {
         //since the task list is filtered to only have assigned tasks, then driver WILL NOT be null.
         assert task.getDriver().isPresent();
         Driver driverAssigned = task.getDriver().get();

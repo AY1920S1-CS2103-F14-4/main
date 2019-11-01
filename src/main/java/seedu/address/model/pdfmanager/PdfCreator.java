@@ -75,18 +75,19 @@ public class PdfCreator {
         return newDocument;
     }
 
-    private void insertCoverPage(Document document, LocalDate dateOfDelivery) {
+    private void insertCoverPage(Document document, LocalDate dateOfDelivery) throws IOException {
         //add cover page
         String title = "Deliveria";
-        document.add(new Paragraph(title));
         String subTitle = "Delivery Tasks for " + dateOfDelivery;
-        document.add(new Paragraph(subTitle));
+
+        PdfCoverPageLayout coverPageLayout = new PdfCoverPageLayout(document);
+        coverPageLayout.addCoverPage(title, subTitle);
     }
 
     private void insertDriverTask(Document document, List<Task> tasks, LocalDate dateOfDelivery)
             throws PdfNoTaskToDisplayException {
-        //get all the tasks
-        PdfWrapperLayout wrapperLayout = new PdfWrapperLayout();
-        wrapperLayout.populateDocumentWithTasks(document, tasks, dateOfDelivery);
+        //get all the tasks in pdf layout
+        PdfWrapperLayout wrapperLayout = new PdfWrapperLayout(document);
+        wrapperLayout.populateDocumentWithTasks(tasks, dateOfDelivery);
     }
 }

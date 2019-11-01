@@ -2,17 +2,19 @@ package seedu.address.model.pdfmanager;
 
 import java.util.Optional;
 
-import com.itextpdf.layout.Document;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.UnitValue;
 import seedu.address.model.Description;
 import seedu.address.model.EventTime;
-import seedu.address.model.pdfmanager.PdfTable;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 
-public class PdfTaskLayout extends PdfTable {
+public class PdfTaskLayout extends PdfLayout {
+
+    private static boolean toggleColor = false;
 
     private Task task;
 
@@ -33,8 +35,8 @@ public class PdfTaskLayout extends PdfTable {
         assert optionalEventTime.isPresent();
         Cell eventTimeCell = getEventTimeCell(optionalEventTime.get());
 
-        taskTable.addCell(eventTimeCell);
-        taskTable.addCell(taskIdCell);
+        taskTable.addCell(alignCellMiddle(eventTimeCell));
+        taskTable.addCell(alignCellMiddle(taskIdCell));
         taskTable.addCell(descriptionCell);
         taskTable.addCell(statusCell);
 
@@ -46,26 +48,42 @@ public class PdfTaskLayout extends PdfTable {
         Cell customerTableCell = new Cell(1,8).add(customerTable);
         taskTable.addCell(customerTableCell);
 
-        return taskTable;
+        Table designedTable = designTable(taskTable);
+
+        return designedTable;
     }
 
     public Cell getTaskIdCell(int taskId) {
-        String idStr = "Task ID: \n" + taskId;
-        return createAndPopulate(1,1, idStr);
+        String idStr = "Task ID\n" + taskId;
+        return createCell(1,1, idStr);
     }
 
     public Cell getDescriptionCell(Description description) {
-        String descriptionStr = "Goods: \n" + description;
-        return createAndPopulate(1,5, descriptionStr);
+        String descriptionStr = "Goods\n" + description;
+        return createCell(1,5, descriptionStr);
     }
 
     public Cell getStatusCell(TaskStatus status) {
-        String statusStr = "Status: \n" + status;
-        return createAndPopulate(1,2, statusStr);
+        String statusStr = "Status\n" + status;
+        return createCell(1,2, statusStr)
+                .setFontColor((status.equals(TaskStatus.ON_GOING)
+                        ? ColorConstants.RED
+                        : ColorConstants.GREEN));
     }
 
     public Cell getEventTimeCell(EventTime eventTime) {
         String eventTimeStr = eventTime.toString();
-        return createAndPopulate(2,2, eventTimeStr);
+        return createCell(2,2, eventTimeStr);
+    }
+
+    public Table designTable(Table taskTable) {
+        if (toggleColor) {
+            taskTable.setBackgroundColor(ColorConstants.WHITE);
+        } else {
+            Color lightGrey = new DeviceRgb(245, 245, 245);
+            taskTable.setBackgroundColor(lightGrey);
+        }
+        toggleColor = !toggleColor;
+        return taskTable;
     }
 }
