@@ -23,16 +23,16 @@ public class PdfWrapperLayout extends PdfTable {
         super();
     }
 
-    public Document populateDocumentWithTasks(Document document, List<Task> tasks,
-                                              LocalDate dateOfDelivery) throws PdfNoTaskToDisplayException {
+    public void populateDocumentWithTasks(Document document, List<Task> tasks,
+                                          LocalDate dateOfDelivery) throws PdfNoTaskToDisplayException {
         List<Task> tasksOnDate = filterTasksBasedOnDate(tasks, dateOfDelivery);
-        List<Driver> driversOnDate = extractDriversFromTaskList(tasksOnDate);
+        List<Task> sortedTasks = sortTaskByEventTime(tasksOnDate);
+
+        List<Driver> driversOnDate = extractDriversFromTaskList(sortedTasks);
         List<Driver> sortedDrivers = sortDriverByName(driversOnDate);
 
         //initialise outerlayout
-        insertTasksIntoDocument(document, sortedDrivers, tasksOnDate);
-
-        return document;
+        insertTasksIntoDocument(document, sortedDrivers, sortedTasks);
     }
 
     private void insertTasksIntoDocument(Document document, List<Driver> driverList, List<Task> taskList) {
@@ -103,15 +103,27 @@ public class PdfWrapperLayout extends PdfTable {
      */
     private List<Task> filterTasksBasedOnDate(List<Task> tasks, LocalDate date) throws PdfNoTaskToDisplayException {
         List<Task> filteredTasks = tasks
-                                    .stream()
-                                    .filter(task -> task.getDate().equals(date)
-                                            && !task.getStatus().equals(TaskStatus.INCOMPLETE))
-                                    .collect(Collectors.toList());
+                .stream()
+                .filter(task -> task.getDate().equals(date)
+                        && !task.getStatus().equals(TaskStatus.INCOMPLETE))
+                .collect(Collectors.toList());
 
         if (filteredTasks.size() == 0) {
             throw new PdfNoTaskToDisplayException(String.format(MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE, date));
         }
 
         return filteredTasks;
+    }
+
+    /**
+     * Sort tasks by ascending time of delivery.
+     * All the tasks must be assigned tasks with eventTime.
+     * Uses {@code filterTasksBasedOnDate} to get only assigned tasks for a specific date.
+     */
+    private List<Task> sortTaskByEventTime(List<Task> tasksToSort) {
+        //list has been filtered by assigned tasks only so eventTime must exist.
+        Comparator<Task> taskComparator = Comparator.comparing(t -> t.getEventTime().get());
+        tasksToSort.sort(taskComparator);
+        return tasksToSort;
     }
 }
