@@ -279,7 +279,7 @@ public class ModelManager implements Model {
     }
 
     public boolean hasDriver(Driver driver) {
-        return driverManager.hasDriver(driver);
+        return driverManager.hasPerson(driver);
     }
 
     public boolean hasDriver(int driverId) {
@@ -287,7 +287,7 @@ public class ModelManager implements Model {
     }
 
     public void setDriver(Driver driverToEdit, Driver editedDriver) {
-        driverManager.setDriver(driverToEdit, editedDriver);
+        driverManager.setPerson(driverToEdit, editedDriver);
     }
     @Override
     public void viewDriverTask(Person driverToView) {
@@ -302,12 +302,12 @@ public class ModelManager implements Model {
      * Adds Driver into driver list. Records the last unique driver id created in {@link IdManager}.
      */
     public void addDriver(Driver driver) {
-        driverManager.addDriver(driver);
+        driverManager.addPerson(driver);
         idManager.lastDriverIdPlusOne();
     }
 
     public void deleteDriver(Driver driver) {
-        driverManager.deleteDriver(driver);
+        driverManager.removePerson(driver);
     }
 
     // =========== IdManager =======================================================================

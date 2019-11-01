@@ -13,6 +13,7 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.GlobalClock;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
@@ -35,7 +36,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -60,12 +61,20 @@ public class MainApp extends Application {
         storage = new StorageManager(jsonCentralManagerStorage, userPrefsStorage);
 
         initLogging(config);
+        initTestEnv(config);
+
 
         model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+    }
+
+    private void initTestEnv(Config config) {
+        if (config.getIsTestEnv()) {
+            GlobalClock.setFixedClock();
+        }
     }
 
     /**
