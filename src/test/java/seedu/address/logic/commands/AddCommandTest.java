@@ -237,6 +237,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Task> getIncompleteTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Customer getCustomer(int customerId) {
             throw new AssertionError("This method should not be called.");
         }
