@@ -169,7 +169,9 @@ public interface Model {
 
     Customer getCustomer(int customerId);
 
-    void viewDriverTask(Person driverToView);
+    void viewCustomerTask(Customer customerToView);
+
+    void viewDriverTask(Driver driverToView);
 
     void setCustomer(Customer customerToEdit, Customer editedTask);
 

@@ -49,14 +49,4 @@ public class ViewCustomerTaskCommand extends Command {
         model.viewCustomerTask(customerToView);
         return new CommandResult(String.format(MESSAGE_SUCCESS, customerToView));
     }
-
-    //@Override
-    //    public CommandResult execute(Model model) {
-    //        requireNonNull(model);
-    //        model.updateFilteredPersonList(predicate);
-    //        return new CommandResult(
-    //                String.format(Messages.MESSAGE_DRIVERS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
-    //
-
-
 }

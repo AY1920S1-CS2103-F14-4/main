@@ -258,7 +258,6 @@ public class ModelManager implements Model {
         return customerManager.getCustomer(customerId);
     }
 
-
     /**
      * Adds Customer into customer list. Records the last unique customer id created in {@link IdManager}.
      */
@@ -286,10 +285,6 @@ public class ModelManager implements Model {
 
     public void setDriver(Driver driverToEdit, Driver editedDriver) {
         driverManager.setPerson(driverToEdit, editedDriver);
-    }
-    @Override
-    public void viewDriverTask(Person driverToView) {
-
     }
 
     public Driver getDriver(int driverId) {
@@ -408,6 +403,15 @@ public class ModelManager implements Model {
         updateFilteredTaskList(PREDICATE_SHOW_COMPLETED, completedTasks);
         return completedTasks;
     }
+
+    /**
+     * Returns an observable view of the list of that is filtered to specified driver completed tasks
+     */
+    @Override
+    public void viewDriverTask(Driver driverToView) {
+
+    }
+
 
     // =========== Filtered Customer List Accessors =============================================================
 

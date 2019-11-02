@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 
 import java.util.List;
 
@@ -15,14 +16,17 @@ import seedu.address.model.task.Task;
  */
 public class ViewDriverTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "viewD";
+    public static final String COMMAND_WORD = "viewC";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views the delivered tasks of the specified driver "
-            + "and displays them as a list with index numbers.\n"
-            + "Parameters: INDEX (must be a positive integer)"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "and displays them as a list with index numbers."
+            + "\n"
+            + "Parameters: " + "INDEX (must be a positive integer)"
+            + "[" + PREFIX_DRIVER + "DRIVER_ID] "
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_DRIVER + "1";
 
-    public static final String MESSAGE_SUCCESS = "listed delivered tasks for specified Driver";
+    public static final String MESSAGE_SUCCESS = "listed delivered tasks for the specified Driver";
 
     private int driverId;
 
@@ -34,7 +38,7 @@ public class ViewDriverTaskCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Driver> currentDriverList = model.getFilteredDriverList();
-        List<Task> taskList = model.getFilteredTaskList();
+        List<Task> completedTaskList = model.getCompletedTaskList();
 
         if (driverId > currentDriverList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DRIVER_DISPLAYED_INDEX);
