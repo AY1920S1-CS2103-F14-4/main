@@ -87,6 +87,8 @@ public class EditTaskCommand extends Command {
         //task will become incomplete
         freeDriverIfDateIsChanged(taskToEdit, editedTask);
 
+        model.setTask(taskToEdit, editedTask);
+
         model.refreshAllFilteredList();
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
