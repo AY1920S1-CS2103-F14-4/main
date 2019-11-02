@@ -3,14 +3,15 @@ package seedu.address.model.pdfmanager;
 import java.time.LocalDate;
 
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.UnitValue;
+
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 
+/**
+ * Represents a driver's information in a table format in the PDF document.
+ */
 public class PdfDriverLayout extends PdfLayout {
 
     private Driver driver;
@@ -23,6 +24,9 @@ public class PdfDriverLayout extends PdfLayout {
         this.dateOfDelivery = dateOfDelivery;
     }
 
+    /**
+     * Creates a paragraph that consists of the driver's information in the PDF document.
+     */
     public void createDriverDetails() {
         //populate Paragraph
         Paragraph dateParagraph = getDateOfDelivery(dateOfDelivery);

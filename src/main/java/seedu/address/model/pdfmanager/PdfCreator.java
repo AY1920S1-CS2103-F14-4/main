@@ -3,38 +3,24 @@ package seedu.address.model.pdfmanager;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
 
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Customer;
-import seedu.address.model.person.Driver;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskStatus;
 
 /**
- * Creates and saves details provided into a pdf file.
+ * Creates and saves details provided into a PDF file.
  */
 public class PdfCreator {
 
-    public static final Customer VALID_CUSTOMER = new Customer(1, new Name("Alex Yeoh"), new Phone("87438807"),
-            new Email("alexyeoh@gmail.com"),
-            new Address("Blk 30 Geylang Street 29, #06-40"),
-            new HashSet<>());
-
-    public static final Driver VALID_DRIVER = new Driver(1, new Name("Aloysius Chan"),
-            new Phone("92837163"), new Email("aloysius@gmail.com"),
-            new Address("Blk 123 Bukit Panjang Street 10, #11-04"),
-            new HashSet<>());
+    public static final String MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE = "There's no assigned tasks for %1$s.";
 
     public final String filePath;
 
@@ -42,20 +28,25 @@ public class PdfCreator {
         this.filePath = filePath;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getFilePathWithDate(LocalDate date) {
+        return String.format(filePath, "(" + date + ")");
     }
 
     /**
-     * Saves drivers` tasks for a specific date into a pdf file.
+     * Saves drivers` tasks for a specific date into a PDF file.
      *
      * @param tasks tasks list.
      * @param dateOfDelivery date of delivery.
      * @throws IOException if directory used for saving is not found.
+     * @throws PdfNoTaskToDisplayException if there is no assigned task on the day.
      */
     public void saveDriverTaskPdf(List<Task> tasks, LocalDate dateOfDelivery)
             throws IOException, PdfNoTaskToDisplayException {
-        Document document = createDocument(filePath);
+        if (!hasAssignedTasks(tasks, dateOfDelivery)) {
+            throw new PdfNoTaskToDisplayException(String.format(MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE, dateOfDelivery));
+        }
+
+        Document document = createDocument(dateOfDelivery);
         insertCoverPage(document, dateOfDelivery);
         insertDriverTask(document, tasks, dateOfDelivery);
 
@@ -63,19 +54,35 @@ public class PdfCreator {
         document.close();
     }
 
-    private void createFileIfMissing() throws IOException {
-        FileUtil.createIfMissing(Paths.get(getFilePath()));
+    private void createFileIfMissing(LocalDate dateOfDelivery) throws IOException {
+        String filePathWithDate = getFilePathWithDate(dateOfDelivery);
+        FileUtil.createIfMissing(Paths.get(filePathWithDate));
     }
 
-    private Document createDocument(String filePath) throws IOException {
-        createFileIfMissing();
-        PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
+    /**
+     * Creates a PDF document.
+     *
+     * @return PDF document ready to be filled with content.
+     * @throws IOException if file path is not created or found.
+     */
+    private Document createDocument(LocalDate dateOfDelivery) throws IOException {
+        createFileIfMissing(dateOfDelivery);
+
+        String filePathWithDate = getFilePathWithDate(dateOfDelivery);
+        PdfDocument pdf = new PdfDocument(new PdfWriter(filePathWithDate));
         Document newDocument = new Document(pdf);
-        newDocument.setMargins(30,30,30, 30);
+        newDocument.setMargins(30, 30, 30, 30);
+
         return newDocument;
     }
 
-    private void insertCoverPage(Document document, LocalDate dateOfDelivery) throws IOException {
+    /**
+     * Inserts cover page into the PDF document.
+     *
+     * @param document PDF document.
+     * @param dateOfDelivery date of delivery.
+     */
+    private void insertCoverPage(Document document, LocalDate dateOfDelivery) {
         //add cover page
         String title = "Deliveria";
         String subTitle = "Delivery Tasks for " + dateOfDelivery;
@@ -86,8 +93,24 @@ public class PdfCreator {
 
     private void insertDriverTask(Document document, List<Task> tasks, LocalDate dateOfDelivery)
             throws PdfNoTaskToDisplayException {
-        //get all the tasks in pdf layout
         PdfWrapperLayout wrapperLayout = new PdfWrapperLayout(document);
         wrapperLayout.populateDocumentWithTasks(tasks, dateOfDelivery);
+    }
+
+    /**
+     * Checks if the task list contains assigned tasks for the specified date.
+     *
+     * @param tasks task list.
+     * @param date date of delivery.
+     * @return true if there are assigned tasks for the specified date.
+     */
+    private boolean hasAssignedTasks(List<Task> tasks, LocalDate date) {
+        List<Task> filteredTasks = tasks
+                .stream()
+                .filter(task -> task.getDate().equals(date)
+                        && !task.getStatus().equals(TaskStatus.INCOMPLETE))
+                .collect(Collectors.toList());
+
+        return (filteredTasks.size() != 0);
     }
 }

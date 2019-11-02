@@ -1,27 +1,29 @@
 package seedu.address.model.pdfmanager;
 
-import java.io.IOException;
-
 import com.itextpdf.kernel.colors.ColorConstants;
-import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 
+/**
+ * Represents the cover page in the PDF document.
+ */
 public class PdfCoverPageLayout extends PdfLayout {
-
-    public static final float PAGE_WIDTH =  PageSize.A4.getWidth();
-    public static final float PAGE_HEIGHT =  PageSize.A4.getHeight();
 
     private Document document;
 
     public PdfCoverPageLayout(Document document) {
-        super();
         this.document = document;
     }
 
-    public void addCoverPage(String title, String subTitle) throws IOException {
+    /**
+     * Adds a cover page to the PDF document.
+     *
+     * @param title title.
+     * @param subTitle secondary title.
+     */
+    public void addCoverPage(String title, String subTitle) {
         Paragraph titleParagraph = createTitle(title);
         Paragraph subTitleParagraph = createSubTitle(subTitle);
         document.add(alignParagraphMiddle(titleParagraph));
@@ -31,6 +33,12 @@ public class PdfCoverPageLayout extends PdfLayout {
         document.add(sampleTable);
     }
 
+    /**
+     * Creates a {@code Paragraph} object that consists of the title.
+     * The main title is being position in the center of the page.
+     *
+     * @param title secondary title.
+     */
     public Paragraph createTitle(String title) {
         Text titleText = new Text(title);
         titleText.setFontColor(ColorConstants.RED);
@@ -43,6 +51,12 @@ public class PdfCoverPageLayout extends PdfLayout {
         return titleParagraph;
     }
 
+    /**
+     * Creates a {@code Paragraph} object that consists of the secondary title.
+     * The secondary title is being position in the center of the page, below the main title.
+     *
+     * @param subTitle secondary title.
+     */
     public Paragraph createSubTitle(String subTitle) {
         Text subTitleText = new Text(subTitle);
         subTitleText.setFontColor(ColorConstants.BLUE);
@@ -54,6 +68,9 @@ public class PdfCoverPageLayout extends PdfLayout {
         return subTitleParagraph;
     }
 
+    /**
+     * Creates a table used to display a sample layout of the task information.
+     */
     public Table createSampleTable() {
         PdfSampleLayout sampleLayout = new PdfSampleLayout();
         Table sampleTable = sampleLayout.createTable();

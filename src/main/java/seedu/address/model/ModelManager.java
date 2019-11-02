@@ -331,9 +331,9 @@ public class ModelManager implements Model {
     // ========= PdfCreator =========================================================================
 
     /**
-     * Saves drivers' tasks for a specified date in pdf format.
+     * Saves drivers' tasks for a specified date in PDF format.
      *
-     * @param filePath directory to save the pdf file.
+     * @param filePath directory to save the PDF file.
      * @param dateOfDelivery date of delivery.
      * @throws IOException if directory is not found.
      */

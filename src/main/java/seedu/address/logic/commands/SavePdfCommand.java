@@ -12,23 +12,24 @@ import seedu.address.model.Model;
 import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
 
 /**
- * Saves a pdf file with all drivers' tasks for a specific date assigned.
+ * Saves a PDF file with all drivers' tasks for a specific date assigned.
  */
 public class SavePdfCommand extends Command {
 
     public static final String COMMAND_WORD = "savepdf";
+    public static final String FILE_NAME = "DeliveryTasks";
 
-    public static final String MESSAGE_SUCCESS = "Successfully saved all drivers' task into pdf. \n"
-            + "It is saved in the same folder as your deliveria.jar file.";
+    public static final String MESSAGE_SUCCESS = "Successfully saved all drivers' task into a PDF document. \n"
+            + "It is saved in the same folder as your deliveria.jar file as " + FILE_NAME + ".pdf";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": "
-            + "Saves all drivers' tasks into pdf for the specific date. "
+            + "Saves all drivers' tasks into PDF for the specific date. "
             + "Date field is optional. "
             + "if a date is not specified, then today's date will be chosen. \n"
             + "Parameters: "
             + "[DATE] \n"
-            + "Example: " + COMMAND_WORD + " 10/10/2019";
+            + "Example: " + COMMAND_WORD + " 20/10/2019";
 
-    private static final String FILE_PATH_FOR_PDF = "./data/DeliveryTasks.pdf";
+    private static final String FILE_PATH_FOR_PDF = "./data/" + FILE_NAME + " %1$s.pdf";
 
     private final Clock clock;
     private Optional<LocalDate> date;
