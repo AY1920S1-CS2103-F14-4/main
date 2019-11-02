@@ -25,7 +25,7 @@ public class SavePdfCommandParser implements Parser<SavePdfCommand> {
         }
 
         try {
-            Optional<LocalDate> date = Optional.of(ParserUtil.parseAnyDate(args));
+            Optional<LocalDate> date = Optional.of(ParserUtil.parseDate(args));
             return new SavePdfCommand(date);
         } catch (ParseException pe) {
             throw new ParseException(

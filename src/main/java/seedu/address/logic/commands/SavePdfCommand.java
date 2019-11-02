@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
-import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import seedu.address.logic.GlobalClock;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
@@ -31,16 +31,10 @@ public class SavePdfCommand extends Command {
 
     private static final String FILE_PATH_FOR_PDF = "./data/" + FILE_NAME + " %1$s.pdf";
 
-    private final Clock clock;
     private Optional<LocalDate> date;
 
     public SavePdfCommand(Optional<LocalDate> date) {
-        this.clock = Clock.systemDefaultZone();
         this.date = date;
-    }
-
-    public SavePdfCommand(Optional<LocalDate> date, Clock clock) {
-        this.clock = clock;
     }
 
     @Override
@@ -49,15 +43,15 @@ public class SavePdfCommand extends Command {
 
         //set date to today if date isn't indicated
         if (date.isEmpty()) {
-            date = Optional.of(LocalDate.now(clock));
+            date = Optional.of(GlobalClock.dateToday());
         }
 
         LocalDate dateOfDelivery = date.get();
 
         try {
             model.saveDriverTaskPdf(FILE_PATH_FOR_PDF, dateOfDelivery);
-        } catch (IOException | PdfNoTaskToDisplayException ioe) {
-            throw new CommandException(ioe.getMessage());
+        } catch (IOException | PdfNoTaskToDisplayException e) {
+            throw new CommandException(e.getMessage());
         }
 
         return new CommandResult(MESSAGE_SUCCESS);
