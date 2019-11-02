@@ -212,6 +212,14 @@ public interface Model {
     void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list);
 
     /**
+     * Updates the filter of the completed filtered task list to filter by the given
+     * {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateCompletedTaskList(Predicate<Task> predicate, FilteredList<Task> completedTasks);
+
+    /**
      * Returns an unmodifiable view of the filtered customer list.
      */
     ObservableList<Customer> getFilteredCustomerList();

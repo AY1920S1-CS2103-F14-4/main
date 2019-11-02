@@ -20,6 +20,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 import seedu.address.model.task.TaskManager;
+import seedu.address.model.task.TaskStatus;
 import seedu.address.storage.CentralManager;
 
 /**
@@ -405,11 +406,22 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an observable view of the list of that is filtered to specified driver completed tasks
+     * Updates the observable view of the completed tasks to the predicate
      */
     @Override
-    public void viewDriverTask(Driver driverToView) {
+    public void updateCompletedTaskList(Predicate<Task> predicate, FilteredList<Task> completedTasks) {
+        requireNonNull(predicate);
+        completedTasks.setPredicate(predicate);
+    }
 
+    @Override
+    public void viewCustomerTask(Customer customerToView) {
+        updateCompletedTaskList(task -> task.getCustomer().equals(customerToView), completedTasks);
+    }
+
+    @Override
+    public void viewDriverTask(Driver driverToView) {
+        updateCompletedTaskList(task -> task.getDriver().equals(driverToView), completedTasks);
     }
 
 
