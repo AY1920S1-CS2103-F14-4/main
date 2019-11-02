@@ -38,7 +38,7 @@ public class CompletedTaskListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new UnassignedTaskCard(task, getIndex() + 1).getRoot());
+                setGraphic(new AssignedTaskCard(task, getIndex() + 1).getRoot());
             }
         }
     }

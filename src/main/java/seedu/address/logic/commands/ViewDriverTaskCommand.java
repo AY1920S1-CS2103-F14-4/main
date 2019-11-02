@@ -13,7 +13,7 @@ import seedu.address.model.task.Task;
 /**
  * List delivered task for specified driver
  */
-public class ViewDriverTasksCommand extends Command {
+public class ViewDriverTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "viewD";
 
@@ -22,11 +22,11 @@ public class ViewDriverTasksCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "listed delivered tasks";
+    public static final String MESSAGE_SUCCESS = "listed delivered tasks for specified Driver";
 
     private int driverId;
 
-    public ViewDriverTasksCommand(int driverId) {
+    public ViewDriverTaskCommand(int driverId) {
         this.driverId = driverId;
     }
 
