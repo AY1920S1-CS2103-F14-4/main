@@ -237,6 +237,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void refreshFilteredTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void refreshAllFilteredList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Customer getCustomer(int customerId) {
             throw new AssertionError("This method should not be called.");
         }
@@ -249,7 +259,16 @@ public class AddCommandTest {
         @Override
         public void addCustomer(Customer customer) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
+
+        public void deleteCustomer(Customer customer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CustomerManager getCustomerManager() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         public void updateFilteredCustomerList(Predicate<Customer> predicate) {
             throw new AssertionError("This method should not be called.");
@@ -260,14 +279,10 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void deleteCustomer(Customer customer) {
-            throw new AssertionError("This method should not be called.");
-        };
-
         @Override
-        public CustomerManager getCustomerManager() {
+        public void refreshFilteredCustomerList() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public boolean hasDriver(Driver driver) {
@@ -294,6 +309,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         };
 
+        public void deleteDriver(Driver driver) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public DriverManager getDriverManager() {
+            throw new AssertionError("This method should not be called.");
+        };
+
         public void updateFilteredDriverList(Predicate<Driver> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -303,14 +327,10 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void deleteDriver(Driver driver) {
-            throw new AssertionError("This method should not be called.");
-        };
-
         @Override
-        public DriverManager getDriverManager() {
+        public void refreshFilteredDriverList() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public int getNextTaskId() {
