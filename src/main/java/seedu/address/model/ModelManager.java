@@ -396,6 +396,15 @@ public class ModelManager implements Model {
         updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, filteredTasks);
         return filteredTasks;
     }
+
+    /**
+     * Returns a observable view of the list of incomplete tasks from the previous days
+     */
+    @Override
+    public ObservableList<Task> getIncompleteTaskList() {
+        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED.and(PREDICATE_SHOW_PREVIOUS_DAYS), filteredTasks);
+        return filteredTasks;
+    }
     // =========== Filtered Customer List Accessors =============================================================
 
     /**

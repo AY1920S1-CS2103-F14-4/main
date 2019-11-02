@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/help_icon.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <HBox alignment="CENTER">
+                <children>
+                    <StackPane>
+                    <VBox fx:id="incompleteTaskListPanel" styleClass="pane-with-border" minWidth="150" prefWidth="150"
+                          minHeight="520" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10" />
+                        </padding>
+                        <StackPane fx:id="incompleteTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                    </StackPane>
+                </children>
+                <opaqueInsets>
+                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                </opaqueInsets>
+                <padding>
+                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                </padding>
+            </HBox>
+        </Scene>
+    </scene>
+</fx:root>
