@@ -1,7 +1,5 @@
 package seedu.address.model.task;
 
-import java.util.Iterator;
-
 import javafx.collections.ObservableList;
 
 
