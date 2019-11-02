@@ -44,6 +44,7 @@ public class UiManager implements Ui {
             mainWindow.fillInnerParts();
             notificationWindow = new NotificationWindow(logic);
             notificationWindow.show();
+            notificationWindow.focus();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);

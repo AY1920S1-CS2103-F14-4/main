@@ -7,8 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.Logic;
 
 /**
  * Controller for a help page
@@ -21,11 +23,20 @@ public class HelpWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
+    private DriverListPanel driverListPanel;
+    private IncompleteTaskListPanel incompleteTaskListPanel;
+
+    @FXML
+    private StackPane driverListPanelPlaceholder;
+
     @FXML
     private Button copyButton;
 
     @FXML
     private Label helpMessage;
+
+    @FXML
+    private StackPane incompleteTaskListPanelPlaceholder;
 
     /**
      * Creates a new HelpWindow.

@@ -18,10 +18,10 @@ public class NotificationWindow extends UiPart<Stage> {
 
     private Logic logic;
 
-    private AssignedTaskListPanel incompleteTaskListPanel;
+    private IncompleteTaskListPanel incompleteTaskListPanel;
 
     @FXML
-    private StackPane incompleteTaskListPanelPlaceHolder;
+    private StackPane incompleteTaskListPanelPlaceholder;
 
     /**
      * Creates a new HelpWindow.
@@ -31,6 +31,9 @@ public class NotificationWindow extends UiPart<Stage> {
     public NotificationWindow(Stage root, Logic logic) {
         super(FXML, root);
         this.logic = logic;
+
+        incompleteTaskListPanel = new IncompleteTaskListPanel(this.logic.getIncompleteTaskList());
+        incompleteTaskListPanelPlaceholder.getChildren().add(incompleteTaskListPanel.getRoot());
     }
 
     /**
@@ -62,8 +65,6 @@ public class NotificationWindow extends UiPart<Stage> {
         logger.fine("Showing page about the incomplete task from the previous day.");
         getRoot().show();
         getRoot().centerOnScreen();
-        //incompleteTaskListPanel = new AssignedTaskListPanel(logic.getIncompleteTaskList());
-        //incompleteTaskListPanelPlaceHolder.getChildren().add(incompleteTaskListPanel.getRoot());
     }
 
     /**
