@@ -32,7 +32,7 @@ public class EntityManager<T extends Person> implements ReadOnlyEntityManager<T>
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an EntityManager using the Persons in the {@code toBeCopied}
      */
     public EntityManager(ReadOnlyEntityManager<T> toBeCopied) {
         this();

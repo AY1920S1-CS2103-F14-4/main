@@ -182,8 +182,6 @@ public interface Model {
 
     void setDriver(Driver driverToEdit, Driver editedTask);
 
-    void updateFilteredDriverList(Predicate<Driver> predicate);
-
     void addDriver(Driver driver);
 
     void deleteDriver(Driver driver);
@@ -202,6 +200,8 @@ public interface Model {
      */
     void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list);
 
+    void updateFilteredTaskList(Predicate<Task> predicate);
+
     /**
      * Returns an unmodifiable view of the filtered customer list.
      */
@@ -214,6 +214,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCustomerList(Predicate<Customer> predicate);
+
+    void updateFilteredDriverList(Predicate<Driver> predicate);
 
     /**
      * Returns an unmodifiable view of the filtered driver list.

@@ -21,7 +21,6 @@ public class Goods {
      *
      * @param newDescription The new name to be changed into.
      */
-
     public void setName(Description newDescription) {
         this.description = newDescription;
     }

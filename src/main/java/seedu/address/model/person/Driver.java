@@ -39,6 +39,10 @@ public class Driver extends Person {
         return id;
     }
 
+    public void assign(EventTime eventTime) throws SchedulingException {
+        this.schedule.add(eventTime);
+    }
+
     /**
      * {@see Schedule#remove}
      */
@@ -56,10 +60,6 @@ public class Driver extends Person {
 
     public String suggestTime(EventTime eventTime, LocalTime timeNow) {
         return this.schedule.getSchedulingSuggestion(eventTime, timeNow);
-    }
-
-    public void assign(EventTime eventTime) throws SchedulingException {
-        this.schedule.add(eventTime);
     }
 
     /**

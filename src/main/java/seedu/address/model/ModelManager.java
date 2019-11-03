@@ -400,6 +400,12 @@ public class ModelManager implements Model {
         list.setPredicate(predicate);
     }
 
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
+        requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
+    }
+
     /**
      * Returns an observable view of the list of that is filtered to unassigned tasks
      */
