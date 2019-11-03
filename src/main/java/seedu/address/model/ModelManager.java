@@ -14,13 +14,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
-import seedu.address.model.person.Customer;
-import seedu.address.model.person.Driver;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.*;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 import seedu.address.model.task.TaskManager;
-import seedu.address.model.task.TaskStatus;
 import seedu.address.storage.CentralManager;
 
 /**
