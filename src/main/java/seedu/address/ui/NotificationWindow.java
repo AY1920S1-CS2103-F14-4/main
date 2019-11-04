@@ -31,6 +31,9 @@ public class NotificationWindow extends UiPart<Stage> {
     @FXML
     private Button okayButton;
 
+    @FXML
+    private StackPane okayButtonPlaceholder;
+
     /**
      * Creates a new HelpWindow.
      *
@@ -106,5 +109,6 @@ public class NotificationWindow extends UiPart<Stage> {
             Driver driver = task.getDriver().orElseThrow();
             FreeCommand.freeDriverFromTask(driver, task);
         }
+        this.hide();
     }
 }
