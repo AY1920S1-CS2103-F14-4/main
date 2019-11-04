@@ -105,7 +105,7 @@ public class NotificationWindow extends UiPart<Stage> {
     @FXML
     private void freeDriver() {
         ObservableList<Task> tasksToBeCleared = logic.getIncompleteTaskList();
-        for ( Task task: tasksToBeCleared ) {
+        for (Task task: tasksToBeCleared) {
             Driver driver = task.getDriver().orElseThrow();
             FreeCommand.freeDriverFromTask(driver, task);
         }
