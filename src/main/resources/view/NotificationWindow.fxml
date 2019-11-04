@@ -8,7 +8,8 @@
 <?import javafx.stage.Stage?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.Button?>
+<fx:root resizable="false" title="Notification" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/help_icon.png" />
     </icons>
@@ -29,6 +30,11 @@
                         <StackPane fx:id="incompleteTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
                     </StackPane>
+                    <Button fx:id="okayButton" mnemonicParsing="false" onAction="#freeDriver" text="Okay">
+                        <HBox.margin>
+                            <Insets left="5.0" />
+                        </HBox.margin>
+                    </Button>
                 </children>
                 <opaqueInsets>
                     <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />

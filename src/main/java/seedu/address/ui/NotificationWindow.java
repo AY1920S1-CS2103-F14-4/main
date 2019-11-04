@@ -2,11 +2,16 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.FreeCommand;
+import seedu.address.model.person.Driver;
+import seedu.address.model.task.Task;
 
 /**
  * Controller for a help page
@@ -22,6 +27,9 @@ public class NotificationWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane incompleteTaskListPanelPlaceholder;
+
+    @FXML
+    private Button okayButton;
 
     /**
      * Creates a new HelpWindow.
@@ -86,5 +94,17 @@ public class NotificationWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * Frees driver's schedule from tasks in the past
+     */
+    @FXML
+    private void freeDriver() {
+        ObservableList<Task> tasksToBeCleared = logic.getIncompleteTaskList();
+        for ( Task task: tasksToBeCleared ) {
+            Driver driver = task.getDriver().orElseThrow();
+            FreeCommand.freeDriverFromTask(driver, task);
+        }
     }
 }
