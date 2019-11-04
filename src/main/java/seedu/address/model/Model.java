@@ -1,6 +1,8 @@
 package seedu.address.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -10,6 +12,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.GlobalClock;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
+import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
@@ -27,6 +30,14 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
     Predicate<Driver> PREDICATE_SHOW_ALL_DRIVERS = unused -> true;
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to false
+     */
+    Predicate<Task> PREDICATE_SHOW_EMPTY_TASKS = unused -> false;
+    Predicate<Customer> PREDICATE_SHOW_EMPTY_CUSTOMERS = unused -> false;
+    Predicate<Driver> PREDICATE_SHOW_EMPTY_DRIVERS = unused -> false;
 
     /**
      * {@code Predicate} that filters the task to incomplete status
@@ -215,6 +226,10 @@ public interface Model {
      */
     void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list);
 
+    void refreshFilteredTaskList();
+
+    void refreshAllFilteredList();
+
     /**
      * Returns an unmodifiable view of the filtered customer list.
      */
@@ -228,10 +243,14 @@ public interface Model {
      */
     void updateFilteredCustomerList(Predicate<Customer> predicate);
 
+    void refreshFilteredCustomerList();
+
     /**
      * Returns an unmodifiable view of the filtered driver list.
      */
     ObservableList<Driver> getFilteredDriverList();
+
+    void refreshFilteredDriverList();
 
     int getNextTaskId();
 
@@ -240,4 +259,6 @@ public interface Model {
     int getNextDriverId();
 
     IdManager getIdManager();
+
+    void saveDriverTaskPdf(String filePathForPdf, LocalDate date) throws IOException, PdfNoTaskToDisplayException;
 }

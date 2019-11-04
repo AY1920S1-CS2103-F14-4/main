@@ -3,17 +3,22 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
+import seedu.address.model.pdfmanager.PdfCreator;
+import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
@@ -323,6 +328,22 @@ public class ModelManager implements Model {
         return idManager;
     }
 
+    // ========= PdfCreator =========================================================================
+
+    /**
+     * Saves drivers' tasks for a specified date in PDF format.
+     *
+     * @param filePath directory to save the PDF file.
+     * @param dateOfDelivery date of delivery.
+     * @throws IOException if directory is not found.
+     */
+    public void saveDriverTaskPdf(String filePath, LocalDate dateOfDelivery)
+            throws IOException, PdfNoTaskToDisplayException {
+        requireAllNonNull(filePath, dateOfDelivery);
+        PdfCreator pdfCreator = new PdfCreator(filePath);
+        pdfCreator.saveDriverTaskPdf(taskManager.getList(), dateOfDelivery);
+    }
+
     // =========== Filtered Person List Accessors =============================================================
 
     /**
@@ -405,6 +426,27 @@ public class ModelManager implements Model {
         FilteredList<Task> incompleteTasks = new FilteredList<>(this.taskManager.getList());
         updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED.and(PREDICATE_SHOW_PREVIOUS_DAYS), incompleteTasks);
         return incompleteTasks;
+
+      /**
+     * Refreshes the display of task list.
+     */
+    public void refreshFilteredTaskList() {
+        //refresh assigned task list
+        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, filteredTasks);
+        getAssignedTaskList();
+
+        //refresh unassigned task list
+        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, unassignedTasks);
+        getUnassignedTaskList();
+    }
+
+    /**
+     * Refreshes unassigned task list, assigned task list, customer list and driver list.
+     */
+    public void refreshAllFilteredList() {
+        refreshFilteredCustomerList();
+        refreshFilteredDriverList();
+        refreshFilteredTaskList();
     }
 
     // =========== Filtered Customer List Accessors =============================================================
@@ -424,7 +466,15 @@ public class ModelManager implements Model {
         filteredCustomers.setPredicate(predicate);
     }
 
-    // =========== Filtered Customer List Accessors =============================================================
+    /**
+     * Refreshes the display of customer list.
+     */
+    public void refreshFilteredCustomerList() {
+        updateFilteredCustomerList(PREDICATE_SHOW_EMPTY_CUSTOMERS);
+        updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
+    }
+
+    // =========== Filtered Driver List Accessors =============================================================
 
     @Override
     public ObservableList<Driver> getFilteredDriverList() {
@@ -435,5 +485,13 @@ public class ModelManager implements Model {
     public void updateFilteredDriverList(Predicate<Driver> predicate) {
         requireNonNull(predicate);
         filteredDrivers.setPredicate(predicate);
+    }
+
+    /**
+     * Refreshes the display of driver list.
+     */
+    public void refreshFilteredDriverList() {
+        updateFilteredDriverList(PREDICATE_SHOW_EMPTY_DRIVERS);
+        updateFilteredDriverList(PREDICATE_SHOW_ALL_DRIVERS);
     }
 }
