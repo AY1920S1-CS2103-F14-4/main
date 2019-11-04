@@ -406,27 +406,6 @@ public class ModelManager implements Model {
         updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED.and(PREDICATE_SHOW_PREVIOUS_DAYS), incompleteTasks);
         return incompleteTasks;
     }
-    /**
-     * Refreshes the display of task list.
-     */
-    public void refreshFilteredTaskList() {
-        //refresh assigned task list
-        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, filteredTasks);
-        getAssignedTaskList();
-
-        //refresh unassigned task list
-        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, unassignedTasks);
-        getUnassignedTaskList();
-    }
-
-    /**
-     * Refreshes unassigned task list, assigned task list, customer list and driver list.
-     */
-    public void refreshAllFilteredList() {
-        refreshFilteredCustomerList();
-        refreshFilteredDriverList();
-        refreshFilteredTaskList();
-    }
 
     // =========== Filtered Customer List Accessors =============================================================
 
