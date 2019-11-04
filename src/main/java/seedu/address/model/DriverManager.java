@@ -61,17 +61,6 @@ public class DriverManager extends EntityManager<Driver> {
                 .orElseThrow(PersonNotFoundException::new);
     }
 
-    /**
-     * Clears all driver schedule
-     */
-    public void clearAllSchedule() {
-        Iterator<Driver> driverIterator = getPersonList().iterator();
-        while (driverIterator.hasNext()) {
-            Driver driver = driverIterator.next();
-            driver.clearSchedule();
-        }
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
