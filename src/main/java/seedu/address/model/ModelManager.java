@@ -3,18 +3,25 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
-import seedu.address.model.person.*;
+import seedu.address.model.pdfmanager.PdfCreator;
+import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
+import seedu.address.model.person.Customer;
+import seedu.address.model.person.Driver;
+import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 import seedu.address.model.task.TaskManager;
@@ -319,6 +326,22 @@ public class ModelManager implements Model {
         return idManager;
     }
 
+    // ========= PdfCreator =========================================================================
+
+    /**
+     * Saves drivers' tasks for a specified date in PDF format.
+     *
+     * @param filePath directory to save the PDF file.
+     * @param dateOfDelivery date of delivery.
+     * @throws IOException if directory is not found.
+     */
+    public void saveDriverTaskPdf(String filePath, LocalDate dateOfDelivery)
+            throws IOException, PdfNoTaskToDisplayException {
+        requireAllNonNull(filePath, dateOfDelivery);
+        PdfCreator pdfCreator = new PdfCreator(filePath);
+        pdfCreator.saveDriverTaskPdf(taskManager.getList(), dateOfDelivery);
+    }
+
     // =========== Filtered Person List Accessors =============================================================
 
     /**
@@ -406,19 +429,19 @@ public class ModelManager implements Model {
      * Updates the observable view of the completed tasks to the predicate
      */
     @Override
-    public void updateCompletedTaskList(Predicate<Task> predicate, FilteredList<Task> completedTasks) {
+    public void updateCompletedTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         completedTasks.setPredicate(predicate);
     }
 
     @Override
     public void viewCustomerTask(Customer customerToView) {
-        updateCompletedTaskList(task -> task.getCustomer().equals(customerToView), completedTasks);
+        updateCompletedTaskList(task -> task.getCustomer().equals(customerToView));
     }
 
     @Override
     public void viewDriverTask(Driver driverToView) {
-        updateCompletedTaskList(task -> task.getDriver().equals(driverToView), completedTasks);
+        updateCompletedTaskList(task -> task.getDriver().equals(driverToView));
     }
 
 

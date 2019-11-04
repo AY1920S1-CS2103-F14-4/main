@@ -6,24 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCustomerCommand;
-import seedu.address.logic.commands.AddDriverCommand;
-import seedu.address.logic.commands.AddTaskCommand;
-import seedu.address.logic.commands.AssignCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteIdCommand;
-import seedu.address.logic.commands.DoneCommand;
-import seedu.address.logic.commands.EditCustomerCommand;
-import seedu.address.logic.commands.EditDriverCommand;
-import seedu.address.logic.commands.EditTaskCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCustomerCommand;
-import seedu.address.logic.commands.FindDriverCommand;
-import seedu.address.logic.commands.FreeCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ReadIdCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -86,6 +69,9 @@ public class AddressBookParser {
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(arguments);
 
+        case SavePdfCommand.COMMAND_WORD:
+            return new SavePdfCommandParser().parse(arguments);
+
         case FindCustomerCommand.COMMAND_WORD:
             return new FindCustomerCommandParser().parse(arguments);
 
@@ -97,6 +83,12 @@ public class AddressBookParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommandParser().parse(arguments);
+
+        case ViewCustomerTaskCommand.COMMAND_WORD:
+            return new ViewCustomerTaskCommandParser().parse(arguments);
+
+        case ViewDriverTaskCommand.COMMAND_WORD:
+            return new ViewDriverTaskCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

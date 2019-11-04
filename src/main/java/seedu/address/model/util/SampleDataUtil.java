@@ -32,7 +32,7 @@ import seedu.address.storage.CentralManager;
  */
 public class SampleDataUtil {
 
-    public static final int SAMPLE_LAST_TASK_ID = 3;
+    public static final int SAMPLE_LAST_TASK_ID = 5;
     public static final int SAMPLE_LAST_CUSTOMER_ID = 6;
     public static final int SAMPLE_LAST_DRIVER_ID = 6;
 
@@ -115,6 +115,22 @@ public class SampleDataUtil {
         sampleTask1.setDriverAndEventTime(driverOptional, eventTimeOptional);
         sampleTask1.setStatus(TaskStatus.COMPLETED);
 
+        Task sampleTask4 = new Task(4, new Description("5 boxes of Chicken Nuggets"),
+                Task.getDateFromString("10/10/2019"));
+        sampleTask4.setCustomer(customerManager.getCustomer(2));
+        Optional<Driver> driverOptional2 = Optional.of(driverManager.getDriver(2));
+        Optional<EventTime> eventTimeOptional2 = Optional.of(EventTime.parse("1000 - 1200"));
+        sampleTask4.setDriverAndEventTime(driverOptional2, eventTimeOptional2);
+        sampleTask4.setStatus(TaskStatus.COMPLETED);
+
+        Task sampleTask5 = new Task(5, new Description("1 Lakewood Guitar"),
+                Task.getDateFromString("10/10/2019"));
+        sampleTask5.setCustomer(customerManager.getCustomer(3));
+        Optional<Driver> driverOptional3 = Optional.of(driverManager.getDriver(3));
+        Optional<EventTime> eventTimeOptional3 = Optional.of(EventTime.parse("1400 - 1600"));
+        sampleTask5.setDriverAndEventTime(driverOptional3, eventTimeOptional3);
+        sampleTask5.setStatus(TaskStatus.COMPLETED);
+
         Task sampleTask2 = new Task(2, new Description("25 boxes of A4 paper"),
                 Task.getParsedLocalDate(LocalDate.now()));
         sampleTask2.setCustomer(customerManager.getCustomer(1));
@@ -127,8 +143,10 @@ public class SampleDataUtil {
         Optional<EventTime> optionalEventTime = Optional.of(EventTime.parse("1000 - 1200"));
         sampleTask3.setDriverAndEventTime(optionalDriver, optionalEventTime);
         driverManager.getDriver(1).addToSchedule(EventTime.parse("1000 - 1200"));
+        driverManager.getDriver(2).addToSchedule(EventTime.parse("1000 - 1200"));
+        driverManager.getDriver(3).addToSchedule(EventTime.parse("1400 - 1600"));
 
-        return new Task[]{sampleTask1, sampleTask2, sampleTask3};
+        return new Task[]{sampleTask1, sampleTask2, sampleTask3, sampleTask4, sampleTask5};
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {

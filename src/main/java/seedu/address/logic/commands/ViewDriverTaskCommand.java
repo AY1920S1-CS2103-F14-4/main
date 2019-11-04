@@ -16,13 +16,14 @@ import seedu.address.model.task.Task;
  */
 public class ViewDriverTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "viewC";
+    public static final String COMMAND_WORD = "viewD";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views the delivered tasks of the specified driver "
             + "and displays them as a list with index numbers."
             + "\n"
             + "Parameters: " + "INDEX (must be a positive integer)"
             + "[" + PREFIX_DRIVER + "DRIVER_ID] "
+            + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DRIVER + "1";
 
@@ -38,15 +39,15 @@ public class ViewDriverTaskCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Driver> currentDriverList = model.getFilteredDriverList();
-        List<Task> completedTaskList = model.getCompletedTaskList();
+        Driver driver = model.getDriver(driverId);
+
 
         if (driverId > currentDriverList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DRIVER_DISPLAYED_INDEX);
         }
 
-        Driver driverToView = currentDriverList.get(driverId);
-        model.viewDriverTask(driverToView);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, driverToView));
+        model.viewDriverTask(driver);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, driver));
     }
 
 }
