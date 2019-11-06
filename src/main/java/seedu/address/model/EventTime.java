@@ -25,7 +25,7 @@ public class EventTime implements Comparable<EventTime> {
 
     public static final String TIME_FORMAT = "HHmm";
     public static final DateTimeFormatter COMPACT_TIME_FORMAT = DateTimeFormatter.ofPattern(TIME_FORMAT);
-    private static final DateTimeFormatter DISPLAY_TIME_FORMAT = DateTimeFormatter.ofPattern("h:mma");
+    public static final DateTimeFormatter DISPLAY_TIME_FORMAT = DateTimeFormatter.ofPattern("h:mma");
 
     private static final DateTimeFormatter JSON_FORMATTER = DateTimeFormatter.ofPattern("Hmm");
 

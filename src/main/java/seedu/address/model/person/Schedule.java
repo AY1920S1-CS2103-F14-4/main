@@ -21,7 +21,7 @@ public class Schedule {
     public static final String MESSAGE_SUGGEST_TIME_FORMAT = "Suggested Time: %s";
     public static final String MESSAGE_SCHEDULE_CONFLICT = "The duration conflicts with the existing schedule.";
     public static final String MESSAGE_OUTSIDE_WORKING_HOURS = "The person does not work during the specified time.";
-    public static final String MESSAGE_EVENT_START_BEFORE_NOW = "The proposed time is in the past.";
+    public static final String MESSAGE_EVENT_START_BEFORE_NOW_FORMAT = "The event cannot happen in the past. The time now is %s.";
 
     private static final String START_WORK_TIME = "0900";
     private static final String END_WORK_TIME = "1800";
