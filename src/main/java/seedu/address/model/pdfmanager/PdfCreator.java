@@ -28,10 +28,6 @@ public class PdfCreator {
         this.filePath = filePath;
     }
 
-    public String getFilePathWithDate(LocalDate date) {
-        return String.format(filePath, "(" + date + ")");
-    }
-
     /**
      * Saves drivers` tasks for a specific date into a PDF file.
      *
@@ -46,7 +42,7 @@ public class PdfCreator {
             throw new PdfNoTaskToDisplayException(String.format(MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE, dateOfDelivery));
         }
 
-        Document document = createDocument(dateOfDelivery);
+        Document document = createDocument();
         insertCoverPage(document, dateOfDelivery);
         insertDriverTask(document, tasks, dateOfDelivery);
 
@@ -54,9 +50,8 @@ public class PdfCreator {
         document.close();
     }
 
-    private void createFileIfMissing(LocalDate dateOfDelivery) throws IOException {
-        String filePathWithDate = getFilePathWithDate(dateOfDelivery);
-        FileUtil.createIfMissing(Paths.get(filePathWithDate));
+    private void createFileIfMissing() throws IOException {
+        FileUtil.createIfMissing(Paths.get(filePath));
     }
 
     /**
@@ -65,11 +60,10 @@ public class PdfCreator {
      * @return PDF document ready to be filled with content.
      * @throws IOException if file path is not created or found.
      */
-    private Document createDocument(LocalDate dateOfDelivery) throws IOException {
-        createFileIfMissing(dateOfDelivery);
+    private Document createDocument() throws IOException {
+        createFileIfMissing();
 
-        String filePathWithDate = getFilePathWithDate(dateOfDelivery);
-        PdfDocument pdf = new PdfDocument(new PdfWriter(filePathWithDate));
+        PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
         Document newDocument = new Document(pdf);
         newDocument.setMargins(30, 30, 30, 30);
 

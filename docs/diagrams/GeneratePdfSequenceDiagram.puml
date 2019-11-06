@@ -9,8 +9,8 @@ participant ":PdfWrapperLayout" as PdfWrapperLayout MODEL_COLOR
 end box
 
 
-[-> Model : saveDriverTaskPdf( \n FILEPATH*, "5/11/2019")
-note right: FILEPATH*: "./data/DeliveryTasks (2019-11-5)".pdf"
+[-> Model : saveDriverTaskPdf( \n FILEPATH*, 5/11/2019)
+note right: FILEPATH*: "./data/DeliveryTasks 2019-11-5".pdf"
 activate Model
 
 create PdfCreator
@@ -26,16 +26,16 @@ activate TaskManager
 TaskManager --> Model: tasks
 deactivate TaskManager
 
-Model -> PdfCreator : saveDriverTaskPdf(tasks, "5/11/2019")
+Model -> PdfCreator : saveDriverTaskPdf(tasks, 5/11/2019)
 activate PdfCreator
 
-PdfCreator -> PdfCreator ++: createDocument("5/11/2019")
+PdfCreator -> PdfCreator ++: createDocument()
 PdfCreator --> PdfCreator --: document
 
-PdfCreator -> PdfCreator ++: insertCoverPage(document, "5/11/2019")
+PdfCreator -> PdfCreator ++: insertCoverPage(document, 5/11/2019)
 PdfCreator --> PdfCreator --
 
-PdfCreator -> PdfCreator ++: insertDriverTask(document, "5/11/2019")
+PdfCreator -> PdfCreator ++: insertDriverTask(document, 5/11/2019)
 
 create PdfWrapperLayout
 PdfCreator -> PdfWrapperLayout :  new PdfWrapperLayout(document)
@@ -44,7 +44,7 @@ activate PdfWrapperLayout
 PdfWrapperLayout --> PdfCreator
 deactivate PdfWrapperLayout
 
-PdfCreator -> PdfWrapperLayout : populateDocumentWithTasks(tasks, "5/11/2019");
+PdfCreator -> PdfWrapperLayout : populateDocumentWithTasks(tasks, 5/11/2019);
 activate PdfWrapperLayout
 
 PdfWrapperLayout --> PdfCreator

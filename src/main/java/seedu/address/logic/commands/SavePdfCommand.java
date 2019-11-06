@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.nio.channels.FileLockInterruptionException;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -48,8 +49,10 @@ public class SavePdfCommand extends Command {
 
         LocalDate dateOfDelivery = date.get();
 
+        String filePathWithDate = String.format(FILE_PATH_FOR_PDF, dateOfDelivery);
+
         try {
-            model.saveDriverTaskPdf(FILE_PATH_FOR_PDF, dateOfDelivery);
+            model.saveDriverTaskPdf(filePathWithDate, dateOfDelivery);
         } catch (IOException | PdfNoTaskToDisplayException e) {
             throw new CommandException(e.getMessage());
         }

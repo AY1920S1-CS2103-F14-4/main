@@ -50,7 +50,7 @@ LogicManager -> SavePdfCommand : execute()
 activate SavePdfCommand
 
 
-note right : FILEPATH*: "./data/DeliveryTasks (2019-11-05).pdf"
+note right : FILEPATH*: "./data/DeliveryTasks 2019-11-05.pdf"
 SavePdfCommand -> Model : saveDriverTaskPdf(FILEPATH*, 5/11/2019)
 activate Model
 
