@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.util.Pair;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.GlobalClock;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.EventTime;
@@ -24,26 +25,16 @@ import seedu.address.model.task.TaskStatus;
  * Edits the details of an existing person in the address book.
  */
 public class SuggestCommand extends Command {
-    // TODO: update this
-    public static final String COMMAND_WORD = "assign";
-    public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned #%1$d to %2$s at %3$s";
-    public static final String MESSAGE_ALREADY_ASSIGNED = "This task is already scheduled. ";
-    public static final String MESSAGE_NOT_TODAY = "The task is not scheduled for today. " + "\n"
-            + String.format("Only tasks scheduled for today can be assigned. Today is %s.",
-            GlobalClock.dateToday().format(Task.DATE_FORMAT_FOR_PRINT));
-    public static final String MESSAGE_PROMPT_FORCE = "Use 'assign force' to override the suggestion.";
+    public static final String COMMAND_WORD = "suggest";
     public static final String MESSAGE_NO_DRIVER_AVAILABLE = "No driver is available for this duration. ";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assign a driver the specified task, with a proposed "
-            + "start and end time. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Suggest and assign an available driver, given " +
+            "whose schedule can fit the proposed duration. "
             + "\n"
-            + "Parameters: [force] "
-            + "[" + PREFIX_DRIVER + "DRIVER_ID] "
-            + "[" + PREFIX_TASK + "TASK_ID] "
-            + "[" + PREFIX_EVENT_TIME + "hMM - hMM] " + "\n"
+            + "Parameters: [NUMBER_OF_HOURS] "
+            + "[" + PREFIX_TASK + "TASK_ID] " + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DRIVER + "1 "
-            + PREFIX_TASK + "3 "
-            + PREFIX_EVENT_TIME + "930 - 1600";
+            + "1.5" + " "
+            + PREFIX_TASK + "3 ";
 
     private Duration duration;
     private int taskId;
@@ -72,14 +63,14 @@ public class SuggestCommand extends Command {
         Task task = model.getTask(taskId);
         // check whether the task is scheduled for today
         if (!task.getDate().equals(GlobalClock.dateToday())) {
-            throw new CommandException(MESSAGE_NOT_TODAY);
+            throw new CommandException(Messages.MESSAGE_NOT_TODAY);
         }
 
 
         // check whether the task is already scheduled
         if (task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
                 || task.getEventTime().isPresent()) {
-            throw new CommandException(MESSAGE_ALREADY_ASSIGNED);
+            throw new CommandException(Messages.MESSAGE_ALREADY_ASSIGNED);
         }
 
         List<Driver> driverList = model.getDriverManager().getDriverList();
@@ -97,7 +88,7 @@ public class SuggestCommand extends Command {
 
         model.refreshAllFilteredList();
 
-        return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS,
+        return new CommandResult(String.format(Messages.MESSAGE_ASSIGN_SUCCESS,
                 task.getId(), result.getKey().getName().fullName, result.getValue().get().toString()));
     }
 
