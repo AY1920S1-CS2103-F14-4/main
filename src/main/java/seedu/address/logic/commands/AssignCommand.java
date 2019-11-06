@@ -27,7 +27,7 @@ import seedu.address.model.task.TaskStatus;
  */
 public class AssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";
-    public static final String MESSAGE_PROMPT_FORCE = "Use 'assign force' to override the suggestion.";
+    public static final String MESSAGE_PROMPT_FORCE = "Use 'assign force' to overwrite the current assignment.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assign a driver the specified task, with a proposed "
             + "start and end time. "
             + "\n"
@@ -78,13 +78,18 @@ public class AssignCommand extends Command {
         }
 
 
-        if (task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
-                || task.getEventTime().isPresent()) {
-            throw new CommandException(MESSAGE_ALREADY_ASSIGNED);
+        boolean needOverriding = task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
+                || task.getEventTime().isPresent();
+
+        if (needOverriding && !isForceAssign) {
+            throw new CommandException(MESSAGE_ALREADY_ASSIGNED + MESSAGE_PROMPT_FORCE);
         }
 
-
         Driver driver = model.getDriver(driverId);
+
+        if (needOverriding) {
+            FreeCommand.freeDriverFromTask(driver, task);
+        }
 
         // check current time against system time
         if (eventTime.getStart().compareTo(GlobalClock.timeNow()) < 0) {

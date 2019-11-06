@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.AssignCommand.forceAssign;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import java.time.Duration;
@@ -97,7 +95,7 @@ public class SuggestCommand extends Command {
 class Candidate extends Pair<Driver, Optional<EventTime>> {
 
     /**
-     * Creates a new pair
+     * Creates a new pair.
      *
      * @param key   The key for this pair
      * @param value The value to use for this pair
