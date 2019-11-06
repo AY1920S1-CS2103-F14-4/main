@@ -14,7 +14,7 @@ import seedu.address.model.task.Task;
 /**
  * A outer layout that encapsulates all the layouts used.
  */
-public class PdfWrapperLayout extends PdfLayout {
+public class PdfWrapperLayout {
 
     private Document document;
 

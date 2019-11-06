@@ -136,7 +136,7 @@ public class TaskList {
      * @param assignedTasks list of task that is assigned to drivers.
      * @return driver list that contains only drivers with assigned tasks.
      */
-    public static List<Driver> getDriverList(List<Task> assignedTasks) {
+    public static List<Driver> getDriversFromTasks(List<Task> assignedTasks) {
         List<Driver> driverList = new ArrayList<>();
         for (Task task : assignedTasks) {
             assert task.getDriver().isPresent();

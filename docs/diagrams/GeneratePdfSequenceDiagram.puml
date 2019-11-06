@@ -26,7 +26,13 @@ activate TaskManager
 TaskManager --> Model: tasks
 deactivate TaskManager
 
-Model -> PdfCreator : saveDriverTaskPdf(tasks, 5/11/2019)
+Model -> TaskManager : getDriversFromTasks()
+activate TaskManager
+
+TaskManager --> Model: drivers
+deactivate TaskManager
+
+Model -> PdfCreator : saveDriverTaskPdf(tasks, drivers, 5/11/2019)
 activate PdfCreator
 
 PdfCreator -> PdfCreator ++: createDocument()

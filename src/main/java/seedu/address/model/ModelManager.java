@@ -355,7 +355,7 @@ public class ModelManager implements Model {
             throw new PdfNoTaskToDisplayException(String.format(MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE, dateOfDelivery));
         }
 
-        List<Driver> drivers = TaskManager.getDriverList(assignedTaskOnDateList);
+        List<Driver> drivers = getDriversFromTasks(assignedTaskOnDateList);
         List<Driver> sortedByNameDrivers = getSortedByNameDrivers(drivers);
 
         PdfCreator pdfCreator = new PdfCreator(filePath);
@@ -380,6 +380,10 @@ public class ModelManager implements Model {
                 ascendingEventTimeComparator);
 
         return sortedByEventTimeTasks;
+    }
+
+    public List<Driver> getDriversFromTasks(List<Task> tasks) {
+        return TaskManager.getDriversFromTasks(tasks);
     }
 
     public List<Driver> getSortedByNameDrivers(List<Driver> drivers) {

@@ -66,8 +66,8 @@ public class TaskManager {
         return TaskList.getFilteredList(tasks, predicate);
     }
 
-    public static List<Driver> getDriverList(List<Task> assignedTasks) {
-        return TaskList.getDriverList(assignedTasks);
+    public static List<Driver> getDriversFromTasks(List<Task> assignedTasks) {
+        return TaskList.getDriversFromTasks(assignedTasks);
     }
 
     @Override
