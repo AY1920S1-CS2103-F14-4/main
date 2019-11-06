@@ -33,6 +33,10 @@ public class EventTime implements Comparable<EventTime> {
             + "Format: " + TIME_FORMAT + " - " + TIME_FORMAT + ". "
             + "Example: 1130 - 1300.";
 
+    public static final String MESSAGE_END_BEFORE_START = "The event cannot end before it starts.";
+
+
+
     private LocalTime start;
     private LocalTime end;
 
@@ -123,16 +127,13 @@ public class EventTime implements Comparable<EventTime> {
         String endTimeStr = times.get(1);
 
         try {
-            int startTime = Integer.parseInt(startTimeStr);
-            int endTime = Integer.parseInt(endTimeStr);
-
-            //checks if Start time is before End time
-            if (endTime <= startTime) {
+            //checks if it can be parse into a EventTime
+            EventTime candidate = parse(startTimeStr, endTimeStr);
+            if (candidate.getStart().compareTo(candidate.getEnd()) >= 0) {
                 return false;
             }
 
-            //checks if it can be parse into a LocalDate Object
-            parse(startTimeStr, endTimeStr);
+            //checks if Start time is before End time
         } catch (NumberFormatException | DateTimeParseException nfe) {
             return false;
         }

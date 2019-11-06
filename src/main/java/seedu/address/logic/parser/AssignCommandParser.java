@@ -6,8 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
-import java.time.format.DateTimeParseException;
-
 import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.EventTime;
@@ -52,12 +50,7 @@ public class AssignCommandParser implements Parser<AssignCommand> {
 
         String time = argMultimap.getValue(PREFIX_EVENT_TIME).orElseThrow(AssignCommandParser::getWrongFormatException);
 
-        EventTime proposed;
-        try {
-            proposed = ParserUtil.parseEventTime(time);
-        } catch (DateTimeParseException e) {
-            throw getWrongFormatException();
-        }
+        EventTime proposed = ParserUtil.parseEventTime(time);
 
         return new AssignCommand(driverId, taskId, proposed, isForce);
     }
