@@ -29,8 +29,8 @@ public class EventTime implements Comparable<EventTime> {
 
     private static final DateTimeFormatter JSON_FORMATTER = DateTimeFormatter.ofPattern("Hmm");
 
-    public static final String MESSAGE_CONSTRAINTS = "Duration needs to have a start and end time. "
-            + "Format: " + TIME_FORMAT + " - " + TIME_FORMAT + ". "
+    public static final String MESSAGE_CONSTRAINTS = "The proposed time slot needs to have a valid start and end time. "
+            + "\n" + "Format: " + TIME_FORMAT + " - " + TIME_FORMAT + ". "
             + "Example: 1130 - 1300.";
 
     public static final String MESSAGE_END_BEFORE_START = "The event cannot end before it starts.";

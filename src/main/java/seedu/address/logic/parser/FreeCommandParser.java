@@ -2,8 +2,13 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
+import static seedu.address.logic.parser.CliSyntax.getAllPrefixes;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
+import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.commands.FreeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -26,7 +31,11 @@ public class FreeCommandParser implements Parser<FreeCommand> {
      */
     public FreeCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TASK);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, getAllPrefixes());
+        if (!arePrefixesPresent(argMultimap, PREFIX_TASK)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
+        }
 
         // driver and task must both be present
         String task = argMultimap.getValue(PREFIX_TASK).orElseThrow(FreeCommandParser::getWrongFormatException);
