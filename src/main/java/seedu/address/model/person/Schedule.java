@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeSet;
 
+import javax.swing.text.html.Option;
+
 import seedu.address.logic.commands.AssignCommand;
 import seedu.address.model.EventTime;
 import seedu.address.model.person.exceptions.SchedulingException;
@@ -48,7 +50,7 @@ public class Schedule {
 
 
     public String getSchedulingSuggestion(EventTime eventTime, LocalTime timeNow) {
-        String suggested = findFirstAvailableSlot(eventTime, timeNow)
+        String suggested = findFirstAvailableSlot(timeNow, eventTime.getDuration())
                 .filter(x -> !x.equals(eventTime)) // check if the suggested time is different from proposed
                 .map(x -> String.format(MESSAGE_SUGGEST_TIME_FORMAT, x.toString()))
                 .orElse("");
@@ -94,17 +96,15 @@ public class Schedule {
 
 
     /**
-     * Finds the earliest available EventTime has the same length of proposed, and fits in the schedule.
-     * This method will check against the current time.
+     * Finds the earliest available EventTime has the length of proposed, and fits in the schedule.
+     * This method will check against the input current time.
      *
-     * @param proposed a proposed time slot
      * @param timeNow  time now
+     * @param proposed a proposed duration
      * @return Optional of the earliest EventTime that can fit in the schedule; if the proposed time is already the
      * earliest, return an Optional of the proposed time; if no slot available, return an empty Optional.
      */
-    public Optional<EventTime> findFirstAvailableSlot(EventTime proposed, LocalTime timeNow) {
-        Duration length = proposed.getDuration();
-
+    public Optional<EventTime> findFirstAvailableSlot(LocalTime timeNow, Duration proposed) {
         // get a view of the schedule, from system time to the last EventTime in the schedule
         EventTime lastCandidate = schedule.last();
 
@@ -122,11 +122,11 @@ public class Schedule {
 
         while (iter.hasNext()) {
             EventTime head = iter.next();
-            boolean canFit = Duration.between(prev.getEnd(), head.getStart()).compareTo(length) >= 0;
+            boolean canFit = Duration.between(prev.getEnd(), head.getStart()).compareTo(proposed) >= 0;
 
             if (canFit) {
                 schedule.remove(now);
-                return Optional.of(new EventTime(prev.getEnd(), length));
+                return Optional.of(new EventTime(prev.getEnd(), proposed));
             }
 
             prev = head;

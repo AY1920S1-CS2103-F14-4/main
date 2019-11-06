@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.task.Task.DATE_FORMAT;
 import static seedu.address.model.task.Task.DATE_FORMATTER_FOR_USER_INPUT;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
@@ -31,6 +32,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    public static final int MINUTES_IN_AN_HOUR = 60;
 
     public static final String MESSAGE_INVALID_DATE_FORMAT =
             "Invalid Date format. Date format should be " + DATE_FORMAT + ". "
@@ -236,6 +238,22 @@ public class ParserUtil {
         }
 
         return candidate;
+
+    }
+
+    public static Duration parseDuration(String input) throws ParseException {
+        input = input.trim();
+        // either 1.5 or 1:30
+        try {
+            long minutes = Math.round(Double.parseDouble(input) * MINUTES_IN_AN_HOUR);
+            return Duration.ofMinutes(minutes);
+        } catch (NumberFormatException e) {
+
+
+
+
+        }
+
 
     }
 

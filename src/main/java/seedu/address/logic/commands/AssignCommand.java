@@ -117,7 +117,7 @@ public class AssignCommand extends Command {
      * @param eventTime the time which the task is happening
      * @throws SchedulingException when the proposed time conflicts with the driver's schedule
      */
-    private void forceAssign(Driver driver, Task task, EventTime eventTime) throws CommandException {
+    public static void forceAssign(Driver driver, Task task, EventTime eventTime) throws CommandException {
         try {
             driver.assign(eventTime);
         } catch (SchedulingException e) {

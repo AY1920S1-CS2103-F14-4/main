@@ -1,7 +1,11 @@
 package seedu.address.model.person;
 
+import java.time.Duration;
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.Set;
+
+import javax.swing.text.html.Option;
 
 import seedu.address.model.EventTime;
 import seedu.address.model.person.exceptions.SchedulingException;
@@ -56,6 +60,10 @@ public class Driver extends Person {
 
     public String suggestTime(EventTime eventTime, LocalTime timeNow) {
         return this.schedule.getSchedulingSuggestion(eventTime, timeNow);
+    }
+
+    public Optional<EventTime> suggestTime(Duration duration, LocalTime timeNow) {
+        return this.schedule.findFirstAvailableSlot(timeNow, duration);
     }
 
     public void assign(EventTime eventTime) throws SchedulingException {
