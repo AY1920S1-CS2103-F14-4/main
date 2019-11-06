@@ -20,23 +20,17 @@ public class EventTime implements Comparable<EventTime> {
      * There must have also a white space in front and behind of the dash.
      */
     public static final String VALIDATION_REGEX = "^(0?[0-9]?[0-5]?[0-9]|1[0-9][0-5][0-9]|2[0-3][0-5][0-9])"
-                                                    + "\\s*-\\s*"
-                                                    + "(0?[0-9]?[0-5]?[0-9]|1[0-9][0-5][0-9]|2[0-3][0-5][0-9])$";
+            + "\\s*-\\s*"
+            + "(0?[0-9]?[0-5]?[0-9]|1[0-9][0-5][0-9]|2[0-3][0-5][0-9])$";
 
     public static final String TIME_FORMAT = "HHmm";
     public static final DateTimeFormatter COMPACT_TIME_FORMAT = DateTimeFormatter.ofPattern(TIME_FORMAT);
     public static final DateTimeFormatter DISPLAY_TIME_FORMAT = DateTimeFormatter.ofPattern("h:mma");
-
-    private static final DateTimeFormatter JSON_FORMATTER = DateTimeFormatter.ofPattern("Hmm");
-
     public static final String MESSAGE_CONSTRAINTS = "The proposed time slot needs to have a valid start and end time. "
             + "\n" + "Format: " + TIME_FORMAT + " - " + TIME_FORMAT + ". "
             + "Example: 1130 - 1300.";
-
     public static final String MESSAGE_END_BEFORE_START = "The event cannot end before it starts.";
-
-
-
+    private static final DateTimeFormatter JSON_FORMATTER = DateTimeFormatter.ofPattern("Hmm");
     private LocalTime start;
     private LocalTime end;
 
@@ -57,7 +51,7 @@ public class EventTime implements Comparable<EventTime> {
      * the input is less than 4 digits. For example, "900" will be changed into "0900".
      *
      * @param startTime start time
-     * @param endTime end time
+     * @param endTime   end time
      * @return the duration with the specified start and end time
      */
     public static EventTime parse(String startTime, String endTime) throws DateTimeParseException {
@@ -81,26 +75,6 @@ public class EventTime implements Comparable<EventTime> {
         List<String> times = Stream.of(duration.split("-")).map(String::trim).collect(Collectors.toList());
 
         return parse(times.get(0), times.get(1));
-    }
-
-    /**
-     * Checks whether the two durations overlap.
-     * @param other the other duration
-     * @return true if they overlap
-     */
-    public boolean overlaps(EventTime other) {
-        EventTime early = this.compareTo(other) > 0 ? other : this;
-        EventTime late = this.compareTo(other) > 0 ? this : other;
-
-        return early.getEnd().compareTo(late.getStart()) > 0;
-    }
-
-    public LocalTime getEnd() {
-        return end;
-    }
-
-    public LocalTime getStart() {
-        return start;
     }
 
     /**
@@ -141,12 +115,34 @@ public class EventTime implements Comparable<EventTime> {
         return true;
     }
 
+    /**
+     * Checks whether the two durations overlap.
+     *
+     * @param other the other duration
+     * @return true if they overlap
+     */
+    public boolean overlaps(EventTime other) {
+        EventTime early = this.compareTo(other) > 0 ? other : this;
+        EventTime late = this.compareTo(other) > 0 ? this : other;
+
+        return early.getEnd().compareTo(late.getStart()) > 0;
+    }
+
+    public LocalTime getEnd() {
+        return end;
+    }
+
+    public LocalTime getStart() {
+        return start;
+    }
+
     public Duration getDuration() {
         return Duration.between(this.start, this.end);
     }
 
     /**
      * Outputs the duration as a string, in HH:mm format.
+     *
      * @return the duration in string
      */
     public String to24HrString() {

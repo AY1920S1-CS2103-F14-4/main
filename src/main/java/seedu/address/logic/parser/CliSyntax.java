@@ -5,9 +5,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
