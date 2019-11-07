@@ -426,10 +426,12 @@ public class ModelManager implements Model {
         FilteredList<Task> incompleteTasks = new FilteredList<>(this.taskManager.getList());
         updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED.and(PREDICATE_SHOW_PREVIOUS_DAYS), incompleteTasks);
         return incompleteTasks;
+    }
 
       /**
      * Refreshes the display of task list.
      */
+      @Override
     public void refreshFilteredTaskList() {
         //refresh assigned task list
         updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, filteredTasks);
