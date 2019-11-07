@@ -428,10 +428,10 @@ public class ModelManager implements Model {
         return incompleteTasks;
     }
 
-      /**
+    /**
      * Refreshes the display of task list.
      */
-      @Override
+    @Override
     public void refreshFilteredTaskList() {
         //refresh assigned task list
         updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, filteredTasks);
