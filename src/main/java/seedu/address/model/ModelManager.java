@@ -25,6 +25,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskList;
 import seedu.address.model.task.TaskManager;
+import seedu.address.model.task.TaskStatus;
 import seedu.address.storage.CentralManager;
 
 /**
@@ -93,7 +94,7 @@ public class ModelManager implements Model {
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
         filteredTasks = new FilteredList<>(taskManager.getList());
         unassignedTasks = new FilteredList<>(taskManager.getList());
-        completedTasks = new FilteredList<>(this.taskManager.getList());
+        completedTasks = new FilteredList<>(taskManager.getList());
     }
 
     public ModelManager() {
@@ -435,15 +436,16 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void viewCustomerTask(Customer customerToView) {
-        updateCompletedTaskList(task -> task.getCustomer().equals(customerToView));
+    public void viewCustomerTask(int customerId) {
+        updateCompletedTaskList(task -> task.getCustomer().getId() == customerId
+                                && task.getStatus().equals(TaskStatus.COMPLETED));
     }
 
     @Override
-    public void viewDriverTask(Driver driverToView) {
-        updateCompletedTaskList(task -> task.getDriver().equals(driverToView));
+    public void viewDriverTask(int driverId) {
+        updateCompletedTaskList(task ->task.getStatus().equals(TaskStatus.COMPLETED)
+                && task.getDriver().get().getId() == driverId);
     }
-
 
     // =========== Filtered Customer List Accessors =============================================================
 

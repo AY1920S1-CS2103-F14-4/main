@@ -35,13 +35,16 @@
           </Menu>
         </MenuBar>
 
-      <SplitPane>
+      <SplitPane minWidth="1600">
         <VBox>
-          <TabPane tabClosingPolicy="UNAVAILABLE">
+          <padding>
+            <Insets bottom="20"/>
+          </padding>
+          <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
             <tabs>
               <Tab text="Home">
-<!--          <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />-->
-                <SplitPane minWidth="580">
+                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+                <SplitPane>
                   <VBox fx:id="driverList" styleClass="pane-with-border" minWidth="150" prefWidth="150"
                         minHeight="520" VBox.vgrow="ALWAYS">
                     <padding>

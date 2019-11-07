@@ -7,7 +7,6 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.CustomerManager;
 import seedu.address.model.Model;
 import seedu.address.model.person.Customer;
 import seedu.address.model.task.Task;
@@ -28,7 +27,6 @@ public class ViewCustomerTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + "1";
 
-
     public static final String MESSAGE_SUCCESS = "listed delivered tasks for the specified Customer";
 
     private int customerId;
@@ -40,7 +38,8 @@ public class ViewCustomerTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Customer customer =  model.getCustomer(customerId);
+        Customer customer = model.getCustomer(customerId);
+
         List <Customer> currentCustomerList = model.getFilteredCustomerList();
 
         List<Task> completedTaskList = model.getCompletedTaskList();
@@ -49,8 +48,15 @@ public class ViewCustomerTaskCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_DRIVER_DISPLAYED_INDEX);
         }
 
-        model.viewCustomerTask(customer);
+        model.viewCustomerTask(customerId);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, customer));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewCustomerTaskCommand // instanceof handles nulls
+                && customerId == ((ViewCustomerTaskCommand) other).customerId); // state check
     }
 }

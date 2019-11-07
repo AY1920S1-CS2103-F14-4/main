@@ -172,9 +172,9 @@ public interface Model {
 
     Customer getCustomer(int customerId);
 
-    void viewCustomerTask(Customer customerToView);
+    void viewCustomerTask(int customerId);
 
-    void viewDriverTask(Driver driverToView);
+    void viewDriverTask(int driverId);
 
     void setCustomer(Customer customerToEdit, Customer editedTask);
 
@@ -249,4 +249,5 @@ public interface Model {
     IdManager getIdManager();
 
     void saveDriverTaskPdf(String filePathForPdf, LocalDate date) throws IOException, PdfNoTaskToDisplayException;
+
 }

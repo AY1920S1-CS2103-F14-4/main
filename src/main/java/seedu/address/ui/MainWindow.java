@@ -5,8 +5,11 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -67,6 +70,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane completedTaskListPanelPlaceholder;
+
+    @FXML
+    private TabPane tabPane;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -143,8 +149,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-//        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-//        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -171,7 +177,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleHelp() {
+    private void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
@@ -195,12 +201,17 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public AssignedTaskListPanel getTaskListPanel() {
-        return assignedTaskListPanel;
-    }
+    /**
+     * Switches the tab view.
+     */
+    private void handleSwitchTab(String param) {
+        SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
 
-    public CustomerListPanel getCustomerListPanel() {
-        return customerListPanel;
+        if (param.equalsIgnoreCase("home")) {
+            selectionModel.select(0);
+        } else if (param.equalsIgnoreCase("history")) {
+            selectionModel.select(1);
+        }
     }
 
     /**
@@ -220,6 +231,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isSwitchTab()) {
+                handleSwitchTab(commandResult.getTabType());
             }
 
             return commandResult;

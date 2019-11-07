@@ -9,7 +9,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Driver;
-import seedu.address.model.task.Task;
 
 /**
  * List delivered task for specified driver
@@ -25,7 +24,7 @@ public class ViewDriverTaskCommand extends Command {
             + "[" + PREFIX_DRIVER + "DRIVER_ID] "
             + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DRIVER + "1";
+            + "1";
 
     public static final String MESSAGE_SUCCESS = "listed delivered tasks for the specified Driver";
 
@@ -46,8 +45,8 @@ public class ViewDriverTaskCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_DRIVER_DISPLAYED_INDEX);
         }
 
-        model.viewDriverTask(driver);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, driver));
+        model.viewDriverTask(driverId);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, driverId));
     }
 
 }

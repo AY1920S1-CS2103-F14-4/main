@@ -90,6 +90,9 @@ public class AddressBookParser {
         case ViewDriverTaskCommand.COMMAND_WORD:
             return new ViewDriverTaskCommandParser().parse(arguments);
 
+        case GoCommand.COMMAND_WORD:
+            return new GoCommandParser().parse(arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
