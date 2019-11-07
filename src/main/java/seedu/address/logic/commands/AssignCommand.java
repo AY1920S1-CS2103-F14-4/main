@@ -82,10 +82,11 @@ public class AssignCommand extends Command {
 
     /**
      * Builds a String when a command is successful.
+     *
      * @param suggestion the suggestion given by Schedule
-     * @param task the assigned task
-     * @param driver the driver assigned
-     * @param eventTime the time to happen
+     * @param task       the assigned task
+     * @param driver     the driver assigned
+     * @param eventTime  the time to happen
      * @return the string that used to return CommandResult
      */
     public static String buildSuccessfulResponse(SchedulingSuggestion suggestion, Task task, Driver driver,
@@ -102,6 +103,7 @@ public class AssignCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // check existence of task and driver
         if (!model.hasTask(taskId)) {
             throw new CommandException(Task.MESSAGE_INVALID_ID);
         }
@@ -109,24 +111,25 @@ public class AssignCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        Driver driver = model.getDriver(driverId);
         Task task = model.getTask(taskId);
+        Optional<EventTime> existingEventTime = task.getEventTime();
+
         // check whether the task is scheduled for today
         if (!task.getDate().equals(GlobalClock.dateToday())) {
             throw new CommandException(MESSAGE_NOT_TODAY);
         }
 
-
-        boolean needOverriding = task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
+        // check if the task is already assigned
+        boolean isAlreadyAssigned = task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
                 || task.getEventTime().isPresent();
 
-        if (needOverriding && !isForceAssign) {
-            throw new CommandException(MESSAGE_ALREADY_ASSIGNED + MESSAGE_PROMPT_FORCE);
-        }
-
-        Driver driver = model.getDriver(driverId);
-
-        if (needOverriding) {
-            FreeCommand.freeDriverFromTask(driver, task);
+        if (isAlreadyAssigned) {
+            if (isForceAssign) {
+                FreeCommand.freeDriverFromTask(task.getDriver().get(), task);
+            } else {
+                throw new CommandException(MESSAGE_ALREADY_ASSIGNED + MESSAGE_PROMPT_FORCE);
+            }
         }
 
         // check current time against system time
@@ -138,11 +141,14 @@ public class AssignCommand extends Command {
 
         SchedulingSuggestion suggestion = driver.suggestTime(eventTime, GlobalClock.timeNow());
         if (suggestion.isFatal()) {
+            if (isAlreadyAssigned && isForceAssign) {
+                // restore task
+                forceAssign(driver, task, existingEventTime.get());
+            }
             throw new CommandException(suggestion.toString());
         }
 
         forceAssign(driver, task, eventTime);
-
         model.refreshAllFilteredList();
 
         return new CommandResult(buildSuccessfulResponse(suggestion, task, driver, eventTime));
