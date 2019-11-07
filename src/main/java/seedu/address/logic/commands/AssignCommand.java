@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_ALREADY_ASSIGNED;
+import static seedu.address.commons.core.Messages.MESSAGE_ALREADY_COMPLETED;
 import static seedu.address.commons.core.Messages.MESSAGE_ASSIGN_SUCCESS;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_TODAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
@@ -121,6 +122,10 @@ public class AssignCommand extends Command {
         }
 
         // check if the task is already assigned
+        if (task.getStatus().equals(TaskStatus.COMPLETED)) {
+            throw new CommandException(MESSAGE_ALREADY_COMPLETED);
+        }
+
         boolean isAlreadyAssigned = task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
                 || task.getEventTime().isPresent();
 

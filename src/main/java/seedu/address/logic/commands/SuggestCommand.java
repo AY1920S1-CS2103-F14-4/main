@@ -5,17 +5,13 @@ import static seedu.address.logic.commands.AssignCommand.forceAssign;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import java.time.Duration;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
 
-import javafx.util.Pair;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.GlobalClock;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.EventTime;
+import seedu.address.logic.optimizer.Candidate;
+import seedu.address.logic.optimizer.ScheduleOptimizer;
 import seedu.address.model.Model;
-import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 
@@ -71,14 +67,9 @@ public class SuggestCommand extends Command {
             throw new CommandException(Messages.MESSAGE_ALREADY_ASSIGNED);
         }
 
-        List<Driver> driverList = model.getDriverManager().getDriverList();
 
-        Candidate result = driverList.stream()
-                .map(driver -> new Candidate(driver, driver.suggestTime(duration, GlobalClock.timeNow())))
-                // filter out the candidate who has no available time
-                .filter(candidate -> candidate.getValue().isPresent())
-                // find the earliest driver-time pair
-                .min(Candidate.comparator())
+        ScheduleOptimizer optimizer = new ScheduleOptimizer(model, task, duration);
+        Candidate result = optimizer.start()
                 .orElseThrow(() -> new CommandException(MESSAGE_NO_DRIVER_AVAILABLE));
 
 
@@ -90,40 +81,4 @@ public class SuggestCommand extends Command {
                 task.getId(), result.getKey().getName().fullName, result.getValue().get().toString()));
     }
 
-}
-
-/**
- * A convenient representation for a Driver, EventTime pair.
- */
-class Candidate extends Pair<Driver, Optional<EventTime>> {
-
-    /**
-     * Creates a new pair.
-     *
-     * @param key   The key for this pair
-     * @param value The value to use for this pair
-     */
-    public Candidate(Driver key, Optional<EventTime> value) {
-        super(key, value);
-    }
-
-    /**
-     * Gets a comparator between the EventTimes in the pair.
-     * @return the comparator
-     */
-    public static Comparator<Candidate> comparator() {
-        return (o1, o2) -> {
-            // unpack
-            Optional<EventTime> t1 = o1.getValue();
-            Optional<EventTime> t2 = o2.getValue();
-
-            if (t1.isPresent() && t2.isPresent()) {
-                return t1.get().compareTo(t2.get());
-            } else if (t1.isEmpty()) {
-                return 1;
-            } else {
-                return -1;
-            }
-        };
-    }
 }
