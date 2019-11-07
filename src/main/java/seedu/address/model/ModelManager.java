@@ -334,6 +334,10 @@ public class ModelManager implements Model {
         return idManager;
     }
 
+    public boolean isStartAfresh() {
+        return idManager.isStartAfresh();
+    }
+
     // ========= PdfCreator =========================================================================
 
     /**

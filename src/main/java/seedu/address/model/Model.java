@@ -243,5 +243,7 @@ public interface Model {
 
     IdManager getIdManager();
 
+    boolean isStartAfresh();
+
     void saveDriverTaskPdf(String filePathForPdf, LocalDate date) throws IOException, PdfNoTaskToDisplayException;
 }

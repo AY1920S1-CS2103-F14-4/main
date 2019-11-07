@@ -256,7 +256,7 @@ public class AddCommandTest {
 
         @Override
         public void setCustomer(Customer customerToEdit, Customer editedCustomer) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -354,6 +354,11 @@ public class AddCommandTest {
         public IdManager getIdManager() {
             throw new AssertionError("This method should not be called.");
         };
+
+        @Override
+        public boolean isStartAfresh() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void viewDriverTask(Person driverToView) {
