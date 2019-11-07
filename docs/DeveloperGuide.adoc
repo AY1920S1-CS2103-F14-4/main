@@ -252,10 +252,10 @@ The *generate PDF Task Summary* feature creates a task summary in a user-friendl
 It is implemented with the help of an external library, https://github.com/itext/itext7[iText7].
 
 [NOTE]
-Regarding IText's license, it can be used for free in situations where you distribute your software for free.
+Regarding iText's license, it can be used for free in situations where you distribute your software for free.
 It is a Affero General Public License (AGPL) library. +
 Information updated as of 6 November 2019.
-For more information, please visit the https://itextpdf.com/en[IText official website].
+For more information, please visit the https://itextpdf.com/en[iText official website].
 
 The following sequence diagram shows how the user command `savepdf` is being executed and handled.
 
