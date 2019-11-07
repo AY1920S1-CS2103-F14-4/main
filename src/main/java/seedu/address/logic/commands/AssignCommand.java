@@ -25,7 +25,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Assigns a task with a Driver and a valid EventTime.
  */
 public class AssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";

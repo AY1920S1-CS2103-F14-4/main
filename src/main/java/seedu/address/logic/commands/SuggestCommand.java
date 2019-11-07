@@ -16,13 +16,13 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Suggests a most optimum driver for an incoming task.
  */
 public class SuggestCommand extends Command {
     public static final String COMMAND_WORD = "suggest";
     public static final String MESSAGE_NO_DRIVER_AVAILABLE = "No driver is available for this duration. ";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Suggest and assign an available driver, given "
-            + "whose schedule can fit the proposed duration. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Suggest and assign the most optimum driver for the "
+            + "task"
             + "\n"
             + "Parameters: [NUMBER_OF_HOURS] "
             + "[" + PREFIX_TASK + "TASK_ID] " + "\n"
