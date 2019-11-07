@@ -26,7 +26,7 @@ Deliveria is *optimized for those who prefer* to work with a _Command Line Inter
 ** [TBC] added a feature to correct the user's spelling mistakes in a command, by suggesting the most similar command word
 ** changed three existing classes to generic classes, so as to reduce 600+ lines of repetitive code
 
-* *Code contributed*: [TBC] [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:  [[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*: [TBC]
 
