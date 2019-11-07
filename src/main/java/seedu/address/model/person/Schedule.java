@@ -8,9 +8,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeSet;
 
-import javax.swing.text.html.Option;
-
-import seedu.address.logic.commands.AssignCommand;
 import seedu.address.model.EventTime;
 import seedu.address.model.person.exceptions.SchedulingException;
 
@@ -49,30 +46,18 @@ public class Schedule {
     }
 
 
-    public String getSchedulingSuggestion(EventTime eventTime, LocalTime timeNow) {
-        String suggested = findFirstAvailableSlot(timeNow, eventTime.getDuration())
-                .filter(x -> !x.equals(eventTime)) // check if the suggested time is different from proposed
-                .map(x -> String.format(MESSAGE_SUGGEST_TIME_FORMAT, x.toString()))
-                .orElse("");
-
-        String returnSuggestion = suggested.isEmpty() ? "" : "\n" + suggested;
-
+    public SchedulingSuggestion getSchedulingSuggestion(EventTime eventTime, LocalTime timeNow) {
+        Optional<EventTime> suggestedEventTime = findFirstAvailableSlot(timeNow, eventTime.getDuration());
 
         if (isOutsideWorkingHours(eventTime)) {
-            return MESSAGE_OUTSIDE_WORKING_HOURS + returnSuggestion;
+            return new SchedulingSuggestion(MESSAGE_OUTSIDE_WORKING_HOURS, suggestedEventTime, eventTime);
         }
 
         if (!isAvailable(eventTime)) {
-            return MESSAGE_SCHEDULE_CONFLICT + returnSuggestion;
+            return new SchedulingSuggestion(MESSAGE_SCHEDULE_CONFLICT, suggestedEventTime, eventTime);
         }
 
-        if (suggested.isEmpty()) {
-            // no suggestion, the command is good
-            return suggested;
-        }
-
-        // has suggestion but dismissible
-        return MESSAGE_EARLIER_AVAILABLE + suggested + "\n" + AssignCommand.MESSAGE_PROMPT_FORCE;
+        return new SchedulingSuggestion("", suggestedEventTime, eventTime);
     }
 
     /**
@@ -90,7 +75,9 @@ public class Schedule {
         }
 
         if (!schedule.add(eventTime)) {
-            throw new SchedulingException("An unknown error has occurred.");
+            // this operation should always succeed, and this line shouldn't be called
+            throw new SchedulingException("An unknown error has occurred. The schedule is unable"
+                    + " to add the EventTime");
         }
     }
 

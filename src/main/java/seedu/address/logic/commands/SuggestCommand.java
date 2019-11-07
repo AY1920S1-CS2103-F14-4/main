@@ -25,8 +25,8 @@ import seedu.address.model.task.TaskStatus;
 public class SuggestCommand extends Command {
     public static final String COMMAND_WORD = "suggest";
     public static final String MESSAGE_NO_DRIVER_AVAILABLE = "No driver is available for this duration. ";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Suggest and assign an available driver, given " +
-            "whose schedule can fit the proposed duration. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Suggest and assign an available driver, given "
+            + "whose schedule can fit the proposed duration. "
             + "\n"
             + "Parameters: [NUMBER_OF_HOURS] "
             + "[" + PREFIX_TASK + "TASK_ID] " + "\n"
@@ -92,6 +92,9 @@ public class SuggestCommand extends Command {
 
 }
 
+/**
+ * A convenient representation for a Driver, EventTime pair.
+ */
 class Candidate extends Pair<Driver, Optional<EventTime>> {
 
     /**
@@ -104,6 +107,10 @@ class Candidate extends Pair<Driver, Optional<EventTime>> {
         super(key, value);
     }
 
+    /**
+     * Gets a comparator between the EventTimes in the pair.
+     * @return the comparator
+     */
     public static Comparator<Candidate> comparator() {
         return (o1, o2) -> {
             // unpack

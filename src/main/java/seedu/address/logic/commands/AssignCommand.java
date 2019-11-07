@@ -18,6 +18,7 @@ import seedu.address.model.EventTime;
 import seedu.address.model.Model;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Schedule;
+import seedu.address.model.person.SchedulingSuggestion;
 import seedu.address.model.person.exceptions.SchedulingException;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
@@ -60,6 +61,43 @@ public class AssignCommand extends Command {
         this.isForceAssign = isForceAssign;
     }
 
+    /**
+     * Assign the task at the given time to the specified driver, without checking the driver's schedule.
+     * The operation is atomic.
+     *
+     * @param driver    driver
+     * @param task      task
+     * @param eventTime the time which the task is happening
+     * @throws SchedulingException when the proposed time conflicts with the driver's schedule
+     */
+    public static void forceAssign(Driver driver, Task task, EventTime eventTime) throws CommandException {
+        try {
+            driver.assign(eventTime);
+        } catch (SchedulingException e) {
+            throw new CommandException(e.getMessage());
+        }
+
+        task.setDriverAndEventTime(Optional.of(driver), Optional.of(eventTime));
+    }
+
+    /**
+     * Builds a String when a command is successful.
+     * @param suggestion the suggestion given by Schedule
+     * @param task the assigned task
+     * @param driver the driver assigned
+     * @param eventTime the time to happen
+     * @return the string that used to return CommandResult
+     */
+    public static String buildSuccessfulResponse(SchedulingSuggestion suggestion, Task task, Driver driver,
+                                                 EventTime eventTime) {
+        String additionalSuggestion = suggestion.isEmpty() ? "" : "\n" + suggestion;
+        String succeedResponse = String.format(MESSAGE_ASSIGN_SUCCESS,
+                task.getId(),
+                driver.getName().fullName,
+                eventTime.toString()) + additionalSuggestion;
+        return succeedResponse;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -98,36 +136,16 @@ public class AssignCommand extends Command {
         }
 
 
-        String suggestion = driver.suggestTime(eventTime, GlobalClock.timeNow());
-        if (!suggestion.isEmpty() && !isForceAssign) {
-            throw new CommandException(suggestion);
+        SchedulingSuggestion suggestion = driver.suggestTime(eventTime, GlobalClock.timeNow());
+        if (suggestion.isFatal()) {
+            throw new CommandException(suggestion.toString());
         }
 
         forceAssign(driver, task, eventTime);
 
         model.refreshAllFilteredList();
 
-        return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS,
-                task.getId(), driver.getName().fullName, eventTime.toString()));
-    }
-
-    /**
-     * Assign the task at the given time to the specified driver, without checking the driver's schedule.
-     * The operation is atomic.
-     *
-     * @param driver    driver
-     * @param task      task
-     * @param eventTime the time which the task is happening
-     * @throws SchedulingException when the proposed time conflicts with the driver's schedule
-     */
-    public static void forceAssign(Driver driver, Task task, EventTime eventTime) throws CommandException {
-        try {
-            driver.assign(eventTime);
-        } catch (SchedulingException e) {
-            throw new CommandException(e.getMessage());
-        }
-
-        task.setDriverAndEventTime(Optional.of(driver), Optional.of(eventTime));
+        return new CommandResult(buildSuccessfulResponse(suggestion, task, driver, eventTime));
     }
 
     @Override

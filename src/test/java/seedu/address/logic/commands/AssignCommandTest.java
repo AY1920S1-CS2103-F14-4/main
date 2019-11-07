@@ -1,11 +1,10 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_ASSIGN_SUCCESS;
-import static seedu.address.logic.commands.AssignCommand.MESSAGE_ASSIGN_SUCCESS;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.model.person.Schedule.MESSAGE_EARLIER_AVAILABLE;
 import static seedu.address.model.person.Schedule.MESSAGE_EVENT_START_BEFORE_NOW_FORMAT;
+import static seedu.address.model.person.Schedule.MESSAGE_SCHEDULE_CONFLICT;
+import static seedu.address.testutil.SampleEntity.THIRD_VALID_TASK_ID;
 import static seedu.address.testutil.SampleEntity.VALID_DRIVER;
 import static seedu.address.testutil.SampleEntity.VALID_TASK_ID;
 import static seedu.address.testutil.SampleEntity.getSampleFreshModel;
@@ -20,7 +19,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.GlobalClock;
 import seedu.address.model.EventTime;
 import seedu.address.model.Model;
-import seedu.address.model.person.Schedule;
+import seedu.address.model.person.Driver;
+import seedu.address.model.person.SchedulingSuggestion;
+import seedu.address.model.task.Task;
 
 class AssignCommandTest {
     private Model model;
@@ -50,25 +51,22 @@ class AssignCommandTest {
 
         // construct expected by setting both driver and task
         Model expectedModel = getSampleFreshModel();
-        expectedModel.getDriver(VALID_DRIVER.getId()).getSchedule().add(proposed);
-        expectedModel.getTask(VALID_TASK_ID)
-                .setDriverAndEventTime(Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())),
-                        Optional.of(proposed));
+        Driver targetDriver = expectedModel.getDriver(VALID_DRIVER.getId());
+        Task targetTask = expectedModel.getTask(VALID_TASK_ID);
 
-        assertCommandSuccess(cmd, model, new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, VALID_TASK_ID,
-                VALID_DRIVER.getName().fullName, proposed)), expectedModel);
+        targetDriver.getSchedule().add(proposed);
+        targetTask.setDriverAndEventTime(
+                Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())),
+                Optional.of(proposed));
+
+        String response = AssignCommand.buildSuccessfulResponse(
+                new SchedulingSuggestion("", Optional.empty(), proposed),
+                targetTask,
+                targetDriver,
+                proposed);
+
+        assertCommandSuccess(cmd, model, new CommandResult(response), expectedModel);
     }
-
-    @Test
-    void execute_addLateTime_shouldSuggestsTimeThrowsException() {
-        EventTime proposed = EventTime.parse("1600", "1700");
-        AssignCommand cmd = new AssignCommand(VALID_DRIVER.getId(), VALID_TASK_ID, proposed, false);
-
-        assertCommandFailure(cmd, model,
-                MESSAGE_EARLIER_AVAILABLE + String.format(Schedule.MESSAGE_SUGGEST_TIME_FORMAT,
-                        EventTime.parse("1400", "1500").toString()) + "\n" + AssignCommand.MESSAGE_PROMPT_FORCE);
-    }
-
 
     @Test
     void executeForce_addLateTime_shouldSucceed() {
@@ -77,13 +75,21 @@ class AssignCommandTest {
 
         // construct expected by setting both driver and task
         Model expectedModel = getSampleFreshModel();
-        expectedModel.getDriver(VALID_DRIVER.getId()).getSchedule().add(proposed);
-        expectedModel.getTask(VALID_TASK_ID)
-                .setDriverAndEventTime(Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())),
-                        Optional.of(proposed));
+        Driver targetDriver = expectedModel.getDriver(VALID_DRIVER.getId());
+        Task targetTask = expectedModel.getTask(VALID_TASK_ID);
 
-        assertCommandSuccess(cmd, model, new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, VALID_TASK_ID,
-                VALID_DRIVER.getName().fullName, proposed)), expectedModel);
+        targetDriver.getSchedule().add(proposed);
+        targetTask.setDriverAndEventTime(
+                Optional.of(expectedModel.getDriver(VALID_DRIVER.getId())),
+                Optional.of(proposed));
+
+        String response = AssignCommand.buildSuccessfulResponse(
+                new SchedulingSuggestion("", Optional.of(EventTime.parse("1400", "1500")), proposed),
+                targetTask,
+                targetDriver,
+                proposed);
+
+        assertCommandSuccess(cmd, model, new CommandResult(response), expectedModel);
     }
 
     @Test
@@ -92,6 +98,24 @@ class AssignCommandTest {
         AssignCommand cmd = new AssignCommand(VALID_DRIVER.getId(), VALID_TASK_ID, proposed, false);
         assertCommandFailure(cmd, model, String.format(MESSAGE_EVENT_START_BEFORE_NOW_FORMAT,
                 GlobalClock.timeNow().format(EventTime.DISPLAY_TIME_FORMAT)));
+    }
+
+    @Test
+    void execute_addConflictingTime_throwsException() {
+        EventTime existing = EventTime.parse("1400", "1500");
+        AssignCommand addExisting = new AssignCommand(VALID_DRIVER.getId(), VALID_TASK_ID, existing, false);
+        try {
+            addExisting.execute(model);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        EventTime proposed = EventTime.parse("1430", "1600");
+        AssignCommand addProposed = new AssignCommand(VALID_DRIVER.getId(), THIRD_VALID_TASK_ID, proposed, false);
+
+        assertCommandFailure(addProposed, model, new SchedulingSuggestion(
+                MESSAGE_SCHEDULE_CONFLICT,
+                Optional.of(EventTime.parse("1500", "1630"))).toString());
     }
 
 

@@ -41,8 +41,8 @@ public class ParserUtil {
                     + "Chosen date should be from today onwards.";
 
     public static final String MESSAGE_INVALID_ID = "ID should be a integer number and more than 0.";
-    public static final String MESSAGE_INVALID_DURATION = "The format of the number of hours is either a decimal number " +
-            "(e.g. 1.5) or in hh:MM (e.g. 1:30)";
+    public static final String MESSAGE_INVALID_DURATION = "The format of the number of hours is either a decimal "
+            + "number (e.g. 1.5) or in hh:MM (e.g. 1:30)";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -245,6 +245,12 @@ public class ParserUtil {
 
     }
 
+    /**
+     * Parses a duration in hours, either 1.5 (a decimal), or 1:30 (in hh:MM) format.
+     * @param input the string to be parsed
+     * @return the parsed Duration
+     * @throws ParseException when the String doesn't fit the required format
+     */
     public static Duration parseDuration(String input) throws ParseException {
         input = input.trim();
         try {
