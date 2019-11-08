@@ -25,7 +25,10 @@ import seedu.address.model.task.TaskStatus;
 public class AssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";
     public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned #%1$d to %2$s at %3$s";
-    public static final String MESSAGE_ALREADY_ASSIGNED = "This task is already scheduled.";
+    public static final String MESSAGE_ALREADY_ASSIGNED = "This task is already scheduled. ";
+    public static final String MESSAGE_NOT_TODAY = "The task is not scheduled for today. " + "\n"
+            + String.format("Only tasks scheduled for today can be assigned. Today is %s.",
+            GlobalClock.dateToday().format(Task.DATE_FORMAT_FOR_PRINT));
     public static final String MESSAGE_PROMPT_FORCE = "Use 'assign force' to override the suggestion.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assign a driver the specified task, with a proposed "
             + "start and end time. "
@@ -71,6 +74,12 @@ public class AssignCommand extends Command {
         }
 
         Task task = model.getTask(taskId);
+        // check whether the task is scheduled for today
+        if (!task.getDate().equals(GlobalClock.dateToday())) {
+            throw new CommandException(MESSAGE_NOT_TODAY);
+        }
+
+
         if (task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
                 || task.getEventTime().isPresent()) {
             throw new CommandException(MESSAGE_ALREADY_ASSIGNED);
@@ -81,7 +90,8 @@ public class AssignCommand extends Command {
 
         // check current time against system time
         if (eventTime.getStart().compareTo(GlobalClock.timeNow()) < 0) {
-            throw new CommandException(Schedule.MESSAGE_EVENT_START_BEFORE_NOW);
+            throw new CommandException(String.format(Schedule.MESSAGE_EVENT_START_BEFORE_NOW_FORMAT,
+                    GlobalClock.timeNow().format(EventTime.DISPLAY_TIME_FORMAT)));
         }
 
 
@@ -92,13 +102,10 @@ public class AssignCommand extends Command {
 
         forceAssign(driver, task, eventTime);
 
-        // TODO: update GUI
-        model.setTask(task, task);
-        model.setDriver(driver, driver);
+        model.refreshAllFilteredList();
 
         return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS,
                 task.getId(), driver.getName().fullName, eventTime.toString()));
-
     }
 
     /**

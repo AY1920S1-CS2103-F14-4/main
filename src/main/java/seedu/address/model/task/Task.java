@@ -9,7 +9,7 @@ import seedu.address.model.Description;
 import seedu.address.model.EventTime;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
-import seedu.address.model.task.execeptions.TaskException;
+import seedu.address.model.task.exceptions.TaskException;
 
 /**
  * Represents a delivery task. All the tasks are represented by a unique id
@@ -21,7 +21,7 @@ public class Task {
 
     public static final String DATE_FORMAT = "d/M/yyyy";
 
-    public static final DateTimeFormatter DATE_FORMAT_FOR_PRINT = DateTimeFormatter.ofPattern("d/M/yyyy");
+    public static final DateTimeFormatter DATE_FORMAT_FOR_PRINT = DateTimeFormatter.ofPattern(DATE_FORMAT);
     public static final DateTimeFormatter DATE_FORMATTER_FOR_USER_INPUT = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
     private int id;
@@ -184,8 +184,10 @@ public class Task {
                 .append(getDescription())
                 .append(" Date: ")
                 .append(getDatePrint())
-                .append(" Delivery Person: ")
-                .append(isAssigned() ? getDriver().get() : "UNASSIGNED")
+                .append(" Customer ID: ")
+                .append(getCustomer().getId())
+                .append(" Delivery Person ID: ")
+                .append(isAssigned() ? getDriver().get().getId() : "UNASSIGNED")
                 .append(" Duration: ")
                 .append(isDurationAssigned() ? getEventTime().get() : "NOT ALLOCATED")
                 .append(" Status: ")

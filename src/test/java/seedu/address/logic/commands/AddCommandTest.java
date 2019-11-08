@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -24,6 +26,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
+import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
@@ -237,6 +240,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Task> getIncompleteTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void refreshFilteredTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void refreshAllFilteredList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Customer getCustomer(int customerId) {
             throw new AssertionError("This method should not be called.");
         }
@@ -249,7 +267,16 @@ public class AddCommandTest {
         @Override
         public void addCustomer(Customer customer) {
             throw new AssertionError("This method should not be called.");
-        };
+        }
+
+        public void deleteCustomer(Customer customer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CustomerManager getCustomerManager() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         public void updateFilteredCustomerList(Predicate<Customer> predicate) {
             throw new AssertionError("This method should not be called.");
@@ -260,14 +287,10 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void deleteCustomer(Customer customer) {
-            throw new AssertionError("This method should not be called.");
-        };
-
         @Override
-        public CustomerManager getCustomerManager() {
+        public void refreshFilteredCustomerList() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public boolean hasDriver(Driver driver) {
@@ -294,6 +317,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         };
 
+        public void deleteDriver(Driver driver) {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public DriverManager getDriverManager() {
+            throw new AssertionError("This method should not be called.");
+        };
+
         public void updateFilteredDriverList(Predicate<Driver> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -303,14 +335,10 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void deleteDriver(Driver driver) {
-            throw new AssertionError("This method should not be called.");
-        };
-
         @Override
-        public DriverManager getDriverManager() {
+        public void refreshFilteredDriverList() {
             throw new AssertionError("This method should not be called.");
-        };
+        }
 
         @Override
         public int getNextTaskId() {
@@ -337,6 +365,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void saveDriverTaskPdf(String filePathForPdf, LocalDate date)
+                throws IOException, PdfNoTaskToDisplayException {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
