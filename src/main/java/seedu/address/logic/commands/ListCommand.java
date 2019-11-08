@@ -13,8 +13,7 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Returned all the Task's / Driver's / Customer's list "
             + "to its original view.";
-
-
+    
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
