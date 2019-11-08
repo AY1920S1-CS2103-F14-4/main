@@ -86,7 +86,7 @@ class ScheduleTest {
     @Test
     void findFirstAvailableSlot_notAvailable_returnsEmpty() {
         Schedule sample = sampleSchedule();
-        EventTime fourHourTask = EventTime.parse("1400", "1800");
+        EventTime fourHourTask = EventTime.parse("1400", Schedule.END_WORK_TIME);
         assertTrue(sample.findFirstAvailableSlot(TEN_AM, fourHourTask.getDuration()).isEmpty());
     }
 

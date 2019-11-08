@@ -23,8 +23,8 @@ public class Schedule {
     public static final String MESSAGE_EVENT_START_BEFORE_NOW_FORMAT =
             "The event cannot happen in the past. The time now is %s. ";
 
-    private static final String START_WORK_TIME = "0900";
-    private static final String END_WORK_TIME = "1800";
+    public static final String START_WORK_TIME = "0900";
+    public static final String END_WORK_TIME = "2100";
     private static EventTime workingHours = EventTime.parse(START_WORK_TIME, END_WORK_TIME);
 
     public static final String MESSAGE_OUTSIDE_WORKING_HOURS =
@@ -97,7 +97,16 @@ public class Schedule {
 
         // HACK: using a zero minute event time to get the tailset
         EventTime now = new EventTime(timeNow, timeNow);
+
+        // TODO: check if the existing schedule has a eventtime that overlaps with the 0 minute block
         schedule.add(now);
+        EventTime firstCandidate = schedule.lower(now);
+        if (!firstCandidate.overlaps(now)) {
+            firstCandidate = now;
+        } else {
+            schedule.remove(now);
+        }
+
 
         NavigableSet<EventTime> candidates = schedule.subSet(now, true, lastCandidate, true);
         Iterator<EventTime> iter = candidates.iterator();
