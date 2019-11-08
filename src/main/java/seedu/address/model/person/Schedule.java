@@ -97,15 +97,15 @@ public class Schedule {
 
         // HACK: using a zero minute event time to get the tailset
         EventTime now = new EventTime(timeNow, timeNow);
-        schedule.add(now);
 
-        // this should always be non null, since an event starting at midnight will always be the smallest
         EventTime firstCandidate = schedule.lower(now);
 
+        // this should always be non null, since an event starting at midnight will always be the smallest
+        assert firstCandidate != null;
+
         if (!firstCandidate.overlaps(now)) {
+            schedule.add(now);
             firstCandidate = now;
-        } else {
-            schedule.remove(now);
         }
 
 
@@ -122,14 +122,14 @@ public class Schedule {
             boolean canFit = Duration.between(prev.getEnd(), head.getStart()).compareTo(proposed) >= 0;
 
             if (canFit) {
-                schedule.remove(now);
+                schedule.remove(now); // it's okay if now doesn't exist in the set
                 return Optional.of(new EventTime(prev.getEnd(), proposed));
             }
 
             prev = head;
         }
 
-        schedule.remove(now);
+        schedule.remove(now); // it's okay if now doesn't exist in the set
         return Optional.empty();
     }
 
