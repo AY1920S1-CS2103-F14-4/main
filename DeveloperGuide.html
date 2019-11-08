@@ -23,13 +23,14 @@
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#task-scheduling">3.1. Task Scheduling</a></li>
-<li><a href="#proposed-undo-redo-feature">3.2. [Proposed] Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.4. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
-<li><a href="#task-feature-e-g-add-delivery-task">3.6. Task Feature (E.g. Add Delivery Task)</a></li>
-<li><a href="#customer-feature-e-g-add-customer">3.7. Customer Feature (E.g. Add Customer)</a></li>
-<li><a href="#driver-feature-e-g-add-driver">3.8. Driver Feature (E.g. Add Driver)</a></li>
+<li><a href="#task-feature-e-g-add-delivery-task">3.2. Task Feature (E.g. Add Delivery Task)</a></li>
+<li><a href="#generate-pdf-task-summary-feature">3.3. Generate PDF Task Summary Feature</a></li>
+<li><a href="#proposed-undo-redo-feature">3.4. [Proposed] Undo/Redo feature</a></li>
+<li><a href="#proposed-data-encryption">3.5. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.6. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
+<li><a href="#customer-feature-e-g-add-customer">3.8. Customer Feature (E.g. Add Customer)</a></li>
+<li><a href="#driver-feature-e-g-add-driver">3.9. Driver Feature (E.g. Add Driver)</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -423,9 +424,222 @@ optimised schedule, unless <code>force assign</code> is used.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.2. [Proposed] Undo/Redo feature</a></h3>
+<h3 id="task-feature-e-g-add-delivery-task"><a class="link" href="#task-feature-e-g-add-delivery-task">3.2. Task Feature (E.g. Add Delivery Task)</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.2.1. Proposed Implementation</a></h4>
+<h4 id="implementation-3"><a class="link" href="#implementation-3">3.2.1. Implementation</a></h4>
+<div class="paragraph">
+<p>The <strong>Add Delivery Task</strong> feature adds a new task into a task list.<br>
+It uses the <code>AddTaskCommand</code>, which extends <code>Command</code>, to add a <code>Task</code> into the <code>TaskManager</code>.
+<code>AddTaskCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>AddTaskCommand</code> to execute.
+'AddTaskCommand' requires the following fields: <code>Task</code>, <code>customerId</code>.
+The attributes of Task is as follows:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Task.png" alt="Task">
+</div>
+<div class="title">Figure 10. Class Diagram of Task class.</div>
+</div>
+<div class="paragraph">
+<p>As seen in the above class diagram, <code>driver</code> and <code>eventTime</code> are optional fields that are not mandatory when adding a task.
+They will be assigned subsequently using <code>assign</code> command. (Refer to Assign feature)
+The mandatory fields for users are: 'description', 'date' and 'Customer'.
+After the validation is completed, <code>AddTaskCommand</code> will fetch <code>Customer</code> using the <code>customerId</code> through the <code>CustomerManager</code>.
+A unique id will also be allocated to the task for differentiation.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagrams show how the add task operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AddTaskCommand.png" alt="AddTaskCommand">
+</div>
+<div class="title">Figure 11. Sequence Diagram of adding a task.</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ModelInteractWithManagers.png" alt="ModelInteractWithManagers">
+</div>
+<div class="title">Figure 12. Sequence Diagram of Model interaction with the CustomerManager and TaskManager for adding a task.</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The flow of how the task is being accessed and managed as shown above is the same for other task related command
+such as edit task command (<code>editT</code>) and delete task command (<code>del</code>).
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-coupling-of-task-and-other-entities-driver-and-customer"><a class="link" href="#aspect-coupling-of-task-and-other-entities-driver-and-customer">Aspect: Coupling of Task and other entities (Driver and Customer)</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Task class contains Driver and Customer classes as attributes.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Centralised Task class that encapsulates all the information, which makes it easy to manage task.</p>
+</li>
+<li>
+<p>Cons: Task will have to depend on Driver and Customer. Decreases testability.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Driver and Customer classes have Task class as attribute.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to access tasks through the respective classes. (Driver and Customer classes)</p>
+</li>
+<li>
+<p>Cons: Having 2 classes depend on Task class. Decreases testability.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="generate-pdf-task-summary-feature"><a class="link" href="#generate-pdf-task-summary-feature">3.3. Generate PDF Task Summary Feature</a></h3>
+<div class="sect3">
+<h4 id="implementation-4"><a class="link" href="#implementation-4">3.3.1. Implementation</a></h4>
+<div class="paragraph">
+<p>The <strong>generate PDF Task Summary</strong> feature creates a task summary in a user-friendly layout in PDF format for <strong>user reference</strong> and <strong>archive</strong> usage.
+<code>PdfCreator</code> class creates and saves the PDF document as well as formatting its layout.
+It is implemented with the help of an external library, <a href="https://github.com/itext/itext7">iText7</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Regarding iText&#8217;s license, it can be used for free in situations where you distribute your software for free.
+It is a Affero General Public License (AGPL) library.<br>
+Information updated as of 6 November 2019.
+For more information, please visit the <a href="https://itextpdf.com/en">iText official website</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the user command <code>savepdf</code> is being executed and handled.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SavePdfCommand.png" alt="SavePdfCommand">
+</div>
+<div class="title">Figure 13. Sequence Diagram of how PDF task summary is saved.</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for <code>SavePdfCommandParser</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Notice that only the <code>filepath</code> and the <code>date of delivery</code> is needed when calling <code>saveDriverTaskPdf</code>.
+This is because only the saving location of the PDF file and the date, where the task summary will be based on, are the only fields needed for the <code>PdfCreator</code>.
+The rest of the components, such as fetching of the tasks, will be handled by the <code>Model</code> while the formatting will be handled by <code>PdfCreator</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the model interact with <code>PdfCreator</code> to generate the PDF task summary.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GeneratePdfSequenceDiagram.png" alt="GeneratePdfSequenceDiagram">
+</div>
+<div class="title">Figure 14. Sequence Diagram of how the model generates the PDF task summary.</div>
+</div>
+<div class="paragraph">
+<p>The <code>PdfWrapperLayout</code> provides a outer canvas to encapsulates all the layouts.
+The following layouts are mainly what makes up the task summary:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>PdfDriverLayout</code> class - wraps driver details.</p>
+</li>
+<li>
+<p><code>PdfCustomerLayout</code> class - wraps customer details.</p>
+</li>
+<li>
+<p><code>PdfTaskLayout</code> class - wraps task details.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following activity diagram shows what happens when a user executes the <code>savepdf</code> command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GeneratePdfActivityDiagram.png" alt="GeneratePdfActivityDiagram">
+</div>
+<div class="title">Figure 15. Activity Diagram of how a PDF task summary is generated.</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect"><a class="link" href="#aspect">Aspect:</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Abstract the layout of each part of the task summary.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Encourages reuse and easier to manage and add on.</p>
+</li>
+<li>
+<p>Cons: Harder to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Do the whole task summary layout in 1 class.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: Harder to manage.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.4. [Proposed] Undo/Redo feature</a></h3>
+<div class="sect3">
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.4.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -567,7 +781,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -637,20 +851,20 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.5. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -681,104 +895,15 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="task-feature-e-g-add-delivery-task"><a class="link" href="#task-feature-e-g-add-delivery-task">3.6. Task Feature (E.g. Add Delivery Task)</a></h3>
+<h3 id="customer-feature-e-g-add-customer"><a class="link" href="#customer-feature-e-g-add-customer">3.8. Customer Feature (E.g. Add Customer)</a></h3>
 <div class="sect3">
-<h4 id="implementation-3"><a class="link" href="#implementation-3">3.6.1. Implementation</a></h4>
-<div class="paragraph">
-<p>The <strong>Add Delivery Task</strong> feature adds a new task into a task list.<br>
-It uses the <code>AddTaskCommand</code>, which extends <code>Command</code>, to add a <code>Task</code> into the <code>TaskManager</code>.
-<code>AddTaskCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>AddTaskCommand</code> to execute.
-'AddTaskCommand' requires the following fields: <code>Task</code>, <code>customerId</code>.
-The attributes of Task is as follows:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/Task.png" alt="Task">
-</div>
-<div class="title">Figure 10. Class Diagram of Task class.</div>
-</div>
-<div class="paragraph">
-<p>As seen in the above class diagram, <code>driver</code> and <code>eventTime</code> are optional fields that are not mandatory when adding a task.
-They will be assigned subsequently using <code>assign</code> command. (Refer to Assign feature)
-The mandatory fields for users are: 'description', 'date' and 'Customer'.
-After the validation is completed, <code>AddTaskCommand</code> will fetch <code>Customer</code> using the <code>customerId</code> through the <code>CustomerManager</code>.
-A unique id will also be allocated to the task for differentiation.</p>
-</div>
-<div class="paragraph">
-<p>The following sequence diagrams show how the add task operation works:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/AddTaskCommand.png" alt="AddTaskCommand">
-</div>
-<div class="title">Figure 11. Sequence Diagram of adding a task.</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/ModelInteractWithManagers.png" alt="ModelInteractWithManagers">
-</div>
-<div class="title">Figure 12. Sequence Diagram of Model interaction with the CustomerManager and TaskManager for adding a task.</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The flow of how the task is being accessed and  managed as shown above is the same for other task related command such as Edit and Delete.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.6.2. Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-couping-of-task-and-other-entities-driver-and-customer"><a class="link" href="#aspect-couping-of-task-and-other-entities-driver-and-customer">Aspect: Couping of Task and other entities (Driver and Customer)</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Task class contains Driver and Customer classes as attributes.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Centralised Task class that encapsulates all the information, which makes it easy to manage task.</p>
-</li>
-<li>
-<p>Cons: Task will have to depend on Driver and Customer. Decreases testability.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Driver and Customer classes have Task class as attribute.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to access tasks through the respective classes. (Driver and Customer classes)</p>
-</li>
-<li>
-<p>Cons: Having 2 classes depend on Task class. Decreases testability.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="customer-feature-e-g-add-customer"><a class="link" href="#customer-feature-e-g-add-customer">3.7. Customer Feature (E.g. Add Customer)</a></h3>
-<div class="sect3">
-<h4 id="implementation-4"><a class="link" href="#implementation-4">3.7.1. Implementation</a></h4>
+<h4 id="implementation-5"><a class="link" href="#implementation-5">3.8.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The <strong>Add Customer</strong> feature adds a new Customer into a Customer list.<br>
 It uses the <code>AddCustomerCommand</code>, which extends <code>Command</code>, to add a <code>Customer</code> into the <code>CustomerManager</code>.
@@ -790,7 +915,7 @@ The attributes of Task is as follows:</p>
 <div class="content">
 <img src="images/Customer.png" alt="Customer">
 </div>
-<div class="title">Figure 13. Class Diagram of Customer class.</div>
+<div class="title">Figure 16. Class Diagram of Customer class.</div>
 </div>
 <div class="paragraph">
 <p>As seen in the above class diagram, the <code>id</code> field is not required when adding a customer.
@@ -804,14 +929,14 @@ A unique id will also be allocated to the Customer for differentiation.</p>
 <div class="content">
 <img src="images/AddCustomerCommand.png" alt="AddCustomerCommand">
 </div>
-<div class="title">Figure 14. Sequence Diagram of adding a task.</div>
+<div class="title">Figure 17. Sequence Diagram of adding a task.</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="driver-feature-e-g-add-driver"><a class="link" href="#driver-feature-e-g-add-driver">3.8. Driver Feature (E.g. Add Driver)</a></h3>
+<h3 id="driver-feature-e-g-add-driver"><a class="link" href="#driver-feature-e-g-add-driver">3.9. Driver Feature (E.g. Add Driver)</a></h3>
 <div class="sect3">
-<h4 id="implementation-5"><a class="link" href="#implementation-5">3.8.1. Implementation</a></h4>
+<h4 id="implementation-6"><a class="link" href="#implementation-6">3.9.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The <strong>Add Driver</strong> feature adds a new Driver into a Driver list.<br>
 It uses the <code>AddDriverCommand</code>, which extends <code>Command</code>, to add a <code>Driver</code> into the <code>DriverManager</code>.
@@ -823,7 +948,7 @@ The attributes of Driver is as follows:</p>
 <div class="content">
 <img src="images/Driver.png" alt="Driver">
 </div>
-<div class="title">Figure 15. Class Diagram of Driver class.</div>
+<div class="title">Figure 18. Class Diagram of Driver class.</div>
 </div>
 <div class="paragraph">
 <p>As seen in the above class diagram, the <code>id</code> field is not required when adding a driver.
@@ -837,11 +962,11 @@ A unique id will also be allocated to the Driver for differentiation.</p>
 <div class="content">
 <img src="images/AddDriverCommand.png" alt="AddDriverCommand">
 </div>
-<div class="title">Figure 16. Sequence Diagram of adding a task.</div>
+<div class="title">Figure 19. Sequence Diagram of adding a task.</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.8.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.9.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-usage-of-universal-command-word"><a class="link" href="#aspect-usage-of-universal-command-word">Aspect: Usage of universal Command word</a></h5>
 <div class="ulist">
@@ -1337,4 +1462,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-08 06:05:57 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-08 06:15:06 UTC</div></div></div></body></html>
