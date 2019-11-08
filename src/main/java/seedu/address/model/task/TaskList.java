@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -147,6 +148,10 @@ public class TaskList {
         List<Driver> driverList = new ArrayList<>(driverSet);
 
         return driverList;
+    }
+
+    public Iterator<Task> getIterator() {
+        return tasks.iterator();
     }
 
     public void setTaskList(List<Task> savedTasks) {
