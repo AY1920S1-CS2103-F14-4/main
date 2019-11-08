@@ -90,5 +90,4 @@ public class ScheduleOptimizer {
                 .min(Candidate.comparator());
     }
 
-
 }

@@ -34,7 +34,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     public static final int MINUTES_IN_AN_HOUR = 60;
-    public static final String HHMM_REGEX = "(0?[1-9]|1[0-2]):[0-5][0-9]";
+    public static final String HHMM_REGEX = "([0-9]{2}):[0-5][0-9]";
 
     public static final String MESSAGE_INVALID_DATE_FORMAT =
             "Invalid Date format. Date format should be " + DATE_FORMAT + ". "
@@ -260,7 +260,7 @@ public class ParserUtil {
                 long hour = Long.parseLong(hourMinute[0]);
                 long minute = Long.parseLong(hourMinute[1]);
 
-                if (minute <= 0 || hour <= 0) {
+                if ((minute < 0 || hour < 0) || (minute == 0 && hour == 0)) {
                     throw new ParseException(MESSAGE_INVALID_DURATION);
                 }
 
