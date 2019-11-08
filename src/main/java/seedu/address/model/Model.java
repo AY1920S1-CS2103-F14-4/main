@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.GlobalClock;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
@@ -29,6 +30,14 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
     Predicate<Driver> PREDICATE_SHOW_ALL_DRIVERS = unused -> true;
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to false
+     */
+    Predicate<Task> PREDICATE_SHOW_EMPTY_TASKS = unused -> false;
+    Predicate<Customer> PREDICATE_SHOW_EMPTY_CUSTOMERS = unused -> false;
+    Predicate<Driver> PREDICATE_SHOW_EMPTY_DRIVERS = unused -> false;
 
     /**
      * {@code Predicate} that filters the task to incomplete status
@@ -44,6 +53,11 @@ public interface Model {
      * {@code Predicate} that filters the task to completed status
      */
     Predicate<Task> PREDICATE_SHOW_COMPLETED = task -> task.getStatus().equals(TaskStatus.COMPLETED);
+
+    /**
+     * {@code Predicate} that filters the task to both incomplete and ongoing status
+     */
+    Predicate<Task> PREDICATE_SHOW_PREVIOUS_DAYS = task -> task.getDate().isBefore(GlobalClock.dateToday());
 
     /**
      * Returns the user prefs.
@@ -158,6 +172,11 @@ public interface Model {
     ObservableList<Task> getAssignedTaskList();
 
     /**
+     * Return a list of incomplete tasks from the previous days
+     */
+    ObservableList<Task> getIncompleteTaskList();
+
+    /**
      * Returns an unmodifiable view of the completed assigned task list.
      */
     ObservableList<Task> getCompletedTaskList();
@@ -224,6 +243,10 @@ public interface Model {
      */
     void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list);
 
+    void refreshFilteredTaskList();
+
+    void refreshAllFilteredList();
+
     /**
      * Updates the filter of the completed filtered task list to filter by the given
      * {@code predicate}.
@@ -245,10 +268,14 @@ public interface Model {
      */
     void updateFilteredCustomerList(Predicate<Customer> predicate);
 
+    void refreshFilteredCustomerList();
+
     /**
      * Returns an unmodifiable view of the filtered driver list.
      */
     ObservableList<Driver> getFilteredDriverList();
+
+    void refreshFilteredDriverList();
 
     int getNextTaskId();
 

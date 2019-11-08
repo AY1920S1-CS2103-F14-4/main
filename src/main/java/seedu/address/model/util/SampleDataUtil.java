@@ -115,6 +115,18 @@ public class SampleDataUtil {
         sampleTask1.setDriverAndEventTime(driverOptional, eventTimeOptional);
         sampleTask1.setStatus(TaskStatus.COMPLETED);
 
+        Task sampleTask2 = new Task(2, new Description("25 boxes of A4 paper"),
+                Task.getParsedLocalDate(LocalDate.now()));
+        sampleTask2.setCustomer(customerManager.getCustomer(1));
+
+        Task sampleTask3 = new Task(3, new Description("25 packs of frozen chicken wings"),
+                Task.getParsedLocalDate(LocalDate.now()));
+        sampleTask3.setCustomer(customerManager.getCustomer(1));
+        Optional<Driver> optionalDriver = Optional.of(driverManager.getDriver(1));
+        Optional<EventTime> optionalEventTime = Optional.of(EventTime.parse("1000 - 1200"));
+        sampleTask3.setDriverAndEventTime(optionalDriver, optionalEventTime);
+        driverManager.getDriver(1).addToSchedule(EventTime.parse("1000 - 1200"));
+
         Task sampleTask4 = new Task(4, new Description("5 boxes of Chicken Nuggets"),
                 Task.getDateFromString("10/10/2019"));
         sampleTask4.setCustomer(customerManager.getCustomer(2));
@@ -130,21 +142,6 @@ public class SampleDataUtil {
         Optional<EventTime> eventTimeOptional3 = Optional.of(EventTime.parse("1400 - 1600"));
         sampleTask5.setDriverAndEventTime(driverOptional3, eventTimeOptional3);
         sampleTask5.setStatus(TaskStatus.COMPLETED);
-
-        Task sampleTask2 = new Task(2, new Description("25 boxes of A4 paper"),
-                Task.getParsedLocalDate(LocalDate.now()));
-        sampleTask2.setCustomer(customerManager.getCustomer(1));
-
-        Task sampleTask3 = new Task(3, new Description("25 packs of frozen chicken wings"),
-                Task.getParsedLocalDate(LocalDate.now()));
-        sampleTask3.setCustomer(customerManager.getCustomer(1));
-        //populate the schedule of driver
-        Optional<Driver> optionalDriver = Optional.of(driverManager.getDriver(1));
-        Optional<EventTime> optionalEventTime = Optional.of(EventTime.parse("1000 - 1200"));
-        sampleTask3.setDriverAndEventTime(optionalDriver, optionalEventTime);
-        driverManager.getDriver(1).addToSchedule(EventTime.parse("1000 - 1200"));
-        driverManager.getDriver(2).addToSchedule(EventTime.parse("1000 - 1200"));
-        driverManager.getDriver(3).addToSchedule(EventTime.parse("1400 - 1600"));
 
         return new Task[]{sampleTask1, sampleTask2, sampleTask3, sampleTask4, sampleTask5};
     }

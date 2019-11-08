@@ -486,6 +486,42 @@ public class ModelManager implements Model {
                 && task.getDriver().get().getId() == driverId);
     }
 
+    /**
+     * Returns a observable view of the list of incomplete tasks from the previous days
+     */
+    @Override
+    public ObservableList<Task> getIncompleteTaskList() {
+        FilteredList<Task> incompleteTasks = new FilteredList<>(this.taskManager.getList());
+        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED.and(PREDICATE_SHOW_PREVIOUS_DAYS), incompleteTasks);
+        return incompleteTasks;
+    }
+
+    /**
+     * Refreshes the display of task list.
+     */
+    @Override
+    public void refreshFilteredTaskList() {
+        //refresh assigned task list
+        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, filteredTasks);
+        getAssignedTaskList();
+
+        //refresh unassigned task list
+        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, unassignedTasks);
+        getUnassignedTaskList();
+
+        updateCompletedTaskList(PREDICATE_SHOW_EMPTY_TASKS);
+        getCompletedTaskList();
+    }
+
+    /**
+     * Refreshes unassigned task list, assigned task list, customer list and driver list.
+     */
+    public void refreshAllFilteredList() {
+        refreshFilteredCustomerList();
+        refreshFilteredDriverList();
+        refreshFilteredTaskList();
+    }
+
     // =========== Filtered Customer List Accessors =============================================================
 
     /**
@@ -504,6 +540,15 @@ public class ModelManager implements Model {
     }
 
     // =========== Filtered Driver List Accessors =============================================================
+    /**
+     * Refreshes the display of customer list.
+     */
+    public void refreshFilteredCustomerList() {
+        updateFilteredCustomerList(PREDICATE_SHOW_EMPTY_CUSTOMERS);
+        updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
+    }
+
+    // =========== Filtered Driver List Accessors =============================================================
 
     @Override
     public ObservableList<Driver> getFilteredDriverList() {
@@ -514,5 +559,13 @@ public class ModelManager implements Model {
     public void updateFilteredDriverList(Predicate<Driver> predicate) {
         requireNonNull(predicate);
         filteredDrivers.setPredicate(predicate);
+    }
+
+    /**
+     * Refreshes the display of driver list.
+     */
+    public void refreshFilteredDriverList() {
+        updateFilteredDriverList(PREDICATE_SHOW_EMPTY_DRIVERS);
+        updateFilteredDriverList(PREDICATE_SHOW_ALL_DRIVERS);
     }
 }
