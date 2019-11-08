@@ -101,6 +101,10 @@ public class LogicManager implements Logic {
         model.refreshFilteredTaskList();
     }
 
+    public boolean isStartAfresh() {
+        return model.isStartAfresh();
+    }
+
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
