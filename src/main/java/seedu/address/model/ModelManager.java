@@ -347,7 +347,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the
-     * internal list of {@code versionedAddressBook}
+     * internal list of {@code versionedAddressBook}.
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -386,13 +386,16 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the
-     * internal list of {@code versionedAddressBook}
+     * internal list of {@code versionedAddressBook}.
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         return filteredTasks;
     }
 
+    /**
+     * Updates the observable view of the filtered task list to the predicate.
+     */
     @Override
     public void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list) {
         requireNonNull(predicate);
@@ -400,7 +403,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an observable view of the list of that is filtered to unassigned tasks
+     * Returns an observable view of the list of that is filtered to unassigned tasks.
      */
     @Override
     public ObservableList<Task> getUnassignedTaskList() {
@@ -409,7 +412,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an observable view of the list of that is filtered to assigned tasks
+     * Returns an observable view of the list of that is filtered to assigned tasks.
      */
     @Override
     public ObservableList<Task> getAssignedTaskList() {
@@ -418,7 +421,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an observable view of the list of that is filtered to completed tasks
+     * Returns an observable view of the list of that is filtered to completed tasks.
      */
     @Override
     public ObservableList<Task> getCompletedTaskList() {
@@ -427,7 +430,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Updates the observable view of the completed tasks to the predicate
+     * Updates the observable view of the completed tasks to the predicate.
      */
     @Override
     public void updateCompletedTaskList(Predicate<Task> predicate) {
@@ -435,12 +438,48 @@ public class ModelManager implements Model {
         completedTasks.setPredicate(predicate);
     }
 
+    /**
+     * Checks if any completed task is delivered to the Customer.
+     */
+    @Override
+    public boolean hasCompletedTaskBelongsToCustomer(Customer customer) {
+        return filteredTasks
+                .stream()
+                .filter(task -> task.getStatus().equals(TaskStatus.COMPLETED))
+                .anyMatch(task -> task.getCustomer().equals(customer));
+    }
+
+    /**
+     * Checks if any completed task is allocated to the Driver.
+     */
+    @Override
+    public boolean hasCompletedTaskBelongsToDriver(Driver driver) {
+        return filteredTasks
+                .stream()
+                .filter(task -> task.getStatus().equals(TaskStatus.COMPLETED))
+                .anyMatch(task -> {
+                    if (task.getDriver().isEmpty()) {
+                        return false;
+                    }
+
+                    return task.getDriver().get().equals(driver);
+                });
+    }
+
+    /**
+     * Updates the observable view of the completed tasks according to the specified customer ID only.
+     * @param customerId customer ID.
+     */
     @Override
     public void viewCustomerTask(int customerId) {
         updateCompletedTaskList(task -> task.getCustomer().getId() == customerId
                                 && task.getStatus().equals(TaskStatus.COMPLETED));
     }
 
+    /**
+     * Updates the observable view of the completed tasks according to the specified driver ID only.
+     * @param driverId customer ID.
+     */
     @Override
     public void viewDriverTask(int driverId) {
         updateCompletedTaskList(task ->task.getStatus().equals(TaskStatus.COMPLETED)
@@ -451,7 +490,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the
-     * internal list of {@code versionedAddressBook}
+     * internal list of {@code versionedAddressBook}.
      */
     @Override
     public ObservableList<Customer> getFilteredCustomerList() {
@@ -464,7 +503,7 @@ public class ModelManager implements Model {
         filteredCustomers.setPredicate(predicate);
     }
 
-    // =========== Filtered Customer List Accessors =============================================================
+    // =========== Filtered Driver List Accessors =============================================================
 
     @Override
     public ObservableList<Driver> getFilteredDriverList() {

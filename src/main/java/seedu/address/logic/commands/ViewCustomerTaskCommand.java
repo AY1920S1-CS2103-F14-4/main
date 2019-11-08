@@ -27,7 +27,7 @@ public class ViewCustomerTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + "1";
 
-    public static final String MESSAGE_SUCCESS = "listed delivered tasks for the specified Customer";
+    public static final String MESSAGE_SUCCESS = "Listed completed tasks delivered to the Customer ID #%s";
 
     private int customerId;
 
@@ -38,25 +38,15 @@ public class ViewCustomerTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Customer customer = model.getCustomer(customerId);
 
         List <Customer> currentCustomerList = model.getFilteredCustomerList();
 
-        List<Task> completedTaskList = model.getCompletedTaskList();
-
         if (customerId > currentCustomerList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_DRIVER_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
         }
 
         model.viewCustomerTask(customerId);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, customer));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, customerId));
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ViewCustomerTaskCommand // instanceof handles nulls
-                && customerId == ((ViewCustomerTaskCommand) other).customerId); // state check
-    }
 }

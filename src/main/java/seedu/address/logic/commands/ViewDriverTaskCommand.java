@@ -26,7 +26,7 @@ public class ViewDriverTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + "1";
 
-    public static final String MESSAGE_SUCCESS = "listed delivered tasks for the specified Driver";
+    public static final String MESSAGE_SUCCESS = "Listed completed tasks assigned to the Driver ID #%s.";
 
     private int driverId;
 
@@ -37,9 +37,8 @@ public class ViewDriverTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Driver> currentDriverList = model.getFilteredDriverList();
-        Driver driver = model.getDriver(driverId);
 
+        List<Driver> currentDriverList = model.getFilteredDriverList();
 
         if (driverId > currentDriverList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DRIVER_DISPLAYED_INDEX);

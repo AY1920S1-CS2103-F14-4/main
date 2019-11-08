@@ -162,6 +162,16 @@ public interface Model {
      */
     ObservableList<Task> getCompletedTaskList();
 
+    /**
+     * Checks whether the customer is in the completed task list
+     */
+    boolean hasCompletedTaskBelongsToCustomer(Customer customer);
+
+    /**
+     * Checks whether the driver is in the completed task list
+     */
+    boolean hasCompletedTaskBelongsToDriver(Driver driver);
+
     // customer manager
 
     CustomerManager getCustomerManager();

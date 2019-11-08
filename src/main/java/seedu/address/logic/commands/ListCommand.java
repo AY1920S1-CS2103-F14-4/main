@@ -24,9 +24,10 @@ public class ListCommand extends Command {
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
         //reset any predicate that driver list has
         model.updateFilteredDriverList(PREDICATE_SHOW_ALL_DRIVERS);
-        //reset any predicate that assigned and unassigned task list has
+        //reset any predicate that assigned, unassigned and completed task list has
         model.getUnassignedTaskList();
         model.getAssignedTaskList();
+        model.getCompletedTaskList();
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
