@@ -5,13 +5,6 @@ import java.util.Iterator;
 
 import javafx.collections.ObservableList;
 
-<<<<<<< HEAD
-
-
-||||||| merged common ancestors
-=======
-
->>>>>>> 86b415b3e6c7dce9456a6a6dec6d641d3c453687
 /**
  * Manages the task list.
  * It contains the minimal set of list operations.

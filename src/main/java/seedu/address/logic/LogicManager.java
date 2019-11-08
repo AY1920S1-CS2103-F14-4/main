@@ -97,6 +97,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void refreshFilteredTaskList() {
+        model.refreshFilteredTaskList();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }

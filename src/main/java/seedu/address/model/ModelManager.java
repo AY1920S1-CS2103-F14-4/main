@@ -418,12 +418,6 @@ public class ModelManager implements Model {
         return filteredTasks;
     }
 
-<<<<<<< HEAD
-    /**
-     * Returns an observable view of the list containing all tasks that are uncomplete
-     */
-||||||| merged common ancestors
-=======
     /**
      * Returns a observable view of the list of incomplete tasks from the previous days
      */
@@ -457,7 +451,6 @@ public class ModelManager implements Model {
         refreshFilteredTaskList();
     }
 
->>>>>>> 86b415b3e6c7dce9456a6a6dec6d641d3c453687
     // =========== Filtered Customer List Accessors =============================================================
 
     /**

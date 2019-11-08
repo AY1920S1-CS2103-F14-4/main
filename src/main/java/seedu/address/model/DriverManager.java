@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.util.Iterator;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -59,17 +58,6 @@ public class DriverManager extends EntityManager<Driver> {
                 .filter(driver -> driver.getId() == driverId)
                 .findFirst()
                 .orElseThrow(PersonNotFoundException::new);
-    }
-
-    /**
-     * Clears all driver schedule
-     */
-    public void clearAllSchedule() {
-        Iterator<Driver> driverIterator = getPersonList().iterator();
-        while (driverIterator.hasNext()) {
-            Driver driver = driverIterator.next();
-            driver.clearSchedule();
-        }
     }
 
     @Override

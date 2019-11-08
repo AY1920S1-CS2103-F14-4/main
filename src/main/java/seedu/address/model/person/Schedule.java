@@ -146,18 +146,6 @@ public class Schedule {
         return schedule.remove(eventTime);
     }
 
-<<<<<<< HEAD
-    /**
-     * Clears schedule completely.
-     */
-    public void clearSchedule() {
-        schedule.clear();
-    }
-
-||||||| merged common ancestors
-
-=======
->>>>>>> 86b415b3e6c7dce9456a6a6dec6d641d3c453687
     private boolean isOutsideWorkingHours(EventTime eventTime) {
         return (eventTime.getEnd().compareTo(eventTime.getStart()) <= 0)
                 || (eventTime.getStart().compareTo(workingHours.getStart()) < 0)
