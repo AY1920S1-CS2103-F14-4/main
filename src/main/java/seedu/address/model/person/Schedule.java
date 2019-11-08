@@ -97,10 +97,11 @@ public class Schedule {
 
         // HACK: using a zero minute event time to get the tailset
         EventTime now = new EventTime(timeNow, timeNow);
-
-        // TODO: check if the existing schedule has a eventtime that overlaps with the 0 minute block
         schedule.add(now);
+
+        // this should always be non null, since an event starting at midnight will always be the smallest
         EventTime firstCandidate = schedule.lower(now);
+
         if (!firstCandidate.overlaps(now)) {
             firstCandidate = now;
         } else {
@@ -108,7 +109,7 @@ public class Schedule {
         }
 
 
-        NavigableSet<EventTime> candidates = schedule.subSet(now, true, lastCandidate, true);
+        NavigableSet<EventTime> candidates = schedule.subSet(firstCandidate, true, lastCandidate, true);
         Iterator<EventTime> iter = candidates.iterator();
 
         EventTime prev = null;
