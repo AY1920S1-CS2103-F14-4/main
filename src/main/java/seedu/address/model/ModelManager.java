@@ -482,40 +482,20 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Returns an observable view of the current completed task list.
+     */
+    @Override
+    public ObservableList<Task> getCurrentCompletedTaskList() {
+        return completedTasks;
+    }
+
+    /**
      * Updates the observable view of the completed tasks to the predicate.
      */
     @Override
     public void updateCompletedTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         completedTasks.setPredicate(predicate);
-    }
-
-    /**
-     * Checks if any completed task is delivered to the Customer.
-     */
-    @Override
-    public boolean hasCompletedTaskBelongsToCustomer(Customer customer) {
-        return filteredTasks
-                .stream()
-                .filter(task -> task.getStatus().equals(TaskStatus.COMPLETED))
-                .anyMatch(task -> task.getCustomer().equals(customer));
-    }
-
-    /**
-     * Checks if any completed task is allocated to the Driver.
-     */
-    @Override
-    public boolean hasCompletedTaskBelongsToDriver(Driver driver) {
-        return filteredTasks
-                .stream()
-                .filter(task -> task.getStatus().equals(TaskStatus.COMPLETED))
-                .anyMatch(task -> {
-                    if (task.getDriver().isEmpty()) {
-                        return false;
-                    }
-
-                    return task.getDriver().get().equals(driver);
-                });
     }
 
     /**

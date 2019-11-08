@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
 import static seedu.address.commons.core.Messages.MESSAGE_DATA_START_NEW;
+import static seedu.address.logic.commands.GoCommand.HISTORY_TAB;
+import static seedu.address.logic.commands.GoCommand.HOME_TAB;
 
 import java.util.logging.Logger;
 
@@ -209,14 +211,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Switches the tab view.
+     * Navigates to the tab.
      */
     private void handleSwitchTab(String param) {
         SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
 
-        if (param.equalsIgnoreCase("home")) {
+        if (param.equalsIgnoreCase(HOME_TAB)) {
             selectionModel.select(0);
-        } else if (param.equalsIgnoreCase("history")) {
+        } else if (param.equalsIgnoreCase(HISTORY_TAB)) {
             selectionModel.select(1);
         }
     }

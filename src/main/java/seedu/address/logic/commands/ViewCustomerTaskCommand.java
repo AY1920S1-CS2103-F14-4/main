@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Customer;
 
 /**
- * List delivered task for specified driver
+ * List the completed delivery task of a particular customer.
  */
 public class ViewCustomerTaskCommand extends Command {
 
@@ -20,13 +19,12 @@ public class ViewCustomerTaskCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views the delivered tasks of the specified customer "
             + "and displays them as a list with index numbers."
             + "\n"
-            + "Parameters: " + "INDEX (must be a positive integer)"
-            + "[" + PREFIX_CUSTOMER + "CUSTOMER_ID] "
+            + "Parameters: " + "CUSTOMER_ID (must be a positive integer)"
             + "\n"
             + "Example: " + COMMAND_WORD + " "
             + "1";
 
-    public static final String MESSAGE_SUCCESS = "Listed completed tasks delivered to the Customer ID #%s";
+    public static final String MESSAGE_SUCCESS = "Listed %s completed tasks delivered to the Customer ID #%s";
 
     private int customerId;
 
@@ -45,7 +43,8 @@ public class ViewCustomerTaskCommand extends Command {
         }
 
         model.viewCustomerTask(customerId);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, customerId));
+        int listSize = model.getCurrentCompletedTaskList().size();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, listSize, customerId));
     }
 
 }

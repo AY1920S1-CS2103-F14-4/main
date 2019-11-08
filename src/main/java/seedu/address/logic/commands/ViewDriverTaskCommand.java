@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DRIVER;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Driver;
 
 /**
- * List delivered task for specified driver
+ * List completed delivery task allocated to the particular driver.
  */
 public class ViewDriverTaskCommand extends Command {
 
@@ -20,13 +19,12 @@ public class ViewDriverTaskCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Views the delivered tasks of the specified driver "
             + "and displays them as a list with index numbers."
             + "\n"
-            + "Parameters: " + "INDEX (must be a positive integer)"
-            + "[" + PREFIX_DRIVER + "DRIVER_ID] "
+            + "Parameters: " + "DRIVER_ID (must be a positive integer)"
             + "\n"
             + "Example: " + COMMAND_WORD + " "
             + "1";
 
-    public static final String MESSAGE_SUCCESS = "Listed completed tasks assigned to the Driver ID #%s.";
+    public static final String MESSAGE_SUCCESS = "Listed %s completed tasks assigned to the Driver ID #%s";
 
     private int driverId;
 
@@ -45,7 +43,8 @@ public class ViewDriverTaskCommand extends Command {
         }
 
         model.viewDriverTask(driverId);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, driverId));
+        int listSize = model.getCurrentCompletedTaskList().size();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, listSize, driverId));
     }
 
 }

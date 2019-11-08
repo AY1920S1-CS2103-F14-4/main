@@ -138,7 +138,7 @@ public class SampleDataUtil {
         Task sampleTask5 = new Task(5, new Description("1 Lakewood Guitar"),
                 Task.getDateFromString("10/10/2019"));
         sampleTask5.setCustomer(customerManager.getCustomer(3));
-        Optional<Driver> driverOptional3 = Optional.of(driverManager.getDriver(3));
+        Optional<Driver> driverOptional3 = Optional.of(driverManager.getDriver(1));
         Optional<EventTime> eventTimeOptional3 = Optional.of(EventTime.parse("1400 - 1600"));
         sampleTask5.setDriverAndEventTime(driverOptional3, eventTimeOptional3);
         sampleTask5.setStatus(TaskStatus.COMPLETED);

@@ -250,12 +250,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasCompletedTaskBelongsToCustomer(Customer customer) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasCompletedTaskBelongsToDriver(Driver driver) {
+        public ObservableList<Task> getCurrentCompletedTaskList() {
             throw new AssertionError("This method should not be called.");
         }
 

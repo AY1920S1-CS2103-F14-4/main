@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.GoCommand.DEFAULT_TAB;
 
 import java.util.Objects;
 
@@ -19,6 +20,13 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.tabType = DEFAULT_TAB;
+    }
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -34,7 +42,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, "default");
+        this(feedbackToUser, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -54,7 +62,7 @@ public class CommandResult {
     }
 
     public boolean isSwitchTab() {
-        return !tabType.equals("default");
+        return !tabType.equals(DEFAULT_TAB);
     }
 
     @Override
@@ -71,13 +79,12 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit
-                && tabType.equals(otherCommandResult.tabType);
+                && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, tabType);
+        return Objects.hash(feedbackToUser, showHelp, exit);
     }
 
 }
