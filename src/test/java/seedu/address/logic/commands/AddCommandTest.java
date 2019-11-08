@@ -391,6 +391,11 @@ public class AddCommandTest {
         };
 
         @Override
+        public boolean isStartAfresh() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void saveDriverTaskPdf(String filePathForPdf, LocalDate date)
                 throws IOException, PdfNoTaskToDisplayException {
             throw new AssertionError("This method should not be called.");

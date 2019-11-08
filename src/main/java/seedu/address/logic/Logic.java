@@ -54,6 +54,8 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of customers */
     ObservableList<Customer> getFilteredCustomerList();
 
+    boolean isStartAfresh();
+
     /**
      * Returns a list of incomplete tasks from previous days
      */
