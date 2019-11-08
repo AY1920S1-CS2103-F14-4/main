@@ -52,7 +52,7 @@ public interface Logic {
     ObservableList<Customer> getFilteredCustomerList();
 
     /**
-     * Return a list of incomplete tasks from previous days
+     * Returns a list of incomplete tasks from previous days
      */
     ObservableList<Task> getIncompleteTaskList();
 
