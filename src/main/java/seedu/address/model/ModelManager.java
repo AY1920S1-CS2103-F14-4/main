@@ -380,10 +380,10 @@ public class ModelManager implements Model {
             assert t.getEventTime().isPresent();
             return t.getEventTime().get();
         });
-        List<Task> sortedByEventTimeTasks = TaskManager.getSortedList(tasks,
-                ascendingEventTimeComparator);
 
-        return sortedByEventTimeTasks;
+        List<Task> sortedList = TaskManager.getSortedList(tasks, ascendingEventTimeComparator);
+
+        return sortedList;
     }
 
     public List<Driver> getDriversFromTasks(List<Task> tasks) {

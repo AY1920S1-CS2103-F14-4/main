@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -116,10 +117,8 @@ public class TaskList {
     }
 
     public static List<Task> getSortedList(List<Task> tasks, Comparator<Task> comparator) {
-        return tasks
-                    .stream()
-                    .sorted(comparator)
-                    .collect(Collectors.toList());
+        tasks.sort(comparator);
+        return tasks;
     }
 
     public static List<Task> getFilteredList(List<Task> tasks, Predicate<Task> predicate) {
@@ -137,15 +136,15 @@ public class TaskList {
      * @return driver list that contains only drivers with assigned tasks.
      */
     public static List<Driver> getDriversFromTasks(List<Task> assignedTasks) {
-        List<Driver> driverList = new ArrayList<>();
+        HashSet<Driver> driverSet = new HashSet<>();
         for (Task task : assignedTasks) {
             assert task.getDriver().isPresent();
 
             Driver driver = task.getDriver().get();
-            if (!driverList.contains(driver)) {
-                driverList.add(driver);
-            }
+            driverSet.add(driver);
         }
+
+        List<Driver> driverList = new ArrayList<>(driverSet);
 
         return driverList;
     }
