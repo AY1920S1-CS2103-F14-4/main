@@ -45,6 +45,7 @@ public class ModelManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> unassignedTasks;
     private final FilteredList<Task> completedTasks;
+    private final FilteredList<String> commandList;
 
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Driver> filteredDrivers;
@@ -53,6 +54,7 @@ public class ModelManager implements Model {
     private final CustomerManager customerManager;
     private final DriverManager driverManager;
     private final IdManager idManager;
+    private final CommandHistory commandHistory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -69,6 +71,7 @@ public class ModelManager implements Model {
         this.customerManager = new CustomerManager();
         this.driverManager = new DriverManager();
         this.idManager = new IdManager();
+        this.commandHistory = new CommandHistory();
 
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.taskManager.getList());
@@ -76,6 +79,7 @@ public class ModelManager implements Model {
         completedTasks = new FilteredList<>(this.taskManager.getList());
         filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(this.driverManager.getDriverList());
+        commandList = new FilteredList<>(this.commandHistory.getCommandList());
     }
 
     public ModelManager(CentralManager centralManager, ReadOnlyUserPrefs userPrefs) {
@@ -94,12 +98,15 @@ public class ModelManager implements Model {
         this.driverManager = centralManager.getDriverManager();
         this.taskManager = centralManager.getTaskManager();
         this.idManager = centralManager.getIdManager();
+        this.commandHistory = centralManager.getCommandHistory();
 
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
         filteredTasks = new FilteredList<>(taskManager.getList());
         unassignedTasks = new FilteredList<>(taskManager.getList());
         completedTasks = new FilteredList<>(taskManager.getList());
+        commandList = new FilteredList<>(commandHistory.getCommandList());
+
     }
 
     public ModelManager() {
@@ -599,5 +606,12 @@ public class ModelManager implements Model {
     public void refreshFilteredDriverList() {
         updateFilteredDriverList(PREDICATE_SHOW_EMPTY_DRIVERS);
         updateFilteredDriverList(PREDICATE_SHOW_ALL_DRIVERS);
+    }
+
+    // =========== Command List Accessors =====================================================================
+
+    @Override
+    public ObservableList<String> getCommandList() {
+        return commandList;
     }
 }

@@ -102,6 +102,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<String> getCommandList() {
+        return model.getCommandList();
+    }
+
+    @Override
     public boolean isStartAfresh() {
         return model.isStartAfresh();
     }

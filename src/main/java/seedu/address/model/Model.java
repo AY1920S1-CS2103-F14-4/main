@@ -283,4 +283,10 @@ public interface Model {
 
     void saveDriverTaskPdf(String filePathForPdf, LocalDate date) throws IOException, PdfNoTaskToDisplayException;
 
+    // command history
+
+    /**
+     * Returns an unmodifiable view of the filtered command list.
+     */
+    ObservableList<String> getCommandList();
 }
