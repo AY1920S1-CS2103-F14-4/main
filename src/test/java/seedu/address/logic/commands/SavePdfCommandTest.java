@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.model.pdfmanager.PdfCreator.MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE;
 import static seedu.address.testutil.SampleEntity.FOURTH_VALID_CUSTOMER;
 import static seedu.address.testutil.SampleEntity.FOURTH_VALID_DESCRIPTION;
 import static seedu.address.testutil.SampleEntity.FOURTH_VALID_EVENT_TIME;
