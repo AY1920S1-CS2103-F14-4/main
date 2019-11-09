@@ -1,5 +1,6 @@
 package seedu.address.model.company;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.model.person.Address;
@@ -12,6 +13,15 @@ import seedu.address.model.person.Phone;
  */
 public class Company {
 
+    private static final Name DEFAULT_NAME = new Name("Deliveria Pte Ltd");
+    private static final Address DEFAULT_ADDRESS = new Address("10 Kaki Bukit View, Singapore 630141");
+    private static final Phone DEFAULT_PHONE = new Phone("67227631");
+    private static final Phone DEFAULT_FAX = new Phone("67228822");
+    private static final Email DEFAULT_EMAIL = new Email("delivery@deliveria.com.sg");
+    private static final RegistrationNumber DEFAULT_REGISTRATION_NUMBER = new RegistrationNumber("201952689D");
+    private static final Optional<GstRegistrationNumber> DEFAULT_GST_REGISTRATION_NUMBER =
+            Optional.of(new GstRegistrationNumber("201952689D"));
+
     private Name name;
     private Address address;
     private Phone phone;
@@ -19,6 +29,16 @@ public class Company {
     private Email email;
     private RegistrationNumber registrationNumber;
     private Optional<GstRegistrationNumber> gstRegistrationNumber;
+
+    public Company() {
+        this.name = DEFAULT_NAME;
+        this.address = DEFAULT_ADDRESS;
+        this.phone = DEFAULT_PHONE;
+        this.fax = DEFAULT_FAX;
+        this.email = DEFAULT_EMAIL;
+        this.registrationNumber = DEFAULT_REGISTRATION_NUMBER;
+        this.gstRegistrationNumber = DEFAULT_GST_REGISTRATION_NUMBER;
+    }
 
     public Company(Name companyName, Address companyAddress, Phone companyPhone, Phone companyFax,
                    Email companyEmail, RegistrationNumber registrationNumber,
@@ -86,6 +106,30 @@ public class Company {
 
     public void setGstRegistrationNumber(Optional<GstRegistrationNumber> gstRegistrationNumber) {
         this.gstRegistrationNumber = gstRegistrationNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Company company = (Company) o;
+        return Objects.equals(getName(), company.getName())
+                && Objects.equals(getAddress(), company.getAddress())
+                && Objects.equals(getPhone(), company.getPhone())
+                && Objects.equals(getFax(), company.getFax())
+                && Objects.equals(getEmail(), company.getEmail())
+                && Objects.equals(getRegistrationNumber(), company.getRegistrationNumber())
+                && Objects.equals(getGstRegistrationNumber(), company.getGstRegistrationNumber());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getAddress(), getPhone(), getFax(), getEmail(),
+                getRegistrationNumber(), getGstRegistrationNumber());
     }
 
     @Override

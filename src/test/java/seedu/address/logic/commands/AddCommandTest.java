@@ -23,6 +23,7 @@ import seedu.address.model.CustomerManager;
 import seedu.address.model.DriverManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.company.Company;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
@@ -373,6 +374,11 @@ public class AddCommandTest {
         @Override
         public void saveDriverTaskPdf(String filePathForPdf, LocalDate date)
                 throws IOException, PdfNoTaskToDisplayException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Company getCompany() {
             throw new AssertionError("This method should not be called.");
         }
     }

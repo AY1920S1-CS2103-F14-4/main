@@ -17,6 +17,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.company.Company;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
@@ -51,6 +52,7 @@ public class ModelManager implements Model {
     private final CustomerManager customerManager;
     private final DriverManager driverManager;
     private final IdManager idManager;
+    private final Company company;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -67,6 +69,7 @@ public class ModelManager implements Model {
         this.customerManager = new CustomerManager();
         this.driverManager = new DriverManager();
         this.idManager = new IdManager();
+        this.company = new Company();
 
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.taskManager.getList());
@@ -91,6 +94,7 @@ public class ModelManager implements Model {
         this.driverManager = centralManager.getDriverManager();
         this.taskManager = centralManager.getTaskManager();
         this.idManager = centralManager.getIdManager();
+        this.company = centralManager.getCompany();
 
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
@@ -394,6 +398,12 @@ public class ModelManager implements Model {
         List<Driver> sortedByNameDrivers = DriverManager.getSortedDriverList(drivers, sortByNameComparator);
 
         return sortedByNameDrivers;
+    }
+
+    // =========== Company ===================================================================================
+
+    public Company getCompany() {
+        return company;
     }
 
     // =========== Filtered Person List Accessors =============================================================
