@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.company.GstRegistrationNumber.isEmptyRepresentation;
 import static seedu.address.model.company.GstRegistrationNumber.isValidGstRegistrationNumber;
 import static seedu.address.model.company.RegistrationNumber.isValidRegistrationNumber;
 import static seedu.address.model.task.Task.DATE_FORMAT;
@@ -301,7 +302,7 @@ public class ParserUtil {
     public static GstRegistrationNumber parseGstRegistrationNumber(String gstRegistrationNumber) throws ParseException {
         requireNonNull(gstRegistrationNumber);
         String trimmedNo = gstRegistrationNumber.trim();
-        if (!isValidGstRegistrationNumber(trimmedNo)) {
+        if (!isValidGstRegistrationNumber(trimmedNo) && !isEmptyRepresentation(trimmedNo)) {
             throw new ParseException(GstRegistrationNumber.MESSAGE_CONSTRAINTS);
         }
         return new GstRegistrationNumber(trimmedNo);

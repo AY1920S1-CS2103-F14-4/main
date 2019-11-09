@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GST_REGISTRATION_NUMBE
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REGISTRATION_NUMBER;
+import static seedu.address.model.company.GstRegistrationNumber.isEmptyRepresentation;
 
 import java.util.Optional;
 
@@ -91,12 +92,32 @@ public class UpdateCommand extends Command {
                 companyToEdit.getRegistrationNumber());
 
         //if updated value is present, take updated or else take original value
+        //if updated value is a "-", then assign empty.
         Optional<GstRegistrationNumber> gstRegistrationNumber = companyDescriptor.getGstRegistrationNumber();
         Optional<GstRegistrationNumber> updatedGstRegistrationNumber = gstRegistrationNumber
                 .or(companyToEdit::getGstRegistrationNumber);
 
+        Optional<GstRegistrationNumber> updatedGstRegNoRepresentation =
+                getOptionalEmptyIfEmptyRepresentation(updatedGstRegistrationNumber);
+
         return new Company(updatedName, updatedAddress, updatedPhone, updatedFax, updatedEmail,
-                updatedRegistrationNumber, updatedGstRegistrationNumber);
+                updatedRegistrationNumber, updatedGstRegNoRepresentation);
+    }
+
+    /**
+     * Checks if {@code GstRegistrationNumber} is a empty representation.
+     * Returns {@code Optional.empty()} if it is, otherwise, return the same variable.
+     */
+    private static Optional<GstRegistrationNumber> getOptionalEmptyIfEmptyRepresentation(
+            Optional<GstRegistrationNumber> optionalGstRegNo) {
+        if (optionalGstRegNo.isPresent()) {
+            String gstRegNo = optionalGstRegNo.get().getGstRegistrationNumber();
+            if (isEmptyRepresentation(gstRegNo)) {
+                return Optional.empty();
+            }
+        }
+
+        return optionalGstRegNo;
     }
 
     /**

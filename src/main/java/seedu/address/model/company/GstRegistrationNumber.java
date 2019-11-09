@@ -8,12 +8,19 @@ import java.util.Objects;
  */
 public class GstRegistrationNumber {
 
+    /**
+     * Empty Representation represents that the company doesn't have a GST Reg. No.
+     * Used for users to signify that they do not have it.
+     */
+    public static final String EMPTY_REPRESENTATION = "-";
+
     public static final String MESSAGE_CONSTRAINTS =
             "GST Registration Number should only contain 8 or 9 numbers "
                     + "followed by 1 alphabet character in capitals behind. \n"
                     + "Old Gst Reg. No. should only contain 8 numbers followed by "
                     + "1 number / alphabet character in the FRONT and BEHIND.\n"
-                    + "For example: 200912345A | M12345678N | M123456789 | 123456789M | 1234567890";
+                    + "Insert `-` if your company doesn't have a GST Reg. No. \n"
+                    + "For example: 200912345A | M12345678N | M123456789 | 123456789M | 1234567890 | -";
 
     /**
      * The first 9 characters must be numeric and the last character has to be from A to Z.
@@ -38,6 +45,10 @@ public class GstRegistrationNumber {
 
     public static boolean isValidGstRegistrationNumber(String gstRegistrationNumber) {
         return gstRegistrationNumber.matches(VALIDATION_REGEX);
+    }
+
+    public static boolean isEmptyRepresentation(String gstRegistrationNumber) {
+        return gstRegistrationNumber.equals(EMPTY_REPRESENTATION);
     }
 
     @Override
