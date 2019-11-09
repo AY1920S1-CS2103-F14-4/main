@@ -1,7 +1,5 @@
 package seedu.address.model.person;
 
-import seedu.address.model.person.exceptions.RatingException;
-
 /**
  * Represents Driver rating
  */
@@ -57,6 +55,10 @@ public class DriverRating {
         return true;
     }
 
+    /**
+     * Returns Driver Rating in String form
+     * @return Rating in string
+     */
     public String toString() {
         if (this.totalNoOfReviews == 0) {
             return String.valueOf(0);

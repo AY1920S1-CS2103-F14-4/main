@@ -38,7 +38,7 @@ public class DriverCard extends UiPart<Region> {
         name.setText(driver.getName().fullName);
         phone.setText("Phone: " + driver.getPhone().value);
         driverId.setText("Driver ID: #" + driver.getId());
-        if(driver.getRating()==0) {
+        if (driver.getRating() == 0) {
             rating.setText("Driver Rating: Not rated yet");
         } else {
             rating.setText("Driver Rating: " + driver.getRating() + "/5");
