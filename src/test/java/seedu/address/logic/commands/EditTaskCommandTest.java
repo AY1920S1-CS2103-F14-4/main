@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.EditTaskCommand.MESSAGE_CANNOT_BE_EDITED;
@@ -208,5 +209,8 @@ class EditTaskCommandTest {
         String expectedMessage = String.format(MESSAGE_EDIT_TASK_SUCCESS, expectedOnGoingTask);
 
         assertCommandSuccess(editTaskCommand, model, expectedMessage, expectedModel);
+
+        //after changing delivery date, driver should be available now
+        assertTrue(driverSchedule.isAvailable(FOURTH_VALID_EVENT_TIME));
     }
 }
