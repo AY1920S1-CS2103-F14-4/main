@@ -29,9 +29,9 @@ import seedu.address.storage.CentralManager;
  */
 public class SampleEntity {
 
-    public static final LocalDate VALID_DAY_BEFORE_TODAY = GlobalClock.dateToday().minusDays(1);
-    public static final LocalDate VALID_TODAY_DATE = GlobalClock.dateToday();
-    public static final LocalDate VALID_DAY_AFTER_TODAY = GlobalClock.dateToday().plusDays(1);
+    public static final LocalDate VALID_DAY_BEFORE_TODAY = GlobalClock.getStaticDate().minusDays(1);
+    public static final LocalDate VALID_TODAY_DATE = GlobalClock.getStaticDate();
+    public static final LocalDate VALID_DAY_AFTER_TODAY = GlobalClock.getStaticDate().plusDays(1);
 
     public static final int VALID_TASK_ID = 1;
     public static final Description VALID_DESCRIPTION = new Description("20 frozen boxes of Red groupers");
