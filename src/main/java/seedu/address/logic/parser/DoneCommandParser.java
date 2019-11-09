@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -17,12 +19,16 @@ public class DoneCommandParser implements Parser<DoneCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DoneCommand parse(String args) throws ParseException {
-        try {
-            int taskId = ParserUtil.parseId(args);
-            return new DoneCommand(taskId);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE), pe);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_TASK, PREFIX_RATING);
+
+        //check all prefix are present
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TASK, PREFIX_RATING)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }
+        int taskId = ParserUtil.parseId(argMultimap.getValue(PREFIX_TASK).get());
+        int rating = ParserUtil.parseId(argMultimap.getValue(PREFIX_RATING).get());
+        return new DoneCommand(taskId, rating);
     }
 }
