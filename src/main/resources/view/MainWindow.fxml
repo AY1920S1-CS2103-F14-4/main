@@ -35,25 +35,25 @@
           </Menu>
         </MenuBar>
 
-      <SplitPane minWidth="1600">
+      <SplitPane dividerPositions="0.7">
         <VBox>
           <padding>
             <Insets bottom="20"/>
           </padding>
+
           <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
             <tabs>
               <Tab text="Home">
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
                 <SplitPane>
-                  <VBox fx:id="driverList" styleClass="pane-with-border" minWidth="150" prefWidth="150"
-                        minHeight="520" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="driverList" styleClass="pane-with-border" minWidth="250" prefWidth="250" VBox.vgrow="ALWAYS">
                     <padding>
                       <Insets top="10" right="10" bottom="10" left="10" />
                     </padding>
                     <StackPane fx:id="driverListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                   </VBox>
 
-                  <VBox fx:id="customerList" styleClass="pane-with-border" minWidth="320" prefWidth="320" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="customerList" styleClass="pane-with-border" minWidth="300" prefWidth="300" VBox.vgrow="ALWAYS">
                     <padding>
                       <Insets top="10" right="10" bottom="10" left="10" />
                     </padding>
@@ -64,7 +64,7 @@
               </Tab>
 
               <Tab text="History">
-                <SplitPane>
+                <SplitPane dividerPositions="0.4">
                   <VBox>
                   </VBox>
                   <VBox fx:id="completedTaskList" styleClass="pane-with-border" minWidth="200" prefWidth="200" VBox.vgrow="ALWAYS">
@@ -95,18 +95,18 @@
         </VBox>
           <SplitPane orientation="VERTICAL">
 
-            <VBox fx:id="taskList" styleClass="pane-with-border" minWidth="200" prefWidth="200" VBox.vgrow="ALWAYS">
+            <VBox fx:id="taskList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>
-              <StackPane fx:id="assignedTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              <StackPane fx:id="assignedTaskListPanelPlaceholder"/>
             </VBox>
 
-            <VBox fx:id="unassignedTaskList" styleClass="pane-with-border" minWidth="200" prefWidth="200" VBox.vgrow="ALWAYS">
+            <VBox fx:id="unassignedTaskList" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="unassignedTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="unassignedTaskListPanelPlaceholder"/>
             </VBox>
 
           </SplitPane>

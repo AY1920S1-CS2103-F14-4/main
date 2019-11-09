@@ -36,9 +36,7 @@ public class ViewCustomerTaskCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Customer> currentCustomerList = model.getFilteredCustomerList();
-
-        if (customerId > currentCustomerList.size()) {
+        if (!model.hasCustomer(customerId)) {
             throw new CommandException(Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
         }
 

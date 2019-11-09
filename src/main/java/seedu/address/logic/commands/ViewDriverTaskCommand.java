@@ -36,9 +36,7 @@ public class ViewDriverTaskCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Driver> currentDriverList = model.getFilteredDriverList();
-
-        if (driverId > currentDriverList.size()) {
+        if (!model.hasDriver(driverId)) {
             throw new CommandException(Messages.MESSAGE_INVALID_DRIVER_DISPLAYED_INDEX);
         }
 

@@ -22,9 +22,9 @@ public class GoCommandParser implements Parser<GoCommand> {
     public GoCommand parse(String args) throws ParseException {
 
         String tabName = args.trim().toLowerCase();
-        if (tabName.equalsIgnoreCase(HOME_TAB)) {
+        if (tabName.equals(HOME_TAB)) {
             return new GoCommand(HOME_TAB);
-        } else if (tabName.equalsIgnoreCase(HISTORY_TAB)) {
+        } else if (tabName.equals(HISTORY_TAB)) {
             return new GoCommand(HISTORY_TAB);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoCommand.MESSAGE_USAGE));
