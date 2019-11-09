@@ -92,10 +92,20 @@ public class SavePdfCommand extends Command {
         return getCommandResultPdf(documentType, dateOfDelivery);
     }
 
-    private void generatePdf( Model model, String filePathWithDate, String documentType, LocalDate dateOfDelivery)
+    /**
+     * Generates a pdf document based on type of document requested.
+     *
+     * @param model model.
+     * @param filePathWithDate file path consists of date of delivery.
+     * @param documentType type of pdf document.
+     * @param dateOfDelivery date of delivery.
+     * @throws IOException if unable to save file or if file is in used.
+     * @throws PdfNoTaskToDisplayException if there is no tasks to display.
+     */
+    private void generatePdf(Model model, String filePathWithDate, String documentType, LocalDate dateOfDelivery)
             throws IOException, PdfNoTaskToDisplayException {
         if (documentType.equals(PDF_SUMMARY)) {
-            model.saveDriverTaskPdf(filePathWithDate, dateOfDelivery);
+            model.generateTaskSummaryPdf(filePathWithDate, dateOfDelivery);
         } else {
             //delivery order
             //model.generateDeliverOrderPdf(filePathWithDate, dateOfDelivery);

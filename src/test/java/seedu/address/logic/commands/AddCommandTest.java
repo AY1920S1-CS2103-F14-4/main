@@ -372,7 +372,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void saveDriverTaskPdf(String filePathForPdf, LocalDate date)
+        public void generateTaskSummaryPdf(String filePathForPdf, LocalDate date)
+                throws IOException, PdfNoTaskToDisplayException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void generateDeliveryOrderPdf(String filePathForPdf, LocalDate date)
                 throws IOException, PdfNoTaskToDisplayException {
             throw new AssertionError("This method should not be called.");
         }

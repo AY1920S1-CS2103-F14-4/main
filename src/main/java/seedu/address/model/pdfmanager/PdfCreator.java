@@ -10,6 +10,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 
 import seedu.address.commons.util.FileUtil;
+import seedu.address.model.company.Company;
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 
@@ -39,6 +40,16 @@ public class PdfCreator {
 
         //close to save
         document.close();
+    }
+
+    /**
+     * Generates delivery orders for all incomplete and assigned / ongoing tasks.
+     *
+     * @param tasks incomplete and assigned tasks.
+     * @param company an organisation.
+     */
+    public void generateDeliveryOrderPdf(List<Task> tasks, Company company) {
+
     }
 
     private void createFileIfMissing() throws IOException {
