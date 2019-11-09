@@ -381,6 +381,12 @@ public class AddCommandTest {
         public Company getCompany() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setCompany(Company updatedCompany) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

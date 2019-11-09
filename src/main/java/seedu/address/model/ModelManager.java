@@ -406,6 +406,10 @@ public class ModelManager implements Model {
         return company;
     }
 
+    public void setCompany(Company updatedCompany) {
+        company.setCompany(updatedCompany);
+    }
+
     // =========== Filtered Person List Accessors =============================================================
 
     /**

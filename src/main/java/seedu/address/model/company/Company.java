@@ -20,7 +20,7 @@ public class Company {
     private static final Email DEFAULT_EMAIL = new Email("delivery@deliveria.com.sg");
     private static final RegistrationNumber DEFAULT_REGISTRATION_NUMBER = new RegistrationNumber("201952689D");
     private static final Optional<GstRegistrationNumber> DEFAULT_GST_REGISTRATION_NUMBER =
-            Optional.of(new GstRegistrationNumber("201952689D"));
+            Optional.of(new GstRegistrationNumber("M263700219"));
 
     private Name name;
     private Address address;
@@ -50,6 +50,16 @@ public class Company {
         this.email = companyEmail;
         this.registrationNumber = registrationNumber;
         this.gstRegistrationNumber = gstRegistrationNumber;
+    }
+
+    public void setCompany(Company company) {
+        setName(company.getName());
+        setAddress(company.getAddress());
+        setPhone(company.getPhone());
+        setFax(company.getFax());
+        setEmail(company.getEmail());
+        setRegistrationNumber(company.getRegistrationNumber());
+        setGstRegistrationNumber(company.getGstRegistrationNumber());
     }
 
     public Name getName() {
@@ -135,6 +145,9 @@ public class Company {
     @Override
     public String toString() {
         StringBuilder companyStr = new StringBuilder();
+        String gstRegistrationNumberPrint = getGstRegistrationNumber()
+                .map(GstRegistrationNumber::toString)
+                .orElse("-");
         return companyStr.append("Company Name: ")
                 .append(getName())
                 .append(" Address: ")
@@ -147,8 +160,8 @@ public class Company {
                 .append(getEmail())
                 .append(" Co. Reg. No.: ")
                 .append(getRegistrationNumber())
-                .append(" GST Reg. No.:")
-                .append(getGstRegistrationNumber())
+                .append(" GST Reg. No.: ")
+                .append(gstRegistrationNumberPrint)
                 .toString();
     }
 }

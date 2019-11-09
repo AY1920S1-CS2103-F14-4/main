@@ -265,4 +265,6 @@ public interface Model {
     void saveDriverTaskPdf(String filePathForPdf, LocalDate date) throws IOException, PdfNoTaskToDisplayException;
 
     Company getCompany();
+
+    void setCompany(Company updatedCompany);
 }
