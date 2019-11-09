@@ -341,7 +341,7 @@ public class ModelManager implements Model {
         return idManager.isStartAfresh();
     }
 
-    // ========= PdfCreator =========================================================================
+    // ========= PdfManager =========================================================================
 
     /**
      * Saves drivers' tasks for a specified date in PDF format.

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.company.GstRegistrationNumber.isEmptyRepresentation;
 import static seedu.address.model.company.GstRegistrationNumber.isValidGstRegistrationNumber;
 import static seedu.address.model.company.RegistrationNumber.isValidRegistrationNumber;
+import static seedu.address.model.pdfmanager.PdfManager.isValidDocument;
 import static seedu.address.model.task.Task.DATE_FORMAT;
 import static seedu.address.model.task.Task.DATE_FORMATTER_FOR_USER_INPUT;
 
@@ -25,6 +26,7 @@ import seedu.address.model.Description;
 import seedu.address.model.EventTime;
 import seedu.address.model.company.GstRegistrationNumber;
 import seedu.address.model.company.RegistrationNumber;
+import seedu.address.model.pdfmanager.PdfManager;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -42,8 +44,7 @@ public class ParserUtil {
     public static final String HHMM_REGEX = "([0-9]{2}):[0-5][0-9]";
 
     public static final String MESSAGE_INVALID_DATE_FORMAT =
-            "Invalid Date format. Date format should be " + DATE_FORMAT + ". "
-                    + "Chosen date should be from today onwards.";
+            "Invalid Date format. Date format should be " + DATE_FORMAT + ".";
 
     public static final String MESSAGE_INVALID_ID = "ID should be a integer number and more than 0.";
     public static final String MESSAGE_INVALID_DURATION = "The format of the number of hours is either a decimal "
@@ -306,6 +307,21 @@ public class ParserUtil {
             throw new ParseException(GstRegistrationNumber.MESSAGE_CONSTRAINTS);
         }
         return new GstRegistrationNumber(trimmedNo);
+    }
+
+    /**
+     * Parses a {@code String documentType} into a
+     * @param documentType
+     * @return
+     */
+    public static String parsePdfDocumentType(String documentType) throws ParseException {
+        requireNonNull(documentType);
+        String trimmedDocumentType = documentType.trim();
+        if (!isValidDocument(trimmedDocumentType)) {
+            throw new ParseException(PdfManager.MESSAGE_CONSTRAINTS);
+        }
+
+        return trimmedDocumentType;
     }
 
 
