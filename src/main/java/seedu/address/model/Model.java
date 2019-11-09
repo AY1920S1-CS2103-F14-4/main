@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.GlobalClock;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
@@ -29,7 +30,6 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
     Predicate<Driver> PREDICATE_SHOW_ALL_DRIVERS = unused -> true;
-    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
     /**
      * {@code Predicate} that always evaluate to false
@@ -47,6 +47,16 @@ public interface Model {
      * {@code Predicate} that filters the task to on-going status
      */
     Predicate<Task> PREDICATE_SHOW_ASSIGNED = task -> task.getStatus().equals(TaskStatus.ON_GOING);
+
+    /**
+     * {@code Predicate} that filters the task to completed status
+     */
+    Predicate<Task> PREDICATE_SHOW_COMPLETED = task -> task.getStatus().equals(TaskStatus.COMPLETED);
+
+    /**
+     * {@code Predicate} that filters the task to both incomplete and ongoing status
+     */
+    Predicate<Task> PREDICATE_SHOW_PREVIOUS_DAYS = task -> task.getDate().isBefore(GlobalClock.dateToday());
 
     /**
      * Returns the user prefs.
@@ -160,6 +170,11 @@ public interface Model {
      */
     ObservableList<Task> getAssignedTaskList();
 
+    /**
+     * Return a list of incomplete tasks from the previous days
+     */
+    ObservableList<Task> getIncompleteTaskList();
+
     // customer manager
 
     CustomerManager getCustomerManager();
@@ -243,6 +258,8 @@ public interface Model {
     int getNextDriverId();
 
     IdManager getIdManager();
+
+    boolean isStartAfresh();
 
     void saveDriverTaskPdf(String filePathForPdf, LocalDate date) throws IOException, PdfNoTaskToDisplayException;
 }

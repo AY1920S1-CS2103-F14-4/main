@@ -30,7 +30,7 @@ public class SavePdfCommand extends Command {
             + "[DATE] \n"
             + "Example: " + COMMAND_WORD + " 20/10/2019";
 
-    private String filePath = "./data/" + FILE_NAME + " %1$s.pdf";
+    private String filePath;
 
     private Optional<LocalDate> date;
 
