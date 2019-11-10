@@ -7,6 +7,7 @@
 <?import javafx.stage.Stage?>
 <?import java.net.URL?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
 <fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
    <icons>
       <Image url="@/images/help_icon.png" />
@@ -44,6 +45,9 @@
                      <Insets right="5.0" />
                   </VBox.margin>
                </Label>
+               <VBox minWidth="580" prefWidth="580">
+                  <WebView fx:id="map" minHeight="350" prefHeight="350"/>
+               </VBox>
             </children>
             <opaqueInsets>
                <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />

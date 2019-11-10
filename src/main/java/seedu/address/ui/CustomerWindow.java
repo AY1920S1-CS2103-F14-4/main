@@ -1,9 +1,13 @@
 package seedu.address.ui;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Customer;
@@ -15,6 +19,11 @@ public class CustomerWindow extends UiPart<Stage> {
 
     public static final String DEFAULT_MESSAGE = "Customer Window";
 
+    private static final String CODED = "QUl6YVN5QmtSOTlwR0EwSElTUFQxSFA2d1NLOFd2cTBPZGdCbU9J";
+    private static final String WEBVIEW_WRAPPER = "<html style=\"background: #424242;\">%s</html>";
+    private static final String MAPS_WRAPPER = "<iframe width=\"100%%\" height=\"330\" frameborder=\"0\" "
+            + "style=\"border:0\" src=\"https://www.google.com/maps/embed/v1/search?q=%s&key=%s\" "
+            + "allowfullscreen></iframe>";
     private static final Logger logger = LogsCenter.getLogger(CustomerWindow.class);
     private static final String FXML = "CustomerWindow.fxml";
 
@@ -28,11 +37,8 @@ public class CustomerWindow extends UiPart<Stage> {
     private Label email;
     @FXML
     private Label address;
-    //@FXML
-    //private GoogleMapView mapView;
-
-    //private GoogleMap map;
-    //private GeocodingService geocodingService;
+    @FXML
+    private WebView map;
 
     /**
      * Creates a new HelpWindow.
@@ -46,6 +52,7 @@ public class CustomerWindow extends UiPart<Stage> {
         customerId.setText(DEFAULT_MESSAGE);
         email.setText(DEFAULT_MESSAGE);
         address.setText(DEFAULT_MESSAGE);
+        map.getEngine().loadContent(String.format(WEBVIEW_WRAPPER, ""));
     }
 
     /**
@@ -109,5 +116,10 @@ public class CustomerWindow extends UiPart<Stage> {
         customerId.setText("Customer ID: #" + customer.getId());
         email.setText("Email: " + customer.getEmail());
         address.setText("Address: " + customer.getAddress());
+        // Map
+        String addressString = String.format(MAPS_WRAPPER,
+                URLEncoder.encode(customer.getAddress().value, StandardCharsets.UTF_8),
+                new String(Base64.getDecoder().decode(CODED)));
+        map.getEngine().loadContent(String.format(WEBVIEW_WRAPPER, addressString));
     }
 }
