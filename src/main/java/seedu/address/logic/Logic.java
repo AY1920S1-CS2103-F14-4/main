@@ -68,6 +68,8 @@ public interface Logic {
      */
     ObservableList<Customer> getFilteredCustomerList();
 
+    boolean isStartAfresh();
+
     /**
      * Returns an unmodifiable view of the incomplete tasks from previous days.
      */
@@ -78,7 +80,10 @@ public interface Logic {
      */
     ObservableList<String> getCommandList();
 
-    boolean isStartAfresh();
+    /**
+     * Refreshes filtered lists
+     */
+    void refreshFilteredTaskList();
 
     /**
      * Returns the user prefs' address book file path.

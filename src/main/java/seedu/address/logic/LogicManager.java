@@ -43,6 +43,7 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
+
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
@@ -53,8 +54,9 @@ public class LogicManager implements Logic {
         commandHistory.addCommand(commandText);
         model.updateCommandList(Model.PREDICATE_SHOW_ALL_COMMANDS, model.getFilteredCommandList());
 
+        //check
         System.out.println(commandText);
-        System.out.println(commandHistory.getCommandList().size());
+        System.out.println(commandHistory.getCommandList());
         try {
             storage.saveManager(new CentralManager(model.getCustomerManager(), model.getDriverManager(),
                     model.getTaskManager(), model.getIdManager()));
@@ -115,7 +117,12 @@ public class LogicManager implements Logic {
         return model.getCommandList();
     }
 
+
     @Override
+    public void refreshFilteredTaskList() {
+        model.refreshFilteredTaskList();
+    }
+
     public boolean isStartAfresh() {
         return model.isStartAfresh();
     }

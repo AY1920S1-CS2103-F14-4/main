@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static seedu.address.commons.core.Messages.MESSAGE_DATA_START_NEW;
 import static seedu.address.logic.commands.GoCommand.HISTORY_TAB;
 import static seedu.address.logic.commands.GoCommand.HOME_TAB;
+import static seedu.address.logic.commands.GoCommand.STATISTIC_TAB;
 
 import java.util.logging.Logger;
 
@@ -10,13 +11,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -28,7 +29,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -42,7 +42,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private Model model;
+
     CommandHistory commandHistory;
 
     // Independent Ui parts residing in this Ui container
@@ -168,8 +168,8 @@ public class MainWindow extends UiPart<Stage> {
         commandListPanel = new CommandListPanel(logic.getCommandList());
         commandListPanelPlaceholder.getChildren().add(commandListPanel.getRoot());
 
-//        statisticPanel = new StatisticPanel();
-//        statisticPanelPlaceholder.getChildren().add(statisticPanel.getRoot());
+        statisticPanel = new StatisticPanel(logic.getStatistic());
+        statisticPanelPlaceholder.getChildren().add(statisticPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -240,7 +240,7 @@ public class MainWindow extends UiPart<Stage> {
             selectionModel.select(0);
         } else if (param.equalsIgnoreCase(HISTORY_TAB)) {
             selectionModel.select(1);
-        } else {
+        } else if (param.equalsIgnoreCase(STATISTIC_TAB)){
             selectionModel.select(2);
         }
     }

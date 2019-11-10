@@ -9,7 +9,7 @@ public class CommandCard extends UiPart<Region> {
 
     private static final String FXML = "CommandCard.fxml";
 
-    public final String string;
+//    public final String string;
 
     @FXML
     private HBox cardPane;
@@ -23,7 +23,7 @@ public class CommandCard extends UiPart<Region> {
 
     public CommandCard(String string, int displayedIndex) {
         super(FXML);
-        this.string = string;
+//        this.string = string;
         id.setText(displayedIndex + ". ");
         command.setText(string);
     }

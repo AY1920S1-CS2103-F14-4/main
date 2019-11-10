@@ -35,8 +35,11 @@ public class CommandHistory {
     }
 
 
+    /**
+     * Returns an unmodifiable command list.
+     */
     public ObservableList<String> getCommandList() {
-        return commandList;
+        return commandListUnmodifiable;
     }
 
 }
