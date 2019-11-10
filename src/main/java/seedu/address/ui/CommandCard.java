@@ -3,9 +3,13 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 
-public class CommandCard extends UiPart {
-    private static final String FXML = "CommandListCard.fxml";
+public class CommandCard extends UiPart<Region> {
+
+    private static final String FXML = "CommandCard.fxml";
+
+    public final String string;
 
     @FXML
     private HBox cardPane;
@@ -17,10 +21,11 @@ public class CommandCard extends UiPart {
     private Label command;
 
 
-    public CommandCard(String command, int displayedIndex) {
+    public CommandCard(String string, int displayedIndex) {
         super(FXML);
+        this.string = string;
         id.setText(displayedIndex + ". ");
-        this.command.setText(command);
+        command.setText(string);
     }
 
 }

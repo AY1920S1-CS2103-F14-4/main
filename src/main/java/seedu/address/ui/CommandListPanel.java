@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -23,7 +22,7 @@ public class CommandListPanel extends UiPart<Region> {
     public CommandListPanel(ObservableList<String> commandList) {
         super(FXML);
         commandListView.setItems(commandList);
-        commandListView.setCellFactory(listView -> new CommandListViewCell());
+        commandListView.setCellFactory(listView -> new CommandListPanel.CommandListViewCell());
     }
 
     /**
@@ -38,7 +37,7 @@ public class CommandListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic((Node) new CommandCard(string, getIndex() + 1).getRoot());
+                setGraphic(new CommandCard(string, getIndex() + 1).getRoot());
             }
         }
     }

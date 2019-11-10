@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="318.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Statistic">
+   <children>
+      <BarChart prefHeight="318.0" prefWidth="305.0" title="Customer Statistic">
+        <xAxis>
+          <CategoryAxis label="Customer ID" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Orders" side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <BarChart layoutX="306.0" prefHeight="318.0" prefWidth="333.0" title="Driver Statistic">
+         <xAxis>
+            <CategoryAxis label="Driver ID" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>

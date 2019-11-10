@@ -30,6 +30,7 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
     Predicate<Driver> PREDICATE_SHOW_ALL_DRIVERS = unused -> true;
+    Predicate<String> PREDICATE_SHOW_ALL_COMMANDS = unused -> true;
 
     /**
      * {@code Predicate} that always evaluate to false
@@ -37,6 +38,7 @@ public interface Model {
     Predicate<Task> PREDICATE_SHOW_EMPTY_TASKS = unused -> false;
     Predicate<Customer> PREDICATE_SHOW_EMPTY_CUSTOMERS = unused -> false;
     Predicate<Driver> PREDICATE_SHOW_EMPTY_DRIVERS = unused -> false;
+    Predicate<String> PREDICATE_SHOW_EMPTY_COMMANDS = unused -> false;
 
     /**
      * {@code Predicate} that filters the task to incomplete status
@@ -289,4 +291,14 @@ public interface Model {
      * Returns an unmodifiable view of the filtered command list.
      */
     ObservableList<String> getCommandList();
+
+
+    FilteredList<String> getFilteredCommandList();
+
+    /**
+     * Updates the command list to filter by the given {@code predicate}.
+     */
+    void updateCommandList(Predicate<String> predicate, FilteredList<String> commandList);
+
+
 }

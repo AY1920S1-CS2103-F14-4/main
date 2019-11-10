@@ -13,16 +13,15 @@ public class CommandHistory {
     private final ObservableList<String> commandList = FXCollections.observableArrayList();
     private final ObservableList<String> commandListUnmodifiable = FXCollections.unmodifiableObservableList(commandList);
 
-
-
     String command;
+
+    public CommandHistory() {
+        commandList.add("test");
+        commandList.add("test2");
+    }
 
     public CommandHistory(String command) {
         this.command = command;
-    }
-
-    public CommandHistory() {
-
     }
 
     /**
@@ -35,8 +34,9 @@ public class CommandHistory {
         commandList.add(command);
     }
 
+
     public ObservableList<String> getCommandList() {
-        return commandListUnmodifiable;
+        return commandList;
     }
 
 }

@@ -45,10 +45,11 @@ public class ModelManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> unassignedTasks;
     private final FilteredList<Task> completedTasks;
-    private final FilteredList<String> commandList;
 
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Driver> filteredDrivers;
+
+    private final FilteredList<String> commandList;
 
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
@@ -98,7 +99,8 @@ public class ModelManager implements Model {
         this.driverManager = centralManager.getDriverManager();
         this.taskManager = centralManager.getTaskManager();
         this.idManager = centralManager.getIdManager();
-        this.commandHistory = centralManager.getCommandHistory();
+        this.commandHistory = new CommandHistory();
+
 
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
@@ -610,8 +612,28 @@ public class ModelManager implements Model {
 
     // =========== Command List Accessors =====================================================================
 
+    /**
+     * Returns an unmodifiable view of the filtered command list.
+     */
     @Override
     public ObservableList<String> getCommandList() {
         return commandList;
+    }
+
+    /**
+     * Returns an unmodifiable view of the filtered command list.
+     */
+    @Override
+    public FilteredList<String> getFilteredCommandList() {
+        return commandList;
+    }
+
+    /**
+     * Updates the command list to filter by the given {@code predicate}.
+     */
+    @Override
+    public void updateCommandList(Predicate<String> predicate, FilteredList<String> commandList) {
+        requireNonNull(predicate);
+        commandList.setPredicate(predicate);
     }
 }

@@ -11,6 +11,7 @@ public class GoCommand extends Command {
     public static final String DEFAULT_TAB = "default";
     public static final String HOME_TAB = "home";
     public static final String HISTORY_TAB = "history";
+    public static final String STATISTIC_TAB = "statistic";
 
     public static final String COMMAND_WORD = "go";
 

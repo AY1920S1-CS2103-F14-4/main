@@ -16,6 +16,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -25,6 +26,9 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CommandHistory;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -38,6 +42,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private Model model;
+    CommandHistory commandHistory;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
@@ -48,6 +54,8 @@ public class MainWindow extends UiPart<Stage> {
     private CustomerListPanel customerListPanel;
     private DriverListPanel driverListPanel;
     private CompletedTaskListPanel completedTaskListPanel;
+    private CommandListPanel commandListPanel;
+    private StatisticPanel statisticPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -75,6 +83,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane completedTaskListPanelPlaceholder;
+
+    @FXML
+    private StackPane commandListPanelPlaceholder;
+
+    @FXML
+    private StackPane statisticPanelPlaceholder;
 
     @FXML
     private TabPane tabPane;
@@ -151,6 +165,12 @@ public class MainWindow extends UiPart<Stage> {
         driverListPanel = new DriverListPanel(logic.getFilteredDriverList());
         driverListPanelPlaceholder.getChildren().add(driverListPanel.getRoot());
 
+        commandListPanel = new CommandListPanel(logic.getCommandList());
+        commandListPanelPlaceholder.getChildren().add(commandListPanel.getRoot());
+
+//        statisticPanel = new StatisticPanel();
+//        statisticPanelPlaceholder.getChildren().add(statisticPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -220,6 +240,8 @@ public class MainWindow extends UiPart<Stage> {
             selectionModel.select(0);
         } else if (param.equalsIgnoreCase(HISTORY_TAB)) {
             selectionModel.select(1);
+        } else {
+            selectionModel.select(2);
         }
     }
 
