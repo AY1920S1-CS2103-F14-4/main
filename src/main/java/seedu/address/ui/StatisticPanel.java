@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -7,6 +8,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
+import seedu.address.model.task.Task;
+
+import java.util.HashMap;
 
 /**
  * Displays the statistic tab with bar charts.
@@ -33,11 +37,8 @@ public class StatisticPanel extends UiPart<Region> {
     @FXML
     private NumberAxis taskAxis;
 
-    private Logic logicStatistic;
-
     public StatisticPanel(Logic logicStatistic) {
         super(FXML);
-        this.logicStatistic = logicStatistic;
         getChartData(logicStatistic);
     }
 
@@ -46,31 +47,40 @@ public class StatisticPanel extends UiPart<Region> {
         XYChart.Series<String, Double> customerSeries = new XYChart.Series<>();
         XYChart.Series<String, Double> driverSeries = new XYChart.Series<>();
 
-//        customerSeries.getData().add(new XYChart.Data("customerID#1",
-//                model.getFilteredTaskList().filtered(task -> task.getCustomer().getId() == 1).size()));
-//
-//        customerSeries.getData().add(new XYChart.Data("customerID#2",
-//                model.getFilteredTaskList().filtered(task -> task.getCustomer().getId() == 2).size()));
-//
-//        driverSeries.getData().add(new XYChart.Data("driverID#1",
-//                model.getFilteredTaskList().filtered(task -> task.getDriver().get().getId() == 1).size()));
-//
-//        driverSeries.getData().add(new XYChart.Data("driverID#1",
-//                model.getFilteredTaskList().filtered(task -> task.getDriver().get().getId() == 2).size()));
+        ObservableList<Task> tasks = logicStatistic.getFilteredTaskList();
+        ObservableList<Task> completedTasks = logicStatistic.getFilteredCompletedTaskList();
 
-        customerSeries.getData().add(new XYChart.Data("1", 3));
+        HashMap<Integer, Integer> customerData = new HashMap<>();
+        HashMap<Integer, Integer> driverData = new HashMap<>();
 
-        customerSeries.getData().add(new XYChart.Data("2", 4));
+        //Loops through the tasks and add the number of orders to each customer ID storing as HashMap
+        //Customers with zero orders will not be displayed in the bar chart
+        for (Task task : tasks) {
+            if (customerData.containsKey(task.getCustomer().getId())) {
+                customerData.replace(task.getCustomer().getId(), customerData.get(task.getCustomer().getId()) + 1);
+            } else  {
+                customerData.put(task.getCustomer().getId(), 1);
+            }
+        }
 
-        driverSeries.getData().add(new XYChart.Data("1",2));
+        for (Task task : completedTasks) {
+            if (driverData.containsKey(task.getDriver().get().getId())) {
+                driverData.replace(task.getDriver().get().getId(), driverData.get(task.getDriver().get().getId()) + 1);
+            } else  {
+                driverData.put(task.getDriver().get().getId(), 1);
+            }
+        }
 
-        driverSeries.getData().add(new XYChart.Data("2", 3));
+        customerData.forEach((id, order) -> customerSeries.getData().add(new XYChart.Data("#" + id, order)));
+
+        driverData.forEach((id, delivery) -> driverSeries.getData().add(new XYChart.Data("#" + id, delivery)));
 
         customerChart.getData().add(customerSeries);
-        driverChart.getData().add(driverSeries);
-
-        driverChart.setLegendVisible(false);
         customerChart.setLegendVisible(false);
+
+        driverChart.getData().add(driverSeries);
+        driverChart.setLegendVisible(false);
+
     }
 
 }

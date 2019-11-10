@@ -168,7 +168,7 @@ public class MainWindow extends UiPart<Stage> {
         commandListPanel = new CommandListPanel(logic.getCommandList());
         commandListPanelPlaceholder.getChildren().add(commandListPanel.getRoot());
 
-        statisticPanel = new StatisticPanel(logic.getStatistic());
+        statisticPanel = new StatisticPanel(logic);
         statisticPanelPlaceholder.getChildren().add(statisticPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

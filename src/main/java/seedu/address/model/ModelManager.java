@@ -42,6 +42,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
+
+    private final FilteredList<Task> assignedTasks;
     private final FilteredList<Task> unassignedTasks;
     private final FilteredList<Task> completedTasks;
 
@@ -75,6 +77,7 @@ public class ModelManager implements Model {
 
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.taskManager.getList());
+        assignedTasks = new FilteredList<>(this.taskManager.getList());
         unassignedTasks = new FilteredList<>(this.taskManager.getList());
         completedTasks = new FilteredList<>(this.taskManager.getList());
         filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList());
@@ -104,6 +107,7 @@ public class ModelManager implements Model {
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
         filteredTasks = new FilteredList<>(taskManager.getList());
+        assignedTasks = new FilteredList<>(taskManager.getList());
         unassignedTasks = new FilteredList<>(taskManager.getList());
         completedTasks = new FilteredList<>(taskManager.getList());
         commandList = new FilteredList<>(commandHistory.getCommandList());
@@ -476,8 +480,8 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Task> getAssignedTaskList() {
-        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, filteredTasks);
-        return filteredTasks;
+        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, assignedTasks);
+        return assignedTasks;
     }
 
     /**
@@ -542,13 +546,14 @@ public class ModelManager implements Model {
     @Override
     public void refreshFilteredTaskList() {
         //refresh assigned task list
-        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, filteredTasks);
+        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, assignedTasks);
         getAssignedTaskList();
 
         //refresh unassigned task list
         updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, unassignedTasks);
         getUnassignedTaskList();
 
+        //refresh completed task list
         updateCompletedTaskList(PREDICATE_SHOW_EMPTY_TASKS);
         getCompletedTaskList();
     }

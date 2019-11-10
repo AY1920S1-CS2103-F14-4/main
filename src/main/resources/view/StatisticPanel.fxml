@@ -11,7 +11,7 @@
     <ScrollPane>
         <VBox>
             <children>
-              <BarChart fx:id="customerChart" prefHeight="300.0" prefWidth="300.0" title="Customer Statistic">
+              <BarChart fx:id="customerChart" title="Customer Statistic">
                 <xAxis>
                   <CategoryAxis fx:id="customerAxis" label="Customer ID" side="BOTTOM" />
                 </xAxis>
@@ -20,7 +20,7 @@
                 </yAxis>
               </BarChart>
 
-              <BarChart fx:id="driverChart" layoutX="300.0" prefHeight="300.0" prefWidth="300.0" title="Driver Statistic">
+              <BarChart fx:id="driverChart" title="Driver Statistic">
                  <xAxis>
                     <CategoryAxis fx:id="driverAxis" label="Driver ID" side="BOTTOM" />
                  </xAxis>
@@ -32,3 +32,5 @@
         </VBox>
     </ScrollPane>
 </StackPane>
+
+
