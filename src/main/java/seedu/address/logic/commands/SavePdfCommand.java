@@ -65,7 +65,6 @@ public class SavePdfCommand extends Command {
         this.filePath = (documentType.equals(PDF_SUMMARY)) ? FILE_PATH_SUMMARY : FILE_PATH_DELIVERY_ORDER;
     }
 
-    //temp
     public SavePdfCommand(String documentType, Optional<LocalDate> date, String filePath) {
         this.documentType = documentType;
         this.date = date;

@@ -191,4 +191,8 @@ public class SampleEntity {
     public static Model getSampleFreshModel() {
         return new ModelManager(SampleEntity.getSampleCentralManager(), new UserPrefs());
     }
+
+    public static Model getSampleEmptyModel() {
+        return new ModelManager(new CentralManager(), new UserPrefs());
+    }
 }
