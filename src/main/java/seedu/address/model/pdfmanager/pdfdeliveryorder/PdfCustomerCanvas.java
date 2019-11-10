@@ -16,12 +16,12 @@ import seedu.address.model.person.Phone;
 /**
  * Represents the canvas that contains the customer information.
  */
-public class PdfCustomerCanvasLayout extends PdfCanvasLayout {
+public class PdfCustomerCanvas extends PdfCanvasLayout {
 
     private Customer customer;
 
-    public PdfCustomerCanvasLayout(PdfCanvas pdfCanvas, PdfDocument pdfDocument, Rectangle rectangle,
-                                   Customer customer) {
+    public PdfCustomerCanvas(PdfCanvas pdfCanvas, PdfDocument pdfDocument, Rectangle rectangle,
+                             Customer customer) {
         super(pdfCanvas, pdfDocument, rectangle);
         this.customer = customer;
     }
@@ -30,7 +30,7 @@ public class PdfCustomerCanvasLayout extends PdfCanvasLayout {
      * Generates a layout of the customer information.
      */
     public void generate() {
-        Table table = new Table(1);
+        Table table = new Table(1).setFixedLayout();
         Cell title = createTitle("Delivery Address:");
         Cell address = createAddress(customer.getAddress());
         Cell customerInformation = createCustomerInformation(customer.getName(), customer.getPhone());

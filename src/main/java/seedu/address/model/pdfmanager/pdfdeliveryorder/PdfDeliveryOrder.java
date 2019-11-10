@@ -16,8 +16,9 @@ import seedu.address.model.task.Task;
 public class PdfDeliveryOrder {
 
     //A4 size is 595 x 842
-    public static final Rectangle COMPANY_HOLDER = new Rectangle(30, 720, 450, 120);
-    public static final Rectangle CUSTOMER_HOLDER = new Rectangle(30, 580, 260, 120);
+    public static final Rectangle COMPANY_HOLDER = new Rectangle(30, 710, 520, 120);
+    public static final Rectangle CUSTOMER_HOLDER = new Rectangle(30, 550, 260, 120);
+    public static final Rectangle DELIVERY_NUMBER_HOLDER = new Rectangle(400, 550, 150, 145);
 
     private PdfDocument pdfDocument;
     private List<Task> tasks;
@@ -38,8 +39,9 @@ public class PdfDeliveryOrder {
             PdfCanvas pdfCanvas = new PdfCanvas(newPage);
 
             List<PdfCanvasLayout> allCanvas = List.of(
-                    new PdfCompanyCanvasLayout(pdfCanvas, pdfDocument, COMPANY_HOLDER, company),
-                    new PdfCustomerCanvasLayout(pdfCanvas, pdfDocument, CUSTOMER_HOLDER, task.getCustomer()));
+                    new PdfCompanyCanvas(pdfCanvas, pdfDocument, COMPANY_HOLDER, company),
+                    new PdfCustomerCanvas(pdfCanvas, pdfDocument, CUSTOMER_HOLDER, task.getCustomer()),
+                    new PdfDeliveryNumberCanvas(pdfCanvas, pdfDocument, DELIVERY_NUMBER_HOLDER, task));
 
             allCanvas.forEach(PdfCanvasLayout::generate);
 

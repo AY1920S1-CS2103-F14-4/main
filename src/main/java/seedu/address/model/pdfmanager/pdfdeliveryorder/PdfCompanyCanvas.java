@@ -8,6 +8,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
 
 import seedu.address.model.company.Company;
 import seedu.address.model.company.GstRegistrationNumber;
@@ -20,14 +21,14 @@ import seedu.address.model.person.Phone;
 /**
  * Represents the canvas that contains the company information.
  */
-public class PdfCompanyCanvasLayout extends PdfCanvasLayout {
+public class PdfCompanyCanvas extends PdfCanvasLayout {
 
     private static final float TITLE_FONT_SIZE = 25;
     private static final float SUB_TITLE_FONT_SIZE = 10;
 
     private Company company;
 
-    public PdfCompanyCanvasLayout(PdfCanvas pdfCanvas, PdfDocument pdfDocument, Rectangle rectangle, Company company) {
+    public PdfCompanyCanvas(PdfCanvas pdfCanvas, PdfDocument pdfDocument, Rectangle rectangle, Company company) {
         super(pdfCanvas, pdfDocument, rectangle);
         this.company = company;
     }
@@ -36,7 +37,7 @@ public class PdfCompanyCanvasLayout extends PdfCanvasLayout {
      * Generates a layout of the company information.
      */
     public void generate() {
-        Table table = new Table(1);
+        Table table = new Table(1).setFixedLayout();
         Cell companyName = getCompanyName(company.getName());
         Cell companyInformation = getCompanyInformation(company.getAddress(), company.getPhone(),
                 company.getFax(), company.getEmail(), company.getRegistrationNumber(),
@@ -56,10 +57,7 @@ public class PdfCompanyCanvasLayout extends PdfCanvasLayout {
 
         //styling
         companyName.setFontColor(ColorConstants.RED);
-        companyName.setPadding(0);
-        companyName.setMargin(0);
         companyName.setFontSize(TITLE_FONT_SIZE);
-        companyName.setHeight(40);
 
         return companyName;
     }
@@ -74,10 +72,8 @@ public class PdfCompanyCanvasLayout extends PdfCanvasLayout {
         Cell companyInfoCell = createCell(1, 1, companyInfo.toString());
 
         //styling
-        companyInfoCell.setPadding(0);
-        companyInfoCell.setMargin(0);
         companyInfoCell.setFontSize(SUB_TITLE_FONT_SIZE);
-        companyInfoCell.setHeight(60);
+        companyInfoCell.setTextAlignment(TextAlignment.CENTER);
 
         return companyInfoCell;
     }
