@@ -63,6 +63,7 @@ public class PdfDeliveryNumberCanvas extends PdfCanvasLayout {
         titleCell.setFontSize(15);
         titleCell.setBold();
         titleCell.setFontColor(ColorConstants.RED);
+        titleCell.setTextAlignment(TextAlignment.CENTER);
 
         return titleCell;
     }

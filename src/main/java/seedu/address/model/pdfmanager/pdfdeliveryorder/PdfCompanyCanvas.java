@@ -2,7 +2,6 @@ package seedu.address.model.pdfmanager.pdfdeliveryorder;
 
 import java.util.Optional;
 
-import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
@@ -56,7 +55,6 @@ public class PdfCompanyCanvas extends PdfCanvasLayout {
         Cell companyName = createCell(1, 1, createName(name));
 
         //styling
-        companyName.setFontColor(ColorConstants.RED);
         companyName.setFontSize(TITLE_FONT_SIZE);
 
         return companyName;
