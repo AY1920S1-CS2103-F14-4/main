@@ -246,6 +246,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Task> getCompletedTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Task> getCurrentCompletedTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void refreshFilteredTaskList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -256,7 +266,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateCompletedTaskList(Predicate<Task> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Customer getCustomer(int customerId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void viewCustomerTask(int customerId) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void viewDriverTask(int driverId) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -363,11 +388,6 @@ public class AddCommandTest {
 
         @Override
         public boolean isStartAfresh() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void viewDriverTask(Person driverToView) {
             throw new AssertionError("This method should not be called.");
         }
 
