@@ -1,19 +1,12 @@
-package seedu.address.model.pdfmanager.PdfDeliveryOrder;
+package seedu.address.model.pdfmanager.pdfdeliveryorder;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.layout.Canvas;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.borders.DashedBorder;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.property.BorderRadius;
+
 import seedu.address.model.company.Company;
 import seedu.address.model.task.Task;
 
@@ -23,7 +16,8 @@ import seedu.address.model.task.Task;
 public class PdfDeliveryOrder {
 
     //A4 size is 595 x 842
-    private static final Rectangle COMPANY_HOLDER = new Rectangle(30, 680, 500, 150);
+    public static final Rectangle COMPANY_HOLDER = new Rectangle(30, 720, 450, 120);
+    public static final Rectangle CUSTOMER_HOLDER = new Rectangle(30, 580, 260, 120);
 
     private PdfDocument pdfDocument;
     private List<Task> tasks;
@@ -35,13 +29,17 @@ public class PdfDeliveryOrder {
         this.company = company;
     }
 
+    /**
+     * Creates delivery orders for the delivery tasks.
+     */
     public void create() {
         for (Task task : tasks) {
             PdfPage newPage = pdfDocument.addNewPage();
             PdfCanvas pdfCanvas = new PdfCanvas(newPage);
 
             List<PdfCanvasLayout> allCanvas = List.of(
-                    new PdfCompanyCanvasLayout(pdfCanvas, pdfDocument, COMPANY_HOLDER, company));
+                    new PdfCompanyCanvasLayout(pdfCanvas, pdfDocument, COMPANY_HOLDER, company),
+                    new PdfCustomerCanvasLayout(pdfCanvas, pdfDocument, CUSTOMER_HOLDER, task.getCustomer()));
 
             allCanvas.forEach(PdfCanvasLayout::generate);
 

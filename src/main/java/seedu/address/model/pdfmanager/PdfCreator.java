@@ -5,21 +5,13 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
 
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.BorderRadius;
-import com.itextpdf.layout.property.UnitValue;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.company.Company;
-import seedu.address.model.pdfmanager.PdfDeliveryOrder.PdfDeliveryOrder;
+import seedu.address.model.pdfmanager.pdfdeliveryorder.PdfDeliveryOrder;
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 
@@ -69,6 +61,10 @@ public class PdfCreator {
         FileUtil.createIfMissing(Paths.get(filePath));
     }
 
+    /**
+     * Creates a PDF document.
+     * @throws IOException if file cannot be saved.
+     */
     private PdfDocument createPdfDocument() throws IOException {
         createFileIfMissing();
         PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
