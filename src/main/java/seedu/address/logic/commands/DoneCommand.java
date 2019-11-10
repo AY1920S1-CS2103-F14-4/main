@@ -8,7 +8,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.EventTime;
 import seedu.address.model.Model;
 import seedu.address.model.person.Driver;
-import seedu.address.model.person.DriverRating;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
 import seedu.address.model.task.exceptions.TaskException;
@@ -24,7 +23,7 @@ public class DoneCommand extends Command {
             + ": Marks a task as COMPLETED.\n"
             + "Parameters: "
             + "[" + PREFIX_TASK + "TASK_ID] "
-            + "[" + PREFIX_RATING + "RATING]\n"
+            + "[" + PREFIX_RATING + "RATING (Must be between 1-5) ]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK + "3 "
             + PREFIX_RATING + "5";
@@ -52,10 +51,6 @@ public class DoneCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_ID);
         }
 
-        if (!DriverRating.isValid(rating)) {
-            throw new CommandException(MESSAGE_INVALID_RATING);
-        }
-
         Task taskToMark = model.getTask(taskId);
 
         if (taskToMark.getStatus() == TaskStatus.INCOMPLETE) {
@@ -71,11 +66,11 @@ public class DoneCommand extends Command {
             throw new CommandException(e.getMessage());
         }
 
-        //if task is ONGOING, it must have a driver and eventTime
-        freeDriverFromTask(taskToMark.getDriver().get(), taskToMark.getEventTime().get());
-
         //add rating to driver
         taskToMark.getDriver().get().addRating(rating);
+
+        //if task is ONGOING, it must have a driver and eventTime
+        freeDriverFromTask(taskToMark.getDriver().get(), taskToMark.getEventTime().get());
 
         return new CommandResult(String.format(MESSAGE_MARK_TASK_COMPLETED, taskToMark.getId()));
     }

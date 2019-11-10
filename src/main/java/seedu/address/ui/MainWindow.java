@@ -238,6 +238,14 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             }
 
+            if (commandResult.isShowCustomer()) {
+                handleHelp();
+            }
+
+            if (commandResult.isShowDriver()) {
+                handleHelp();
+            }
+
             if (commandResult.isExit()) {
                 handleExit();
             }
