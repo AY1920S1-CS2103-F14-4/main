@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.ui.Map.WEBVIEW_WRAPPER;
+
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -16,11 +18,6 @@ public class CustomerWindow extends UiPart<Stage> {
 
     public static final String DEFAULT_MESSAGE = "Customer Window";
 
-    private static final String CODED = "QUl6YVN5QmtSOTlwR0EwSElTUFQxSFA2d1NLOFd2cTBPZGdCbU9J";
-    private static final String WEBVIEW_WRAPPER = "<html style=\"background: #424242;\">%s</html>";
-    private static final String MAPS_WRAPPER = "<iframe width=\"100%%\" height=\"330\" frameborder=\"0\" "
-            + "style=\"border:0\" src=\"https://www.google.com/maps/embed/v1/search?q=%s&key=%s\" "
-            + "allowfullscreen></iframe>";
     private static final Logger logger = LogsCenter.getLogger(CustomerWindow.class);
     private static final String FXML = "CustomerWindow.fxml";
 
