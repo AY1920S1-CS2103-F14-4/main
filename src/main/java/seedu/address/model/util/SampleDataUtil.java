@@ -128,9 +128,9 @@ public class SampleDataUtil {
         Optional<Driver> driver1 = Optional.of(driverManager.getDriver(1));
         Optional<Driver> driver2 = Optional.of(driverManager.getDriver(2));
         Optional<Driver> driver3 = Optional.of(driverManager.getDriver(3));
-        Optional<Driver> driver4 = Optional.of(driverManager.getDriver(1));
-        Optional<Driver> driver5 = Optional.of(driverManager.getDriver(2));
-        Optional<Driver> driver6 = Optional.of(driverManager.getDriver(3));
+        Optional<Driver> driver4 = Optional.of(driverManager.getDriver(4));
+        Optional<Driver> driver5 = Optional.of(driverManager.getDriver(5));
+        Optional<Driver> driver6 = Optional.of(driverManager.getDriver(6));
 
 
         //Incomplete delivery tasks:
@@ -148,7 +148,7 @@ public class SampleDataUtil {
 
         Task sampleTask14 = new Task(14, new Description("3 Boxes of fresh broccolis"),
                 Task.getParsedLocalDate(LocalDate.now()));
-        sampleTask14.setCustomer(customer5);
+        sampleTask14.setCustomer(customer6);
 
         Task sampleTask15 = new Task(15, new Description("1 bag of rice"),
                 Task.getParsedLocalDate(LocalDate.now()));
@@ -206,19 +206,19 @@ public class SampleDataUtil {
         Task sampleTask11 = new Task(11, new Description("3 Boxes of Second-hand books"),
                 Task.getDateFromString("9/11/2019"));
         sampleTask11.setCustomer(customer4);
-        sampleTask11.setDriverAndEventTime(driver5, eventTime10to12);
+        sampleTask11.setDriverAndEventTime(driver2, eventTime10to12);
         sampleTask11.setStatus(TaskStatus.COMPLETED);
 
         Task sampleTask12 = new Task(12, new Description("2 Laptop cases"),
                 Task.getDateFromString("9/11/2019"));
         sampleTask12.setCustomer(customer4);
-        sampleTask12.setDriverAndEventTime(driver5, eventTime14to16);
+        sampleTask12.setDriverAndEventTime(driver4, eventTime14to16);
         sampleTask12.setStatus(TaskStatus.COMPLETED);
 
         Task sampleTask13 = new Task(13, new Description("5 Phone cases"),
                 Task.getDateFromString("9/11/2019"));
         sampleTask13.setCustomer(customer4);
-        sampleTask13.setDriverAndEventTime(driver5, eventTime18to20);
+        sampleTask13.setDriverAndEventTime(driver2, eventTime18to20);
         sampleTask13.setStatus(TaskStatus.COMPLETED);
 
         Task sampleTask16 = new Task(16, new Description("3 Lipsticks"),
