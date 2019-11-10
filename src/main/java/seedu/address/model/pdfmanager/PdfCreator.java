@@ -12,6 +12,8 @@ import com.itextpdf.layout.Document;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.company.Company;
 import seedu.address.model.pdfmanager.pdfdeliveryorder.PdfDeliveryOrder;
+import seedu.address.model.pdfmanager.pdftasksummary.PdfCoverPageLayout;
+import seedu.address.model.pdfmanager.pdftasksummary.PdfWrapperLayout;
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 
