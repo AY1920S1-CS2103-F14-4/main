@@ -19,6 +19,7 @@ import com.itextpdf.layout.property.BorderRadius;
 import com.itextpdf.layout.property.UnitValue;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.company.Company;
+import seedu.address.model.pdfmanager.PdfDeliveryOrder.PdfDeliveryOrder;
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 
@@ -110,6 +111,7 @@ public class PdfCreator {
     }
 
     private void insertDeliveryOrders(PdfDocument pdfDocument, List<Task> tasks, Company company) {
-
+        PdfDeliveryOrder pdfDeliverOrder = new PdfDeliveryOrder(pdfDocument, tasks, company);
+        pdfDeliverOrder.create();
     }
 }
