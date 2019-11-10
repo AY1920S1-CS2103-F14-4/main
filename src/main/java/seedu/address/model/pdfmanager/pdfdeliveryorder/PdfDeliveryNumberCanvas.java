@@ -38,8 +38,6 @@ public class PdfDeliveryNumberCanvas extends PdfCanvasLayout {
         Cell dateLabel = createLabel("D/O Date: ");
         Cell date = createDate(task.getDate());
 
-        insertBorder();
-
         table.addCell(title);
         table.addCell(numberLabel);
         table.addCell(deliveryOrderNo);
