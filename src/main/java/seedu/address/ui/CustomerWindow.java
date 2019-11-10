@@ -1,8 +1,5 @@
 package seedu.address.ui;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -117,9 +114,7 @@ public class CustomerWindow extends UiPart<Stage> {
         email.setText("Email: " + customer.getEmail());
         address.setText("Address: " + customer.getAddress());
         // Map
-        String addressString = String.format(MAPS_WRAPPER,
-                URLEncoder.encode(customer.getAddress().value, StandardCharsets.UTF_8),
-                new String(Base64.getDecoder().decode(CODED)));
-        map.getEngine().loadContent(String.format(WEBVIEW_WRAPPER, addressString));
+        map.getEngine().loadContent(String.format(WEBVIEW_WRAPPER,
+                Map.getAddressString(customer.getAddress().value)));
     }
 }

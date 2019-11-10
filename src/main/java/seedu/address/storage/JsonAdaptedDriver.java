@@ -22,6 +22,7 @@ import seedu.address.model.tag.Tag;
 public class JsonAdaptedDriver extends JsonAdaptedPerson {
 
     public static final String INVALID_INTEGER_ID = "Driver has a invalid integer id.";
+    public static final String INVALID_RATING_DETAILS = "Driver has invalid rating details";
 
     private final String driverId;
     private final String rating;
@@ -74,18 +75,21 @@ public class JsonAdaptedDriver extends JsonAdaptedPerson {
         if (!Customer.isValidId(driverId)) {
             throw new IllegalValueException(String.format(INVALID_INTEGER_ID));
         }
-        final int modeDriverId = Integer.parseInt(driverId);
+        final int modelDriverId = Integer.parseInt(driverId);
 
-        Driver driver = new Driver(modeDriverId, modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        Driver driver = new Driver(modelDriverId, modelName, modelPhone, modelEmail, modelAddress, modelTags);
 
         if (rating == null || totalNoOfReviews == null) {
             return driver;
         }
 
-        final int modeDriverRating = Integer.parseInt(rating);
-        final int modeDriverNoOfReviews = Integer.parseInt(totalNoOfReviews);
-
-        driver.setRating(modeDriverRating, modeDriverNoOfReviews);
+        try {
+            final int modelDriverRating = Integer.parseInt(rating);
+            final int modelDriverNoOfReviews = Integer.parseInt(totalNoOfReviews);
+            driver.setRating(modelDriverRating, modelDriverNoOfReviews);
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException(String.format(INVALID_RATING_DETAILS));
+        }
 
         return driver;
     }
