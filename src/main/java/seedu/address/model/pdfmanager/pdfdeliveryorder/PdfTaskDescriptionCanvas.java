@@ -6,6 +6,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 
@@ -43,6 +44,7 @@ public class PdfTaskDescriptionCanvas extends PdfCanvasLayout {
 
         //insertBorder();
         canvas.add(table);
+        canvas.add(new Paragraph("CONDITION"));
 
         canvas.close();
     }

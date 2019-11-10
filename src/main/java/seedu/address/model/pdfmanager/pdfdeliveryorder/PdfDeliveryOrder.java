@@ -20,6 +20,7 @@ public class PdfDeliveryOrder {
     public static final Rectangle CUSTOMER_HOLDER = new Rectangle(30, 550, 260, 120);
     public static final Rectangle DELIVERY_NUMBER_HOLDER = new Rectangle(400, 550, 150, 145);
     public static final Rectangle TASK_DESCRIPTION_HOLDER = new Rectangle(30, 290, 520, 250);
+    public static final Rectangle TERMS_AND_CONDITIONS_HOLDER = new Rectangle(30, 230, 520, 60);
 
     private PdfDocument pdfDocument;
     private List<Task> tasks;
@@ -43,7 +44,8 @@ public class PdfDeliveryOrder {
                     new PdfCompanyCanvas(pdfCanvas, pdfDocument, COMPANY_HOLDER, company),
                     new PdfCustomerCanvas(pdfCanvas, pdfDocument, CUSTOMER_HOLDER, task.getCustomer()),
                     new PdfDeliveryNumberCanvas(pdfCanvas, pdfDocument, DELIVERY_NUMBER_HOLDER, task),
-                    new PdfTaskDescriptionCanvas(pdfCanvas, pdfDocument, TASK_DESCRIPTION_HOLDER, task));
+                    new PdfTaskDescriptionCanvas(pdfCanvas, pdfDocument, TASK_DESCRIPTION_HOLDER, task),
+                    new PdfConditionsCanvas(pdfCanvas, pdfDocument, TERMS_AND_CONDITIONS_HOLDER));
 
             allCanvas.forEach(PdfCanvasLayout::generate);
 
