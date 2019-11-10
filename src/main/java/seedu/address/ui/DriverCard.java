@@ -23,26 +23,16 @@ public class DriverCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
     private Label driverId;
     @FXML
     private Label availability;
-    @FXML
-    private Label rating;
 
     public DriverCard(Driver driver, int displayedIndex) {
         super(FXML);
         this.driver = driver;
         id.setText(displayedIndex + ". ");
         name.setText(driver.getName().fullName);
-        phone.setText("Phone: " + driver.getPhone().value);
         driverId.setText("Driver ID: #" + driver.getId());
-        if (driver.getRating() == 0) {
-            rating.setText("Driver Rating: Not rated yet");
-        } else {
-            rating.setText("Driver Rating: " + driver.getRating() + "/5");
-        }
         if (driver.getSchedule().toString().equals(Schedule.MESSAGE_EMPTY_SCHEDULE)) {
             availability.setText("Unavailable Time: Available all times");
         } else {
