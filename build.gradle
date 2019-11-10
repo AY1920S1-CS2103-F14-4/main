@@ -67,6 +67,9 @@ dependencies {
 
     //for pdf file usage
     implementation group: 'com.itextpdf', name: 'itext7-core', version: '7.1.8'
+
+    //for map usage
+    implementation group: 'com.lynden', name: 'GMapsFX', version: '2.11.0'
 }
 
 shadowJar {
