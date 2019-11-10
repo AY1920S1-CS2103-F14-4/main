@@ -108,7 +108,7 @@ public class SavePdfCommand extends Command {
             model.generateTaskSummaryPdf(filePathWithDate, dateOfDelivery);
         } else {
             //delivery order
-            //model.generateDeliverOrderPdf(filePathWithDate, dateOfDelivery);
+            model.generateDeliveryOrderPdf(filePathWithDate, dateOfDelivery);
         }
     }
 

@@ -31,5 +31,5 @@ public class Messages {
     //for generate pdf
     public static final String MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE = "There's no assigned tasks for %1$s.";
     public static final String MESSAGE_NO_INCOMPLETE_OR_ASSIGNED_TASKS_FOR_THE_DATE =
-            "There's no incomplete or On-going tasks for %1$s.";
+            "There's no incomplete or on-going tasks for %1$s.";
 }

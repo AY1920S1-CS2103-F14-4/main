@@ -310,13 +310,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String documentType} into a
-     * @param documentType
-     * @return
+     * Parses a {@code String documentType} and checks if it is representing a valid document type.
      */
     public static String parsePdfDocumentType(String documentType) throws ParseException {
         requireNonNull(documentType);
-        String trimmedDocumentType = documentType.trim();
+        String trimmedDocumentType = documentType.trim().toLowerCase();
         if (!isValidDocument(trimmedDocumentType)) {
             throw new ParseException(PdfManager.MESSAGE_CONSTRAINTS);
         }

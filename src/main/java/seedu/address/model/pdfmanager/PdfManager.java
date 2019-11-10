@@ -25,12 +25,6 @@ public class PdfManager {
             + PDF_DELIVERY_ORDER + " - generates a Pdf Delivery order.";
     private static final List<String> documentTypes = List.of(PDF_SUMMARY, PDF_DELIVERY_ORDER);
 
-    private final String filePath;
-
-    public PdfManager(String filePath) {
-        this.filePath = filePath;
-    }
-
     public static boolean isValidDocument(String documentType) {
         return documentTypes.contains(documentType);
     }
@@ -44,8 +38,8 @@ public class PdfManager {
      * @throws IOException if file cannot be saved or file is in used.
      * @throws PdfNoTaskToDisplayException if there is no tasks to display for the specific date.
      */
-    public void generateTaskSummary(List<Task> tasks, List<Driver> drivers, LocalDate date) throws IOException,
-            PdfNoTaskToDisplayException {
+    public static void generateTaskSummary(String filePath, List<Task> tasks, List<Driver> drivers, LocalDate date)
+            throws IOException, PdfNoTaskToDisplayException {
         if (tasks.isEmpty()) {
             String errorMessage = String.format(MESSAGE_NO_ASSIGNED_TASK_FOR_THE_DATE, date);
             throw new PdfNoTaskToDisplayException(errorMessage);
@@ -62,7 +56,8 @@ public class PdfManager {
      * @param date date of delivery.
      * @param company an organisation.
      */
-    public void generateDeliveryOrder(List<Task> tasks, LocalDate date, Company company) {
+    public static void generateDeliveryOrder(String filePath, List<Task> tasks, LocalDate date, Company company)
+            throws IOException, PdfNoTaskToDisplayException {
         if (tasks.isEmpty()) {
             String errorMessage = String.format(MESSAGE_NO_INCOMPLETE_OR_ASSIGNED_TASKS_FOR_THE_DATE, date);
             throw new PdfNoTaskToDisplayException(errorMessage);

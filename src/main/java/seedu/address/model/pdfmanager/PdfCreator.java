@@ -5,10 +5,18 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
 
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.BorderRadius;
+import com.itextpdf.layout.property.UnitValue;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.company.Company;
 import seedu.address.model.person.Driver;
@@ -48,25 +56,34 @@ public class PdfCreator {
      * @param tasks incomplete and assigned tasks.
      * @param company an organisation.
      */
-    public void generateDeliveryOrderPdf(List<Task> tasks, Company company) {
+    public void generateDeliveryOrderPdf(List<Task> tasks, Company company) throws IOException {
+        PdfDocument pdfDocument = createPdfDocument();
+        insertDeliveryOrders(pdfDocument, tasks, company);
 
+        //close to save
+        pdfDocument.close();
     }
 
     private void createFileIfMissing() throws IOException {
         FileUtil.createIfMissing(Paths.get(filePath));
     }
 
+    private PdfDocument createPdfDocument() throws IOException {
+        createFileIfMissing();
+        PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
+
+        return pdf;
+    }
+
     /**
-     * Creates a PDF document.
+     * Creates a document in the PDF file.
      *
      * @return PDF document ready to be filled with content.
      * @throws IOException if file path is not created or found.
      */
     private Document createDocument() throws IOException {
-        createFileIfMissing();
-
-        PdfDocument pdf = new PdfDocument(new PdfWriter(filePath));
-        Document newDocument = new Document(pdf);
+        PdfDocument pdfDocument = createPdfDocument();
+        Document newDocument = new Document(pdfDocument);
         newDocument.setMargins(30, 30, 30, 30);
 
         return newDocument;
@@ -90,5 +107,9 @@ public class PdfCreator {
     private void insertDriverTask(Document document, List<Task> tasks, List<Driver> drivers, LocalDate dateOfDelivery) {
         PdfWrapperLayout wrapperLayout = new PdfWrapperLayout(document);
         wrapperLayout.populateDocumentWithTasks(tasks, drivers, dateOfDelivery);
+    }
+
+    private void insertDeliveryOrders(PdfDocument pdfDocument, List<Task> tasks, Company company) {
+
     }
 }

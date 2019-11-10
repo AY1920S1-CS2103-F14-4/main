@@ -358,8 +358,7 @@ public class ModelManager implements Model {
         List<Driver> drivers = TaskManager.getDriversFromTasks(assignedTaskOnDateList);
         List<Driver> driversSortedByName = DriverManager.getDriversSortedByName(drivers);
 
-        PdfManager pdfManager = new PdfManager(filePath);
-        pdfManager.generateTaskSummary(tasksSortedByEventTime, driversSortedByName, dateOfDelivery);
+        PdfManager.generateTaskSummary(filePath, tasksSortedByEventTime, driversSortedByName, dateOfDelivery);
     }
 
     /**
@@ -376,8 +375,7 @@ public class ModelManager implements Model {
 
         List<Task> incompleteAndAssignedTasks = TaskManager.getNotCompletedTasks(taskManager.getList(), dateOfDelivery);
 
-        PdfManager pdfManager = new PdfManager(filePath);
-        pdfManager.generateDeliveryOrder(incompleteAndAssignedTasks, dateOfDelivery, getCompany());
+        PdfManager.generateDeliveryOrder(filePath, incompleteAndAssignedTasks, dateOfDelivery, getCompany());
     }
 
     // =========== Company ===================================================================================
