@@ -37,7 +37,7 @@ public class PdfCompanyCanvas extends PdfCanvasLayout {
      * Generates a layout of the company information.
      */
     public void generate() {
-        Table table = new Table(1).setFixedLayout();
+        Table table = new Table(1).setFixedLayout().useAllAvailableWidth();
         Cell companyName = getCompanyName(company.getName());
         Cell companyInformation = getCompanyInformation(company.getAddress(), company.getPhone(),
                 company.getFax(), company.getEmail(), company.getRegistrationNumber(),
@@ -56,6 +56,8 @@ public class PdfCompanyCanvas extends PdfCanvasLayout {
 
         //styling
         companyName.setFontSize(TITLE_FONT_SIZE);
+        companyName.setBold();
+        companyName.setTextAlignment(TextAlignment.CENTER);
 
         return companyName;
     }

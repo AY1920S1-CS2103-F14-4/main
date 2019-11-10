@@ -66,7 +66,8 @@ public class SavePdfCommand extends Command {
     }
 
     //temp
-    public SavePdfCommand(Optional<LocalDate> date, String filePath) {
+    public SavePdfCommand(String documentType, Optional<LocalDate> date, String filePath) {
+        this.documentType = documentType;
         this.date = date;
         this.filePath = filePath;
     }

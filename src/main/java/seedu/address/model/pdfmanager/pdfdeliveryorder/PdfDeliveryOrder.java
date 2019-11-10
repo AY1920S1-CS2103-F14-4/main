@@ -16,12 +16,13 @@ import seedu.address.model.task.Task;
 public class PdfDeliveryOrder {
 
     //A4 size is 595 x 842
-    public static final Rectangle COMPANY_HOLDER = new Rectangle(30, 710, 520, 120);
+    public static final Rectangle COMPANY_HOLDER = new Rectangle(30, 705, 520, 120);
     public static final Rectangle CUSTOMER_HOLDER = new Rectangle(30, 555, 260, 120);
     public static final Rectangle DELIVERY_NUMBER_HOLDER = new Rectangle(400, 555, 150, 125);
     public static final Rectangle TASK_DESCRIPTION_HOLDER = new Rectangle(30, 290, 520, 250);
     public static final Rectangle TERMS_AND_CONDITIONS_HOLDER = new Rectangle(30, 230, 520, 60);
-    public static final Rectangle SIGNATURE_HOLDER = new Rectangle(30, 25, 260, 140);
+    public static final Rectangle SIGNATURE_HOLDER = new Rectangle(30, 25, 240, 140);
+    public static final Rectangle COMPANY_SIGNATURE_HOLDER = new Rectangle(305, 25, 240, 140);
 
     private PdfDocument pdfDocument;
     private List<Task> tasks;
@@ -47,7 +48,8 @@ public class PdfDeliveryOrder {
                     new PdfDeliveryNumberCanvas(pdfCanvas, pdfDocument, DELIVERY_NUMBER_HOLDER, task),
                     new PdfTaskDescriptionCanvas(pdfCanvas, pdfDocument, TASK_DESCRIPTION_HOLDER, task),
                     new PdfConditionsCanvas(pdfCanvas, pdfDocument, TERMS_AND_CONDITIONS_HOLDER),
-                    new PdfCustomerSignatureLayout(pdfCanvas, pdfDocument, SIGNATURE_HOLDER));
+                    new PdfCustomerSignatureLayout(pdfCanvas, pdfDocument, SIGNATURE_HOLDER),
+                    new PdfCompanySignatureCanvas(pdfCanvas, pdfDocument, COMPANY_SIGNATURE_HOLDER, company));
 
             allCanvas.forEach(PdfCanvasLayout::generate);
 
