@@ -113,55 +113,59 @@ Edits the customer and date of delivery of the task (Task ID: 5) to be `Customer
 j
 
 // tag::suggest-command[]
-==== Scheduling a task: `suggest`
+==== Automatically scheduling a task: `suggest`
 
-Suggest +
-Format: `assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM`
+Find the most suitable driver and an available time slot to schedule a task, based on the following rules.
+
+* If there are drivers who deliver to the same customer as the one in this task, the driver who has the earliest available time slot for this task will be selected
+* If the above rule fails to select a driver, the system will choose among all drivers, and find the driver who has the earliest available time slot for the task.
+
+Format: `suggest HOURS t/TASK_ID`
 
 ****
-* You cannot assign a time that clashes with the driver's existing schedule, or is outside their working hours
-* If there is an earlier time slot that the driver is available,
-the program will suggest the earlier time slot +
-    - Use `assign force` to dismiss the suggestion and add the proposed time to the task
-* The ID is a positive integer
+* The `HOURS` field is in the format of `hh:MM` or in decimal format. For example, one and a half hours can either be `1:30` or `1.5`.
+* The `TASK_ID` is a positive integer, and the task must exist in the Incomplete Tasks.
+* Use the `assign` command if you want to assign the task to a specific driver at a specific time.
 ****
 
 Examples:
 
-* `assign t/1 d/1 at/900-1200` +
-Schedule task #1 from 11 am to 12 pm, and assign it to driver #1.
+* `suggest 2 t/1` + 
+Find the best driver, using the rules above, who has a two-hour time slot to deliver Task #1.
 
-* `assign force t/2 d/1 at/1600-1700` +
-Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1 regardless the existence of an earlier time slot.
+* `suggest 1:20 t/2` + 
+Find the best driver, using the rules above, who is available for 1 hour and 20 minutes to deliver Task #2.
+
 // end::suggest-command[]
 
 
 // tag::assign-command[]
-==== Assign a task to a driver: `assign`
+==== Manually assigning a task: `assign`
 
-Assign an existing task a driver with a proposed time. +
+Assign a driver to a task with a proposed time. +
 Format: `assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM`
 
 ****
 * You cannot assign a time that clashes with the driver's existing schedule, or is outside their working hours
 * If there is an earlier time slot that the driver is available,
-the program will suggest the earlier time slot +
-    - Use `assign force` to dismiss the suggestion and add the proposed time to the task
-* The ID is a positive integer
+the program will suggest the earlier time slot 
+* Use `assign force` to overwrite a task which already has a driver and a scheduled time 
+* The `TASK_ID` is a positive integer, and the task must exist in the Incomplete Tasks.
+* The `DRIVER_ID` is a positive integer, and the driver must exist in the driver list.
 ****
 
 Examples:
 
 * `assign t/1 d/1 at/900-1200` +
-Schedule task #1 from 11 am to 12 pm, and assign it to driver #1.
+Schedule Task #1 from 9 am to 12 pm, and assign it to Driver #1.
 
 * `assign force t/2 d/1 at/1600-1700` +
-Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1 regardless the existence of an earlier time slot.
+Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1, regardless whether the task is already assigned.
 // end::assign-command[]
 
 
 // tag::free-command[]
-==== Unschedule a task: `free`
+==== Removing assigned driver from a task: `free`
 
 Remove the time slot and driver from a task, and free the driver from this time slot in their schedule. +
 Format: `free t/TASK_ID`
