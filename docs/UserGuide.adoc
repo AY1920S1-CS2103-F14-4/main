@@ -110,6 +110,31 @@ Examples:
 Edits the description of the task (Task ID: 3) to be `50 frozen boxes of catfish`.
 * `editT 5 c/2 dt/10/12/2019` +
 Edits the customer and date of delivery of the task (Task ID: 5) to be `Customer (Customer ID: 2)` and `10/12/2019` respectively.
+j
+
+// tag::suggest-command[]
+==== Scheduling a task: `suggest`
+
+Suggest +
+Format: `assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM`
+
+****
+* You cannot assign a time that clashes with the driver's existing schedule, or is outside their working hours
+* If there is an earlier time slot that the driver is available,
+the program will suggest the earlier time slot +
+    - Use `assign force` to dismiss the suggestion and add the proposed time to the task
+* The ID is a positive integer
+****
+
+Examples:
+
+* `assign t/1 d/1 at/900-1200` +
+Schedule task #1 from 11 am to 12 pm, and assign it to driver #1.
+
+* `assign force t/2 d/1 at/1600-1700` +
+Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1 regardless the existence of an earlier time slot.
+// end::suggest-command[]
+
 
 // tag::assign-command[]
 ==== Assign a task to a driver: `assign`
