@@ -63,7 +63,7 @@ public class DriverRating {
         if (this.totalNoOfReviews == 0) {
             return String.valueOf(0);
         }
-        return String.valueOf(this.totalRating / this.totalNoOfReviews);
+        return String.format("%.2s", String.valueOf(this.totalRating / this.totalNoOfReviews));
     }
 
 }
