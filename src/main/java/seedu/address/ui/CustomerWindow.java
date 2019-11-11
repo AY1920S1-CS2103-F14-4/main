@@ -12,7 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Customer;
 
 /**
- * Controller for a help page
+ * Controller for a customer window
  */
 public class CustomerWindow extends UiPart<Stage> {
 
@@ -50,14 +50,14 @@ public class CustomerWindow extends UiPart<Stage> {
     }
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new Customer Window.
      */
     public CustomerWindow() {
         this(new Stage());
     }
 
     /**
-     * Shows the help window.
+     * Shows the Customer window.
      * @throws IllegalStateException
      * <ul>
      *     <li>

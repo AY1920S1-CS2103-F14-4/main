@@ -10,7 +10,7 @@ import seedu.address.model.person.Driver;
 import seedu.address.model.person.Schedule;
 
 /**
- * Controller for a help page
+ * Controller for a customer window.
  */
 public class DriverWindow extends UiPart<Stage> {
 
