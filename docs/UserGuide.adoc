@@ -29,22 +29,55 @@ Deliveria is a *desktop application* that allows a *delivery manager* to *manage
 .UI
 image::Ui.png[Ui]
 [caption="Figure 1: ",link="Ui.png"]
+
+=== Installing
 . Ensure you have Java 11 or above installed in your Computer.
-. Download the latest release deliveria.jar https://github.com/AY1920S1-CS2103T-F14-4/main/releases[here].
-. Copy the file to the folder you want to use as the home folder for your Address Book.
+. Download the latest release https://github.com/AY1920S1-CS2103T-F14-4/main/releases[here].
+. Copy the file to the folder you want to use as the home folder for your Deliveria.
 . Double-click the file to start the app. The GUI should appear in a few seconds.
-. Type the command in the command box and press Enter to execute it.
-e.g. typing help and pressing Enter will open the help window.
-. Some example commands you can try
-* Lists all contacts: `list`
 
-* Adds a contact named John Doe to the Address Book: `Add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 
-* Deletes the 3rd contact shown in the current list: `Delete 3`
+=== Scheduling Your First Task
+Now you are in! We have prepared a few sample customers and drivers for you to play around.
 
-* Exits the app: `exit`
+On a busy day, you might be having many orders coming in, and you want to get your drivers busy delivering them. Let's
+go through the process of creating and assigning a task.
 
-. Refer to <<Features>>  for details of each command.
+* Create a new task by typing `addT g/20 boxes of utensils c/1 dt/22/11/2019` in the command box. You need to substitute `22/11/2019` with the
+date today. Press Enter to execute the command.
+* You can see the newly created task in the Incomplete Delivery Task box:
+
+
+image::user-guide/adding-task.png[width=50%, scaledwidth=12cm, align="center"]
+
+[NOTE]
+Take note of the Task ID (i.e. #6), which is used to refer to this task.
+
+* Execute command `suggest 2 t/6`, where
+- `2` is the number of hours that you estimate this task will take to complete
+- `6` is the ID of the task that you want to assign
+
+* You can see Task #6 is assigned to Aloysius Chan at 2:00PM - 4:00PM
+
+image::user-guide/suggest-task.png[width=70%, scaledwidth=12cm, align="center"]
+
+[NOTE]
+We will optimize the driver and the time based on the drivers' availability and the task. Learn more about the rule in <<Automatically scheduling a task: `suggest`>>
+
+* If you are not satisfied with the suggestion, you can overwrite it by typing `assign force t/6 d/1 at/1500 - 1600`, where:
+- `6` is the Task ID
+- `1` is the Driver ID
+- `1500 - 1600` is the time that you want to change to
+
+[NOTE]
+Learn more about the `assign` command in <<Manually assigning a task: `assign`>>
+
+* We now have rescheduled the task to 3-4 pm.
+
+image::user-guide/reschedule-task.png[width=70%, scaledwidth=12cm, align="center"]
+
+
+You have created and scheduled your first task! Refer to <<Features>>  for details of each command.
 
 [[Features]]
 == Features
