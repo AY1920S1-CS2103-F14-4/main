@@ -26,7 +26,7 @@ _
 
 * *Minor enhancement*: added a Driver rating system and a notification window that shows incomplete tasks from previous days.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=samyj2606&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=tysng&tabRepo=AY1920S1-CS2103T-F14-4%2Fmain%5Bmaster%5D%5BRepoSense%5D[Link]]
 
 * *Other contributions*:
 
