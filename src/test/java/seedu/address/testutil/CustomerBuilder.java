@@ -7,6 +7,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.util.SampleDataUtil;
 
+/**
+ * A utility class to help with building Customer objects.
+ */
 public class CustomerBuilder extends PersonBuilder {
 
     public static final int DEFAULT_CUSTOMER_ID = 69;

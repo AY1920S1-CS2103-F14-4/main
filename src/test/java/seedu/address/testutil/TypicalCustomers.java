@@ -17,9 +17,7 @@ import java.util.List;
 
 import seedu.address.model.CustomerManager;
 import seedu.address.model.EntityManager;
-import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.person.Customer;
-import seedu.address.model.person.Person;
 
 /**
  * A utility class containing a list of {@code Customer} objects to be used in tests.
