@@ -26,11 +26,10 @@
 <li><a href="#task-feature-e-g-add-delivery-task">3.2. Task Feature (E.g. Add Delivery Task)</a></li>
 <li><a href="#generate-pdf-task-summary-feature">3.3. Generate PDF Task Summary Feature</a></li>
 <li><a href="#proposed-undo-redo-feature">3.4. [Proposed] Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.5. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.6. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
-<li><a href="#customer-feature-e-g-add-customer">3.8. Customer Feature (E.g. Add Customer)</a></li>
-<li><a href="#driver-feature-e-g-add-driver">3.9. Driver Feature (E.g. Add Driver)</a></li>
+<li><a href="#logging">3.5. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
+<li><a href="#customer-feature">3.7. Customer Feature</a></li>
+<li><a href="#driver-feature">3.8. Driver Feature</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -229,13 +228,13 @@ The following class plays an important role at the architecture level:</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call.</p>
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("del t/1")</code> API call.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/DeleteSequenceDiagram.png" alt="DeleteSequenceDiagram">
 </div>
-<div class="title">Figure 6. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
+<div class="title">Figure 6. Interactions Inside the Logic Component for the <code>del t/1</code> Command</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -244,7 +243,7 @@ The following class plays an important role at the architecture level:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The lifeline for <code>DeleteCommandParser</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+The lifeline for <code>DeleteIdCommandParser</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </td>
 </tr>
 </table>
@@ -851,20 +850,14 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.5. [Proposed] Data Encryption</a></h3>
-<div class="paragraph">
-<p><em>{Explain here how the data encryption feature will be implemented}</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -895,20 +888,22 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="customer-feature-e-g-add-customer"><a class="link" href="#customer-feature-e-g-add-customer">3.8. Customer Feature (E.g. Add Customer)</a></h3>
+<h3 id="customer-feature"><a class="link" href="#customer-feature">3.7. Customer Feature</a></h3>
 <div class="sect3">
-<h4 id="implementation-5"><a class="link" href="#implementation-5">3.8.1. Implementation</a></h4>
+<h4 id="add-customer"><a class="link" href="#add-customer">3.7.1. Add Customer</a></h4>
+<div class="sect4">
+<h5 id="implementation-5"><a class="link" href="#implementation-5">Implementation</a></h5>
 <div class="paragraph">
 <p>The <strong>Add Customer</strong> feature adds a new Customer into a Customer list.<br>
 It uses the <code>AddCustomerCommand</code>, which extends <code>Command</code>, to add a <code>Customer</code> into the <code>CustomerManager</code>.
 <code>AddCustomerCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>AddCustomerCommand</code> to execute.
-'AddCustomerCommand' requires the following fields: <code>Customer</code>.
+<code>AddCustomerCommand</code> requires the following fields: <code>Customer</code>.
 The attributes of Task is as follows:</p>
 </div>
 <div class="imageblock">
@@ -932,47 +927,14 @@ A unique id will also be allocated to the Customer for differentiation.</p>
 <div class="title">Figure 17. Sequence Diagram of adding a task.</div>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="driver-feature-e-g-add-driver"><a class="link" href="#driver-feature-e-g-add-driver">3.9. Driver Feature (E.g. Add Driver)</a></h3>
-<div class="sect3">
-<h4 id="implementation-6"><a class="link" href="#implementation-6">3.9.1. Implementation</a></h4>
-<div class="paragraph">
-<p>The <strong>Add Driver</strong> feature adds a new Driver into a Driver list.<br>
-It uses the <code>AddDriverCommand</code>, which extends <code>Command</code>, to add a <code>Driver</code> into the <code>DriverManager</code>.
-<code>AddDriverCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>AddCustomerCommand</code> to execute.
-'AddDriverCommand' requires the following fields: <code>Driver</code>.
-The attributes of Driver is as follows:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/Driver.png" alt="Driver">
-</div>
-<div class="title">Figure 18. Class Diagram of Driver class.</div>
-</div>
-<div class="paragraph">
-<p>As seen in the above class diagram, the <code>id</code> field is not required when adding a driver.
-The mandatory fields for users are: <code>name</code>, <code>phone</code>, <code>email</code>, <code>address</code>.
-A unique id will also be allocated to the Driver for differentiation.</p>
-</div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the add driver operation works:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/AddDriverCommand.png" alt="AddDriverCommand">
-</div>
-<div class="title">Figure 19. Sequence Diagram of adding a task.</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.9.2. Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-usage-of-universal-command-word"><a class="link" href="#aspect-usage-of-universal-command-word">Aspect: Usage of universal Command word</a></h5>
+<h5 id="design-considerations-5"><a class="link" href="#design-considerations-5">Design Considerations</a></h5>
+<div class="sect5">
+<h6 id="aspect-usage-of-universal-command-word"><a class="link" href="#aspect-usage-of-universal-command-word">Aspect: Usage of universal Command word</a></h6>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Have a individual command word for add task (<code>addT</code>, <code>addC</code>, <code>addD</code>)</p>
+<p><strong>Alternative 1 (current choice):</strong> Have a individual command word for adding customer. (<code>addC</code>)</p>
 <div class="ulist">
 <ul>
 <li>
@@ -993,6 +955,209 @@ A unique id will also be allocated to the Driver for differentiation.</p>
 </li>
 <li>
 <p>Cons: Have to handle different type of parameters and some parameters of commands are overlap which requires more validation.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="view-customer-window"><a class="link" href="#view-customer-window">3.7.2. View Customer Window</a></h4>
+<div class="sect4">
+<h5 id="implementation-6"><a class="link" href="#implementation-6">Implementation</a></h5>
+<div class="paragraph">
+<p>The <strong>View Customer Window</strong> retrieves the details of a Customer and displays it in a separate window.<br>
+It uses the <code>ViewCustomerWindowCommand</code>, which extends <code>Command</code>, to return a <code>CommandResult</code> with a boolean value <code>viewCustomer</code> as true.
+<code>ViewCustomerWindowCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>ViewCustomerWindowCommand</code> to execute.
+<code>ViewCustomerWindowCommand</code> requires the following fields:`customerId`.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A working internet connection and a valid address is needed for the map to show in the window.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the user command <code>viewCW</code> is being executed and handled.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ViewCustomerWindowSequenceDiagram.png" alt="ViewCustomerWindowSequenceDiagram">
+</div>
+<div class="title">Figure 18. Sequence Diagram of opening a View Customer window.</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="design-considerations-6"><a class="link" href="#design-considerations-6">Design Considerations</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="aspect-2"><a class="link" href="#aspect-2">Aspect:</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Show full details of customer in separate window.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Unnecessary details of driver clutters up the UI. This cleans up the UI allowing the card to only show
+all essential details. Allow the space for working map showing the location of the customer&#8217;s address.</p>
+</li>
+<li>
+<p>Cons: Harder to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Show full details of driver in a single card in main window.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easier to implement.</p>
+</li>
+<li>
+<p>Cons: Cards becomes too big when schedule information gets too long. Ui looks very cluttered. Unable to show the map of customer&#8217;s address.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="driver-feature"><a class="link" href="#driver-feature">3.8. Driver Feature</a></h3>
+<div class="sect3">
+<h4 id="add-driver"><a class="link" href="#add-driver">3.8.1. Add Driver</a></h4>
+<div class="sect4">
+<h5 id="implementation-7"><a class="link" href="#implementation-7">Implementation</a></h5>
+<div class="paragraph">
+<p>The <strong>Add Driver</strong> feature adds a new Driver into a Driver list.<br>
+It uses the <code>AddDriverCommand</code>, which extends <code>Command</code>, to add a <code>Driver</code> into the <code>DriverManager</code>.
+<code>AddDriverCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>AddCustomerCommand</code> to execute.
+<code>AddDriverCommand</code> requires the following fields: <code>Driver</code>.
+The attributes of Driver is as follows:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Driver.png" alt="Driver">
+</div>
+<div class="title">Figure 19. Class Diagram of Driver class.</div>
+</div>
+<div class="paragraph">
+<p>As seen in the above class diagram, the <code>id</code> field is not required when adding a driver.
+The mandatory fields for users are: <code>name</code>, <code>phone</code>, <code>email</code>, <code>address</code>.
+A unique id will also be allocated to the Driver for differentiation.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the add driver operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AddDriverCommand.png" alt="AddDriverCommand">
+</div>
+<div class="title">Figure 20. Sequence Diagram of adding a task.</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="design-considerations-7"><a class="link" href="#design-considerations-7">Design Considerations</a></h5>
+<div class="sect5">
+<h6 id="aspect-usage-of-universal-command-word-2"><a class="link" href="#aspect-usage-of-universal-command-word-2">Aspect: Usage of universal Command word</a></h6>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Have a individual command word for adding driver. (<code>addD</code>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement and increases clarity for users.</p>
+</li>
+<li>
+<p>Cons: Increases the number of commands.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Combine <code>AddDriverCommand</code> with other <code>add</code> commands</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Will use only 1 universal <code>add</code> command for adding any entities. (Task, Customer and Driver)</p>
+</li>
+<li>
+<p>Cons: Have to handle different type of parameters and some parameters of commands are overlap which requires more validation.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="view-driver-window"><a class="link" href="#view-driver-window">3.8.2. View Driver Window</a></h4>
+<div class="sect4">
+<h5 id="implementation-8"><a class="link" href="#implementation-8">Implementation</a></h5>
+<div class="paragraph">
+<p>The <strong>View Driver Window</strong> retrieves the details of a Driver and displays it in a separate window.<br>
+It uses the <code>ViewDriverWindowCommand</code>, which extends <code>Command</code>, to return a <code>CommandResult</code> with a boolean value <code>viewDriver</code> as true.
+<code>ViewDriverWindowCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>ViewDriverWindowCommand</code> to execute.
+<code>ViewDriverWindowCommand</code> requires the following fields:`driverId`.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the user command <code>viewDW</code> is being executed and handled.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ViewDriverWindowSequenceDiagram.png" alt="ViewDriverWindowSequenceDiagram">
+</div>
+<div class="title">Figure 21. Sequence Diagram of opening a View Driver window.</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="design-considerations-8"><a class="link" href="#design-considerations-8">Design Considerations</a></h5>
+
+</div>
+<div class="sect4">
+<h5 id="aspect-3"><a class="link" href="#aspect-3">Aspect:</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Show full details of driver in separate window.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Unnecessary details of driver clutters up the UI. This cleans up the UI allowing the card to only show
+all essential details.</p>
+</li>
+<li>
+<p>Cons: Harder to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Show full details of driver in a single card in main window.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easier to implement.</p>
+</li>
+<li>
+<p>Cons: Cards becomes too big when schedule information gets too long. Ui looks very cluttered.</p>
 </li>
 </ul>
 </div>
@@ -1462,4 +1627,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 13:22:01 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:08:29 UTC</div></div></div></body></html>
