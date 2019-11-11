@@ -57,6 +57,7 @@ public class PdfCompanyCanvas extends PdfCanvasLayout {
         //styling
         companyName.setFontSize(TITLE_FONT_SIZE);
         companyName.setBold();
+        companyName.setHeight(40);
         companyName.setTextAlignment(TextAlignment.CENTER);
 
         return companyName;

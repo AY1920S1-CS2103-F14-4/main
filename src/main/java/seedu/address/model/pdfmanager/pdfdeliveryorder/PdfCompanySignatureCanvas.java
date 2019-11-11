@@ -63,7 +63,7 @@ public class PdfCompanySignatureCanvas extends PdfCanvasLayout {
      * Creates label layout for company signature personnel.
      */
     private Cell createLabel(String label) {
-        Cell labelCell = createCell(1, 4, label);
+        Cell labelCell = createCell(4, 4, label);
 
         //styling
         labelCell.setBorderTop(new SolidBorder(0.5f));
@@ -72,10 +72,13 @@ public class PdfCompanySignatureCanvas extends PdfCanvasLayout {
         return labelCell;
     }
 
+    /**
+     * Fixes to cell height and center the content.
+     */
     private void styleCell(Cell cell) {
-        cell.setMinHeight(contentHolder.getHeight() / 2);
-        cell.setMarginTop(0);
         cell.setTextAlignment(TextAlignment.CENTER);
+        cell.setMaxHeight(contentHolder.getHeight() / 2);
+        cell.setMinHeight(contentHolder.getHeight() / 2);
     }
 
     private Cell spaceHolder() {

@@ -30,14 +30,16 @@ public class PdfCustomerCanvas extends PdfCanvasLayout {
      * Generates a layout of the customer information.
      */
     public void generate() {
-        Table table = new Table(1).setFixedLayout();
+        Table table = new Table(1).setFixedLayout().useAllAvailableWidth();
         Cell title = createTitle("Delivery Address:");
         Cell address = createAddress(customer.getAddress());
-        Cell customerInformation = createCustomerInformation(customer.getName(), customer.getPhone());
+        Cell name = createName(customer.getName());
+        Cell phone = createPhone(customer.getPhone());
 
         table.addCell(title);
         table.addCell(address);
-        table.addCell(customerInformation);
+        table.addCell(name);
+        table.addCell(phone);
         insertBorder();
 
         canvas.add(table);
@@ -54,7 +56,7 @@ public class PdfCustomerCanvas extends PdfCanvasLayout {
         //styling
         titleCell.setItalic();
         titleCell.setFontColor(ColorConstants.LIGHT_GRAY);
-        setPaddingLeftRight(titleCell);
+        styleCell(titleCell);
 
         return titleCell;
     }
@@ -67,39 +69,41 @@ public class PdfCustomerCanvas extends PdfCanvasLayout {
         //styling
         addressCell.setBold();
         addressCell.setUnderline();
-        addressCell.setHeight(40);
-        addressCell.setBorder(Border.NO_BORDER);
-        setPaddingLeftRight(addressCell);
+        styleCell(addressCell);
+        addressCell.setMaxHeight(40);
 
         return addressCell;
     }
 
     /**
-     * Creates customer information layout.
+     * Creates customer name layout.
      */
-    private Cell createCustomerInformation(Name name, Phone phone) {
-        StringBuilder customerInfo = new StringBuilder();
-        customerInfo.append(createName(name)).append("\n")
-                .append(createPhone(phone));
-        Cell customerCell = createCell(1, 1, customerInfo.toString());
-
-        //styling
-        setPaddingLeftRight(customerCell);
-        customerCell.setBorder(Border.NO_BORDER);
-
-        return customerCell;
+    private Cell createName(Name name) {
+        String nameStr = "Attn: " + name;
+        Cell nameCell = createCell(1, 1, nameStr);
+        styleCell(nameCell);
+        return nameCell;
     }
 
-    private String createName(Name name) {
-        return "Attn: " + name;
+    /**
+     * Creates customer's phone number layout.
+     */
+    private Cell createPhone(Phone phone) {
+        String phoneStr = "Tel No.: " + phone;
+        Cell phoneCell = createCell(1, 1, phoneStr);
+        styleCell(phoneCell);
+
+        return phoneCell;
     }
 
-    private String createPhone(Phone phone) {
-        return "Tel No.: " + phone;
-    }
-
-    private void setPaddingLeftRight(Cell cell) {
+    /**
+     * Fixes the cell height and introduce padding on the left and right of the cell.
+     */
+    private void styleCell(Cell cell) {
+        cell.setMarginBottom(0);
         cell.setPaddingLeft(5);
         cell.setPaddingRight(5);
+        cell.setBorder(Border.NO_BORDER);
+        cell.setMaxHeight(contentHolder.getHeight() / 4);
     }
 }
