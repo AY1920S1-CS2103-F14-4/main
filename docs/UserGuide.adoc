@@ -193,10 +193,10 @@ For example, one and a half hours can either be `1:30` or `1.5`.
 
 Examples:
 
-* `suggest 2 t/1` + 
+* `suggest 2 t/1` +
 Find the best driver, using the rules above, who has a two-hour time slot to deliver Task #1.
 
-* `suggest 1:20 t/2` + 
+* `suggest 1:20 t/2` +
 Find the best driver, using the rules above, who is available for 1 hour and 20 minutes to deliver Task #2.
 
 // end::suggest-command[]
