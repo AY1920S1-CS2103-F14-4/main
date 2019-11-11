@@ -186,7 +186,7 @@ optimised schedule, unless `force assign` is used.
 
 The following activity diagram summarizes the checks happened when user executes an `assign` command.
 
-image::AssignActivityDiagram.png[]
+image::AssignActivityDiagram.png[width=50%, scaledwidth=12cm, align="center"]
 
 After the above checks has passed, `assign` command will:
 
