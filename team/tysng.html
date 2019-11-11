@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="../images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="../index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">AddressBook-Level3</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="../LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/se-edu/addressbook-level3"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Song Tianyi - Project Portfolio</h1></div><div id="content"><div class="sect1">
 <h2 id="project-deliveria"><a class="link" href="#project-deliveria">PROJECT: Deliveria</a></h2>
 <div class="sectionbody">
-<hr>
+
 </div>
 </div>
 <div class="sect1">
@@ -14,6 +14,14 @@
 While it consists of a <em>Graphical User Interface</em> (GUI) that is user-friendly,
 Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>Command Line Interface</em> (CLI) which allows fast management of the delivery tasks in an organisation.</p>
 </div>
+<div class="paragraph">
+<p>Our team of four students worked on the software for the past two months. We started with the code base of <code>AddressBook Level 3</code>,
+an open-source JavaFX application for Software Engineering education purposes. Over the past months, we changed the AddressBook to
+suit the needs of our target users.</p>
+</div>
+<div class="paragraph">
+<p>We follow a semi-Agile approach, and we have released four milestones on a biweekly release schedule. The latest version is v1.4.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -22,20 +30,43 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added the feature to <strong>schedule delivery tasks</strong>, with <strong>automatic suggestions based on the driver&#8217;s existing schedule</strong></p>
+<p><strong>Major enhancement</strong>: added the feature to <strong>schedule delivery tasks</strong>, with <strong>automatic suggestions based on the driver&#8217;s existing schedule</strong> and <strong>task specifications</strong>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: allows the user to assign a driver to a task, and schedule this task to be completed in the future, without causing time clashes with the existing tasks of the driver</p>
+<p>What it does:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Allows the user to automatically schedule a task to be completed by a driver in the future, without causing time clashes with the existing tasks of the driver.</p>
 </li>
 <li>
-<p>Justification: This is a core feature of the product. By enabling this feature, we help the managers to better utilise the human resources, save time in planning the task, and deliver the orders with satisfaction</p>
+<p>Optimizes the driver and time slot allocated such that, the drivers&#8217;s schedules are fully utilised, and tasks that deliver to the same address are delivered by the same driver.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>Highlights: The command will automatically suggest a better time slot, so as to ensure that all drivers' schedules are the most optimised. At the same time, we are giving the managers the freedom to exercise their own judgement, and override the automatic stuggestions</p>
+<p>Justification: This is a core feature of the product. By enabling this feature, we help the managers to better utilise the human resources, save time in planning the task, and deliver the orders with satisfaction.</p>
 </li>
 <li>
-<p>Credits: The choice of a backing data structure is inspired by a CS2040 Practical Exam question</p>
+<p>Highlights: The command will automatically suggest the driver and a time for a task, so as to ensure that drivers' schedules are optimised on a company level. At the same time, we are giving the managers the freedom to exercise their own judgement, and override the automatic suggestions.</p>
+</li>
+<li>
+<p>Where to find it:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>User-facing command: <code>suggest</code>, <code>assign</code>, <code>free</code></p>
+</li>
+<li>
+<p>Logic-level component: <code>ScheduleOptimizer</code>, <code>Candidate</code></p>
+</li>
+<li>
+<p>Model-level component: <code>Schedule</code>, <code>EventTime</code>, <code>SchedulingSuggestion</code></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -45,19 +76,34 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 <div class="ulist">
 <ul>
 <li>
-<p>[TBC] added a feature to correct the user&#8217;s spelling mistakes in a command, by suggesting the most similar command word</p>
-</li>
+<p>Implemented a <code>GlobalClock</code> object for the ease of development, testing and debugging:</p>
+<div class="ulist">
+<ul>
 <li>
-<p>changed three existing classes to generic classes, so as to reduce 600+ lines of repetitive code</p>
+<p>by switching the <code>testEnv</code> in <code>config.json</code>, the user can freeze the time at a specific point, so that
+the time-based methods have deterministic behaviour</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Code contributed</strong>: [TBC] [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] <em>{give links to collated code files}</em></p>
+<p>Improved the presentation of the driver&#8217;s unavailable time in the GUI:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>instead of showing two connecting time (eg. <code>1500 - 1600, 1600 - 1700</code>), the program will concatenate the two connecting time and show as one (eg. <code>1500 - 1700</code>).</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><strong>Other contributions</strong>: [TBC]</p>
+<p><strong>Code contributed</strong>:  [<a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tysng&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabOpen=true&amp;tabType=authorship&amp;tabAuthor=tysng&amp;tabRepo=AY1920S1-CS2103T-F14-4%2Fmain%5Bmaster%5D">RepoSense</a>]</p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -65,7 +111,16 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 <div class="ulist">
 <ul>
 <li>
-<p>Managed releases <code>v1.3</code> - <code>v1.5rc</code> (3 releases) on GitHub</p>
+<p>Created the team repo, enabled Continuous Integration, Github Pages Deployment.</p>
+</li>
+<li>
+<p>Implemented code review policy and enabled branch protection rules, and worked on various work flow related chores to maintain a clean commit history.</p>
+</li>
+<li>
+<p>Spearheaded the feature planning (<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/projects/2">Brainstorming Board</a>, <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/projects/1">Dev Board</a>).</p>
+</li>
+<li>
+<p>Managed releases <code>v1.1</code> - <code>v1.4</code> (4 releases) on <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/releases">Github</a>.</p>
 </li>
 </ul>
 </div>
@@ -75,10 +130,7 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 <div class="ulist">
 <ul>
 <li>
-<p>Updated the GUI color scheme (Pull requests <a href="https://github.com">#33</a>, <a href="https://github.com">#34</a>)</p>
-</li>
-<li>
-<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests <a href="https://github.com">#36</a>, <a href="https://github.com">#38</a>)</p>
+<p>Changed three existing classes to generic classes, ie. <code>EntityManager&lt;T extends Person&gt;</code>, <code>ReadOnlyEntityManager&lt;T extends Person&gt;</code>, and <code>UniqueEntityList&lt;T extends Person&gt;</code>, so as to reduce 600+ lines of repetitive code (Pull Request <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/95">#95</a>).</p>
 </li>
 </ul>
 </div>
@@ -88,7 +140,7 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com">#14</a></p>
+<p>Updated User Guide, Developer Guide (Pull Request <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/236">#236</a>, <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/108">#108</a>)</p>
 </li>
 </ul>
 </div>
@@ -98,16 +150,13 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com">#12</a>, <a href="https://github.com">#32</a>, <a href="https://github.com">#19</a>, <a href="https://github.com">#42</a></p>
+<p>Reviewed more than 90% of the team members' pull requests: PR with non-trivial review comments: <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/91">#91</a>, <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/102">#102</a>, <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/115">#115</a></p>
 </li>
 <li>
-<p>Contributed to forum discussions (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>, <a href="https://github.com">4</a>)</p>
+<p>Contributed to forum discussions (Link:  <a href="https://github.com/nus-cs2103-AY1920S1/forum/issues/140#issuecomment-545887173">1</a>)</p>
 </li>
 <li>
-<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>)</p>
-</li>
-<li>
-<p>Some parts of the history feature I added was adopted by several other class mates (<a href="https://github.com">1</a>, <a href="https://github.com">2</a>)</p>
+<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com/tysng/ped/issues/6">1</a>, <a href="https://github.com/tysng/ped/issues/4">2</a>)</p>
 </li>
 </ul>
 </div>
@@ -117,10 +166,7 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 <div class="ulist">
 <ul>
 <li>
-<p>Integrated a third party library (Natty) to the project (<a href="https://github.com">#42</a>)</p>
-</li>
-<li>
-<p>Integrated a new Github plugin (CircleCI) to the team repo</p>
+<p>Written a <code>Makefile</code> to simplify the execution of unit testing and style checks (<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/62">#62</a>)</p>
 </li>
 </ul>
 </div>
@@ -130,9 +176,7 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><em>{you can add/remove categories in the list above}</em></p>
-</div>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div class="sect1">
@@ -148,10 +192,248 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 </tr>
 </tbody>
 </table>
-<div class="sect3">
-<h4 id="assign-a-task-to-a-driver-code-assign-code"><a class="link" href="#assign-a-task-to-a-driver-code-assign-code">Assign a task to a driver: <code>assign</code></a></h4>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getting-started"><a class="link" href="#getting-started">Getting Started</a></h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../images/Ui.png" alt="Ui">
+</div>
+<div class="title">Figure 1. UI</div>
+</div>
+<div class="sect2">
+<h3 id="installing"><a class="link" href="#installing">Installing</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure you have Java 11 or above installed in your Computer.</p>
+</li>
+<li>
+<p>Download the latest release <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/releases">here</a>.</p>
+</li>
+<li>
+<p>Copy the file to the folder you want to use as the home folder for your Deliveria.</p>
+</li>
+<li>
+<p>Double-click the file to start the app.
+The GUI should appear in a few seconds.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scheduling-your-first-task"><a class="link" href="#scheduling-your-first-task">Scheduling Your First Task</a></h3>
 <div class="paragraph">
-<p>Assign an existing task a driver with a proposed time.<br>
+<p>Now you are in!
+We have prepared a few sample customers and drivers for you to play around.</p>
+</div>
+<div class="paragraph">
+<p>On a busy day, you might be having many orders coming in, and you want to get your drivers busy delivering them.
+Let&#8217;s go through the process of creating and assigning a task.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a new task by typing <code>addT g/20 boxes of utensils c/1 dt/22/11/2019</code> in the command box.
+You need to substitute <code>22/11/2019</code> with the date today.
+Press Enter to execute the command.</p>
+</li>
+<li>
+<p>You can see the newly created task in the Incomplete Delivery Task box:</p>
+</li>
+</ul>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../images/user-guide/adding-task.png" alt="adding task" width="50%">
+</div>
+<div class="title">Figure 2. The new task shows up in the Incomplete Tasks box</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Take note of the Task ID (i.e. #6), which is used to refer to this task.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Execute command <code>suggest 2 t/6</code>, where</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>2</code> is the number of hours that you estimate this task will take to complete</p>
+</li>
+<li>
+<p><code>6</code> is the ID of the task that you want to assign</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>You can see Task #6 is assigned to Aloysius Chan at 2:00PM - 4:00PM</p>
+</li>
+</ul>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../images/user-guide/suggest-task.png" alt="suggest task" width="70%">
+</div>
+<div class="title">Figure 3. The task is successfully scheduled</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The suggested time slot will either start from now or in the future.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We will optimize the driver and the time based on the drivers' availability and the task.
+Learn more about the rule in <a href="#automatically-scheduling-a-task-code-suggest-code">Automatically scheduling a task: <code>suggest</code></a>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If you are not satisfied with the suggestion, you can overwrite it by typing <code>assign force t/6 d/1 at/1500 - 1600</code>, where:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>6</code> is the Task ID</p>
+</li>
+<li>
+<p><code>1</code> is the Driver ID</p>
+</li>
+<li>
+<p><code>1500 - 1600</code> is the time that you want to change to</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Learn more about the <code>assign</code> command in <a href="#manually-assigning-a-task-code-assign-code">Manually assigning a task: <code>assign</code></a>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We now have rescheduled the task to 3-4 pm.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../images/user-guide/reschedule-task.png" alt="reschedule task" width="70%">
+</div>
+<div class="title">Figure 4. The task is rescheduled</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The drivers, by default, works from 9 AM to 9 PM. You cannot assign a time beyond the working hours.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You have created and scheduled your first task!
+Refer to <a href="#Features">[Features]</a> for details of each command.</p>
+</div>
+<div class="sect3">
+<h4 id="automatically-scheduling-a-task-code-suggest-code"><a class="link" href="#automatically-scheduling-a-task-code-suggest-code">Automatically scheduling a task: <code>suggest</code></a></h4>
+<div class="paragraph">
+<p>Find the most suitable driver and an available time slot to schedule a task, based on the following rules.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If there are drivers who deliver to the same customer as the one in this task, the driver who has the earliest available time slot for this task will be selected.</p>
+</li>
+<li>
+<p>If the above rule fails to select a driver, the system will choose among all drivers, and find the driver who has the earliest available time slot for the task.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Format: <code>suggest HOURS t/TASK_ID</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>HOURS</code> field is in the format of <code>hh:MM</code> or in decimal format.
+For example, one and a half hours can either be <code>1:30</code> or <code>1.5</code>.</p>
+</li>
+<li>
+<p>The <code>TASK_ID</code> is a positive integer, and the task must exist in the Incomplete Tasks.</p>
+</li>
+<li>
+<p>Use the <code>assign</code> command if you want to assign the task to a specific driver at a specific time.</p>
+</li>
+<li>
+<p>The suggested time slot will only start from now or in the future.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>suggest 2 t/1</code><br>
+Find the best driver, using the rules above, who has a two-hour time slot to deliver Task #1.</p>
+</li>
+<li>
+<p><code>suggest 1:20 t/2</code><br>
+Find the best driver, using the rules above, who is available for 1 hour and 20 minutes to deliver Task #2.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="manually-assigning-a-task-code-assign-code"><a class="link" href="#manually-assigning-a-task-code-assign-code">Manually assigning a task: <code>assign</code></a></h4>
+<div class="paragraph">
+<p>Assign a driver to a task with a proposed time.<br>
 Format: <code>assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM</code></p>
 </div>
 <div class="sidebarblock">
@@ -159,21 +441,22 @@ Format: <code>assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>You cannot assign a time that clashes with the driver&#8217;s existing schedule, or is outside their working hours</p>
+<p>You cannot assign a time that clashes with the driver&#8217;s existing schedule, or is outside their working hours (9 AM - 9 PM)</p>
 </li>
 <li>
-<p>If there is an earlier time slot that the driver is available,
-the program will suggest the earlier time slot<br></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Use <code>assign force</code> to dismiss the suggestion and add the proposed time to the task</p>
-</li>
-</ul>
-</div>
+<p>You cannot propose a time slot that started in the past</p>
 </li>
 <li>
-<p>The ID is a positive integer</p>
+<p>If there is an earlier time slot that the driver is available, the program will suggest the earlier time slot</p>
+</li>
+<li>
+<p>Use <code>assign force</code> to overwrite a task which already has a driver and a scheduled time</p>
+</li>
+<li>
+<p>The <code>TASK_ID</code> is a positive integer, and the task must exist in the Incomplete Tasks.</p>
+</li>
+<li>
+<p>The <code>DRIVER_ID</code> is a positive integer, and the driver must exist in the driver list.</p>
 </li>
 </ul>
 </div>
@@ -186,17 +469,17 @@ the program will suggest the earlier time slot<br></p>
 <ul>
 <li>
 <p><code>assign t/1 d/1 at/900-1200</code><br>
-Schedule task #1 from 11 am to 12 pm, and assign it to driver #1.</p>
+Schedule Task #1 from 9 am to 12 pm, and assign it to Driver #1.</p>
 </li>
 <li>
 <p><code>assign force t/2 d/1 at/1600-1700</code><br>
-Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1 regardless the existence of an earlier time slot.</p>
+Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1, regardless whether the task is already assigned.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="unschedule-a-task-code-free-code"><a class="link" href="#unschedule-a-task-code-free-code">Unschedule a task: <code>free</code></a></h4>
+<h4 id="removing-assigned-driver-from-a-task-code-free-code"><a class="link" href="#removing-assigned-driver-from-a-task-code-free-code">Removing assigned driver from a task: <code>free</code></a></h4>
 <div class="paragraph">
 <p>Remove the time slot and driver from a task, and free the driver from this time slot in their schedule.<br>
 Format: <code>free t/TASK_ID</code></p>
@@ -223,6 +506,8 @@ Remove the assigned driver and time slot from the task, and free the driver&#821
 </li>
 </ul>
 </div>
+<div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 </div>
@@ -240,7 +525,7 @@ Remove the assigned driver and time slot from the task, and free the driver&#821
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="task-scheduling"><a class="link" href="#task-scheduling">Task Scheduling</a></h3>
+<h3 id="driver-level-task-scheduling"><a class="link" href="#driver-level-task-scheduling">Driver-Level Task Scheduling</a></h3>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
 <div class="ulist">
@@ -249,8 +534,7 @@ Remove the assigned driver and time slot from the task, and free the driver&#821
 <p>A <code>Schedule</code> should be a collection of non-overlapping <code>EventTime</code> object, and is always sorted</p>
 </li>
 <li>
-<p>Should be able to notify the user if a better time slot is available, while giving users the liberty to exercise
-their own judgments</p>
+<p>Should be able to notify the user if a better time slot is available, while giving users the liberty to exercise their own judgments</p>
 </li>
 </ul>
 </div>
@@ -261,13 +545,12 @@ their own judgments</p>
 <p>Every <code>Driver</code> keeps track of a <code>Schedule</code> class, which is backed by a naturally sorted, TreeSet of <code>EventTime</code> objects.</p>
 </div>
 <div class="paragraph">
-<p>Before a new <code>EventTime</code> is added to the schedule, the method checks against the set of object to ensure
-the addition will not result in overlapping <code>EventTime</code> in the schedule. This operation works in logarithmic time
-thanks to the tree structure.</p>
+<p>Before a new <code>EventTime</code> is added to the schedule, the method checks against the TreeSet of <code>EventTime</code> to ensure the addition will not result in overlapping <code>EventTime</code> in the schedule.
+This operation works in logarithmic time thanks to the tree structure.</p>
 </div>
 <div class="paragraph">
-<p>In order to better utilise a driver, we implement a method to suggest an earlier alternative
-time slot in a schedule. When adding a time to a schedule, this method will:</p>
+<p>In order to better utilise a driver, we implement a method to suggest an earlier alternative time slot in a schedule.
+When adding a time to a schedule, this method will:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -292,18 +575,17 @@ Since the schedule guarantees no overlapping <code>EventTime</code>, there is no
 </table>
 </div>
 <div class="paragraph">
-<p>In order to enforce the optimised scheduling method above, the program will block every <code>assign</code> command that has a
-suboptimal proposed time, unless the user uses the <code>force</code> argument. Moreover, the <code>assign</code> and <code>free</code> command are the
-only commands that modify the <code>Driver</code> and <code>EventTime</code> attributes of a <code>Task</code>, so that all drivers will have an
-optimised schedule, unless <code>force assign</code> is used.</p>
+<p>In order to enforce the optimised scheduling method above, the program will block every <code>assign</code> command that has a suboptimal proposed time, unless the user uses the <code>force</code> argument.
+Moreover, the <code>assign</code> and <code>free</code> command are the only commands that modify the <code>Driver</code> and <code>EventTime</code> attributes of a <code>Task</code>, so that all drivers will have an optimised schedule, unless <code>force assign</code> is used.</p>
 </div>
 <div class="paragraph">
 <p>The following activity diagram summarizes the checks happened when user executes an <code>assign</code> command.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="../images/AssignActivityDiagram.png" alt="AssignActivityDiagram">
+<img src="../images/AssignActivityDiagram.png" alt="AssignActivityDiagram" width="50%">
 </div>
+<div class="title">Figure 5. The Activity Diagram for assign command</div>
 </div>
 <div class="paragraph">
 <p>After the above checks has passed, <code>assign</code> command will:</p>
@@ -314,7 +596,7 @@ optimised schedule, unless <code>force assign</code> is used.</p>
 <p>Set the <code>Driver</code> and <code>EventTime</code> attributes in the <code>Task</code></p>
 </li>
 <li>
-<p>Add the proposed <code>EventTime</code> to the <code>Driver&#8217;s `Schedule</code></p>
+<p>Add the proposed <code>EventTime</code> to the <code>Driver</code> 's <code>Schedule</code></p>
 </li>
 </ul>
 </div>
@@ -324,23 +606,86 @@ optimised schedule, unless <code>force assign</code> is used.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Remove the existing <code>EventTime</code> from the <code>Driver&#8217;s `Schedule</code></p>
+<p>Remove the existing <code>EventTime</code> from the <code>Driver</code> 's <code>Schedule</code></p>
 </li>
 <li>
 <p>Set the <code>Driver</code> and <code>EventTime</code> attributes to <code>null</code></p>
 </li>
 </ul>
 </div>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="global-level-task-scheduling"><a class="link" href="#global-level-task-scheduling">Global-Level Task Scheduling</a></h3>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The global-level scheduler needs to consider the task&#8217;s details (eg. the customer and address) and all the drivers' schedules, in order to optimize manpower allocation</p>
+</li>
+<li>
+<p>The scheduler needs to be extendable, ie. easily incorporate new rules</p>
+</li>
+</ul>
 </div>
 </div>
-<div class="sect1">
-<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">PROJECT: PowerPointLabs</a></h2>
-<div class="sectionbody">
-<hr>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
 <div class="paragraph">
-<p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
+<p>The <code>ScheduleOptimizer</code> class is a component in the Logic Layer, that have access to the entire model, in order to gather information about all drivers and tasks.
+The object instantiates with <code>Model</code> and <code>Task</code>, and is designed to be discarded after use.</p>
+</div>
+<div class="paragraph">
+<p>It will return a <code>Candidate</code> object, which is a wrapper class of <code>javafx.util.Pair&lt;Driver,Optional&lt;EventTime&gt;&gt;</code>.
+This can be used by the caller to assign the task to the suggested driver at the suggested time.</p>
+</div>
+<div class="paragraph">
+<p>It exposes a convenient <code>ScheduleOptimizer#start</code> method, to start optimizing, based on the rules implement in the Optimizer.
+The <code>start</code> method uses a functional pipeline approach, by piping the Optional output of the rules.
+It is implemented so that, the next stage of the pipeline will only be triggered when this stage of the pipeline fails to find a candidate (ie. returns an empty Optional).</p>
+</div>
+<div class="paragraph">
+<p>The Optimizer consists of two rules as of now: <code>ScheduleOptimizer#driverEarliestFit</code> and <code>ScheduleOptimizer#prioritizeSameCustomer</code>.
+Both methods are nullary functions that return a <code>Optional&lt;Candidate&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Any new rule just need to follow the same method signature as the existing rules, and be added to the pipeline in the <code>ScheduleOptimizer#start</code> method.</p>
+</div>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:09:05 UTC</div></div></div></body></html>
+<div class="sect2">
+<h3 id="model-component"><a class="link" href="#model-component">Model component</a></h3>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../images/ModelClassDiagram.png" alt="ModelClassDiagram" width="70%">
+</div>
+<div class="title">Figure 6. Structure of the Model Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="{repoURL}/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>Model</code>,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
+</li>
+<li>
+<p>stores the <code>DriverManager</code>, <code>TaskManager</code>, <code>CustomerManager</code> and <code>IdManager</code></p>
+</li>
+<li>
+<p>exposes unmodifiable <code>ObservableList</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
+</li>
+<li>
+<p>does not depend on any of the other three components.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:23:05 UTC</div></div></div></body></html>

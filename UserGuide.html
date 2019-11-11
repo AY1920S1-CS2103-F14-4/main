@@ -16,7 +16,12 @@
 <div id="toctitle"></div>
 <ul class="sectlevel1">
 <li><a href="#introduction">1. Introduction</a></li>
-<li><a href="#getting-started">2. Getting Started</a></li>
+<li><a href="#getting-started">2. Getting Started</a>
+<ul class="sectlevel2">
+<li><a href="#installing">2.1. Installing</a></li>
+<li><a href="#scheduling-your-first-task">2.2. Scheduling Your First Task</a></li>
+</ul>
+</li>
 <li><a href="#Features">3. Features</a>
 <ul class="sectlevel2">
 <li><a href="#general-commands">3.1. General Commands</a>
@@ -31,14 +36,15 @@
 <ul class="sectlevel3">
 <li><a href="#add-a-delivery-task-code-addt-code">3.2.1. Add a delivery task: <code>addT</code></a></li>
 <li><a href="#edits-a-delivery-task-code-editt-code">3.2.2. Edits a delivery task : <code>editT</code></a></li>
-<li><a href="#assign-a-task-to-a-driver-code-assign-code">3.2.3. Assign a task to a driver: <code>assign</code></a></li>
-<li><a href="#unschedule-a-task-code-free-code">3.2.4. Unschedule a task: <code>free</code></a></li>
-<li><a href="#mark-a-delivery-task-as-completed-code-done-code">3.2.5. Mark a delivery task as completed: <code>done</code></a></li>
-<li><a href="#gets-the-details-of-a-delivery-task-driver-customer-code-read-code">3.2.6. Gets the details of a delivery task / driver / customer: <code>read</code></a></li>
-<li><a href="#deletes-a-delivery-task-driver-customer-code-del-code">3.2.7. Deletes a delivery task / driver / customer: <code>del</code></a></li>
-<li><a href="#views-completed-delivery-tasks-delivered-to-customer">3.2.8. Views completed delivery tasks delivered to Customer</a></li>
-<li><a href="#views-completed-delivery-tasks-delivered-by-driver">3.2.9. Views completed delivery tasks delivered by Driver</a></li>
-<li><a href="#saves-assigned-delivery-tasks-for-a-specific-date-into-pdf-document-code-savepdf-code">3.2.10. Saves assigned delivery tasks for a specific date into PDF document: <code>savepdf</code></a></li>
+<li><a href="#automatically-scheduling-a-task-code-suggest-code">3.2.3. Automatically scheduling a task: <code>suggest</code></a></li>
+<li><a href="#manually-assigning-a-task-code-assign-code">3.2.4. Manually assigning a task: <code>assign</code></a></li>
+<li><a href="#removing-assigned-driver-from-a-task-code-free-code">3.2.5. Removing assigned driver from a task: <code>free</code></a></li>
+<li><a href="#mark-a-delivery-task-as-completed-code-done-code">3.2.6. Mark a delivery task as completed: <code>done</code></a></li>
+<li><a href="#gets-the-details-of-a-delivery-task-driver-customer-code-read-code">3.2.7. Gets the details of a delivery task / driver / customer: <code>read</code></a></li>
+<li><a href="#deletes-a-delivery-task-driver-customer-code-del-code">3.2.8. Deletes a delivery task / driver / customer: <code>del</code></a></li>
+<li><a href="#views-completed-delivery-tasks-delivered-to-customer">3.2.9. Views completed delivery tasks delivered to Customer</a></li>
+<li><a href="#views-completed-delivery-tasks-delivered-by-driver">3.2.10. Views completed delivery tasks delivered by Driver</a></li>
+<li><a href="#saves-assigned-delivery-tasks-for-a-specific-date-into-pdf-document-code-savepdf-code">3.2.11. Saves assigned delivery tasks for a specific date into PDF document: <code>savepdf</code></a></li>
 </ul>
 </li>
 <li><a href="#customer-management-commands">3.3. Customer Management Commands</a>
@@ -59,7 +65,8 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Deliveria is a <strong>desktop application</strong> that allows a <strong>delivery manager</strong> to <strong>manage and assign delivery tasks</strong> efficiently. While it consists of a <em>Graphical User Interface</em> (GUI) that is user-friendly, Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>Command Line Interface</em> (CLI) which allows fast management of the delivery tasks in an organisation.</p>
+<p>Deliveria is a <strong>desktop application</strong> that allows a <strong>delivery manager</strong> to <strong>manage and assign delivery tasks</strong> efficiently.
+While it consists of a <em>Graphical User Interface</em> (GUI) that is user-friendly, Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>Command Line Interface</em> (CLI) which allows fast management of the delivery tasks in an organisation.</p>
 </div>
 </div>
 </div>
@@ -72,47 +79,178 @@
 </div>
 <div class="title">Figure 1. UI</div>
 </div>
+<div class="sect2">
+<h3 id="installing"><a class="link" href="#installing">2.1. Installing</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Ensure you have Java 11 or above installed in your Computer.</p>
 </li>
 <li>
-<p>Download the latest release deliveria.jar <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/releases">here</a>.</p>
+<p>Download the latest release <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/releases">here</a>.</p>
 </li>
 <li>
-<p>Copy the file to the folder you want to use as the home folder for your Address Book.</p>
+<p>Copy the file to the folder you want to use as the home folder for your Deliveria.</p>
 </li>
 <li>
-<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
+<p>Double-click the file to start the app.
+The GUI should appear in a few seconds.</p>
 </li>
-<li>
-<p>Type the command in the command box and press Enter to execute it.
-e.g. typing help and pressing Enter will open the help window.</p>
-</li>
-<li>
-<p>Some example commands you can try</p>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scheduling-your-first-task"><a class="link" href="#scheduling-your-first-task">2.2. Scheduling Your First Task</a></h3>
+<div class="paragraph">
+<p>Now you are in!
+We have prepared a few sample customers and drivers for you to play around.</p>
+</div>
+<div class="paragraph">
+<p>On a busy day, you might be having many orders coming in, and you want to get your drivers busy delivering them.
+Let&#8217;s go through the process of creating and assigning a task.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Lists all contacts: <code>list</code></p>
+<p>Create a new task by typing <code>addT g/20 boxes of utensils c/1 dt/22/11/2019</code> in the command box.
+You need to substitute <code>22/11/2019</code> with the date today.
+Press Enter to execute the command.</p>
 </li>
 <li>
-<p>Adds a contact named John Doe to the Address Book: <code>Add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
+<p>You can see the newly created task in the Incomplete Delivery Task box:</p>
+</li>
+</ul>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="images/user-guide/adding-task.png" alt="adding task" width="50%">
+</div>
+<div class="title">Figure 2. The new task shows up in the Incomplete Tasks box</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Take note of the Task ID (i.e. #6), which is used to refer to this task.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Execute command <code>suggest 2 t/6</code>, where</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>2</code> is the number of hours that you estimate this task will take to complete</p>
 </li>
 <li>
-<p>Deletes the 3rd contact shown in the current list: <code>Delete 3</code></p>
-</li>
-<li>
-<p>Exits the app: <code>exit</code></p>
+<p><code>6</code> is the ID of the task that you want to assign</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a>  for details of each command.</p>
+<p>You can see Task #6 is assigned to Aloysius Chan at 2:00PM - 4:00PM</p>
 </li>
-</ol>
+</ul>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="images/user-guide/suggest-task.png" alt="suggest task" width="70%">
+</div>
+<div class="title">Figure 3. The task is successfully scheduled</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The suggested time slot will either start from now or in the future.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We will optimize the driver and the time based on the drivers' availability and the task.
+Learn more about the rule in <a href="#automatically-scheduling-a-task-code-suggest-code">Section 3.2.3, &#8220;Automatically scheduling a task: <code>suggest</code>&#8221;</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If you are not satisfied with the suggestion, you can overwrite it by typing <code>assign force t/6 d/1 at/1500 - 1600</code>, where:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>6</code> is the Task ID</p>
+</li>
+<li>
+<p><code>1</code> is the Driver ID</p>
+</li>
+<li>
+<p><code>1500 - 1600</code> is the time that you want to change to</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Learn more about the <code>assign</code> command in <a href="#manually-assigning-a-task-code-assign-code">Section 3.2.4, &#8220;Manually assigning a task: <code>assign</code>&#8221;</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We now have rescheduled the task to 3-4 pm.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="images/user-guide/reschedule-task.png" alt="reschedule task" width="70%">
+</div>
+<div class="title">Figure 4. The task is rescheduled</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The drivers, by default, works from 9 AM to 9 PM. You cannot assign a time beyond the working hours.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You have created and scheduled your first task!
+Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of each command.</p>
+</div>
 </div>
 </div>
 </div>
@@ -198,7 +336,8 @@ Format: <code>addT [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY
 <div class="ulist">
 <ul>
 <li>
-<p>DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.</p>
+<p>DATE OF DELIVERY must be today onwards.
+Date format: d/M/yyyy.</p>
 </li>
 <li>
 <p>All fields are compulsory.</p>
@@ -232,7 +371,8 @@ Format: <code>editT [TASK ID] [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE 
 <div class="ulist">
 <ul>
 <li>
-<p>Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.</p>
+<p>Edited DATE OF DELIVERY must be today onwards.
+Date format: d/M/yyyy.</p>
 </li>
 <li>
 <p>Only indicate fields that you want to change.</p>
@@ -252,15 +392,71 @@ Edits the description of the task (Task ID: 3) to be <code>50 frozen boxes of ca
 </li>
 <li>
 <p><code>editT 5 c/2 dt/10/12/2019</code><br>
-Edits the customer and date of delivery of the task (Task ID: 5) to be <code>Customer (Customer ID: 2)</code> and <code>10/12/2019</code> respectively.</p>
+Edits the customer and date of delivery of the task (Task ID: 5) to be <code>Customer (Customer ID: 2)</code> and <code>10/12/2019</code> respectively.
+j</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assign-a-task-to-a-driver-code-assign-code"><a class="link" href="#assign-a-task-to-a-driver-code-assign-code">3.2.3. Assign a task to a driver: <code>assign</code></a></h4>
+<h4 id="automatically-scheduling-a-task-code-suggest-code"><a class="link" href="#automatically-scheduling-a-task-code-suggest-code">3.2.3. Automatically scheduling a task: <code>suggest</code></a></h4>
 <div class="paragraph">
-<p>Assign an existing task a driver with a proposed time.<br>
+<p>Find the most suitable driver and an available time slot to schedule a task, based on the following rules.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If there are drivers who deliver to the same customer as the one in this task, the driver who has the earliest available time slot for this task will be selected.</p>
+</li>
+<li>
+<p>If the above rule fails to select a driver, the system will choose among all drivers, and find the driver who has the earliest available time slot for the task.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Format: <code>suggest HOURS t/TASK_ID</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>HOURS</code> field is in the format of <code>hh:MM</code> or in decimal format.
+For example, one and a half hours can either be <code>1:30</code> or <code>1.5</code>.</p>
+</li>
+<li>
+<p>The <code>TASK_ID</code> is a positive integer, and the task must exist in the Incomplete Tasks.</p>
+</li>
+<li>
+<p>Use the <code>assign</code> command if you want to assign the task to a specific driver at a specific time.</p>
+</li>
+<li>
+<p>The suggested time slot will only start from now or in the future.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>suggest 2 t/1</code><br>
+Find the best driver, using the rules above, who has a two-hour time slot to deliver Task #1.</p>
+</li>
+<li>
+<p><code>suggest 1:20 t/2</code><br>
+Find the best driver, using the rules above, who is available for 1 hour and 20 minutes to deliver Task #2.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="manually-assigning-a-task-code-assign-code"><a class="link" href="#manually-assigning-a-task-code-assign-code">3.2.4. Manually assigning a task: <code>assign</code></a></h4>
+<div class="paragraph">
+<p>Assign a driver to a task with a proposed time.<br>
 Format: <code>assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM</code></p>
 </div>
 <div class="sidebarblock">
@@ -268,21 +464,22 @@ Format: <code>assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>You cannot assign a time that clashes with the driver&#8217;s existing schedule, or is outside their working hours</p>
+<p>You cannot assign a time that clashes with the driver&#8217;s existing schedule, or is outside their working hours (9 AM - 9 PM)</p>
 </li>
 <li>
-<p>If there is an earlier time slot that the driver is available,
-the program will suggest the earlier time slot<br></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Use <code>assign force</code> to dismiss the suggestion and add the proposed time to the task</p>
-</li>
-</ul>
-</div>
+<p>You cannot propose a time slot that started in the past</p>
 </li>
 <li>
-<p>The ID is a positive integer</p>
+<p>If there is an earlier time slot that the driver is available, the program will suggest the earlier time slot</p>
+</li>
+<li>
+<p>Use <code>assign force</code> to overwrite a task which already has a driver and a scheduled time</p>
+</li>
+<li>
+<p>The <code>TASK_ID</code> is a positive integer, and the task must exist in the Incomplete Tasks.</p>
+</li>
+<li>
+<p>The <code>DRIVER_ID</code> is a positive integer, and the driver must exist in the driver list.</p>
 </li>
 </ul>
 </div>
@@ -295,17 +492,17 @@ the program will suggest the earlier time slot<br></p>
 <ul>
 <li>
 <p><code>assign t/1 d/1 at/900-1200</code><br>
-Schedule task #1 from 11 am to 12 pm, and assign it to driver #1.</p>
+Schedule Task #1 from 9 am to 12 pm, and assign it to Driver #1.</p>
 </li>
 <li>
 <p><code>assign force t/2 d/1 at/1600-1700</code><br>
-Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1 regardless the existence of an earlier time slot.</p>
+Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1, regardless whether the task is already assigned.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="unschedule-a-task-code-free-code"><a class="link" href="#unschedule-a-task-code-free-code">3.2.4. Unschedule a task: <code>free</code></a></h4>
+<h4 id="removing-assigned-driver-from-a-task-code-free-code"><a class="link" href="#removing-assigned-driver-from-a-task-code-free-code">3.2.5. Removing assigned driver from a task: <code>free</code></a></h4>
 <div class="paragraph">
 <p>Remove the time slot and driver from a task, and free the driver from this time slot in their schedule.<br>
 Format: <code>free t/TASK_ID</code></p>
@@ -334,7 +531,7 @@ Remove the assigned driver and time slot from the task, and free the driver&#821
 </div>
 </div>
 <div class="sect3">
-<h4 id="mark-a-delivery-task-as-completed-code-done-code"><a class="link" href="#mark-a-delivery-task-as-completed-code-done-code">3.2.5. Mark a delivery task as completed: <code>done</code></a></h4>
+<h4 id="mark-a-delivery-task-as-completed-code-done-code"><a class="link" href="#mark-a-delivery-task-as-completed-code-done-code">3.2.6. Mark a delivery task as completed: <code>done</code></a></h4>
 <div class="paragraph">
 <p>Mark a delivery task as completed.<br>
 Format: <code>done [TASK ID]</code></p>
@@ -363,7 +560,7 @@ Marks the delivery task with Task ID 2 as COMPLETED.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="gets-the-details-of-a-delivery-task-driver-customer-code-read-code"><a class="link" href="#gets-the-details-of-a-delivery-task-driver-customer-code-read-code">3.2.6. Gets the details of a delivery task / driver / customer: <code>read</code></a></h4>
+<h4 id="gets-the-details-of-a-delivery-task-driver-customer-code-read-code"><a class="link" href="#gets-the-details-of-a-delivery-task-driver-customer-code-read-code">3.2.7. Gets the details of a delivery task / driver / customer: <code>read</code></a></h4>
 <div class="paragraph">
 <p>Gets the details a task / driver / customer.<br>
 Format: <code>read [c/CUSTOMER ID]</code> | <code>read [t/DRIVER ID]</code> | <code>read [t/TASK ID]</code></p>
@@ -385,7 +582,7 @@ Gets the details of driver (Driver ID: 2).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deletes-a-delivery-task-driver-customer-code-del-code"><a class="link" href="#deletes-a-delivery-task-driver-customer-code-del-code">3.2.7. Deletes a delivery task / driver / customer: <code>del</code></a></h4>
+<h4 id="deletes-a-delivery-task-driver-customer-code-del-code"><a class="link" href="#deletes-a-delivery-task-driver-customer-code-del-code">3.2.8. Deletes a delivery task / driver / customer: <code>del</code></a></h4>
 <div class="paragraph">
 <p>Deletes a task / driver / customer from its respective managers.<br>
 Format: <code>del [c/CUSTOMER ID]</code> | <code>del [t/DRIVER ID]</code> | <code>del [t/TASK ID]</code></p>
@@ -395,10 +592,12 @@ Format: <code>del [c/CUSTOMER ID]</code> | <code>del [t/DRIVER ID]</code> | <cod
 <div class="ulist">
 <ul>
 <li>
-<p>Cannot delete a <strong>DELIVERY TASK</strong> that is on-going. Remove the driver from the task first before deleting.</p>
+<p>Cannot delete a <strong>DELIVERY TASK</strong> that is on-going.
+Remove the driver from the task first before deleting.</p>
 </li>
 <li>
-<p>Cannot delete a <strong>DRIVER</strong> that is assigned to a on-going task. Remove the driver from the task first before deleting.</p>
+<p>Cannot delete a <strong>DRIVER</strong> that is assigned to a on-going task.
+Remove the driver from the task first before deleting.</p>
 </li>
 </ul>
 </div>
@@ -421,7 +620,7 @@ Deletes driver (Driver ID: 2) from the driver manager.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="views-completed-delivery-tasks-delivered-to-customer"><a class="link" href="#views-completed-delivery-tasks-delivered-to-customer">3.2.8. Views completed delivery tasks delivered to Customer</a></h4>
+<h4 id="views-completed-delivery-tasks-delivered-to-customer"><a class="link" href="#views-completed-delivery-tasks-delivered-to-customer">3.2.9. Views completed delivery tasks delivered to Customer</a></h4>
 <div class="paragraph">
 <p>Displays a list of completed tasks delivered to the customer, located in the completed delivery list under History tab.</p>
 </div>
@@ -438,7 +637,7 @@ View the tasks delivered to the customer (Customer ID: 1).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="views-completed-delivery-tasks-delivered-by-driver"><a class="link" href="#views-completed-delivery-tasks-delivered-by-driver">3.2.9. Views completed delivery tasks delivered by Driver</a></h4>
+<h4 id="views-completed-delivery-tasks-delivered-by-driver"><a class="link" href="#views-completed-delivery-tasks-delivered-by-driver">3.2.10. Views completed delivery tasks delivered by Driver</a></h4>
 <div class="paragraph">
 <p>Displays a list of completed tasks delivered by the driver, located in the completed delivery list under History tab.</p>
 </div>
@@ -455,11 +654,11 @@ View the tasks delivered by the driver (Driver ID: 1).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="saves-assigned-delivery-tasks-for-a-specific-date-into-pdf-document-code-savepdf-code"><a class="link" href="#saves-assigned-delivery-tasks-for-a-specific-date-into-pdf-document-code-savepdf-code">3.2.10. Saves assigned delivery tasks for a specific date into PDF document: <code>savepdf</code></a></h4>
+<h4 id="saves-assigned-delivery-tasks-for-a-specific-date-into-pdf-document-code-savepdf-code"><a class="link" href="#saves-assigned-delivery-tasks-for-a-specific-date-into-pdf-document-code-savepdf-code">3.2.11. Saves assigned delivery tasks for a specific date into PDF document: <code>savepdf</code></a></h4>
 <div class="paragraph">
 <p>The PDF document is arranged in a table format to allow easy reference of the delivery tasks that is assigned to each drivers for the date.
 Its purpose is for user reference and archive.<br>
-Refer to <a href="#PdfLayout">Figure 2, &#8220;PDF Document generated by <code>savepdf</code> command&#8221;</a> for sample.<br>
+Refer to <a href="#PdfLayout">Figure 5, &#8220;PDF Document generated by <code>savepdf</code> command&#8221;</a> for sample.<br>
 Format: <code>savepdf [DATE]</code></p>
 </div>
 <div class="sidebarblock">
@@ -639,7 +838,8 @@ There is no need to save manually.</p>
 </div>
 <div class="paragraph">
 <p><strong>Q</strong>: Where is the saved file at?<br>
-<strong>A</strong>:  It is located in the same folder where the .jar file is. There will be a folder called <code>data</code>.</p>
+<strong>A</strong>: It is located in the same folder where the .jar file is.
+There will be a folder called <code>data</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Q</strong>: How do I know the list of commands?<br>
@@ -654,7 +854,7 @@ There is no need to save manually.</p>
 <div class="content">
 <img src="/images/DeliveryTasks_Pdf_Layout.png" alt="DeliveryTasks Pdf Layout" width="Delivery Tasks PDF">
 </div>
-<div class="title">Figure 2. PDF Document generated by <code>savepdf</code> command</div>
+<div class="title">Figure 5. PDF Document generated by <code>savepdf</code> command</div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:09:05 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:23:05 UTC</div></div></div></body></html>
