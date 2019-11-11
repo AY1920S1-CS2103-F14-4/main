@@ -88,6 +88,7 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -110,6 +111,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteIdCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+// end::logic[]
 
 [[Design-Model]]
 === Model component
@@ -401,6 +403,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::customerfeature[]
 === Customer Feature
 ==== Add Customer
 ===== Implementation
@@ -459,8 +462,9 @@ all essential details. Allow the space for working map showing the location of t
 * **Alternative 2:** Show full details of driver in a single card in main window.
 ** Pros: Easier to implement.
 ** Cons: Cards becomes too big when schedule information gets too long. Ui looks very cluttered. Unable to show the map of customer's address.
+// end::customerfeature[]
 
-
+// tag::driverfeature[]
 === Driver Feature
 ==== Add Driver
 ===== Implementation
@@ -516,7 +520,7 @@ all essential details.
 * **Alternative 2:** Show full details of driver in a single card in main window.
 ** Pros: Easier to implement.
 ** Cons: Cards becomes too big when schedule information gets too long. Ui looks very cluttered.
-
+// end::driverfeature[]
 
 == Documentation
 
