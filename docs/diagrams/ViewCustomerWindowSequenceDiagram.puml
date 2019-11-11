@@ -8,7 +8,7 @@ end box
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CommandParser" as CommandParser LOGIC_COLOR
 participant ":ViewCustomerWindowCommandParser" as ViewCustomerWindowCommandParser LOGIC_COLOR
 participant "v:ViewCustomerWindowCommand" as ViewCustomerWindowCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -22,17 +22,17 @@ activate MainWindow
 MainWindow -> LogicManager : execute("viewDW 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("del t/1")
-activate AddressBookParser
+LogicManager -> CommandParser : parseCommand("del t/1")
+activate CommandParser
 
 create ViewCustomerWindowCommandParser
-AddressBookParser -> ViewCustomerWindowCommandParser
+CommandParser -> ViewCustomerWindowCommandParser
 activate ViewCustomerWindowCommandParser
 
-ViewCustomerWindowCommandParser --> AddressBookParser
+ViewCustomerWindowCommandParser --> CommandParser
 deactivate ViewCustomerWindowCommandParser
 
-AddressBookParser -> ViewCustomerWindowCommandParser : parse("1")
+CommandParser -> ViewCustomerWindowCommandParser : parse("1")
 activate ViewCustomerWindowCommandParser
 
 create ViewCustomerWindowCommand
@@ -42,11 +42,11 @@ activate ViewCustomerWindowCommand
 ViewCustomerWindowCommand --> ViewCustomerWindowCommandParser: v
 deactivate ViewCustomerWindowCommand
 
-ViewCustomerWindowCommandParser --> AddressBookParser : v
+ViewCustomerWindowCommandParser --> CommandParser : v
 destroy ViewCustomerWindowCommandParser
 
-AddressBookParser --> LogicManager : v
-deactivate AddressBookParser
+CommandParser --> LogicManager : v
+deactivate CommandParser
 
 LogicManager -> ViewCustomerWindowCommand : execute()
 activate ViewCustomerWindowCommand

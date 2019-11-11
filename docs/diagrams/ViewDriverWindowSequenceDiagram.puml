@@ -8,7 +8,7 @@ end box
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CommandParser" as CommandParser LOGIC_COLOR
 participant ":ViewDriverWindowCommandParser" as ViewDriverWindowCommandParser LOGIC_COLOR
 participant "v:ViewDriverWindowCommand" as ViewDriverWindowCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -22,17 +22,17 @@ activate MainWindow
 MainWindow -> LogicManager : execute("viewDW 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("del t/1")
-activate AddressBookParser
+LogicManager -> CommandParser : parseCommand("del t/1")
+activate CommandParser
 
 create ViewDriverWindowCommandParser
-AddressBookParser -> ViewDriverWindowCommandParser
+CommandParser -> ViewDriverWindowCommandParser
 activate ViewDriverWindowCommandParser
 
-ViewDriverWindowCommandParser --> AddressBookParser
+ViewDriverWindowCommandParser --> CommandParser
 deactivate ViewDriverWindowCommandParser
 
-AddressBookParser -> ViewDriverWindowCommandParser : parse("1")
+CommandParser -> ViewDriverWindowCommandParser : parse("1")
 activate ViewDriverWindowCommandParser
 
 create ViewDriverWindowCommand
@@ -42,11 +42,11 @@ activate ViewDriverWindowCommand
 ViewDriverWindowCommand --> ViewDriverWindowCommandParser: v
 deactivate ViewDriverWindowCommand
 
-ViewDriverWindowCommandParser --> AddressBookParser : v
+ViewDriverWindowCommandParser --> CommandParser : v
 destroy ViewDriverWindowCommandParser
 
-AddressBookParser --> LogicManager : v
-deactivate AddressBookParser
+CommandParser --> LogicManager : v
+deactivate CommandParser
 
 LogicManager -> ViewDriverWindowCommand : execute()
 activate ViewDriverWindowCommand
