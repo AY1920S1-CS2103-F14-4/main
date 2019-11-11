@@ -1,12 +1,12 @@
 package seedu.address.model.util;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.logic.GlobalClock;
 import seedu.address.model.CustomerManager;
 import seedu.address.model.Description;
 import seedu.address.model.DriverManager;
@@ -136,47 +136,47 @@ public class SampleDataUtil {
 
         //Incomplete delivery tasks:
         Task sampleTask2 = new Task(2, new Description("25 boxes of A4 paper"),
-                Task.getParsedLocalDate(LocalDate.now()));
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
         sampleTask2.setCustomer(customer1);
 
         Task sampleTask7 = new Task(7, new Description("10 boxes of Coloured paper"),
-                Task.getParsedLocalDate(LocalDate.now()));
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
         sampleTask7.setCustomer(customer1);
 
         Task sampleTask8 = new Task(8, new Description("1 pair of running shoe"),
-                Task.getParsedLocalDate(LocalDate.now()));
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
         sampleTask8.setCustomer(customer5);
 
         Task sampleTask14 = new Task(14, new Description("3 Boxes of fresh broccolis"),
-                Task.getParsedLocalDate(LocalDate.now()));
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
         sampleTask14.setCustomer(customer6);
 
         Task sampleTask15 = new Task(15, new Description("1 bag of rice"),
-                Task.getParsedLocalDate(LocalDate.now()));
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
         sampleTask15.setCustomer(customer5);
 
 
         //On-going delivery tasks:
         Task sampleTask3 = new Task(3, new Description("25 packs of frozen chicken wings"),
-                Task.getParsedLocalDate(LocalDate.now()));
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
         sampleTask3.setCustomer(customer1);
         sampleTask3.setDriverAndEventTime(driver1, eventTime9to10);
         driverManager.getDriver(1).addToSchedule(EventTime.parse("0900 - 1000"));
 
         Task sampleTask9 = new Task(9, new Description("3 dry-fit shirts"),
-                Task.getParsedLocalDate(LocalDate.now()));
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
         sampleTask9.setCustomer(customer5);
         sampleTask9.setDriverAndEventTime(driver4, eventTime16to18);
         driverManager.getDriver(4).addToSchedule(EventTime.parse("1600 - 1800"));
 
         Task sampleTask10 = new Task(10, new Description("1 Basketball"),
-                Task.getParsedLocalDate(LocalDate.now()));
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
         sampleTask10.setCustomer(customer5);
         sampleTask10.setDriverAndEventTime(driver4, eventTime18to20);
         driverManager.getDriver(4).addToSchedule(EventTime.parse("1800 - 2000"));
 
         Task sampleTask19 = new Task(19, new Description("4 Boxes of cutlery products"),
-                Task.getParsedLocalDate(LocalDate.now()));
+                Task.getParsedLocalDate(GlobalClock.dateToday()));
         sampleTask19.setCustomer(customer4);
         sampleTask19.setDriverAndEventTime(driver1, eventTime10to12);
         driverManager.getDriver(1).addToSchedule(EventTime.parse("1000 - 1200"));
