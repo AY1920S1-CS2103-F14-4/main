@@ -24,7 +24,6 @@ import seedu.address.model.DriverManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.id.IdManager;
-import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
 import seedu.address.model.person.Customer;
@@ -32,34 +31,34 @@ import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CustomerBuilder;
 
 public class AddCustomerCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullustomer_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCustomerCommand(null, null, null,
                 null, null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_customerAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingCustomerAdded modelStub = new ModelStubAcceptingCustomerAdded();
+        Customer validCustomer = new CustomerBuilder().build();
 
-        CommandResult commandResult = new AddCustomerCommand(validPerson.getName(), validPerson.getPhone(),
-                validPerson.getEmail(), validPerson.getAddress(), validPerson.getTags()).execute(modelStub);
+        CommandResult commandResult = new AddCustomerCommand(validCustomer.getName(), validCustomer.getPhone(),
+                validCustomer.getEmail(), validCustomer.getAddress(), validCustomer.getTags()).execute(modelStub);
 
-        assertEquals(String.format(AddCustomerCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCustomerCommand.MESSAGE_SUCCESS, validCustomer), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validCustomer), modelStub.customersAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCustomerCommand addCustomerCommand = new AddCustomerCommand(validPerson.getName(), validPerson.getPhone(),
-                validPerson.getEmail(), validPerson.getAddress(), validPerson.getTags());
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateCustomer_throwsCommandException() {
+        Customer validCustomer = new CustomerBuilder().build();
+        AddCustomerCommand addCustomerCommand = new AddCustomerCommand(validCustomer.getName(), validCustomer.getPhone(),
+                validCustomer.getEmail(), validCustomer.getAddress(), validCustomer.getTags());
+        ModelStub modelStub = new ModelStubWithCustomer(validCustomer);
 
         assertThrows(CommandException.class, AddCustomerCommand.MESSAGE_DUPLICATE_PERSON, () ->
                 addCustomerCommand.execute(modelStub));
@@ -67,8 +66,8 @@ public class AddCustomerCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Customer alice = new CustomerBuilder().withName("Alice").build();
+        Customer bob = new CustomerBuilder().withName("Bob").build();
         AddCustomerCommand addAliceCommand = new AddCustomerCommand(alice.getName(), alice.getPhone(),
                 alice.getEmail(), alice.getAddress(), alice.getTags());
         AddCustomerCommand addBobCommand = new AddCustomerCommand(bob.getName(), bob.getPhone(),
@@ -405,44 +404,44 @@ public class AddCustomerCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single Customer.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithCustomer extends ModelStub {
+        private final Customer customer;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithCustomer(Customer customer) {
+            requireNonNull(customer);
+            this.customer = customer;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasCustomer(Customer customer) {
+            requireNonNull(customer);
+            return this.customer.isSameCustomer(customer);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the customer being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingCustomerAdded extends ModelStub {
+        final ArrayList<Customer> customersAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasCustomer(Customer customer) {
+            requireNonNull(customer);
+            return customersAdded.stream().anyMatch(customer::isSameCustomer);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addCustomer(Customer customer) {
+            requireNonNull(customer);
+            customersAdded.add(customer);
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public CustomerManager getCustomerManager() {
+            return new CustomerManager();
         }
     }
 
