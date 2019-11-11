@@ -74,8 +74,12 @@ public class EditCustomerCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
         }
 
+        if (model.shouldTruncateCentralManager()) {
+            model.truncateCentralManager();
+        }
         model.setCustomer(customerToEdit, editedCustomer);
         model.refreshAllFilteredList();
+        model.commitCentralManager();
 
         return new CommandResult(String.format(MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer));
     }

@@ -153,11 +153,11 @@ public class AssignCommand extends Command {
         // saving the state of event time
         Optional<EventTime> existingEventTime = task.getEventTime();
 
-        boolean isAlreadyAssigned = task.getStatus() != TaskStatus.INCOMPLETE || task.getDriver().isPresent()
-                || task.getEventTime().isPresent();
+        boolean isAlreadyAssigned = task.getStatus() != TaskStatus.INCOMPLETE
+                || task.getDriver().isPresent() || task.getEventTime().isPresent();
 
         if (isAlreadyAssigned) {
-            resetTaskIfForced(task);
+            resetTaskIfForced(driver, task);
         }
 
         assertTimeIsNotPast(eventTime);
@@ -172,7 +172,13 @@ public class AssignCommand extends Command {
         }
 
         forceAssign(driver, task, eventTime);
+
         model.refreshAllFilteredList();
+
+        if (model.shouldTruncateCentralManager()) {
+            model.truncateCentralManager();
+        }
+        model.commitCentralManager();
 
         return new CommandResult(buildSuccessfulResponse(suggestion, task, driver, eventTime));
     }
@@ -183,9 +189,9 @@ public class AssignCommand extends Command {
      * @param task the task to reset, if needed
      * @throws CommandException when the forced flag is not turned on
      */
-    public void resetTaskIfForced(Task task) throws CommandException {
+    public void resetTaskIfForced(Driver driver, Task task) throws CommandException {
         if (isForceAssign) {
-            FreeCommand.freeDriverFromTask(task.getDriver().get(), task);
+            FreeCommand.freeDriverFromTask(driver, task);
         } else {
             throw new CommandException(MESSAGE_ALREADY_ASSIGNED + MESSAGE_PROMPT_FORCE);
         }

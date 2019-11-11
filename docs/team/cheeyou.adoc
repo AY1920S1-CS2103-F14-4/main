@@ -3,6 +3,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+image:cheeyou.png[width=200]
+
 == PROJECT: Deliveria
 
 ---

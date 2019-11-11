@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.person.Customer;
+import seedu.address.model.person.UniqueEntityList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -37,6 +38,15 @@ public class CustomerManager extends EntityManager<Customer> {
      */
     public ObservableList<Customer> getCustomerList() {
         return super.getPersonList();
+    }
+
+    public ObservableList<Customer> getDeepCopyCustomerList() {
+        UniqueEntityList<Customer> customers = super.getPersons();
+        UniqueEntityList<Customer> deepCopyCustomers = new UniqueEntityList<>();
+        for (Customer customer: customers) {
+            deepCopyCustomers.add(customer.deepCopyCustomer());
+        }
+        return deepCopyCustomers.asUnmodifiableObservableList();
     }
 
     /**

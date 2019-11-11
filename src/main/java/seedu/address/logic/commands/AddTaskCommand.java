@@ -59,8 +59,12 @@ public class AddTaskCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_CUSTOMER_ID);
         }
 
+        if (model.shouldTruncateCentralManager()) {
+            model.truncateCentralManager();
+        }
         taskToAdd.setCustomer(model.getCustomer(customerId));
         model.addTask(taskToAdd);
+        model.commitCentralManager();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToAdd));
     }

@@ -75,8 +75,12 @@ public class EditDriverCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_DRIVER);
         }
 
+        if (model.shouldTruncateCentralManager()) {
+            model.truncateCentralManager();
+        }
         model.setDriver(driverToEdit, editedDriver);
         model.refreshAllFilteredList();
+        model.commitCentralManager();
 
         return new CommandResult(String.format(MESSAGE_EDIT_DRIVER_SUCCESS, editedDriver));
     }

@@ -370,22 +370,36 @@ image::viewDriverTaskCommand.png[]
 // end::viewCompleted[]
 
 // tag::undoredo[]
+<<<<<<< HEAD
+=== Undo/Redo feature
+==== Implementation
+=======
 === [Proposed] Undo/Redo feature
 
 ==== Proposed Implementation
+>>>>>>> e6fc9374adddc4d971f1c1ecb54dd659d6e0fb7c
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedCentralManager`.
+It extends `CentralManager` with an undo/redo history, stored internally as a `centralManagerStateList`
+and a `currentStatePointer`. +
+A `CentralManager` stores a `CustomerManager`, a `DriverManager`, a `TaskManager` and an `IdManager`.+
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedCentralManager#commit()` -- Saves the current Central Manager state in its history.
+* `VersionedCentralManager#undo()` -- Restores the previous Central Manager state from its history.
+* `VersionedCentralManager#redo()` -- Restores a previously undone Central Manager state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitCentralManager()`, `Model#undoCentralManager()` and `Model#redoCentralManager()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
+<<<<<<< HEAD
+Step 1. The user launches the application for the first time. The `VersionedCentralManager` will be initialized with the initial central manager state, and the `currentStatePointer` pointing to that single central manager state.
+
+image::UndoRedoState0.png[]
+
+Step 2. The user executes `delete . The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+=======
 Step 1. The user launches the application for the first time.
 The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
@@ -393,6 +407,7 @@ image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th person in the address book.
 The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+>>>>>>> e6fc9374adddc4d971f1c1ecb54dd659d6e0fb7c
 
 image::UndoRedoState1.png[]
 

@@ -27,7 +27,7 @@ public class AddDriverCommand extends Command {
 
     public static final String COMMAND_WORD = "addD";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a driver to the address book. "
             + "Parameters: "
             + "[" + PREFIX_NAME + " DRIVER NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
@@ -73,7 +73,12 @@ public class AddDriverCommand extends Command {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON));
         }
 
+        if (model.shouldTruncateCentralManager()) {
+            model.truncateCentralManager();
+        }
         model.addDriver(driverToAdd);
+        model.commitCentralManager();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, driverToAdd));
     }
 }

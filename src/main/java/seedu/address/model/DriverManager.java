@@ -7,6 +7,7 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.person.Driver;
+import seedu.address.model.person.UniqueEntityList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -52,6 +53,15 @@ public class DriverManager extends EntityManager<Driver> {
      */
     public ObservableList<Driver> getDriverList() {
         return super.getPersonList();
+    }
+
+    public ObservableList<Driver> getDeepCopyDriverList() {
+        UniqueEntityList<Driver> drivers = super.getPersons();
+        UniqueEntityList<Driver> deepCopyDrivers = new UniqueEntityList<>();
+        for (Driver driver: drivers) {
+            deepCopyDrivers.add(driver.deepCopyDriver());
+        }
+        return deepCopyDrivers.asUnmodifiableObservableList();
     }
 
     public Driver getDriver(int driverId) {

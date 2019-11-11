@@ -13,6 +13,7 @@ import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteIdCommand;
+import seedu.address.logic.commands.DisplayDriverTasksCommand;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.EditCustomerCommand;
 import seedu.address.logic.commands.EditDriverCommand;
@@ -20,13 +21,16 @@ import seedu.address.logic.commands.EditTaskCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCustomerCommand;
 import seedu.address.logic.commands.FindDriverCommand;
+import seedu.address.logic.commands.FindTaskCommand;
 import seedu.address.logic.commands.FreeCommand;
 import seedu.address.logic.commands.GoCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ReadIdCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SavePdfCommand;
 import seedu.address.logic.commands.SuggestCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.commands.ViewCustomerTaskCommand;
 import seedu.address.logic.commands.ViewCustomerWindowCommand;
@@ -109,6 +113,12 @@ public class CommandParser {
         case FindDriverCommand.COMMAND_WORD:
             return new FindDriverCommandParser().parse(arguments);
 
+        case FindTaskCommand.COMMAND_WORD:
+            return new FindTaskCommandParser().parse(arguments);
+
+        case DisplayDriverTasksCommand.COMMAND_WORD:
+            return new DisplayDriverTasksCommandParser().parse(arguments);
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
@@ -135,6 +145,12 @@ public class CommandParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

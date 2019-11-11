@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CustomerManager;
@@ -226,6 +227,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateAssignedTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Task> getAssignedTaskList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -237,6 +243,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -423,6 +434,40 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+
+        @Override
+        public void commitCentralManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoCentralManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public void undoCentralManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoCentralManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoCentralManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean shouldTruncateCentralManager() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void truncateCentralManager() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

@@ -2,14 +2,12 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
-
 import seedu.address.logic.commands.FindCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.CustomerNameContainsStringPredicate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new FindCustomerCommand object
  */
 public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
 
@@ -25,9 +23,6 @@ public class FindCustomerCommandParser implements Parser<FindCustomerCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCustomerCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-
-        return new FindCustomerCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCustomerCommand(new CustomerNameContainsStringPredicate(trimmedArgs));
     }
-
 }

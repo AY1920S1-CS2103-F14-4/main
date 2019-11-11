@@ -36,12 +36,28 @@ public class Driver extends Person {
         this.driverRating = new DriverRating();
     }
 
+    /**
+     * Deep copies a (@code Driver)
+     *
+     * @return deep-copied (@code Driver)
+     */
+    public Driver deepCopyDriver() {
+        Driver deepCopyDriver = new Driver(this.getId(), this.getName(), this.getPhone(), this.getEmail(),
+                this.getAddress(), this.getTags());
+        deepCopyDriver.setSchedule(this.schedule.deepCopySchedule());
+        return deepCopyDriver;
+    }
+
     public Schedule getSchedule() {
         return schedule;
     }
 
     public int getId() {
         return id;
+    }
+
+    private void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     public int getRating() {

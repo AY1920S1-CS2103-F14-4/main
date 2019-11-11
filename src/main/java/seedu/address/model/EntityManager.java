@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueEntityList;
 
@@ -32,7 +33,7 @@ public class EntityManager<T extends Person> implements ReadOnlyEntityManager<T>
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an EntityManager using the Persons in the {@code toBeCopied}
      */
     public EntityManager(ReadOnlyEntityManager<T> toBeCopied) {
         this();
@@ -108,6 +109,10 @@ public class EntityManager<T extends Person> implements ReadOnlyEntityManager<T>
         return persons.asUnmodifiableObservableList();
     }
 
+    public UniqueEntityList<T> getPersons() {
+        return persons;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -119,4 +124,5 @@ public class EntityManager<T extends Person> implements ReadOnlyEntityManager<T>
     public int hashCode() {
         return persons.hashCode();
     }
+
 }

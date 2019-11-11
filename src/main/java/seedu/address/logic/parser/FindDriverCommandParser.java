@@ -2,14 +2,12 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
-
 import seedu.address.logic.commands.FindDriverCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.DriverNameContainsStringPredicate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new FindDriverCommand object
  */
 public class FindDriverCommandParser implements Parser<FindDriverCommand> {
 
@@ -25,9 +23,7 @@ public class FindDriverCommandParser implements Parser<FindDriverCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindDriverCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-
-        return new FindDriverCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindDriverCommand(new DriverNameContainsStringPredicate(trimmedArgs));
     }
 
 }

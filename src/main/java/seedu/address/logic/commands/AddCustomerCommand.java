@@ -71,7 +71,12 @@ public class AddCustomerCommand extends Command {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON));
         }
 
+        if (model.shouldTruncateCentralManager()) {
+            model.truncateCentralManager();
+        }
         model.addCustomer(customerToAdd);
+        model.commitCentralManager();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, customerToAdd));
     }
 }

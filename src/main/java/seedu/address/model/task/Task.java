@@ -43,6 +43,28 @@ public class Task {
         eventTime = Optional.empty();
     }
 
+    /**
+     * Deep copies a (@code Task)
+     *
+     * @return deep-copied (@code Task)
+     */
+    public Task deepCopyTask() {
+        Task deepCopyTask = new Task(this.id, this.description, this.date);
+        deepCopyTask.setCustomer(this.customer.deepCopyCustomer());
+        if (this.driver.isPresent()) {
+            deepCopyTask.setDriver(Optional.of(this.driver.get().deepCopyDriver()));
+        } else {
+            deepCopyTask.setDriver(Optional.empty());
+        }
+        if (this.eventTime.isPresent()) {
+            deepCopyTask.setEventTime(Optional.of(this.eventTime.get().deepCopyEventTime()));
+        } else {
+            deepCopyTask.setEventTime(Optional.empty());
+        }
+        deepCopyTask.deepCopyStatus(this.getStatus());
+        return deepCopyTask;
+    }
+
     //get methods
     public int getId() {
         return id;
@@ -100,6 +122,10 @@ public class Task {
         this.status = status;
     }
 
+    public void deepCopyStatus(TaskStatus status) {
+        this.status = status;
+    }
+
     public void setDescription(Description description) {
         this.description = description;
     }
@@ -117,6 +143,10 @@ public class Task {
             setStatus(TaskStatus.INCOMPLETE);
         }
 
+        this.driver = driver;
+    }
+
+    public void shallowCopyDriver(Optional<Driver> driver) {
         this.driver = driver;
     }
 

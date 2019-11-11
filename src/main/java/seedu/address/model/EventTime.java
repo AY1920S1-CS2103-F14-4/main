@@ -45,6 +45,10 @@ public class EventTime implements Comparable<EventTime> {
         this.end = start.plus(duration);
     }
 
+    public EventTime deepCopyEventTime() {
+        return new EventTime(start, end);
+    }
+
     /**
      * Builds duration from two text representations of time.
      * <p>

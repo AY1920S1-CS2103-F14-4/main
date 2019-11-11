@@ -138,6 +138,39 @@ Format: `list`
 Exits the program. +
 Format: `exit`
 
+==== Undo a command : `undo`
+
+Undo the most recent user command. +
+Format: `undo`
+****
+* Only user commands that change the state of the data will be undone.
+* If the last command changes the state of the stored data e.g. `addT`, then it will be undone.
+* If the last command does not change the state of the stored data e.g. `list`, then a previous command that changes
+the data state will be undone instead.
+* Example:
+** User input sequence:
+*** `addD n/Uncle Alex p/888889999 e/someone@gmail.com a/1 Pine Road tt/friends`
+*** `list`
+*** `undo`
+** Result: `undo` will undo the `addD` command, as the `list` command does not change the data state.
+****
+
+==== Redo a command : `redo`
+
+Redo the most recently undone command. +
+Format: `redo`
+****
+* Only user commands that change the state of the data will be redone.
+* Example:
+** User input sequence:
+*** `addC n/Damith Bobby p/89898989 e/someoneone@gmail.com a/2 Watermelon Road`
+*** `list`
+*** `undo`
+*** `redo`
+** Result: In this case, `redo` will redo the most recently undone command i.e. `addC`. The `list` command will not be considered.
+****
+
+
 === Task Management Commands
 
 // tag::addT-command[]
@@ -214,7 +247,11 @@ Find the best driver, using the rules above, who is available for 1 hour and 20 
 // tag::assign-command[]
 ==== Manually assigning a task: `assign`
 
+<<<<<<< HEAD
+Assign an existing task to a driver with a proposed time. +
+=======
 Assign a driver to a task with a proposed time. +
+>>>>>>> e6fc9374adddc4d971f1c1ecb54dd659d6e0fb7c
 Format: `assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM`
 
 ****
@@ -252,6 +289,20 @@ Examples:
 Remove the assigned driver and time slot from the task, and free the driver's schedule.
 // end::free-command[]
 
+==== Find a delivery task: `findT`
+
+Finds and displays all delivery tasks that have the user input phrase in their description. +
+Format: `findT [phrase] [more phrase]`
+****
+* This command is case-insensitive.
+* Examples:
+** `findT gla`
+*** Finds and displays all task(s) with "gla" in their description(s).
+** `findT glass`
+*** Finds and displays all task(s) with "glass" in their description(s).
+** `findT glass box`
+*** Finds and displays all task(s) with "glass box" in their description(s).
+****
 
 ==== Mark a delivery task as completed: `done`
 
@@ -360,10 +411,29 @@ Examples:
 * `addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
 // end::addc-command[]
 
+// tag::findc-command[]
+==== Find a customer: `findC`
+
+Finds and displays all customers that have the user input phrase in their name. +
+Format: `findC [phrase] [more phrase]`
+****
+* This command is case-insensitive.
+* Examples:
+** `findC `Johna`
+*** Finds and displays all customer(s) with "Johna" in their name(s).
+** `findC Bobby Rose`
+*** Finds and displays all customer(s) with "Bobby Rose" in their name(s).
+** `findC a`
+*** Finds and displays all customer(s) with "a" in their name(s).
+****
+//end::findc-command[]
+
 // tag::viewcw-command[]
 ==== View full Customer details `viewCW`
 Opens a separate window with all Customer details and a map showing location of Customer Address. +
 Format: `viewCW CUSTOMERID`
+
+
 
 [NOTE]
 Working internet connection and valid address is needed for map to work.
@@ -406,6 +476,24 @@ Examples:
 * `viewDW 1`
 // end::viewdw-command[]
 
+<<<<<<< HEAD
+//tag::findd-command[]
+==== Find a driver: `findD`
+
+Finds and displays all drivers that have the user input phrase in their name. +
+Format: `findD [phrase] [more phrase]`
+****
+* This command is case-insensitive.
+* Examples:
+** `findD Uncle Sam`
+*** Finds and displays all driver(s) with "Uncle Sam" in their name(s).
+** `findD Ahmad`
+*** Finds and displays all driver(s) with "Ahmad" in their name(s).
+** `findD Tan Ah Beng`
+*** Finds and displays all driver(s) with "Tan Ah Beng" in their name(s).
+****
+//end::findd-command[]
+=======
 
 === Company Commands
 
@@ -424,6 +512,7 @@ Examples
 Updates the company's name to "Fast Supply Pte Ltd" and phone no to "67331928".
 * `update r/18387752B gst/-` +
 Updates the company's registration number to "18387752B" and remove GST registration number.
+>>>>>>> e6fc9374adddc4d971f1c1ecb54dd659d6e0fb7c
 
 == Saving the data
 

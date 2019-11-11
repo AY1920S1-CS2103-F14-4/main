@@ -72,6 +72,10 @@ public class DoneCommand extends Command {
         //if task is ONGOING, it must have a driver and eventTime
         freeDriverFromTask(taskToMark.getDriver().get(), taskToMark.getEventTime().get());
 
+        if (model.shouldTruncateCentralManager()) {
+            model.truncateCentralManager();
+        }
+        model.commitCentralManager();
         return new CommandResult(String.format(MESSAGE_MARK_TASK_COMPLETED, taskToMark.getId()));
     }
 

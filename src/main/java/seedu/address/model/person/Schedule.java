@@ -25,7 +25,7 @@ public class Schedule {
             "The event cannot happen in the past. The time now is %s. ";
 
     public static final String START_WORK_TIME = "0900";
-    public static final String END_WORK_TIME = "2100";
+    public static final String END_WORK_TIME = "2349";
     private static EventTime workingHours = EventTime.parse(START_WORK_TIME, END_WORK_TIME);
 
     public static final String MESSAGE_OUTSIDE_WORKING_HOURS =
@@ -44,6 +44,22 @@ public class Schedule {
         EventTime afterWorkingHours = EventTime.parse(END_WORK_TIME, "2359");
         schedule.add(beforeWorkingHours);
         schedule.add(afterWorkingHours);
+    }
+
+    /**
+     * Deep copies a (@code Schedule)
+     *
+     * @return deep-copied (@code Schedule)
+     */
+    public Schedule deepCopySchedule() {
+        Schedule deepCopySchedule = new Schedule();
+        for (EventTime eventTime : this.schedule) {
+            if ((!eventTime.equals(EventTime.parse("0000", START_WORK_TIME)))
+                    || (!eventTime.equals(EventTime.parse(END_WORK_TIME, "2359")))) {
+                deepCopySchedule.schedule.add(eventTime.deepCopyEventTime());
+            }
+        }
+        return deepCopySchedule;
     }
 
 

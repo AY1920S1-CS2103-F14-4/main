@@ -50,8 +50,6 @@ public class LogicManager implements Logic {
         Command command = commandParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        model.addCommand(commandText);
-
         try {
             storage.saveManager(new CentralManager(model.getCustomerManager(), model.getDriverManager(),
                     model.getTaskManager(), model.getIdManager(), model.getCompany()));
@@ -84,6 +82,9 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Task> getFilteredAssignedTaskList() {
+        if (model.getAssignedTaskList() == null) {
+            model.updateAssignedTaskList();
+        }
         return model.getAssignedTaskList();
     }
 

@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 
+import seedu.address.model.person.Driver;
+
 /**
  * Helper functions for handling strings.
  */
@@ -36,6 +38,37 @@ public class StringUtil {
 
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(preppedWord::equalsIgnoreCase);
+    }
+
+    /**
+     * Returns true if the (@code sentence) contains the (@code word).
+     *   Ignores case, but a part of the sentence must fully math the sequence of the phrase.
+     *   <br>examples:<pre>
+     *       containsPhraseIgnoreCase("ABc def", "abc") == true
+     *       containsPhraseIgnoreCase("ABc def", "c def") == true
+     *       containsPhraseIgnoreCase("ABc def", "EF") == true
+     *       containsPhraseIgnoreCase("ABc def", "acb def") == false //not in sequence
+     *   </pre>
+     *
+     * @param sentence cannot be null
+     * @param phrase cannot be null, cannot be empty
+     */
+    public static boolean containsPhraseIgnoreCase(String sentence, String phrase) {
+        requireNonNull(sentence);
+        requireNonNull(phrase);
+
+        String preppedPhrase = phrase.trim();
+        checkArgument(!preppedPhrase.isEmpty(), "Phrase parameter cannot be empty");
+
+        return sentence.toLowerCase().contains(preppedPhrase);
+    }
+
+    /**
+     * Returns true if the (@code driverToCompare) is equal to (@code driverAssignedToTask).
+     *
+     */
+    public static boolean isTheSameDriver(Driver driverToCompare, Driver driverAssignedToTask) {
+        return driverToCompare.equals(driverAssignedToTask);
     }
 
     /**

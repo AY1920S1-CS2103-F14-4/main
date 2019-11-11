@@ -25,6 +25,16 @@ public class Customer extends Person {
         this.id = id;
     }
 
+    /**
+     * Deep copies a (@code Customer)
+     *
+     * @return deep-copied (@code Customer)
+     */
+    public Customer deepCopyCustomer() {
+        Customer deepCopyCustomer = this;
+        return deepCopyCustomer;
+    }
+
     public int getId() {
         return id;
     }

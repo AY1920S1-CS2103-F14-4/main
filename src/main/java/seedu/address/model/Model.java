@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.GlobalClock;
 import seedu.address.model.company.Company;
@@ -161,6 +162,11 @@ public interface Model {
     boolean hasTaskBelongsToCustomer(Customer customer);
 
     /**
+     * A control-check update to ensure that the AssignedTaskList will be updated to display the default assigned tasks.
+     */
+    void updateAssignedTaskList();
+
+    /**
      * Returns an unmodifiable view of the filtered unassigned task list.
      */
     ObservableList<Task> getUnassignedTaskList();
@@ -217,8 +223,6 @@ public interface Model {
 
     void setDriver(Driver driverToEdit, Driver editedTask);
 
-    void updateFilteredDriverList(Predicate<Driver> predicate);
-
     void addDriver(Driver driver);
 
     void deleteDriver(Driver driver);
@@ -236,6 +240,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list);
+
+    void updateFilteredTaskList(Predicate<Task> predicate);
 
     void refreshFilteredTaskList();
 
@@ -261,6 +267,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCustomerList(Predicate<Customer> predicate);
+
+    void updateFilteredDriverList(Predicate<Driver> predicate);
 
     void refreshFilteredCustomerList();
 
@@ -301,4 +309,17 @@ public interface Model {
      */
     ObservableList<String> getFilteredCommandList();
 
+    void commitCentralManager();
+
+    boolean canUndoCentralManager();
+
+    void undoCentralManager();
+
+    boolean canRedoCentralManager();
+
+    void redoCentralManager();
+
+    boolean shouldTruncateCentralManager();
+
+    void truncateCentralManager();
 }
