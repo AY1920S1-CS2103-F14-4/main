@@ -25,11 +25,12 @@
 <li><a href="#global-level-task-scheduling">3.2. Global-Level Task Scheduling</a></li>
 <li><a href="#task-feature-e-g-add-delivery-task">3.3. Task Feature (E.g. Add Delivery Task)</a></li>
 <li><a href="#generate-task-summary-and-delivery-orders-in-pdf-feature">3.4. Generate Task Summary and Delivery Orders in PDF Feature</a></li>
-<li><a href="#proposed-undo-redo-feature">3.5. [Proposed] Undo/Redo feature</a></li>
-<li><a href="#logging">3.6. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
-<li><a href="#customer-feature">3.8. Customer Feature</a></li>
-<li><a href="#driver-feature">3.9. Driver Feature</a></li>
+<li><a href="#proposed-view-completed-task-delivered-for-customer-or-driver">3.5. [Proposed] View completed Task delivered for customer or driver</a></li>
+<li><a href="#proposed-undo-redo-feature">3.6. [Proposed] Undo/Redo feature</a></li>
+<li><a href="#logging">3.7. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
+<li><a href="#customer-feature">3.9. Customer Feature</a></li>
+<li><a href="#driver-feature">3.10. Driver Feature</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -179,8 +180,7 @@ The following class plays an important role at the architecture level:</p>
 <p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/blob/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>, <code>StatusBarFooter</code> etc.
-All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
+<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>DriverListPanel</code>, <code>StatusBarFooter</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
 </div>
 <div class="paragraph">
 <p>The <code>UI</code> component uses JavaFx UI framework.
@@ -692,9 +692,43 @@ The following layouts are mainly what makes up the task summary:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.5. [Proposed] Undo/Redo feature</a></h3>
+<h3 id="proposed-view-completed-task-delivered-for-customer-or-driver"><a class="link" href="#proposed-view-completed-task-delivered-for-customer-or-driver">3.5. [Proposed] View completed Task delivered for customer or driver</a></h3>
+<div class="paragraph">
+<p>The section allows the user to view the completed tasks by driver or customer
+The following activity diagram summarizes what happens when a user executes a new command:</p>
+</div>
+<div class="paragraph">
+<p><code>viewC 10</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/viewCustomerTaskActivityDiagram.png" alt="viewCustomerTaskActivityDiagram">
+</div>
+</div>
+<div class="paragraph">
+<p>The following is the sequence diagram summarizes what happens when a user executes a new command:</p>
+</div>
+<div class="paragraph">
+<p><code>viewC 1</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/viewCustomerTaskCommand.png" alt="viewCustomerTaskCommand">
+</div>
+</div>
+<div class="paragraph">
+<p><code>viewC 2</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/viewDriverTaskCommand.png" alt="viewDriverTaskCommand">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.6. [Proposed] Undo/Redo feature</a></h3>
 <div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.5.1. Proposed Implementation</a></h4>
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.6.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -849,7 +883,7 @@ This is the behavior that most modern desktop applications follow.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.6.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -921,7 +955,7 @@ Violates Single Responsibility Principle and Separation of Concerns as <code>His
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.7. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging.
 The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
@@ -929,7 +963,7 @@ The <code>LogsCenter</code> class is used to manage the logging levels and loggi
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.8, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -960,15 +994,15 @@ The <code>LogsCenter</code> class is used to manage the logging levels and loggi
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.8. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="customer-feature"><a class="link" href="#customer-feature">3.8. Customer Feature</a></h3>
+<h3 id="customer-feature"><a class="link" href="#customer-feature">3.9. Customer Feature</a></h3>
 <div class="sect3">
-<h4 id="add-customer"><a class="link" href="#add-customer">3.8.1. Add Customer</a></h4>
+<h4 id="add-customer"><a class="link" href="#add-customer">3.9.1. Add Customer</a></h4>
 <div class="sect4">
 <h5 id="implementation-6"><a class="link" href="#implementation-6">Implementation</a></h5>
 <div class="paragraph">
@@ -1037,7 +1071,7 @@ A unique id will also be allocated to the Customer for differentiation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="view-customer-window"><a class="link" href="#view-customer-window">3.8.2. View Customer Window</a></h4>
+<h4 id="view-customer-window"><a class="link" href="#view-customer-window">3.9.2. View Customer Window</a></h4>
 <div class="sect4">
 <h5 id="implementation-7"><a class="link" href="#implementation-7">Implementation</a></h5>
 <div class="paragraph">
@@ -1109,9 +1143,9 @@ all essential details. Allow the space for working map showing the location of t
 </div>
 </div>
 <div class="sect2">
-<h3 id="driver-feature"><a class="link" href="#driver-feature">3.9. Driver Feature</a></h3>
+<h3 id="driver-feature"><a class="link" href="#driver-feature">3.10. Driver Feature</a></h3>
 <div class="sect3">
-<h4 id="add-driver"><a class="link" href="#add-driver">3.9.1. Add Driver</a></h4>
+<h4 id="add-driver"><a class="link" href="#add-driver">3.10.1. Add Driver</a></h4>
 <div class="sect4">
 <h5 id="implementation-8"><a class="link" href="#implementation-8">Implementation</a></h5>
 <div class="paragraph">
@@ -1180,7 +1214,7 @@ A unique id will also be allocated to the Driver for differentiation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="view-driver-window"><a class="link" href="#view-driver-window">3.9.2. View Driver Window</a></h4>
+<h4 id="view-driver-window"><a class="link" href="#view-driver-window">3.10.2. View Driver Window</a></h4>
 <div class="sect4">
 <h5 id="implementation-9"><a class="link" href="#implementation-9">Implementation</a></h5>
 <div class="paragraph">
@@ -1715,4 +1749,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:36:50 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 17:58:27 UTC</div></div></div></body></html>

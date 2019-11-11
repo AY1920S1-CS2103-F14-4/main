@@ -27,9 +27,7 @@
 <li><a href="#general-commands">3.1. General Commands</a>
 <ul class="sectlevel3">
 <li><a href="#viewing-help-code-help-code">3.1.1. Viewing help : <code>help</code></a></li>
-<li><a href="#navigate-between-tabs-code-go-code">3.1.2. Navigate between tabs : <code>go</code></a></li>
-<li><a href="#lists-all-task-driver-customer-code-list-code">3.1.3. Lists all Task / Driver / Customer : <code>list</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.1.4. Exiting the program : <code>exit</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.1.2. Exiting the program : <code>exit</code></a></li>
 </ul>
 </li>
 <li><a href="#task-management-commands">3.2. Task Management Commands</a>
@@ -42,9 +40,8 @@
 <li><a href="#mark-a-delivery-task-as-completed-code-done-code">3.2.6. Mark a delivery task as completed: <code>done</code></a></li>
 <li><a href="#gets-the-details-of-a-delivery-task-driver-customer-code-read-code">3.2.7. Gets the details of a delivery task / driver / customer: <code>read</code></a></li>
 <li><a href="#deletes-a-delivery-task-driver-customer-code-del-code">3.2.8. Deletes a delivery task / driver / customer: <code>del</code></a></li>
-<li><a href="#views-completed-delivery-tasks-delivered-to-customer-code-viewc-code">3.2.9. Views completed delivery tasks delivered to Customer <code>viewC</code></a></li>
-<li><a href="#views-completed-delivery-tasks-delivered-by-driver-code-viewd-code">3.2.10. Views completed delivery tasks delivered by Driver: <code>viewD</code></a></li>
-<li><a href="#generates-task-summary-or-delivery-orders-for-a-specific-date-in-pdf-document-code-savepdf-code">3.2.11. Generates Task Summary or Delivery Orders for a specific date in PDF document: <code>savepdf</code></a></li>
+<li><a href="#views-completed-delivery-tasks-delivered-by-driver">3.2.9. Views completed delivery tasks delivered by Driver</a></li>
+<li><a href="#saves-assigned-delivery-tasks-for-a-specific-date-into-pdf-document-code-savepdf-code">3.2.10. Saves assigned delivery tasks for a specific date into PDF document: <code>savepdf</code></a></li>
 </ul>
 </li>
 <li><a href="#customer-management-commands">3.3. Customer Management Commands</a>
@@ -293,11 +290,9 @@ For example, to edit the description of the delivery task (Task ID:3) : <code>ed
 <h4 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1.1. Viewing help : <code>help</code></a></h4>
 <div class="paragraph">
 <p>List all available commands<br>
-Format: <code>help</code></p>
+Format: <code>help</code>
+==== Navigate between tabs : <code>go</code></p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="navigate-between-tabs-code-go-code"><a class="link" href="#navigate-between-tabs-code-go-code">3.1.2. Navigate between tabs : <code>go</code></a></h4>
 <div class="paragraph">
 <p>Navigates to the specified tab Tl state.<br>
 Format: <code>go [TAB_NAME]</code><br>
@@ -309,20 +304,18 @@ Examples:</p>
 <p><code>go statistic</code></p>
 </li>
 <li>
-<p><code>go home</code></p>
+<p><code>go home</code>
+==== Lists all Task / Driver / Customer : <code>list</code></p>
 </li>
 </ul>
 </div>
-</div>
-<div class="sect3">
-<h4 id="lists-all-task-driver-customer-code-list-code"><a class="link" href="#lists-all-task-driver-customer-code-list-code">3.1.3. Lists all Task / Driver / Customer : <code>list</code></a></h4>
 <div class="paragraph">
 <p>Displays all Task / Customer / Driver list in it&#8217;s original state.<br>
 Format: <code>list</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.1.4. Exiting the program : <code>exit</code></a></h4>
+<h4 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.1.2. Exiting the program : <code>exit</code></a></h4>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
@@ -625,13 +618,11 @@ Deletes task (Task ID: 1) from the task manager.</p>
 </li>
 <li>
 <p><code>del d/2</code><br>
-Deletes driver (Driver ID: 2) from the driver manager.</p>
+Deletes driver (Driver ID: 2) from the driver manager.
+==== Views completed delivery tasks delivered to Customer</p>
 </li>
 </ul>
 </div>
-</div>
-<div class="sect3">
-<h4 id="views-completed-delivery-tasks-delivered-to-customer-code-viewc-code"><a class="link" href="#views-completed-delivery-tasks-delivered-to-customer-code-viewc-code">3.2.9. Views completed delivery tasks delivered to Customer <code>viewC</code></a></h4>
 <div class="paragraph">
 <p>Displays a list of completed tasks delivered to the customer, located in the completed delivery list under History tab.</p>
 </div>
@@ -648,7 +639,7 @@ View the tasks delivered to the customer (Customer ID: 1).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="views-completed-delivery-tasks-delivered-by-driver-code-viewd-code"><a class="link" href="#views-completed-delivery-tasks-delivered-by-driver-code-viewd-code">3.2.10. Views completed delivery tasks delivered by Driver: <code>viewD</code></a></h4>
+<h4 id="views-completed-delivery-tasks-delivered-by-driver"><a class="link" href="#views-completed-delivery-tasks-delivered-by-driver">3.2.9. Views completed delivery tasks delivered by Driver</a></h4>
 <div class="paragraph">
 <p>Displays a list of completed tasks delivered by the driver, located in the completed delivery list under History tab.</p>
 </div>
@@ -665,20 +656,12 @@ View the tasks delivered by the driver (Driver ID: 1).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="generates-task-summary-or-delivery-orders-for-a-specific-date-in-pdf-document-code-savepdf-code"><a class="link" href="#generates-task-summary-or-delivery-orders-for-a-specific-date-in-pdf-document-code-savepdf-code">3.2.11. Generates Task Summary or Delivery Orders for a specific date in PDF document: <code>savepdf</code></a></h4>
+<h4 id="saves-assigned-delivery-tasks-for-a-specific-date-into-pdf-document-code-savepdf-code"><a class="link" href="#saves-assigned-delivery-tasks-for-a-specific-date-into-pdf-document-code-savepdf-code">3.2.10. Saves assigned delivery tasks for a specific date into PDF document: <code>savepdf</code></a></h4>
 <div class="paragraph">
-<p>Document Type: <code>summary</code><br>
-The <code>Task Summary</code> is a summary of delivery tasks that is assigned to each driver for the specific date.
-Its purpose is for user reference and archive. Refer to <a href="#PdfSummary">Figure 5, &#8220;PDF Task Summary generated by <code>savepdf</code> command.&#8221;</a> for sample.</p>
-</div>
-<div class="paragraph">
-<p>Document Type: <code>order</code><br>
-The <code>Delivery Order</code> is a document that contain goods' information and requires customers' confirmation.
-Its purpose is to act as a proof between the delivery company and receiver that goods are delivered
-as per order and accepted in good condition. Refer to <a href="#PdfDeliveryOrder">Figure 6, &#8220;PDF Delivery Order generated by <code>savepdf</code> command.&#8221;</a> for sample.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>savepdf [pdf/DOCUMENT TYPE] [dt/DATE]</code></p>
+<p>The PDF document is arranged in a table format to allow easy reference of the delivery tasks that is assigned to each drivers for the date.
+Its purpose is for user reference and archive.<br>
+Refer to <a href="#PdfLayout">[PdfLayout]</a> for sample.<br>
+Format: <code>savepdf [DATE]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -933,4 +916,4 @@ There will be a folder called <code>data</code>.</p>
 <div class="title">Figure 6. PDF Delivery Order generated by <code>savepdf</code> command.</div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:36:50 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 17:58:27 UTC</div></div></div></body></html>
