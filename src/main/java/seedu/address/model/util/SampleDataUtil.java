@@ -113,7 +113,7 @@ public class SampleDataUtil {
         Optional<EventTime> eventTime12to14 = Optional.of(EventTime.parse("1200 - 1400"));
         Optional<EventTime> eventTime14to16 = Optional.of(EventTime.parse("1400 - 1600"));
         Optional<EventTime> eventTime16to18 = Optional.of(EventTime.parse("1600 - 1800"));
-        Optional<EventTime> eventTime18to20 = Optional.of(EventTime.parse("1600 - 1800"));
+        Optional<EventTime> eventTime18to20 = Optional.of(EventTime.parse("1800 - 2000"));
         Optional<EventTime> eventTime20to21 = Optional.of(EventTime.parse("2000 - 2100"));
 
         //Customer selections:
@@ -160,22 +160,25 @@ public class SampleDataUtil {
                 Task.getParsedLocalDate(LocalDate.now()));
         sampleTask3.setCustomer(customer1);
         sampleTask3.setDriverAndEventTime(driver1, eventTime9to10);
+        driverManager.getDriver(1).addToSchedule(EventTime.parse("0900 - 1000"));
 
         Task sampleTask9 = new Task(9, new Description("3 dry-fit shirts"),
                 Task.getParsedLocalDate(LocalDate.now()));
         sampleTask9.setCustomer(customer5);
         sampleTask9.setDriverAndEventTime(driver4, eventTime16to18);
+        driverManager.getDriver(4).addToSchedule(EventTime.parse("1600 - 1800"));
 
         Task sampleTask10 = new Task(10, new Description("1 Basketball"),
                 Task.getParsedLocalDate(LocalDate.now()));
         sampleTask10.setCustomer(customer5);
-        sampleTask10.setDriverAndEventTime(driver2, eventTime18to20);
+        sampleTask10.setDriverAndEventTime(driver4, eventTime18to20);
+        driverManager.getDriver(4).addToSchedule(EventTime.parse("1800 - 2000"));
 
         Task sampleTask19 = new Task(19, new Description("4 Boxes of cutlery products"),
                 Task.getParsedLocalDate(LocalDate.now()));
         sampleTask19.setCustomer(customer4);
         sampleTask19.setDriverAndEventTime(driver1, eventTime10to12);
-
+        driverManager.getDriver(1).addToSchedule(EventTime.parse("1000 - 1200"));
 
         //Completed delivery tasks:
         Task sampleTask1 = new Task(1, new Description("20 frozen boxes of Red groupers"),
@@ -217,7 +220,7 @@ public class SampleDataUtil {
         Task sampleTask13 = new Task(13, new Description("5 Phone cases"),
                 Task.getDateFromString("9/11/2019"));
         sampleTask13.setCustomer(customer4);
-        sampleTask13.setDriverAndEventTime(driver2, eventTime18to20);
+        sampleTask13.setDriverAndEventTime(driver3, eventTime18to20);
         sampleTask13.setStatus(TaskStatus.COMPLETED);
 
         Task sampleTask16 = new Task(16, new Description("3 Lipsticks"),
