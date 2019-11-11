@@ -67,4 +67,3 @@ deactivate ViewCustomerTaskCommand
 [<--LogicManager
 deactivate LogicManager
 @enduml
-l
