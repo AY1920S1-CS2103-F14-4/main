@@ -32,7 +32,7 @@ import seedu.address.storage.CentralManager;
  */
 public class SampleDataUtil {
 
-    public static final int SAMPLE_LAST_TASK_ID = 5;
+    public static final int SAMPLE_LAST_TASK_ID = 19;
     public static final int SAMPLE_LAST_CUSTOMER_ID = 6;
     public static final int SAMPLE_LAST_DRIVER_ID = 6;
 
@@ -160,7 +160,6 @@ public class SampleDataUtil {
                 Task.getParsedLocalDate(LocalDate.now()));
         sampleTask3.setCustomer(customer1);
         sampleTask3.setDriverAndEventTime(driver1, eventTime9to10);
-        //driverManager.getDriver(1).addToSchedule(EventTime.parse("1000 - 1200"));
 
         Task sampleTask9 = new Task(9, new Description("3 dry-fit shirts"),
                 Task.getParsedLocalDate(LocalDate.now()));
@@ -181,8 +180,8 @@ public class SampleDataUtil {
         //Completed delivery tasks:
         Task sampleTask1 = new Task(1, new Description("20 frozen boxes of Red groupers"),
                 Task.getDateFromString("10/11/2019"));
-        sampleTask1.setCustomer(customer3);
-        sampleTask1.setDriverAndEventTime(driver1, eventTime10to12);
+        sampleTask1.setCustomer(customer1);
+        sampleTask1.setDriverAndEventTime(driver1, eventTime9to10);
         sampleTask1.setStatus(TaskStatus.COMPLETED);
 
         Task sampleTask4 = new Task(4, new Description("5 boxes of Chicken Nuggets"),
@@ -240,9 +239,9 @@ public class SampleDataUtil {
         sampleTask18.setStatus(TaskStatus.COMPLETED);
 
         return new Task[]{sampleTask1, sampleTask2, sampleTask3, sampleTask4, sampleTask5,
-                sampleTask6, sampleTask7, sampleTask8, sampleTask9, sampleTask10,
-                sampleTask11, sampleTask12, sampleTask13, sampleTask14, sampleTask15,
-                sampleTask16, sampleTask17, sampleTask18, sampleTask19};
+            sampleTask6, sampleTask7, sampleTask8, sampleTask9, sampleTask10,
+            sampleTask11, sampleTask12, sampleTask13, sampleTask14, sampleTask15,
+            sampleTask16, sampleTask17, sampleTask18, sampleTask19};
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {

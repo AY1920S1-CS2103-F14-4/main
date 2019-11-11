@@ -50,13 +50,8 @@ public class LogicManager implements Logic {
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        //Add the successful commands to the history command list and update
-        commandHistory.addCommand(commandText);
-        model.updateCommandList(Model.PREDICATE_SHOW_ALL_COMMANDS, model.getFilteredCommandList());
+        model.addCommand(commandText);
 
-        //check
-        System.out.println(commandText);
-        System.out.println(commandHistory.getCommandList());
         try {
             storage.saveManager(new CentralManager(model.getCustomerManager(), model.getDriverManager(),
                     model.getTaskManager(), model.getIdManager()));
@@ -114,7 +109,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<String> getCommandList() {
-        return model.getCommandList();
+        return model.getFilteredCommandList();
     }
 
 

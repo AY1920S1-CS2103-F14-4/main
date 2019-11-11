@@ -615,28 +615,20 @@ public class ModelManager implements Model {
 
     // =========== Command List Accessors =====================================================================
 
+
     /**
-     * Returns an unmodifiable view of the filtered command list.
+     * Adds command to the command list
      */
-    @Override
-    public ObservableList<String> getCommandList() {
-        return commandList;
+    public void addCommand(String command) {
+        this.commandHistory.addCommand(command);
     }
 
     /**
      * Returns an unmodifiable view of the filtered command list.
      */
     @Override
-    public FilteredList<String> getFilteredCommandList() {
+    public ObservableList<String> getFilteredCommandList() {
         return commandList;
     }
 
-    /**
-     * Updates the command list to filter by the given {@code predicate}.
-     */
-    @Override
-    public void updateCommandList(Predicate<String> predicate, FilteredList<String> commandList) {
-        requireNonNull(predicate);
-        commandList.setPredicate(predicate);
-    }
 }

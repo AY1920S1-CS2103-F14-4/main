@@ -395,6 +395,16 @@ public class AddCommandTest {
                 throws IOException, PdfNoTaskToDisplayException {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void addCommand(String command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<String> getFilteredCommandList() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

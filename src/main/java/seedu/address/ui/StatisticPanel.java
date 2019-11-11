@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.HashMap;
+
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -9,8 +12,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
 import seedu.address.model.task.Task;
-
-import java.util.HashMap;
 
 /**
  * Displays the statistic tab with bar charts.
@@ -44,21 +45,33 @@ public class StatisticPanel extends UiPart<Region> {
 
     private void getChartData(Logic logicStatistic) {
 
-        XYChart.Series<String, Double> customerSeries = new XYChart.Series<>();
-        XYChart.Series<String, Double> driverSeries = new XYChart.Series<>();
-
         ObservableList<Task> tasks = logicStatistic.getFilteredTaskList();
         ObservableList<Task> completedTasks = logicStatistic.getFilteredCompletedTaskList();
+
+        tasks.addListener((ListChangeListener) (c -> updateChart(tasks, completedTasks)));
+        completedTasks.addListener((ListChangeListener) (c -> updateChart(tasks, completedTasks)));
+
+        updateChart(tasks, completedTasks);
+    }
+
+    /**
+     * Updates the bar chart with the new tasks and completed tasks data.
+     *
+     * @param tasks List of all delivery tasks
+     * @param completedTasks List of completed delivery tasks
+     */
+    private void updateChart(ObservableList<Task> tasks, ObservableList<Task> completedTasks) {
+
+        XYChart.Series<String, Double> customerSeries = new XYChart.Series<>();
+        XYChart.Series<String, Double> driverSeries = new XYChart.Series<>();
 
         HashMap<Integer, Integer> customerData = new HashMap<>();
         HashMap<Integer, Integer> driverData = new HashMap<>();
 
-        //Loops through the tasks and add the number of orders to each customer ID storing as HashMap
-        //Customers with zero orders will not be displayed in the bar chart
         for (Task task : tasks) {
             if (customerData.containsKey(task.getCustomer().getId())) {
                 customerData.replace(task.getCustomer().getId(), customerData.get(task.getCustomer().getId()) + 1);
-            } else  {
+            } else {
                 customerData.put(task.getCustomer().getId(), 1);
             }
         }
@@ -66,7 +79,7 @@ public class StatisticPanel extends UiPart<Region> {
         for (Task task : completedTasks) {
             if (driverData.containsKey(task.getDriver().get().getId())) {
                 driverData.replace(task.getDriver().get().getId(), driverData.get(task.getDriver().get().getId()) + 1);
-            } else  {
+            } else {
                 driverData.put(task.getDriver().get().getId(), 1);
             }
         }
@@ -75,12 +88,17 @@ public class StatisticPanel extends UiPart<Region> {
 
         driverData.forEach((id, delivery) -> driverSeries.getData().add(new XYChart.Data("#" + id, delivery)));
 
+        if (!customerChart.getData().isEmpty()) {
+            customerChart.getData().clear();
+        }
         customerChart.getData().add(customerSeries);
         customerChart.setLegendVisible(false);
 
+        if (!driverChart.getData().isEmpty()) {
+            driverChart.getData().clear();
+        }
         driverChart.getData().add(driverSeries);
         driverChart.setLegendVisible(false);
-
     }
 
 }

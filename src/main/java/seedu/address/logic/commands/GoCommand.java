@@ -18,7 +18,7 @@ public class GoCommand extends Command {
     public static final String MESSAGE_GO_SUCCESS = "Navigated to %s tab!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Navigates to the specified tab bar "
-            + "the specified keywords (case-sensitive) "
+            + "the specified keywords (case-insensitive) "
             + "\n"
             + "Parameters: TAB_NAME"
             + "\n"

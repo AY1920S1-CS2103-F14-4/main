@@ -1,9 +1,11 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import static java.util.Objects.requireNonNull;
+
 
 /**
  * Keep track of the past commands executed by the User.
@@ -11,17 +13,10 @@ import static java.util.Objects.requireNonNull;
 public class CommandHistory {
 
     private final ObservableList<String> commandList = FXCollections.observableArrayList();
-    private final ObservableList<String> commandListUnmodifiable = FXCollections.unmodifiableObservableList(commandList);
-
-    String command;
+    private final ObservableList<String> commandListUnmodifiable =
+            FXCollections.unmodifiableObservableList(commandList);
 
     public CommandHistory() {
-        commandList.add("test");
-        commandList.add("test2");
-    }
-
-    public CommandHistory(String command) {
-        this.command = command;
     }
 
     /**
@@ -34,12 +29,10 @@ public class CommandHistory {
         commandList.add(command);
     }
 
-
     /**
      * Returns an unmodifiable command list.
      */
     public ObservableList<String> getCommandList() {
         return commandListUnmodifiable;
     }
-
 }

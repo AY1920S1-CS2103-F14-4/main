@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -27,8 +26,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CommandHistory;
-import seedu.address.model.Model;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -42,8 +39,6 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-
-    CommandHistory commandHistory;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
@@ -240,7 +235,7 @@ public class MainWindow extends UiPart<Stage> {
             selectionModel.select(0);
         } else if (param.equalsIgnoreCase(HISTORY_TAB)) {
             selectionModel.select(1);
-        } else if (param.equalsIgnoreCase(STATISTIC_TAB)){
+        } else if (param.equalsIgnoreCase(STATISTIC_TAB)) {
             selectionModel.select(2);
         }
     }
