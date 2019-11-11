@@ -73,6 +73,9 @@ public class Person {
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
+    /**
+     * Updates the person information a updated replica person.
+     */
     public void update(Person person) {
         name = person.name;
         phone = person.phone;
