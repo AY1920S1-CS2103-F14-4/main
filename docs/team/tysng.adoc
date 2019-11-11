@@ -47,10 +47,10 @@ the time-based methods have deterministic behaviour
 * *Other contributions*:
 
 ** Project management:
-*** Created the team repo, enabled Continuous Integration, Github Pages Deployment,
+*** Created the team repo, enabled Continuous Integration, Github Pages Deployment.
 *** Implemented code review policy and enabled branch protection rules, and worked on various work flow related chores to maintain a clean commit history.
 *** Spearheaded the feature planning (https://github.com/AY1920S1-CS2103T-F14-4/main/projects/2[Brainstorming Board], https://github.com/AY1920S1-CS2103T-F14-4/main/projects/1[Dev Board]).
-*** Managed releases `v1.1` - `v1.3.1` (3 releases) on https://github.com/AY1920S1-CS2103T-F14-4/main/releases[Github].
+*** Managed releases `v1.1` - `v1.4` (4 releases) on https://github.com/AY1920S1-CS2103T-F14-4/main/releases[Github].
 
 ** Enhancements to existing features:
 *** Changed three existing classes to generic classes, ie. `EntityManager<T extends Person>`, `ReadOnlyEntityManager<T extends Person>`, and `UniqueEntityList<T extends Person>`, so as to reduce 600+ lines of repetitive code (Pull Request https://github.com/AY1920S1-CS2103T-F14-4/main/pull/95[#95]).
