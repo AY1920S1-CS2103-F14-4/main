@@ -31,7 +31,7 @@ Deliveria is *optimized for those who prefer* to work with a _Command Line Inter
 * *Other contributions*: [TBC]
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.2` - `v1.4` releases on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
