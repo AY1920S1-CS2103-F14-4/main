@@ -35,6 +35,7 @@ Class StatisticPanel
 
 Class StatusBarFooter
 Class CommandBox
+
 }
 
 package Model <<Rectangle>> {

@@ -23,28 +23,81 @@ Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-Deliveria is a *desktop application* that allows a *delivery manager* to *manage and assign delivery tasks* efficiently. While it consists of a _Graphical User Interface_ (GUI) that is user-friendly, Deliveria is *optimized for those who prefer* to work with a _Command Line Interface_ (CLI) which allows fast management of the delivery tasks in an organisation.
+Deliveria is a *desktop application* that allows a *delivery manager* to *manage and assign delivery tasks* efficiently.
+While it consists of a _Graphical User Interface_ (GUI) that is user-friendly, Deliveria is *optimized for those who prefer* to work with a _Command Line Interface_ (CLI) which allows fast management of the delivery tasks in an organisation.
 
+
+// tag::getting-started[]
 == Getting Started
+
 .UI
 image::Ui.png[Ui]
-[caption="Figure 1: ",link="Ui.png"]
+
+[caption="Figure 1:",link="Ui.png"]
+=== Installing
+
 . Ensure you have Java 11 or above installed in your Computer.
-. Download the latest release deliveria.jar https://github.com/AY1920S1-CS2103T-F14-4/main/releases[here].
-. Copy the file to the folder you want to use as the home folder for your Address Book.
-. Double-click the file to start the app. The GUI should appear in a few seconds.
-. Type the command in the command box and press Enter to execute it.
-e.g. typing help and pressing Enter will open the help window.
-. Some example commands you can try
-* Lists all contacts: `list`
+. Download the latest release https://github.com/AY1920S1-CS2103T-F14-4/main/releases[here].
+. Copy the file to the folder you want to use as the home folder for your Deliveria.
+. Double-click the file to start the app.
+The GUI should appear in a few seconds.
 
-* Adds a contact named John Doe to the Address Book: `Add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+=== Scheduling Your First Task
 
-* Deletes the 3rd contact shown in the current list: `Delete 3`
+Now you are in!
+We have prepared a few sample customers and drivers for you to play around.
 
-* Exits the app: `exit`
+On a busy day, you might be having many orders coming in, and you want to get your drivers busy delivering them.
+Let's go through the process of creating and assigning a task.
 
-. Refer to <<Features>>  for details of each command.
+* Create a new task by typing `addT g/20 boxes of utensils c/1 dt/22/11/2019` in the command box.
+You need to substitute `22/11/2019` with the date today.
+Press Enter to execute the command.
+* You can see the newly created task in the Incomplete Delivery Task box:
+
+
+.The new task shows up in the Incomplete Tasks box
+image::user-guide/adding-task.png[width=50%,scaledwidth=12cm,align="center"]
+
+[NOTE]
+Take note of the Task ID (i.e. #6), which is used to refer to this task.
+
+* Execute command `suggest 2 t/6`, where
+- `2` is the number of hours that you estimate this task will take to complete
+- `6` is the ID of the task that you want to assign
+
+* You can see Task #6 is assigned to Aloysius Chan at 2:00PM - 4:00PM
+
+.The task is successfully scheduled
+image::user-guide/suggest-task.png[width=70%,scaledwidth=12cm,align="center"]
+
+[NOTE]
+The suggested time slot will either start from now or in the future.
+
+[NOTE]
+We will optimize the driver and the time based on the drivers' availability and the task.
+Learn more about the rule in <<Automatically scheduling a task: `suggest`>>
+
+* If you are not satisfied with the suggestion, you can overwrite it by typing `assign force t/6 d/1 at/1500 - 1600`, where:
+- `6` is the Task ID
+- `1` is the Driver ID
+- `1500 - 1600` is the time that you want to change to
+
+[NOTE]
+Learn more about the `assign` command in <<Manually assigning a task: `assign`>>
+
+* We now have rescheduled the task to 3-4 pm.
+
+.The task is rescheduled
+image::user-guide/reschedule-task.png[width=70%,scaledwidth=12cm,align="center"]
+
+[NOTE]
+The drivers, by default, works from 9 AM to 9 PM. You cannot assign a time beyond the working hours.
+
+You have created and scheduled your first task!
+Refer to <<Features>> for details of each command.
+// end::getting-started[]
+
 
 [[Features]]
 == Features
@@ -60,7 +113,6 @@ For example, to edit the description of the delivery task (Task ID:3) : `editT 3
 ====
 
 === General Commands
-
 
 ==== Viewing help : `help`
 
@@ -88,13 +140,15 @@ Format: `exit`
 
 === Task Management Commands
 
+// tag::addT-command[]
 ==== Add a delivery task: `addT`
 
 Adds a delivery task to the task manager. +
 Format: `addT [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]`
 
 ****
-* DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
+* DATE OF DELIVERY must be today onwards.
+Date format: d/M/yyyy.
 * All fields are compulsory.
 ****
 
@@ -102,15 +156,20 @@ Examples:
 
 * `addT g/100 frozon boxes of red grouper c/13 dt/10/12/2019`
 * `addT g/1x washing machine c/10 dt/12/1/2020`
+// end::addT-command[]
 
+// tag::editT-command[]
 ==== Edits a delivery task : `editT`
 
 Edits a existing delivery task in the task manager. +
 Format: `editT [TASK ID] [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]`
 
 ****
-* Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
+* Edited DATE OF DELIVERY must be today onwards.
+Date format: d/M/yyyy.
 * Only indicate fields that you want to change.
+* Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
+* COMPLETED tasks cannot be edited.
 ****
 
 Examples:
@@ -119,33 +178,66 @@ Examples:
 Edits the description of the task (Task ID: 3) to be `50 frozen boxes of catfish`.
 * `editT 5 c/2 dt/10/12/2019` +
 Edits the customer and date of delivery of the task (Task ID: 5) to be `Customer (Customer ID: 2)` and `10/12/2019` respectively.
+// end::editT-command[]
+
+
+
+// tag::suggest-command[]
+==== Automatically scheduling a task: `suggest`
+
+Find the most suitable driver and an available time slot to schedule a task, based on the following rules.
+
+* If there are drivers who deliver to the same customer as the one in this task, the driver who has the earliest available time slot for this task will be selected.
+* If the above rule fails to select a driver, the system will choose among all drivers, and find the driver who has the earliest available time slot for the task.
+
+Format: `suggest HOURS t/TASK_ID`
+
+****
+* The `HOURS` field is in the format of `hh:MM` or in decimal format.
+For example, one and a half hours can either be `1:30` or `1.5`.
+* The `TASK_ID` is a positive integer, and the task must exist in the Incomplete Tasks.
+* Use the `assign` command if you want to assign the task to a specific driver at a specific time.
+* The suggested time slot will only start from now or in the future.
+****
+
+Examples:
+
+* `suggest 2 t/1` +
+Find the best driver, using the rules above, who has a two-hour time slot to deliver Task #1.
+
+* `suggest 1:20 t/2` +
+Find the best driver, using the rules above, who is available for 1 hour and 20 minutes to deliver Task #2.
+
+// end::suggest-command[]
+
 
 // tag::assign-command[]
-==== Assign a task to a driver: `assign`
+==== Manually assigning a task: `assign`
 
-Assign an existing task a driver with a proposed time. +
+Assign a driver to a task with a proposed time. +
 Format: `assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM`
 
 ****
-* You cannot assign a time that clashes with the driver's existing schedule, or is outside their working hours
-* If there is an earlier time slot that the driver is available,
-the program will suggest the earlier time slot +
-    - Use `assign force` to dismiss the suggestion and add the proposed time to the task
-* The ID is a positive integer
+* You cannot assign a time that clashes with the driver's existing schedule, or is outside their working hours (9 AM - 9 PM)
+* You cannot propose a time slot that started in the past
+* If there is an earlier time slot that the driver is available, the program will suggest the earlier time slot
+* Use `assign force` to overwrite a task which already has a driver and a scheduled time
+* The `TASK_ID` is a positive integer, and the task must exist in the Incomplete Tasks.
+* The `DRIVER_ID` is a positive integer, and the driver must exist in the driver list.
 ****
 
 Examples:
 
 * `assign t/1 d/1 at/900-1200` +
-Schedule task #1 from 11 am to 12 pm, and assign it to driver #1.
+Schedule Task #1 from 9 am to 12 pm, and assign it to Driver #1.
 
 * `assign force t/2 d/1 at/1600-1700` +
-Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1 regardless the existence of an earlier time slot.
+Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1, regardless whether the task is already assigned.
 // end::assign-command[]
 
 
 // tag::free-command[]
-==== Unschedule a task: `free`
+==== Removing assigned driver from a task: `free`
 
 Remove the time slot and driver from a task, and free the driver from this time slot in their schedule. +
 Format: `free t/TASK_ID`
@@ -187,14 +279,17 @@ Gets the details of task (Task ID: 3).
 * `read d/2` +
 Gets the details of driver (Driver ID: 2).
 
+// tag::del-command[]
 ==== Deletes a delivery task / driver / customer: `del`
 
 Deletes a task / driver / customer from its respective managers. +
 Format: `del [c/CUSTOMER ID]` | `del [t/DRIVER ID]` | `del [t/TASK ID]`
 
 ****
-* Cannot delete a *DELIVERY TASK* that is on-going. Remove the driver from the task first before deleting.
-* Cannot delete a *DRIVER* that is assigned to a on-going task. Remove the driver from the task first before deleting.
+* Cannot delete a *DELIVERY TASK* that is on-going.
+Remove the driver from the task first before deleting.
+* Cannot delete a *DRIVER* that is assigned to a on-going task.
+Remove the driver from the task first before deleting.
 ****
 
 Examples:
@@ -222,6 +317,7 @@ Examples:
 * `viewD 1` +
 View the tasks delivered by the driver (Driver ID: 1).
 // end::viewC-command[]
+
 ==== Saves assigned delivery tasks for a specific date into PDF document: `savepdf`
 The PDF document is arranged in a table format to allow easy reference of the delivery tasks that is assigned to each drivers for the date.
 Its purpose is for user reference and archive. +
@@ -231,21 +327,25 @@ Format: `savepdf [DATE]`
 ****
 * `DATE` format is dd/mm/yyy.
 * `DATE` field is OPTIONAL. If date field is not declared, it will take the date of today.
-* PDF document will be saved under `data` folder which is the same directory as where you put the deliveria.jar.
-* Name of the PDF document will be DeliveryTasks [DATE].pdf .
+* PDF document will be saved in a folder in the same directory as where you put the deliveria.jar.
+** PDF Task Summary will be saved in `DeliveryTasks` folder as `DeliveryTasks [DATE].pdf`.
+** PDF Delivery Order will be saved in "DeliveryOrders" folder as `DeliveryOrders [DATE].pdf`.
+* Use the `update` command to update the company's information displayed in the Delivery Order PDF.
 ****
 
 Examples:
 
-* `savepdf` +
-Saves the assigned delivery tasks in PDF format for today.
-* `savepdf 20/10/2019` +
-Saves the assigned delivery tasks in PDF format for 20/10/2019.
+* `savepdf pdf/order` +
+Saves the delivery orders in PDF format for today.
+* `savepdf pdf/summary dt/15/11/2019` +
+Saves the task summary in PDF format for 15/11/2019.
+// end::savepdf-command[]
 
 
 === Customer Management Commands
 
 
+// tag::addc-command[]
 ==== Add a Customer `addC`
 
 Adds customer to the customer manager. +
@@ -258,11 +358,27 @@ Format: `addC [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 Examples:
 
 * `addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
+// end::addc-command[]
 
+// tag::viewcw-command[]
+==== View full Customer details `viewCW`
+Opens a separate window with all Customer details and a map showing location of Customer Address. +
+Format: `viewCW CUSTOMERID`
 
+[NOTE]
+Working internet connection and valid address is needed for map to work.
+
+****
+* All fields are compulsory.
+****
+
+Examples:
+
+* `viewCW 1`
+// end::viewcw-command[]
 === Driver Management Commands
 
-
+// tag::addd-command[]
 ==== Add a Driver `addD`
 
 Adds driver to the driver manager. +
@@ -275,6 +391,39 @@ Format: `addD [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 Examples:
 
 * `addD n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
+// end::addd-command[]
+// tag::viewdw-command[]
+==== View full Driver details `viewDW`
+Opens a separate window with all Driver details +
+Format: `viewDW DRIVERID`
+
+****
+* All fields are compulsory.
+****
+
+Examples:
+
+* `viewDW 1`
+// end::viewdw-command[]
+
+
+=== Company Commands
+
+==== Updates the company's information: `update`
+Updates the information of the company so that it can be displayed in the Delivery Order PDF.
+Refer to `savepdf` command on how to generate Delivery Order PDF. +
+Format: `update [n/NAME] [a/ADDRESS] [p/PHONE] [f/FAX] [e/EMAIL] [r/CO REG. NO.] [gst/GST REG. NO]`
+
+****
+* Only GST Registration Number is a optional field and can be removed by typing `update gst/-`
+****
+
+Examples
+
+* `update n/Fast Supply Pte Ltd p/67331928` +
+Updates the company's name to "Fast Supply Pte Ltd" and phone no to "67331928".
+* `update r/18387752B gst/-` +
+Updates the company's registration number to "18387752B" and remove GST registration number.
 
 == Saving the data
 
@@ -287,11 +436,19 @@ There is no need to save manually.
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the data file in your previous computer.
 
 *Q*: Where is the saved file at? +
-*A*:  It is located in the same folder where the .jar file is. There will be a folder called `data`.
+*A*: It is located in the same folder where the .jar file is.
+There will be a folder called `data`.
 
 *Q*: How do I know the list of commands? +
 *A*: The `help` command will give a list of available commands.
 
+// tag::appendix[]
 == Appendix
-.PDF Document generated by `savepdf` command
-image::/images/DeliveryTasks_Pdf_Layout.png[id="PdfLayout", Delivery Tasks PDF]
+
+.PDF Task Summary generated by `savepdf` command.
+image::/images/DeliveryTasks_Pdf_Layout.png[id="PdfSummary", Delivery Task Summary PDF]
+
+.PDF Delivery Order generated by `savepdf` command.
+image::/images/Delivery_Order_Pdf.png[id="PdfDeliveryOrder", Delivery Order PDF]
+// end::appendix[]
+
