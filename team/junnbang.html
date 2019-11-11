@@ -7,44 +7,120 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document serves as a project portfolio for Deliveria.
+It summarises the contributes that I have made and the features I have implemented.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-overview"><a class="link" href="#project-overview">Project Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Deliveria is a <strong>desktop application</strong> that allows a <strong>delivery manager</strong> to <strong>manage and assign delivery tasks</strong> efficiently.
 While it consists of a <em>Graphical User Interface</em> (GUI) that is user-friendly,
 Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>Command Line Interface</em> (CLI) which allows fast management of the delivery tasks in an organisation.</p>
 </div>
+<div class="paragraph">
+<p>This is what Deliveria looks like:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Deliveria_GUI_label.png" alt="Deliveria GUI label">
+</div>
+<div class="title">Figure 1. The graphical user interface (GUI) of Deliveria</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This section shows the  enchancements that I have contributed to Deliveria.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added <strong>the ability to undo/redo previous commands</strong></p>
+<p><strong>Major enhancements</strong></p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.</p>
+<p><strong>Major enhancement 1</strong>: added <strong>the enhancement to generate delivery task summary in a PDF Document.</strong>
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/208">#208</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: It generates delivery tasks' information of each driver for the day in PDF.</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.</p>
+<p>Justification: This feature will save time for delivery mangers to instruct the drivers.
+It acts as a instruction manual that contains essential information needed for the drivers to execute their tasks.</p>
 </li>
 <li>
-<p>Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.</p>
+<p>Highlights:
+This enhancement organises the drivers', customers' and tasks' information in a standardised table format that is easy to understand and refer.
+An in-depth understanding of <a href="https://github.com/itext/itext7">iText7</a> is required to implement this enhancement.</p>
 </li>
 <li>
-<p>Credits: <em>{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}</em></p>
+<p>Credits: A third-party library, <a href="https://github.com/itext/itext7">iText7</a> is heavily utilized to generate the PDF document.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>: added a history command that allows the user to navigate to previous commands using up/down keys.</p>
+<p><strong>Major enhancement 2</strong>: added <strong>the enhancement to generate delivery orders in a PDF Document.</strong>
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/239">#239</a>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Generates a delivery order layout that encompasses the goods', customers' and company&#8217;s information in PDF format.</p>
 </li>
 <li>
-<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] <em>{give links to collated code files}</em></p>
+<p>Justification: This feature will save time to create delivery orders which is necessary for every delivery tasks.
+It contains all the essential information needed to be used as a proof between the delivery company and the receiver,
+that goods delivered are as per order and accepted in good condition.</p>
+</li>
+<li>
+<p>Highlights: This enhancement allows integration of company&#8217;s information in the delivery order as a header.
+Updating of company&#8217;s information can be achieved through a single command.
+An in-depth understanding of <a href="https://github.com/itext/itext7">iText7</a> is required to implement this enhancement.</p>
+</li>
+<li>
+<p>Credits: A third-party library, <a href="https://github.com/itext/itext7">iText7</a> is heavily utilized to generate the PDF document.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancements</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Refactor storage and introduced a <code>CentralManager</code> to encapsulates all the data needed to be saved and loaded, which makes it easier to access the data.
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/118">#118</a>)</p>
+</li>
+<li>
+<p>Added storage for <code>Task</code> and <code>Driver</code>.
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/91">#91</a>,
+<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/113">#113</a>)</p>
+</li>
+<li>
+<p>Added Create, Read, Update, Delete (CRUD) commands for Delivery Tasks.
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/91">#91</a>,
+<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/100">#100</a>,
+<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/120">#120</a>,
+<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/121">#121</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabOpen=true&amp;tabType=authorship&amp;tabAuthor=junnbang&amp;tabRepo=AY1920S1-CS2103T-F14-4%2Fmain%5Bmaster%5D">RepoSense</a>]</p>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
@@ -55,20 +131,35 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 <div class="ulist">
 <ul>
 <li>
-<p>Managed releases <code>v1.3</code> - <code>v1.5rc</code> (3 releases) on GitHub</p>
+<p>Integrated Coveralls for checking test coverage and Codacy for checking code quality:
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/218">#218</a>)</p>
+</li>
+<li>
+<p>Managed the User stories in the Github Project Dashboard
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/projects/2">StoryBoard</a>)</p>
+</li>
+<li>
+<p>Managed Milestones on Github
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/milestones?state=closed">Milestones</a>)</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Enhancements to existing features:</p>
+<p>Enhancements:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Updated the GUI color scheme (Pull requests <a href="https://github.com">#33</a>, <a href="https://github.com">#34</a>)</p>
+<p>Introduced <code>IdManager</code> to keep track of the unique ID used by each entities. (Task, Customer &amp; Driver)
+((<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/113">#113</a>)</p>
 </li>
 <li>
-<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests <a href="https://github.com">#36</a>, <a href="https://github.com">#38</a>)</p>
+<p>Added test cases to <code>Task</code> and <code>TaskList</code>.
+<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/125">#125</a></p>
+</li>
+<li>
+<p>Added test cases to <code>SavePdfCommand</code>, <code>DoneCommand</code> and <code>EditTaskCommand</code>.
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/230">#230</a>)</p>
 </li>
 </ul>
 </div>
@@ -78,7 +169,17 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com">#14</a></p>
+<p>Added implementation and diagrams of <code>AddTaskCommand</code> and <code>SavePdfCommand</code> in developer guide.
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/107">#107</a>, <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/220">#220</a>)</p>
+</li>
+<li>
+<p>Added and updated the diagrams for storage component in the developer guide.
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/107">#107</a>, <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/124">#124</a>)</p>
+</li>
+<li>
+<p>Added add task, delete task, edit task commands usage instructions in user guide.
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/107">#107</a>,
+<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/124">#124</a>)</p>
 </li>
 </ul>
 </div>
@@ -88,16 +189,11 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com">#12</a>, <a href="https://github.com">#32</a>, <a href="https://github.com">#19</a>, <a href="https://github.com">#42</a></p>
-</li>
-<li>
-<p>Contributed to forum discussions (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>, <a href="https://github.com">4</a>)</p>
-</li>
-<li>
-<p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>)</p>
-</li>
-<li>
-<p>Some parts of the history feature I added was adopted by several other class mates (<a href="https://github.com">1</a>, <a href="https://github.com">2</a>)</p>
+<p>Reviewed most of my teammates' pull requests (with non-trivial review comments):
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/234">#234</a>,
+<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/139">#139</a>,
+<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/98">#98</a>,
+<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/80">#80</a>)</p>
 </li>
 </ul>
 </div>
@@ -107,10 +203,8 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 <div class="ulist">
 <ul>
 <li>
-<p>Integrated a third party library (Natty) to the project (<a href="https://github.com">#42</a>)</p>
-</li>
-<li>
-<p>Integrated a new Github plugin (CircleCI) to the team repo</p>
+<p>Integrated <a href="https://github.com/itext/itext7">iText7</a> library to the project
+(<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/pull/208">#208</a>)</p>
 </li>
 </ul>
 </div>
@@ -119,9 +213,6 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><em>{you can add/remove categories in the list above}</em></p>
 </div>
 </div>
 </div>
@@ -138,6 +229,200 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 </tr>
 </tbody>
 </table>
+<div class="sect3">
+<h4 id="generates-task-summary-or-delivery-orders-for-a-specific-date-in-pdf-document-code-savepdf-code"><a class="link" href="#generates-task-summary-or-delivery-orders-for-a-specific-date-in-pdf-document-code-savepdf-code">Generates Task Summary or Delivery Orders for a specific date in PDF document: <code>savepdf</code></a></h4>
+<div class="paragraph">
+<p>Document Type: <code>summary</code><br>
+The <code>Task Summary</code> is a summary of delivery tasks that is assigned to each driver for the specific date.
+Its purpose is for user reference and archive. Refer to <a href="#PdfSummary">PDF Task Summary generated by <code>savepdf</code> command.</a> for sample.</p>
+</div>
+<div class="paragraph">
+<p>Document Type: <code>order</code><br>
+The <code>Delivery Order</code> is a document that contain goods' information and requires customers' confirmation.
+Its purpose is to act as a proof between the delivery company and receiver that goods are delivered
+as per order and accepted in good condition. Refer to <a href="#PdfDeliveryOrder">PDF Delivery Order generated by <code>savepdf</code> command.</a> for sample.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>savepdf [pdf/DOCUMENT TYPE] [dt/DATE]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>DATE</code> format is dd/mm/yyy.</p>
+</li>
+<li>
+<p><code>DATE</code> field is OPTIONAL. If date field is not declared, it will take the date of today.</p>
+</li>
+<li>
+<p>PDF document will be saved in a folder in the same directory as where you put the deliveria.jar.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PDF Task Summary will be saved in <code>DeliveryTasks</code> folder as <code>DeliveryTasks [DATE].pdf</code>.</p>
+</li>
+<li>
+<p>PDF Delivery Order will be saved in "DeliveryOrders" folder as <code>DeliveryOrders [DATE].pdf</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Use the <code>update</code> command to update the company&#8217;s information displayed in the Delivery Order PDF.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>savepdf pdf/order</code><br>
+Saves the delivery orders in PDF format for today.</p>
+</li>
+<li>
+<p><code>savepdf pdf/summary dt/15/11/2019</code><br>
+Saves the task summary in PDF format for 15/11/2019.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="add-a-delivery-task-code-addt-code"><a class="link" href="#add-a-delivery-task-code-addt-code">Add a delivery task: <code>addT</code></a></h4>
+<div class="paragraph">
+<p>Adds a delivery task to the task manager.<br>
+Format: <code>addT [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>DATE OF DELIVERY must be today onwards.
+Date format: d/M/yyyy.</p>
+</li>
+<li>
+<p>All fields are compulsory.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addT g/100 frozon boxes of red grouper c/13 dt/10/12/2019</code></p>
+</li>
+<li>
+<p><code>addT g/1x washing machine c/10 dt/12/1/2020</code>
+'''
+==== Edits a delivery task : <code>editT</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Edits a existing delivery task in the task manager.<br>
+Format: <code>editT [TASK ID] [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edited DATE OF DELIVERY must be today onwards.
+Date format: d/M/yyyy.</p>
+</li>
+<li>
+<p>Only indicate fields that you want to change.</p>
+</li>
+<li>
+<p>Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.</p>
+</li>
+<li>
+<p>COMPLETED tasks cannot be edited.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>editT 3 g/50 frozen boxes of catfish</code><br>
+Edits the description of the task (Task ID: 3) to be <code>50 frozen boxes of catfish</code>.</p>
+</li>
+<li>
+<p><code>editT 5 c/2 dt/10/12/2019</code><br>
+Edits the customer and date of delivery of the task (Task ID: 5) to be <code>Customer (Customer ID: 2)</code> and <code>10/12/2019</code> respectively.
+'''
+==== Deletes a delivery task / driver / customer: <code>del</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Deletes a task / driver / customer from its respective managers.<br>
+Format: <code>del [c/CUSTOMER ID]</code> | <code>del [t/DRIVER ID]</code> | <code>del [t/TASK ID]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Cannot delete a <strong>DELIVERY TASK</strong> that is on-going.
+Remove the driver from the task first before deleting.</p>
+</li>
+<li>
+<p>Cannot delete a <strong>DRIVER</strong> that is assigned to a on-going task.
+Remove the driver from the task first before deleting.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>del t/1</code><br>
+Deletes task (Task ID: 1) from the task manager.</p>
+</li>
+<li>
+<p><code>del d/2</code><br>
+Deletes driver (Driver ID: 2) from the driver manager.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="appendix"><a class="link" href="#appendix">Appendix</a></h2>
+<div class="sectionbody">
+<div id="PdfSummary" class="imageblock">
+<div class="content">
+<img src="../images/DeliveryTasks_Pdf_Layout.png" alt="DeliveryTasks Pdf Layout" width="Delivery Task Summary PDF">
+</div>
+<div class="title">Figure 2. PDF Task Summary generated by <code>savepdf</code> command.</div>
+</div>
+<div id="PdfDeliveryOrder" class="imageblock">
+<div class="content">
+<img src="../images/Delivery_Order_Pdf.png" alt="Delivery Order Pdf" width="Delivery Order PDF">
+</div>
+<div class="title">Figure 3. PDF Delivery Order generated by <code>savepdf</code> command.</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -154,59 +439,78 @@ Deliveria is <strong>optimized for those who prefer</strong> to work with a <em>
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">[Proposed] Undo/Redo feature</a></h3>
-<div class="sect3">
-<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">Proposed Implementation</a></h4>
+<h3 id="storage-component"><a class="link" href="#storage-component">Storage component</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/StorageClassDiagram.png" alt="StorageClassDiagram">
+</div>
+<div class="title">Figure 4. Structure of the Storage Component</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/CentralManager.png" alt="CentralManager">
+</div>
+<div class="title">Figure 5. Structure of the CentralManager</div>
+</div>
 <div class="paragraph">
-<p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
-It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
-Additionally, it implements the following operations:</p>
+<p><strong>API</strong> : <a href="{repoURL}/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>Storage</code> component,</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VersionedAddressBook#commit()</code>&#8201;&#8212;&#8201;Saves the current address book state in its history.</p>
+<p>can save <code>UserPref</code> objects in json format and read it back.</p>
 </li>
 <li>
-<p><code>VersionedAddressBook#undo()</code>&#8201;&#8212;&#8201;Restores the previous address book state from its history.</p>
+<p>uses <code>CentralManager</code> to consolidate all the data that needs to be saved. (e.g. Task Manager&#8217;s data)</p>
 </li>
 <li>
-<p><code>VersionedAddressBook#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone address book state from its history.</p>
+<p>can save the <code>CentralManager</code> data in json format and read it back.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> and <code>Model#redoAddressBook()</code> respectively.</p>
+<hr>
 </div>
+<div class="sect2">
+<h3 id="task-feature-e-g-add-delivery-task"><a class="link" href="#task-feature-e-g-add-delivery-task">Task Feature (E.g. Add Delivery Task)</a></h3>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
 <div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time.
-The <code>VersionedAddressBook</code> will be initialized with the initial address book state, and the <code>currentStatePointer</code> pointing to that single address book state.</p>
+<p>The <strong>Add Delivery Task</strong> feature adds a new task into a task list.<br>
+It uses the <code>AddTaskCommand</code>, which extends <code>Command</code>, to add a <code>Task</code> into the <code>TaskManager</code>.
+<code>AddTaskCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>AddTaskCommand</code> to execute.
+'AddTaskCommand' requires the following fields: <code>Task</code>, <code>customerId</code>.
+The attributes of Task is as follows:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoState0.png" alt="UndoRedoState0">
+<img src="../images/Task.png" alt="Task">
 </div>
+<div class="title">Figure 6. Class Diagram of Task class.</div>
 </div>
 <div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th person in the address book.
-The <code>delete</code> command calls <code>Model#commitAddressBook()</code>, causing the modified state of the address book after the <code>delete 5</code> command executes to be saved in the <code>addressBookStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted address book state.</p>
+<p>As seen in the above class diagram, <code>driver</code> and <code>eventTime</code> are optional fields that are not mandatory when adding a task.
+They will be assigned subsequently using <code>assign</code> command.
+(Refer to Assign feature) The mandatory fields for users are: 'description', 'date' and 'Customer'.
+After the validation is completed, <code>AddTaskCommand</code> will fetch <code>Customer</code> using the <code>customerId</code> through the <code>CustomerManager</code>.
+A unique id will also be allocated to the task for differentiation.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagrams show how the add task operation works:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoState1.png" alt="UndoRedoState1">
+<img src="../images/AddTaskCommand.png" alt="AddTaskCommand">
 </div>
-</div>
-<div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new person.
-The <code>add</code> command also calls <code>Model#commitAddressBook()</code>, causing another modified address book state to be saved into the <code>addressBookStateList</code>.</p>
+<div class="title">Figure 7. Sequence Diagram of adding a task.</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoState2.png" alt="UndoRedoState2">
+<img src="../images/ModelInteractWithManagers.png" alt="ModelInteractWithManagers">
 </div>
+<div class="title">Figure 8. Sequence Diagram of Model interaction with the CustomerManager and TaskManager for adding a task.</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -215,164 +519,182 @@ The <code>add</code> command also calls <code>Model#commitAddressBook()</code>, 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If a command fails its execution, it will not call <code>Model#commitAddressBook()</code>, so the address book state will not be saved into the <code>addressBookStateList</code>.
+The flow of how the task is being accessed and managed as shown above is the same for other task related command such as edit task command (<code>editT</code>) and delete task command (<code>del</code>).
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the <code>undo</code> command.
-The <code>undo</code> command will call <code>Model#undoAddressBook()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous address book state, and restores the address book to that state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoState3.png" alt="UndoRedoState3">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial address book state, then there are no previous address book states to restore.
-The <code>undo</code> command uses <code>Model#canUndoAddressBook()</code> to check if this is the case.
-If so, it will return an error to the user rather than attempting to perform the undo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the undo operation works:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoSequenceDiagram.png" alt="UndoSequenceDiagram">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The lifeline for <code>UndoCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoAddressBook()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the address book to that state.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index <code>addressBookStateList.size() - 1</code>, pointing to the latest address book state, then there are no undone address book states to restore.
-The <code>redo</code> command uses <code>Model#canRedoAddressBook()</code> to check if this is the case.
-If so, it will return an error to the user rather than attempting to perform the redo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>list</code>.
-Commands that do not modify the address book, such as <code>list</code>, will usually not call <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> or <code>Model#redoAddressBook()</code>.
-Thus, the <code>addressBookStateList</code> remains unchanged.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoState4.png" alt="UndoRedoState4">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitAddressBook()</code>.
-Since the <code>currentStatePointer</code> is not pointing at the end of the <code>addressBookStateList</code>, all address book states after the <code>currentStatePointer</code> will be purged.
-We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command.
-This is the behavior that most modern desktop applications follow.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoState5.png" alt="UndoRedoState5">
-</div>
-</div>
-<div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/CommitActivityDiagram.png" alt="CommitActivityDiagram">
-</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
+<h5 id="aspect-coupling-of-task-and-other-entities-driver-and-customer"><a class="link" href="#aspect-coupling-of-task-and-other-entities-driver-and-customer">Aspect: Coupling of Task and other entities (Driver and Customer)</a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire address book.</p>
+<p><strong>Alternative 1 (current choice):</strong> Task class contains Driver and Customer classes as attributes.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Centralised Task class that encapsulates all the information, which makes it easy to manage task.</p>
+</li>
+<li>
+<p>Cons: Task will have to depend on Driver and Customer.
+Decreases testability.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Driver and Customer classes have Task class as attribute.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to access tasks through the respective classes.
+(Driver and Customer classes)</p>
+</li>
+<li>
+<p>Cons: Having 2 classes depend on Task class.
+Decreases testability.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="generate-task-summary-and-delivery-orders-in-pdf-feature"><a class="link" href="#generate-task-summary-and-delivery-orders-in-pdf-feature">Generate Task Summary and Delivery Orders in PDF Feature</a></h3>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
+<div class="paragraph">
+<p>Generation of PDF documents is handled by <code>PdfManager</code>.
+It is responsible in taking the essential inputs required to generate the document.
+The following inputs are required to generate a PDF document such as a PDF Delivery Order:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>filePath</code> - the directory where the pdf document is to be saved.</p>
+</li>
+<li>
+<p><code>data</code> - the data that is to be displayed in the PDF document.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>PdfManager</code> utilizes <code>PdfCreator</code> to create and save the PDF document as well as formatting the layouts.
+It is implemented with the help of an external library, <a href="https://github.com/itext/itext7">iText7</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Regarding iText&#8217;s license, it can be used for free in situations where you distribute your software for free.
+It is a Affero General Public License (AGPL) library.<br>
+Information updated as of 6 November 2019. For more information, please visit the <a href="https://itextpdf.com/en">iText official website</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To show how the PDF document is generated, <strong>generating PDF Task Summary will be used as an example</strong> for this showcase.
+The following sequence diagram shows how the user command <code>savepdf</code> is being executed and handled.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/SavePdfCommand.png" alt="SavePdfCommand">
+</div>
+<div class="title">Figure 9. Sequence Diagram of how PDF task summary is saved.</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifeline for <code>SavePdfCommandParser</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Notice that only the <code>filepath</code> and the <code>date of delivery</code> is needed when calling <code>generateTaskSummaryPdf</code>.
+This is because only the saving location of the PDF file and the date, where the task summary will be based on, are the only fields needed for the <code>PdfManager</code>.
+The rest of the components, such as fetching of the tasks, will be handled in the <code>Model</code> while the formatting will be handled by <code>PdfCreator</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the model interact with <code>PdfManager</code> to generate the PDF task summary.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/GeneratePdfSequenceDiagram.png" alt="GeneratePdfSequenceDiagram">
+</div>
+<div class="title">Figure 10. Sequence Diagram of how the model interact with <code>PdfManager</code> to generates the PDF task summary.</div>
+</div>
+<div class="paragraph">
+<p>The <code>PdfWrapperLayout</code> provides a outer canvas to encapsulates all the layouts.
+The following layouts are mainly what makes up the task summary:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>PdfDriverLayout</code> class - wraps driver details.</p>
+</li>
+<li>
+<p><code>PdfCustomerLayout</code> class - wraps customer details.</p>
+</li>
+<li>
+<p><code>PdfTaskLayout</code> class - wraps task details.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following activity diagram shows what happens when a user executes the <code>savepdf</code> command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/GeneratePdfActivityDiagram.png" alt="GeneratePdfActivityDiagram">
+</div>
+<div class="title">Figure 11. Activity Diagram of how a PDF task summary is generated.</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect"><a class="link" href="#aspect">Aspect:</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Abstract the layout of each part of the PDF document
+(Eg. Class that handles task layout is separated from class that handles customer layout.)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Encourages reuse and easier to manage and add on.</p>
+</li>
+<li>
+<p>Cons: Harder to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Do the whole PDF document layout in 1 class.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: Easy to implement.</p>
 </li>
 <li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the person being deleted).</p>
-</li>
-<li>
-<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of address book states.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
-</li>
-<li>
-<p>Cons: Logic is duplicated twice.
-For example, when a new command is executed, we must remember to update both <code>HistoryManager</code> and <code>VersionedAddressBook</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
-</li>
-<li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
-Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
+<p>Cons: Harder to manage.</p>
 </li>
 </ul>
 </div>
@@ -383,13 +705,4 @@ Violates Single Responsibility Principle and Separation of Concerns as <code>His
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">PROJECT: PowerPointLabs</a></h2>
-<div class="sectionbody">
-<hr>
-<div class="paragraph">
-<p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:36:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:36:50 UTC</div></div></div></body></html>

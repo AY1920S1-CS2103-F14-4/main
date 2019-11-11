@@ -17,7 +17,6 @@
 <li><a href="#Design-Logic">2.3. Logic component</a></li>
 <li><a href="#Design-Model">2.4. Model component</a></li>
 <li><a href="#Design-Storage">2.5. Storage component</a></li>
-<li><a href="#Design-Commons">2.6. Common classes</a></li>
 </ul>
 </li>
 <li><a href="#implementation">3. Implementation</a>
@@ -25,11 +24,28 @@
 <li><a href="#driver-level-task-scheduling">3.1. Driver-Level Task Scheduling</a></li>
 <li><a href="#global-level-task-scheduling">3.2. Global-Level Task Scheduling</a></li>
 <li><a href="#task-feature-e-g-add-delivery-task">3.3. Task Feature (E.g. Add Delivery Task)</a></li>
-<li><a href="#generate-pdf-task-summary-feature">3.4. Generate PDF Task Summary Feature</a></li>
+<li><a href="#generate-task-summary-and-delivery-orders-in-pdf-feature">3.4. Generate Task Summary and Delivery Orders in PDF Feature</a></li>
 <li><a href="#proposed-undo-redo-feature">3.5. [Proposed] Undo/Redo feature</a></li>
 <li><a href="#logging">3.6. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
-<li><a href="#driver-feature">3.8. Driver Feature</a></li>
+<li><a href="#customer-feature">3.8. Customer Feature</a></li>
+<li><a href="#driver-feature">3.9. Driver Feature</a></li>
+</ul>
+</li>
+<li><a href="#documentation">4. Documentation</a></li>
+<li><a href="#testing">5. Testing</a></li>
+<li><a href="#dev-ops">6. Dev Ops</a></li>
+<li><a href="#product-scope">Appendix A: Product Scope</a></li>
+<li><a href="#user-stories">Appendix B: User Stories</a></li>
+<li><a href="#use-cases">Appendix C: Use Cases</a></li>
+<li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
+<li><a href="#glossary">Appendix E: Glossary</a></li>
+<li><a href="#product-survey">Appendix F: Product Survey</a></li>
+<li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
+<ul class="sectlevel2">
+<li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
+<li><a href="#deleting-a-person">G.2. Deleting a person</a></li>
+<li><a href="#saving-data">G.3. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -65,14 +81,14 @@ Given below is a quick overview of each component.</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The <code>.puml</code> files used to create diagrams in this document can be found in the <a href="https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/">diagrams</a> folder.
+The <code>.puml</code> files used to create diagrams in this document can be found in the <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/blob/master/docs/diagrams/">diagrams</a> folder.
 Refer to the <a href="UsingPlantUml.html">Using PlantUML guide</a> to learn how to create and edit diagrams.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><code>Main</code> has two classes called <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java"><code>Main</code></a> and <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>.
+<p><code>Main</code> has two classes called <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/blob/master/src/main/java/seedu/address/Main.java"><code>Main</code></a> and <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/blob/master/src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>.
 It is responsible for,</p>
 </div>
 <div class="ulist">
@@ -160,7 +176,7 @@ The following class plays an important role at the architecture level:</p>
 <div class="title">Figure 4. Structure of the UI Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/blob/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>, <code>StatusBarFooter</code> etc.
@@ -169,7 +185,7 @@ All these, including the <code>MainWindow</code>, inherit from the abstract <cod
 <div class="paragraph">
 <p>The <code>UI</code> component uses JavaFx UI framework.
 The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder.
-For example, the layout of the <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+For example, the layout of the <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/blob/master/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/blob/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>UI</code> component,</p>
@@ -195,7 +211,7 @@ For example, the layout of the <a href="https://github.com/se-edu/addressbook-le
 </div>
 <div class="paragraph">
 <p><strong>API</strong> :
-<a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
+<a href="https://github.com/AY1920S1-CS2103T-F14-4/main/blob/master/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -247,7 +263,7 @@ The lifeline for <code>DeleteIdCommandParser</code> should end at the destroy ma
 <div class="title">Figure 7. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/blob/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>Model</code>,</p>
@@ -284,7 +300,7 @@ The lifeline for <code>DeleteIdCommandParser</code> should end at the destroy ma
 <div class="title">Figure 9. Structure of the CentralManager</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-F14-4/main/blob/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>Storage</code> component,</p>
@@ -295,16 +311,14 @@ The lifeline for <code>DeleteIdCommandParser</code> should end at the destroy ma
 <p>can save <code>UserPref</code> objects in json format and read it back.</p>
 </li>
 <li>
-<p>uses <code>CentralManager</code> to consolidate all the managers' data that needs to be saved. (e.g. Task Manager&#8217;s data)</p>
+<p>uses <code>CentralManager</code> to consolidate all the data that needs to be saved. (e.g. Task Manager&#8217;s data)</p>
 </li>
 <li>
-<p>can save the <code>CentralManager</code> data in json format and read it back.</p>
+<p>can save the <code>CentralManager</code> data in json format and read it back.
+=== Common classes</p>
 </li>
 </ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="Design-Commons"><a class="link" href="#Design-Commons">2.6. Common classes</a></h3>
 <div class="paragraph">
 <p>Classes used by multiple components are in the <code>seedu.addressbook.commons</code> package.</p>
 </div>
@@ -540,12 +554,26 @@ Decreases testability.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="generate-pdf-task-summary-feature"><a class="link" href="#generate-pdf-task-summary-feature">3.4. Generate PDF Task Summary Feature</a></h3>
+<h3 id="generate-task-summary-and-delivery-orders-in-pdf-feature"><a class="link" href="#generate-task-summary-and-delivery-orders-in-pdf-feature">3.4. Generate Task Summary and Delivery Orders in PDF Feature</a></h3>
 <div class="sect3">
 <h4 id="implementation-5"><a class="link" href="#implementation-5">3.4.1. Implementation</a></h4>
 <div class="paragraph">
-<p>The <strong>generate PDF Task Summary</strong> feature creates a task summary in a user-friendly layout in PDF format for <strong>user reference</strong> and <strong>archive</strong> usage.
-<code>PdfCreator</code> class creates and saves the PDF document as well as formatting its layout.
+<p>Generation of PDF documents is handled by <code>PdfManager</code>.
+It is responsible in taking the essential inputs required to generate the document.
+The following inputs are required to generate a PDF document such as a PDF Delivery Order:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>filePath</code> - the directory where the pdf document is to be saved.</p>
+</li>
+<li>
+<p><code>data</code> - the data that is to be displayed in the PDF document.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>PdfManager</code> utilizes <code>PdfCreator</code> to create and save the PDF document as well as formatting the layouts.
 It is implemented with the help of an external library, <a href="https://github.com/itext/itext7">iText7</a>.</p>
 </div>
 <div class="admonitionblock note">
@@ -563,7 +591,8 @@ Information updated as of 6 November 2019. For more information, please visit th
 </table>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram shows how the user command <code>savepdf</code> is being executed and handled.</p>
+<p>To show how the PDF document is generated, <strong>generating PDF Task Summary will be used as an example</strong> for this showcase.
+The following sequence diagram shows how the user command <code>savepdf</code> is being executed and handled.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -584,18 +613,18 @@ The lifeline for <code>SavePdfCommandParser</code> should end at the destroy mar
 </table>
 </div>
 <div class="paragraph">
-<p>Notice that only the <code>filepath</code> and the <code>date of delivery</code> is needed when calling <code>saveDriverTaskPdf</code>.
-This is because only the saving location of the PDF file and the date, where the task summary will be based on, are the only fields needed for the <code>PdfCreator</code>.
-The rest of the components, such as fetching of the tasks, will be handled by the <code>Model</code> while the formatting will be handled by <code>PdfCreator</code>.</p>
+<p>Notice that only the <code>filepath</code> and the <code>date of delivery</code> is needed when calling <code>generateTaskSummaryPdf</code>.
+This is because only the saving location of the PDF file and the date, where the task summary will be based on, are the only fields needed for the <code>PdfManager</code>.
+The rest of the components, such as fetching of the tasks, will be handled in the <code>Model</code> while the formatting will be handled by <code>PdfCreator</code>.</p>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram shows how the model interact with <code>PdfCreator</code> to generate the PDF task summary.</p>
+<p>The following sequence diagram shows how the model interact with <code>PdfManager</code> to generate the PDF task summary.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/GeneratePdfSequenceDiagram.png" alt="GeneratePdfSequenceDiagram">
 </div>
-<div class="title">Figure 15. Sequence Diagram of how the model generates the PDF task summary.</div>
+<div class="title">Figure 15. Sequence Diagram of how the model interact with <code>PdfManager</code> to generates the PDF task summary.</div>
 </div>
 <div class="paragraph">
 <p>The <code>PdfWrapperLayout</code> provides a outer canvas to encapsulates all the layouts.
@@ -631,7 +660,8 @@ The following layouts are mainly what makes up the task summary:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice)</strong>: Abstract the layout of each part of the task summary.</p>
+<p><strong>Alternative 1 (current choice)</strong>: Abstract the layout of each part of the PDF document
+(Eg. Class that handles task layout is separated from class that handles customer layout.)</p>
 <div class="ulist">
 <ul>
 <li>
@@ -644,7 +674,7 @@ The following layouts are mainly what makes up the task summary:</p>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2</strong>: Do the whole task summary layout in 1 class.</p>
+<p><strong>Alternative 2</strong>: Do the whole PDF document layout in 1 class.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -934,20 +964,15 @@ The <code>LogsCenter</code> class is used to manage the logging levels and loggi
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
-<div class="paragraph">
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-=== Customer Feature (E.g. Add Customer)</p>
 </div>
+<div class="sect2">
+<h3 id="customer-feature"><a class="link" href="#customer-feature">3.8. Customer Feature</a></h3>
 <div class="sect3">
-<h4 id="implementation-6"><a class="link" href="#implementation-6">3.7.1. Implementation</a></h4>
-<div class="exampleblock">
-<div class="content">
+<h4 id="add-customer"><a class="link" href="#add-customer">3.8.1. Add Customer</a></h4>
+<div class="sect4">
+<h5 id="implementation-6"><a class="link" href="#implementation-6">Implementation</a></h5>
 <div class="paragraph">
-<p>=== Customer Feature
-==== Add Customer
-===== Implementation
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; master
-The <strong>Add Customer</strong> feature adds a new Customer into a Customer list.<br>
+<p>The <strong>Add Customer</strong> feature adds a new Customer into a Customer list.<br>
 It uses the <code>AddCustomerCommand</code>, which extends <code>Command</code>, to add a <code>Customer</code> into the <code>CustomerManager</code>.
 <code>AddCustomerCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>AddCustomerCommand</code> to execute.
 <code>AddCustomerCommand</code> requires the following fields: <code>Customer</code>.
@@ -972,14 +997,6 @@ A unique id will also be allocated to the Customer for differentiation.</p>
 <img src="images/AddCustomerCommand.png" alt="AddCustomerCommand">
 </div>
 <div class="title">Figure 18. Sequence Diagram of adding a task.</div>
-</div>
-<div class="paragraph">
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-=== Driver Feature (E.g. Add Driver)</p>
-</div>
-<div class="paragraph">
-<p>==== Implementation</p>
-</div>
 </div>
 </div>
 <div class="sect4">
@@ -1020,7 +1037,7 @@ A unique id will also be allocated to the Customer for differentiation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="view-customer-window"><a class="link" href="#view-customer-window">3.7.2. View Customer Window</a></h4>
+<h4 id="view-customer-window"><a class="link" href="#view-customer-window">3.8.2. View Customer Window</a></h4>
 <div class="sect4">
 <h5 id="implementation-7"><a class="link" href="#implementation-7">Implementation</a></h5>
 <div class="paragraph">
@@ -1092,14 +1109,13 @@ all essential details. Allow the space for working map showing the location of t
 </div>
 </div>
 <div class="sect2">
-<h3 id="driver-feature"><a class="link" href="#driver-feature">3.8. Driver Feature</a></h3>
+<h3 id="driver-feature"><a class="link" href="#driver-feature">3.9. Driver Feature</a></h3>
 <div class="sect3">
-<h4 id="add-driver"><a class="link" href="#add-driver">3.8.1. Add Driver</a></h4>
+<h4 id="add-driver"><a class="link" href="#add-driver">3.9.1. Add Driver</a></h4>
 <div class="sect4">
 <h5 id="implementation-8"><a class="link" href="#implementation-8">Implementation</a></h5>
 <div class="paragraph">
-<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; master
-The <strong>Add Driver</strong> feature adds a new Driver into a Driver list.<br>
+<p>The <strong>Add Driver</strong> feature adds a new Driver into a Driver list.<br>
 It uses the <code>AddDriverCommand</code>, which extends <code>Command</code>, to add a <code>Driver</code> into the <code>DriverManager</code>.
 <code>AddDriverCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>AddCustomerCommand</code> to execute.
 <code>AddDriverCommand</code> requires the following fields: <code>Driver</code>.
@@ -1140,36 +1156,17 @@ A unique id will also be allocated to the Driver for differentiation.</p>
 <p>Pros: Easy to implement and increases clarity for users.</p>
 </li>
 <li>
-<p>Cons: Increases the number of commands.
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+<p>Cons: Increases the number of commands.</p>
 </li>
 </ul>
 </div>
 </li>
-<li>
-<p><strong>Alternative 2:</strong> Combine <code>AddCustomerCommand</code> with other <code>add</code> commands</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Will use only 1 universal <code>add</code> command for adding any entities.
-(Task, Customer and Driver)</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="ulist">
-<ul>
 <li>
 <p><strong>Alternative 2:</strong> Combine <code>AddDriverCommand</code> with other <code>add</code> commands</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Will use only 1 universal <code>add</code> command for adding any entities. (Task, Customer and Driver)
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; master</p>
+<p>Pros: Will use only 1 universal <code>add</code> command for adding any entities. (Task, Customer and Driver)</p>
 </li>
 <li>
 <p>Cons: Have to handle different type of parameters and some parameters of commands are overlap which requires more validation.</p>
@@ -1179,10 +1176,15 @@ A unique id will also be allocated to the Driver for differentiation.</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="view-driver-window"><a class="link" href="#view-driver-window">3.9.2. View Driver Window</a></h4>
+<div class="sect4">
+<h5 id="implementation-9"><a class="link" href="#implementation-9">Implementation</a></h5>
 <div class="paragraph">
-<p>==== View Driver Window
-===== Implementation
-The <strong>View Driver Window</strong> retrieves the details of a Driver and displays it in a separate window.<br>
+<p>The <strong>View Driver Window</strong> retrieves the details of a Driver and displays it in a separate window.<br>
 It uses the <code>ViewDriverWindowCommand</code>, which extends <code>Command</code>, to return a <code>CommandResult</code> with a boolean value <code>viewDriver</code> as true.
 <code>ViewDriverWindowCommandParser</code> is also utilised to parse and validate the user inputs before sending it to <code>ViewDriverWindowCommand</code> to execute.
 <code>ViewDriverWindowCommand</code> requires the following fields:`driverId`.</p>
@@ -1196,12 +1198,13 @@ It uses the <code>ViewDriverWindowCommand</code>, which extends <code>Command</c
 </div>
 <div class="title">Figure 22. Sequence Diagram of opening a View Driver window.</div>
 </div>
-<div class="paragraph">
-<p>===== Design Considerations</p>
 </div>
-<div class="paragraph">
-<p>===== Aspect:</p>
+<div class="sect4">
+<h5 id="design-considerations-9"><a class="link" href="#design-considerations-9">Design Considerations</a></h5>
+
 </div>
+<div class="sect4">
+<h5 id="aspect-3"><a class="link" href="#aspect-3">Aspect:</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -1233,27 +1236,38 @@ all essential details.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>== Documentation</p>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="documentation"><a class="link" href="#documentation">4. Documentation</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Refer to the guide <a href="Documentation.html">here</a>.</p>
 </div>
-<div class="paragraph">
-<p>== Testing</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="testing"><a class="link" href="#testing">5. Testing</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Refer to the guide <a href="Testing.html">here</a>.</p>
 </div>
-<div class="paragraph">
-<p>== Dev Ops</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="dev-ops"><a class="link" href="#dev-ops">6. Dev Ops</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Refer to the guide <a href="DevOps.html">here</a>.</p>
 </div>
-<div class="paragraph">
-<p>== Product Scope</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="product-scope"><a class="link" href="#product-scope">Appendix A: Product Scope</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><strong>Target user profile</strong>:</p>
 </div>
@@ -1279,9 +1293,11 @@ all essential details.</p>
 <div class="paragraph">
 <p><strong>Value proposition</strong>: manage delivery tasks faster than a typical mouse/GUI driven app</p>
 </div>
-<div class="paragraph">
-<p>== User Stories</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="user-stories"><a class="link" href="#user-stories">Appendix B: User Stories</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have) - <code>* *</code>, Low (unlikely to have) - <code>*</code></p>
 </div>
@@ -1342,9 +1358,11 @@ all essential details.</p>
 <div class="paragraph">
 <p><em>{More to be added}</em></p>
 </div>
-<div class="paragraph">
-<p>== Use Cases</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="use-cases"><a class="link" href="#use-cases">Appendix C: Use Cases</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>(For all use cases below, the <strong>System</strong> is the <code>Deliveria</code> and the <strong>Actor</strong> is the <code>Delivery Manager</code>, unless specified otherwise)</p>
 </div>
@@ -1496,9 +1514,11 @@ If driver is unavailable to take up the task</p>
 <div class="paragraph">
 <p><em>{More to be added}</em></p>
 </div>
-<div class="paragraph">
-<p>== Non Functional Requirements</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></h2>
+<div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1518,9 +1538,11 @@ If driver is unavailable to take up the task</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>== Glossary</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="glossary"><a class="link" href="#glossary">Appendix E: Glossary</a></h2>
+<div class="sectionbody">
 <div id="mainstream-os" class="dlist">
 <dl>
 <dt class="hdlist1">Mainstream OS</dt>
@@ -1537,9 +1559,11 @@ If driver is unavailable to take up the task</p>
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>== Product Survey</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="product-survey"><a class="link" href="#product-survey">Appendix F: Product Survey</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><strong>Product Name</strong></p>
 </div>
@@ -1572,9 +1596,11 @@ If driver is unavailable to take up the task</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>== Instructions for Manual Testing</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Given below are instructions to test the app manually.</p>
 </div>
@@ -1590,9 +1616,8 @@ These instructions only provide a starting point for testers to work on; testers
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>=== Launch and Shutdown</p>
-</div>
+<div class="sect2">
+<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">G.1. Launch and Shutdown</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1631,9 +1656,9 @@ Expected: The most recent window size and location is retained.</p>
 <div class="paragraph">
 <p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
-<div class="paragraph">
-<p>=== Deleting a person</p>
 </div>
+<div class="sect2">
+<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">G.2. Deleting a person</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1668,9 +1693,9 @@ Expected: Similar to previous.</p>
 <div class="paragraph">
 <p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
-<div class="paragraph">
-<p>=== Saving data</p>
 </div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">G.3. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1690,9 +1715,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:36:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 15:36:50 UTC</div></div></div></body></html>
