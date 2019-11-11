@@ -43,6 +43,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private DriverWindow driverWindow;
+    private CustomerWindow customerWindow;
     private NotificationWindow notificationWindow;
     private AssignedTaskListPanel assignedTaskListPanel;
     private UnassignedTaskListPanel unassignedTaskListPanel;
@@ -101,6 +103,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        driverWindow = new DriverWindow();
+        customerWindow = new CustomerWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -209,6 +213,32 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the Driver window or focuses on it if it's already opened.
+     */
+    @FXML
+    private void handleShowDriver(int driverId) {
+        driverWindow.fillFields(logic.getDriver(driverId));
+        if (!driverWindow.isShowing()) {
+            driverWindow.show();
+        } else {
+            driverWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the customer window or focuses on it if it's already opened.
+     */
+    @FXML
+    private void handleShowCustomer(int customerId) {
+        customerWindow.fillFields(logic.getCustomer(customerId));
+        if (!customerWindow.isShowing()) {
+            customerWindow.show();
+        } else {
+            customerWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -222,6 +252,8 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        driverWindow.hide();
+        customerWindow.hide();
         primaryStage.hide();
     }
 
@@ -253,6 +285,14 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowCustomer()) {
+                handleShowCustomer(commandResult.getId());
+            }
+
+            if (commandResult.isShowDriver()) {
+                handleShowDriver(commandResult.getId());
             }
 
             if (commandResult.isExit()) {
