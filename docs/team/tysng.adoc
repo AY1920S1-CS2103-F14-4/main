@@ -94,6 +94,10 @@ include::../UserGuide.adoc[tag=free-command]
 |===
 
 
+include::../DeveloperGuide.adoc[tag=driver-task-scheduling]
+
+<<<
+
 include::../DeveloperGuide.adoc[tag=task-scheduling]
 
 

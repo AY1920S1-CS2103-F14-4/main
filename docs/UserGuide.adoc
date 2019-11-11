@@ -95,7 +95,7 @@ image::user-guide/reschedule-task.png[width=70%,scaledwidth=12cm,align="center"]
 The drivers, by default, works from 9 AM to 9 PM. You cannot assign a time beyond the working hours.
 
 You have created and scheduled your first task!
-Refer to <<Features>>  for details of each command.
+Refer to <<Features>> for details of each command.
 // end::getting-started[]
 
 
