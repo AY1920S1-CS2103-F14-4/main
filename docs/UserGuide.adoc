@@ -232,6 +232,20 @@ Examples:
 
 * `addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
 
+==== View full Customer details `viewCW`
+Opens a separate window with all Customer details and a map showing location of Customer Address. +
+Format: `viewCW CUSTOMERID`
+
+[NOTE]
+Working internet connection and valid address is needed for map to work.
+
+****
+* All fields are compulsory.
+****
+
+Examples:
+
+* `viewCW 1`
 
 === Driver Management Commands
 
@@ -248,6 +262,18 @@ Format: `addD [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 Examples:
 
 * `addD n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
+
+==== View full Driver details `viewDW`
+Opens a separate window with all Driver details +
+Format: `viewDW DRIVERID`
+
+****
+* All fields are compulsory.
+****
+
+Examples:
+
+* `viewDW 1`
 
 == Saving the data
 
